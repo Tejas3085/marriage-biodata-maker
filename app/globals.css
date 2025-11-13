@@ -1,26 +1,271 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Biodata Form Styles */
+.biodata-card {
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.biodata-header {
+  padding: 1.5rem 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.biodata-highlight {
+  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.biodata-subtitle {
+  color: #666;
+  line-height: 1.6;
+}
+
+.form-wrapper {
+  width: 100%;
+}
+
+.form-section-container {
+  width: 100%;
+}
+
+.form-fields {
+  width: 100%;
+}
+
+.top-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.god-photo-section {
+  margin-bottom: 1rem;
+}
+
+.god-photo {
+  position: relative;
+  display: inline-block;
+}
+
+.addGodPhoto {
+  cursor: pointer;
+  color: #2563eb;
+  font-size: 0.875rem;
+}
+
+.addGodPhoto:hover {
+  color: #1d4ed8;
+}
+
+.god-photo-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.godName-edit-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.god-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.section-divider {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #dbeafe;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-divider:hover {
+  color: #2563eb;
+}
+
+.form-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+@media (min-width: 640px) {
+  .inputDiv {
+    flex-direction: row;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.input {
+  flex: 1;
+}
+
+.upDownsection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* flex-direction: column; */
+}
+
+@media screen and (max-width: 720px) {
+  .upDownsection {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.addNewField {
+  margin-top: 0.75rem;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.addNewField:hover {
+  color: #1d4ed8;
+}
+
+.photo-section {
+  margin-top: 2rem;
+}
+
+.banner-container {
+  margin-bottom: 1rem;
+}
+
+.promo-banner {
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  color: white;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+.photo-card {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px dashed #d1d5db;
+}
+
+.photo-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.photo-upload-box {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+.photo-upload-box .placeholder {
+  text-align: center;
+}
+
+.photo-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.submit-buttons {
+  margin-top: 1.5rem;
+}
+
+.submit-buttons button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.75rem;
+}
+
+.submit-buttons button:last-child {
+  margin-bottom: 0;
+}
+
+.submit-buttons button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Star animation for god photo (optional) */
+.star-animation {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* Custom select dropdown styling */
+select {
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
 }

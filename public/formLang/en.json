@@ -1,0 +1,63 @@
+{
+  "godTitle":"|| Om Shree Ganeshaya Namah ||",
+  "uploadPhotoLabel": "Upload Photo",
+  "generateBiodataBtnLabel": "Generate Biodata",
+  "fieldSections": [
+    {
+      "title": "Personal Information",
+      "addExtraFiels": "Add New Field", 
+      "NewFieldLabel": "Enter Label",
+      "NewFieldValue": "Enter Value",
+      "key": "personalInfo",
+      "fields": [
+        { "label": "Full Name", "key": "name", "type": "text", "placeholder": "Enter your full name", "value": "" },
+        { "label": "Date of Birth", "key": "dob", "type": "date", "placeholder": "DD-MM-YYYY", "value": "" },
+        { "label": "Time of Birth", "key": "birthTime", "type": "time", "placeholder": "--:--", "value": "" },
+        { "label": "Place of Birth", "key": "birthPlace", "type": "text", "placeholder": "Enter birth place", "value": "" },
+        { "label": "Religion", "key": "religion", "type": "text", "placeholder": "Enter religion", "value": "" },
+        { "label": "Caste", "key": "caste", "type": "text", "placeholder": "Enter caste", "value": "" },
+        { "label": "Kuldevta", "key": "kuldevta", "type": "text", "placeholder": "Enter Kuldevta", "value": "" },
+        { "label": "Rashi", "key": "rashi", "type": "select", "placeholder": "Select Rashi", "value": "", "options": ["Mesh","Vrushabh","Mithun","Kark","Sinh","Kanya","Tula","Vrushchik","Dhanu","Makar","Kumbh","Meen"] },
+        { "label": "Nakshatra", "key": "nakshatra", "type": "text", "placeholder": "Enter Nakshatra", "value": "" },
+        { "label": "Gan", "key": "gan", "type": "select", "placeholder": "Select Gan", "value": "", "options": ["Dev","Manushya","Rakshas"] },
+        { "label": "Nadi", "key": "nadi", "type": "select", "placeholder": "Select Nadi", "value": "", "options": ["Adi","Madhya","Antya"] },
+        { "label": "Manglik", "key": "manglik", "type": "select", "placeholder": "Select", "value": "", "options": ["Yes","No","Don't Know"] },
+        { "label": "Gotra", "key": "gotra", "type": "text", "placeholder": "Enter Gotra", "value": "" },
+        { "label": "Height", "key": "height", "type": "text", "placeholder": "Enter height", "value": "" },
+        { "label": "Varna", "key": "varna", "type": "select", "placeholder": "Select Varna", "value": "", "options": ["Gorapan","Gavhal","Kala"] },
+        { "label": "Blood Group", "key": "bloodGroup", "type": "select", "placeholder": "Select Blood Group", "value": "", "options": ["A","B","AB","O"] },
+        { "label": "Education", "key": "education", "type": "text", "placeholder": "Enter education", "value": "" },
+        { "label": "Job", "key": "job", "type": "text", "placeholder": "Enter job / profession", "value": "" },
+        { "label": "Salary", "key": "salary", "type": "text", "placeholder": "Enter salary / income", "value": "" }
+      ]
+    },
+    {
+      "title": "Family Information",
+      "addExtraFiels": "Add New Field",
+      "NewFieldLabel": "Enter Label",
+      "NewFieldValue": "Enter Value",
+      "key": "familyInfo",
+      "fields": [
+        { "label": "Father's Name", "key": "fatherName", "type": "text", "placeholder": "Enter father's name", "value": "" },
+        { "label": "Father's Occupation", "key": "fatherOccupation", "type": "text", "placeholder": "Enter father's occupation", "value": "" },
+        { "label": "Mother's Name", "key": "motherName", "type": "text", "placeholder": "Enter mother's name", "value": "" },
+        { "label": "Sisters", "key": "sisters", "type": "text", "placeholder": "Number of sisters", "value": "" },
+        { "label": "Brothers", "key": "brothers", "type": "text", "placeholder": "Number of brothers", "value": "" },
+        { "label": "Maternal Uncle", "key": "mama", "type": "text", "placeholder": "Enter maternal uncle", "value": "" },
+        { "label": "Relatives", "key": "relatives", "type": "textarea", "placeholder": "Enter relatives", "value": "" }
+      ]
+    },
+    {
+      "title": "Contact Information",
+      "key": "contactInfo",
+      "NewFieldLabel": "Enter Label",
+      "NewFieldValue": "Enter Value",
+      "addExtraFiels": "Add New Field", 
+      "fields": [
+        { "label": "Address", "key": "address", "type": "textarea", "placeholder": "Enter address", "value": "" },
+        { "label": "Mobile Number", "key": "mobile", "type": "tel", "placeholder": "Enter mobile number", "value": "" },
+        { "label": "Email", "key": "email", "type": "email", "placeholder": "Enter email", "value": "" }
+      ]
+    }
+  ]
+}
