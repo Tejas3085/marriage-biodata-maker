@@ -434,7 +434,7 @@ export default function BiodataForm() {
                             value={field.value || ""}
                             onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
                             placeholder={field.placeholder || "Enter value"}
-                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none"
+                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full"
                           />
                         )}
 

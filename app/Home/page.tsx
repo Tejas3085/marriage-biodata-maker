@@ -19,7 +19,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import { FaMedal  } from "react-icons/fa";
 export default function HomePage() {
   const { language, setLanguage, translations, setFolder } = useLanguageContext();
   const formRef = useRef<HTMLDivElement | null>(null);
@@ -44,28 +44,34 @@ export default function HomePage() {
   return (
     <main className="text-gray-800 bg-gradient-to-b from-white via-gray-50 to-gray-100">
       {/* ===== HEADER ===== */}
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-md">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* LEFT SIDE — LOGO + TITLE */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg flex-shrink-0">
-                <FaHeart className="text-white text-xl sm:text-2xl" />
-              </div>
-              {/* Title */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
-                <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-wide text-gray-800">
-                  Marriage Biodata Maker
-                </h1>
-              </div>
-            </div>
+      <header className="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-between h-16">
 
-            {/* RIGHT SIDE — LANGUAGE SELECTOR */}
+      {/* LEFT SIDE — LOGO + TITLE */}
+      <div className="flex items-center gap-4">
+        {/* Logo */}
+        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg">
+          <FaMedal className="text-white text-2xl sm:text-3xl" />
+        </div>
+
+        {/* Title */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide text-gray-800">
+            Create Biodata
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500">
+            {language === "en" ? "Make it yours in seconds" : "काही क्षणांत आपले बायोडेटा तयार करा"}
+          </p>
+        </div>
+      </div>
+
+      {/* RIGHT SIDE — LANGUAGE SELECTOR */}
             <div className="flex items-center">
-              <select
+  <select
                 className="appearance-none bg-transparent border-none outline-none text-xs sm:text-sm md:text-base font-medium text-gray-700 cursor-pointer"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+    value={language}
+    onChange={(e) => setLanguage(e.target.value)}
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                   backgroundRepeat: "no-repeat",
@@ -73,74 +79,74 @@ export default function HomePage() {
                   backgroundSize: "0.75rem",
                   paddingRight: "1.25rem",
                 }}
-              >
-                <option value="en">English</option>
-                <option value="mr">मराठी</option>
-                <option value="hi">हिन्दी</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </header>
+  >
+    <option value="en">English</option>
+    <option value="mr">मराठी</option>
+    <option value="hi">हिन्दी</option>
+  </select>
+  </div>
+    </div>
+  </div>
+</header>
 
       {/* ===== HERO SECTION ===== */}
       <section
-  className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-8 md:py-12 w-full gap-6 md:gap-16 shadow-xl"
-  style={{
-    background: "linear-gradient(135deg, #fddde6 0%, #e0c3fc 50%, #ffe7a1 100%)",
-  }}
->
-  {/* Text Content */}
-  <div className="flex-1 flex flex-col justify-center space-y-3 md:space-y-5 max-w-lg md:max-w-md text-center md:text-left">
-    <h2
-      className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight"
-      style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}
-    >
-      {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
-    </h2>
-    <p className="text-gray-700 text-sm sm:text-base md:text-lg lg:text-xl">
-      {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
-    </p>
-
-    <div className="space-y-1 md:space-y-2">
-      {translations?.features?.map((f: string, i: number) => (
-        <p
-          key={i}
-          className="text-xs sm:text-sm md:text-base lg:text-lg font-medium flex items-center gap-2 justify-center md:justify-start text-gray-700"
-        >
-          <span className="text-green-500">✅</span> {f}
-        </p>
-      ))}
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center md:gap-4 mt-4 md:mt-6 justify-center md:justify-start">
-      <button
-        onClick={scrollToForm}
-        className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105 text-sm sm:text-base md:text-lg"
+        className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-8 md:py-12 w-full gap-6 md:gap-16 shadow-xl"
+        style={{
+          background: "linear-gradient(135deg, #fddde6 0%, #e0c3fc 50%, #ffe7a1 100%)",
+        }}
       >
-        {translations?.createBiodataBtn || "Create Biodata Now"}
-      </button>
-      <p className="text-gray-600 mt-2 md:mt-0 text-xs sm:text-sm md:text-base">
-        {'12,000'}+ {translations?.biodatasCount || "biodatas created today"}
-      </p>
-    </div>
-  </div>
+        {/* Text Content */}
+        <div className="flex-1 flex flex-col justify-center space-y-3 md:space-y-5 max-w-lg md:max-w-md mx-auto md:mx-0 text-center md:text-left">
+          <h2
+            className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight"
+            style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}
+          >
+            {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
+          </h2>
+          <p className="text-gray-700 text-sm sm:text-base md:text-lg lg:text-xl">
+            {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
+          </p>
 
-  {/* Image Content */}
-  <div className="flex-1 flex justify-center md:justify-end items-center">
-    <img
-      src="/Images/homePageImage.jpg"
-      alt="Wedding Couple creating marriage biodata"
-      className="
-        w-4/5 sm:w-3/4 md:w-full
-        h-auto
-        max-h-60 sm:max-h-80 md:max-h-[400px]
-        rounded-3xl shadow-2xl
-        hover:scale-105 transition-transform
-      "
-    />
-  </div>
-</section>
+          <div className="space-y-1 md:space-y-2">
+            {translations?.features?.map((f: string, i: number) => (
+              <p
+                key={i}
+                className="text-xs sm:text-sm md:text-base lg:text-lg font-medium flex items-center gap-2 justify-center md:justify-start text-gray-700"
+              >
+                <span className="text-green-500">✅</span> {f}
+              </p>
+            ))}
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-center md:gap-4 grid justify-center md:justify-start mt-4 md:mt-6">
+            <button
+              onClick={scrollToForm}
+              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105 text-sm sm:text-base md:text-lg"
+            >
+              {translations?.createBiodataBtn || "Create Biodata Now"}
+            </button>
+            <p className="text-gray-600 mt-2 md:mt-0 text-xs sm:text-sm md:text-base">
+              {'12,000'}+ {translations?.biodatasCount || "biodatas created today"}
+            </p>
+          </div>
+        </div>
+
+        {/* Image Content */}
+        <div className="flex-1 flex justify-center md:justify-end items-center max-w-xs sm:max-w-sm md:max-w-md mx-auto md:mx-0">
+          <img
+            src="/Images/homePageImage.jpg"
+            alt="Wedding Couple creating marriage biodata"
+            className="
+              w-4/5 sm:w-3/4 md:w-full
+              h-auto
+              max-h-60 sm:max-h-80 md:max-h-[400px]
+              rounded-3xl shadow-2xl
+              hover:scale-105 transition-transform
+            "
+          />
+        </div>
+      </section>
 
 
       {/* ===== TEMPLATE GALLERY ===== */}
