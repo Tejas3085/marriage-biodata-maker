@@ -1,11 +1,20 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguageContext } from "../hooks/useLanguage";
 import ImageCropper from "../components/ImageCropper";
 import GodPhotoSelector from "../components/GodPhotoSelector";
 import TitleEditModal from "../components/TitleEditModal";
-import { IoCaretUpOutline, IoCaretDownOutline, IoCloseOutline, IoAddOutline, IoCreateOutline, IoCheckmarkOutline, IoCameraOutline } from "react-icons/io5";
+import { ChevronUp, ChevronDown } from "lucide-react";
+import { Trash2 } from "lucide-react";
+
+import {
+  IoAddOutline,
+  IoCreateOutline,
+  IoCloseOutline,
+  IoCameraOutline,
+} from "react-icons/io5";
 
 type Field = {
   label: string;
@@ -18,78 +27,81 @@ type Field = {
 
 export default function BiodataForm() {
   const router = useRouter();
-  const { translationsForm, setFolder, language, setLanguage } =
-    useLanguageContext();
-  const [formData, setFormData] = useState<any>(null);
+  const { translationsForm, setFolder, language } = useLanguageContext();
+
+  // state
+  const [formData, setFormData] = useState<any | null>(null);
   const [godPhoto, setGodPhoto] = useState<string>("/gods/1.png");
-  const [godTitle, setGodTitle] = useState<string>(
-    "|| श्री गणेशाय नमः ||"
-  );
+  const [godTitle, setGodTitle] = useState<string>("|| श्री गणेशाय नमः ||");
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [enablegodTitle, setEnablegodTitle] = useState(true);
+  const [enableGodTitle, setEnableGodTitle] = useState(true);
+
   const [showImageCropper, setShowImageCropper] = useState(false);
   const [showGodPhotoSelector, setShowGodPhotoSelector] = useState(false);
   const [showTitleEditModal, setShowTitleEditModal] = useState(false);
   const [editingSectionIndex, setEditingSectionIndex] = useState<number>(-1);
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const isInitialized = useRef(false);
+  const [isGodTitleModalOpen, setGodTitleModalOpen] = useState(false);
+  const [tempGodTitle, setTempGodTitle] = useState("");
 
-  const titleOptions = [
-    "|| श्री गणेशाय नम: ||",
-    "|| ॐ नमः शिवाय ||",
-    "|| जय श्रीराम ||",
-    "|| ॐ ||",
-  ];
+  // NEW: temp for section title editing (separate from god title)
+  const [tempSectionTitle, setTempSectionTitle] = useState("");
 
-  // Initialize form and load from localStorage
+  // set folder (language resource) on mount / language change
   useEffect(() => {
     setFolder("formLang");
-  }, [setFolder]);
+  }, [setFolder, language]);
 
-  // Initialize form data only once when translationsForm is first loaded
+  // When translations arrive, set base formData
+  useEffect(() => {
+    if (!translationsForm) return;
+    // deep clone safe copy so we can mutate
+    const base = structuredClone(translationsForm);
+    setFormData(base);
+    isInitialized.current = false;
+  }, [translationsForm]);
+
+  // Hydrate from localStorage (only once after translations loaded)
   useEffect(() => {
     if (!translationsForm || isInitialized.current) return;
 
     const clone = structuredClone(translationsForm);
-    if (clone.godTitle) setGodTitle(clone.godTitle);
+    const saved = typeof window !== "undefined" ? localStorage.getItem("formData") : null;
 
-    // Patch values from localStorage before setting form data
-    const saved = localStorage.getItem("formData");
     if (saved) {
       try {
         const groupedData = JSON.parse(saved);
-        
-        // Create key-value lookup
         const keyValueLookup: Record<string, any> = {};
+
         for (const sectionKey of Object.keys(groupedData)) {
-          const section = groupedData[sectionKey];
-          if (section?.fields && Array.isArray(section.fields)) {
+          const section = (groupedData as any)[sectionKey];
+          if (section?.fields) {
             section.fields.forEach((field: any) => {
-              keyValueLookup[field.key] = field.value;
+              if (field?.key) keyValueLookup[field.key] = field.value;
             });
           }
         }
 
-        // Update form data with saved values
         if (clone.fieldSections) {
           clone.fieldSections.forEach((section: any) => {
-            if (section.fields) {
-              section.fields.forEach((field: any) => {
-                if (keyValueLookup.hasOwnProperty(field.key)) {
-                  field.value = keyValueLookup[field.key];
-                }
-              });
-            }
+            section.fields?.forEach((field: any) => {
+              if (keyValueLookup.hasOwnProperty(field.key)) {
+                field.value = keyValueLookup[field.key];
+              }
+            });
           });
         }
 
-        // Restore photo, god photo, and god title
         if (groupedData.photo) setPhotoPreview(groupedData.photo);
         if (groupedData.godPhoto) setGodPhoto(groupedData.godPhoto);
         if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
-      } catch (error) {
-        console.error("Error parsing localStorage data:", error);
+      } catch (err) {
+        // fail gracefully
+        console.error("Failed to load saved form data:", err);
       }
     }
 
@@ -97,72 +109,59 @@ export default function BiodataForm() {
     isInitialized.current = true;
   }, [translationsForm]);
 
+  // ---------- Callbacks & small helpers ----------
+  const updateForm = useCallback((updater: (prev: any) => any) => {
+    setFormData((prev: any) => {
+      const next = structuredClone(prev);
+      updater(next);
+      return next;
+    });
+  }, []);
 
-  const moveFieldUp = (sIndex: number, fIndex: number) => {
+  const moveFieldUp = useCallback((sIndex: number, fIndex: number) => {
     if (!formData || fIndex === 0) return;
-    const updated = structuredClone(formData);
-    const fields = updated.fieldSections[sIndex].fields;
-    [fields[fIndex - 1], fields[fIndex]] = [fields[fIndex], fields[fIndex - 1]];
-    setFormData(updated);
-  };
-
-  const moveFieldDown = (sIndex: number, fIndex: number) => {
-    if (!formData) return;
-    const updated = structuredClone(formData);
-    const fields = updated.fieldSections[sIndex].fields;
-    if (fIndex >= fields.length - 1) return;
-    [fields[fIndex + 1], fields[fIndex]] = [fields[fIndex], fields[fIndex + 1]];
-    setFormData(updated);
-  };
-
-  const deleteField = (sIndex: number, fIndex: number) => {
-    if (!formData) return;
-    const updated = structuredClone(formData);
-    updated.fieldSections[sIndex].fields.splice(fIndex, 1);
-    setFormData(updated);
-  };
-
-  const addNewField = (sIndex: number, section: any) => {
-    if (!formData) return;
-    const updated = structuredClone(formData);
-    updated.fieldSections[sIndex].fields.push({
-      label: "",
-      value: "",
-      key: `field_${Date.now()}`,
-      type: "text",
-      placeholder: section.NewFieldValue || "",
-      options: [],
+    updateForm((updated) => {
+      const fields = updated.fieldSections[sIndex].fields;
+      [fields[fIndex - 1], fields[fIndex]] = [fields[fIndex], fields[fIndex - 1]];
     });
-    setFormData(updated);
-  };
+  }, [formData, updateForm]);
 
-  const updateField = (
-    sIndex: number,
-    fIndex: number,
-    key: "label" | "value",
-    value: any
-  ) => {
+  const moveFieldDown = useCallback((sIndex: number, fIndex: number) => {
     if (!formData) return;
-    
-    // Use functional update to ensure we're working with the latest state
-    setFormData((prevFormData: any) => {
-      if (!prevFormData) return prevFormData;
-      const updated = structuredClone(prevFormData);
-      
-      // Validate indices
-      if (
-        updated.fieldSections &&
-        updated.fieldSections[sIndex] &&
-        updated.fieldSections[sIndex].fields &&
-        updated.fieldSections[sIndex].fields[fIndex]
-      ) {
-        updated.fieldSections[sIndex].fields[fIndex][key] = value;
-      }
-      
-      return updated;
+    updateForm((updated) => {
+      const fields = updated.fieldSections[sIndex].fields;
+      if (fIndex >= fields.length - 1) return;
+      [fields[fIndex + 1], fields[fIndex]] = [fields[fIndex], fields[fIndex + 1]];
     });
-  };
+  }, [formData, updateForm]);
 
+  const deleteField = useCallback((sIndex: number, fIndex: number) => {
+    updateForm((updated) => {
+      updated.fieldSections[sIndex].fields.splice(fIndex, 1);
+    });
+  }, [updateForm]);
+
+  const addNewField = useCallback((sIndex: number, section: any) => {
+    updateForm((updated) => {
+      updated.fieldSections[sIndex].fields.push({
+        label: "",
+        value: "",
+        key: `field_${Date.now()}`,
+        type: "text",
+        placeholder: section?.NewFieldValue || "",
+        options: [],
+      });
+    });
+  }, [updateForm]);
+
+  const updateField = useCallback((sIndex: number, fIndex: number, key: "label" | "value", value: any) => {
+    updateForm((updated) => {
+      if (!updated.fieldSections?.[sIndex]?.fields?.[fIndex]) return;
+      updated.fieldSections[sIndex].fields[fIndex][key] = value;
+    });
+  }, [updateForm]);
+
+  // file select
   const onPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -174,486 +173,417 @@ export default function BiodataForm() {
     setPhotoPreview(croppedImage);
     setShowImageCropper(false);
     setSelectedFile(null);
-    // Reset file input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const removePhoto = () => {
-    setPhotoPreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
-  const changeGodPhoto = () => {
-    setShowGodPhotoSelector(true);
-  };
-
-  const handleGodPhotoSelect = (photoPath: string) => {
-    setGodPhoto(photoPath);
-    setShowGodPhotoSelector(false);
-  };
-
-  const removeGodPhoto = () => {
-    setGodPhoto("");
-  };
-
-  const toggleEdit = () => {
-    if (!enablegodTitle) {
-      // Save title when toggling from edit to view mode
-      // Title is already saved in state via the input onChange
-    }
-    setEnablegodTitle(!enablegodTitle);
-  };
-
-  const removeIcon = () => {
-    setGodTitle("");
-  };
-
-  const openTitleEdit = (sectionIndex: number) => {
-    setEditingSectionIndex(sectionIndex);
-    setShowTitleEditModal(true);
-  };
-
-  const handleTitleSave = (title: string) => {
-    if (!formData || editingSectionIndex === -1) return;
-    const updated = structuredClone(formData);
-    updated.fieldSections[editingSectionIndex].title = title;
-    setFormData(updated);
-    setShowTitleEditModal(false);
-    setEditingSectionIndex(-1);
-  };
-
-  const openDatePicker = (event: React.MouseEvent<HTMLInputElement>) => {
-    const input = event.currentTarget;
-    if (input && "showPicker" in input && typeof input.showPicker === "function") {
-      input.showPicker();
-    }
-  };
-
-  const resetForm = () => {
-    if (!translationsForm) return;
-    const reset = structuredClone(translationsForm);
-    // Reset all field values to empty
-    if (reset.fieldSections) {
-      reset.fieldSections.forEach((section: any) => {
-        if (section.fields) {
-          section.fields.forEach((field: any) => {
-            field.value = "";
-          });
-        }
-      });
-    }
-    setFormData(reset);
-    setPhotoPreview(null);
-    setGodPhoto("/gods/1.png");
-    setGodTitle(translationsForm?.godTitle || "|| श्री गणेशाय नमः ||");
-    setEnablegodTitle(true);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
-  const generateBiodata = (e?: React.FormEvent) => {
-    e?.preventDefault();
+  // Generate biodata (save and navigate)
+  const generateBiodata = (e: React.FormEvent) => {
+    e.preventDefault();
     if (!formData) return;
 
     const groupedData: any = {};
-
-    // Loop through sections in sequence
     formData.fieldSections.forEach((section: any) => {
-      // Maintain the order of fields as they appear in section.fields
-      const sectionFields = section.fields.map((sf: Field) => ({
-        label: sf.label || "",
-        key: sf.key,
-        type: sf.type || "text",
-        value: sf.value ?? "",
-        placeholder: sf.placeholder ?? "",
-        options: sf.options ?? [],
-      }));
-
       groupedData[section.key] = {
         title: section.title,
-        fields: sectionFields,
+        fields: section.fields.map((sf: Field) => ({
+          label: sf.label,
+          key: sf.key,
+          type: sf.type,
+          value: sf.value,
+          placeholder: sf.placeholder,
+          options: sf.options,
+        })),
       };
     });
 
-    // Add photo & god info
-    groupedData.photo = photoPreview || null;
-    groupedData.godTitle = godTitle || null;
-    groupedData.godPhoto = godPhoto || null;
+    groupedData.photo = photoPreview;
+    groupedData.godTitle = godTitle;
+    groupedData.godPhoto = godPhoto;
 
-    // Save to localStorage
-    localStorage.setItem("formData", JSON.stringify(groupedData));
+    try {
+      localStorage.setItem("formData", JSON.stringify(groupedData));
+    } catch (err) {
+      console.warn("Could not save to localStorage:", err);
+    }
 
-    // Navigate to preview page
     router.push("/preview");
   };
 
-  if (!formData)
-    return (
-      <div className="text-center mt-8 text-gray-500">Loading form...</div>
-    );
+  // If not initialized or translations missing show loading
+  if (!formData) {
+    return <div className="text-center mt-8 text-gray-500">Loading form...</div>;
+  }
 
+  // ---------- Render ----------
   return (
-    <div className="biodata-card max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8">
-      {/* Header Section */}
-      <div className="biodata-header text-center mb-6">
-        <h1 className="biodata-highlight text-xl sm:text-2xl font-semibold text-gray-800 mb-2">
-          Create Your Biodata Now
-        </h1>
-        <p className="biodata-subtitle text-gray-600 text-sm">
-          Build your professional or marriage biodata in just a few clicks.
-          <br />
-          Simple. Elegant. Ready to share.
-        </p>
-      </div>
+    <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-md p-4 sm:p-6 md:p-8">
+      {/* JSON-LD structured data (helps SEO, lightweight) */}
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Marriage Biodata Maker",
+            description:
+              "Create a professional marriage biodata with curated templates and easy form inputs.",
+            author: { "@type": "Organization", name: "Marriage Biodata Maker" },
+          }),
+        }}
+      />
 
-      {/* Form Wrapper */}
-      <div className="form-wrapper">
-        <form onSubmit={generateBiodata}>
-          <div className="form-section-container">
-            {/* Form Fields */}
-            <div className="form-fields">
-              {/* Top Section - God Photo + Title */}
-              <div className="top-section mb-6">
-                {/* God Photo Section */}
-                <div className="god-photo-section text-center mb-4">
-                  <div className="god-photo relative inline-block">
-                    {godPhoto ? (
-                      <img
-                        src={godPhoto}
-                        alt="God Photo"
-                        className="w-24 h-24 rounded-full object-cover border-4 border-blue-200 shadow-md"
-                      />
-                    ) : (
-                      <div
-                        className="addGodPhoto w-24 h-24 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400"
-                        onClick={changeGodPhoto}
-                      >
-                        <span className="text-xs text-gray-500">Add God Photo +</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="god-photo-buttons flex justify-center gap-4 mt-3">
-                    <button
-                      type="button"
-                      className="addGodPhoto text-sm text-blue-600 hover:text-blue-700 underline"
-                      onClick={changeGodPhoto}
-                    >
-                      Change Photo
-                    </button>
-                    {godPhoto && (
-                      <button
-                        type="button"
-                        className="addGodPhoto text-sm text-red-600 hover:text-red-700 underline"
-                        onClick={removeGodPhoto}
-                      >
-                        Remove Photo
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* God Name Edit Section */}
-                <div className="godName-edit-container flex items-center justify-center gap-2 mb-4">
-                  {enablegodTitle ? (
-                    <span className="god-title text-lg font-semibold text-gray-800">
-                      {godTitle || "Click to add title"}
-                    </span>
-                  ) : (
-                    <input
-                      type="text"
-                      value={godTitle}
-                      onChange={(e) => setGodTitle(e.target.value)}
-                      placeholder="Enter God Name"
-                      className="border border-gray-300 rounded-md px-3 py-2 text-center focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                      autoFocus
-                    />
-                  )}
-                  <button
-                    type="button"
-                    onClick={toggleEdit}
-                    className={`p-1 ${enablegodTitle ? "text-blue-600" : "text-green-500"} hover:opacity-70`}
-                  >
-                    {enablegodTitle ? (
-                      <IoCreateOutline size={20} />
-                    ) : (
-                      <IoCheckmarkOutline size={20} />
-                    )}
-                  </button>
-                  {godTitle && (
-                    <button
-                      type="button"
-                      onClick={removeIcon}
-                      className="p-1 text-gray-600 hover:text-red-600"
-                    >
-                      <IoCloseOutline size={20} />
-                    </button>
-                  )}
-                </div>
+      <form onSubmit={generateBiodata} aria-label="Marriage biodata form">
+        <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-10">
+          {/* LEFT PANEL */}
+          <main>
+            <header className="text-center mb-5">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 tracking-tight mb-3">
+                Create Your <span className="text-pink-500">Marriage Biodata</span>
+              </h1>
+              <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Fill in your personal details and design a beautifully formatted biodata.
+              </p>
+              <div className="mt-6 flex justify-center">
+                <div className="h-1 w-20 sm:w-24 bg-blue-600 rounded-full" />
               </div>
+            </header>
 
-              {/* Form Sections */}
-              {formData.fieldSections.map((section: any, sIndex: number) => (
-                <div key={sIndex} className="mb-6">
-                  {/* Section Title */}
-                  <h3
-                    className="section-divider text-xl font-semibold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200 cursor-pointer flex items-center gap-2 hover:text-blue-600"
-                    onClick={() => openTitleEdit(sIndex)}
-                  >
-                    {section.title}
-                    <IoCreateOutline className="text-blue-600" size={18} />
-                  </h3>
-
-                  {/* Section Fields */}
-                  <div className="space-y-3">
-                    {section.fields.map((field: Field, fIndex: number) => (
-                      <div key={field.key} className="form-row flex items-start gap-3 bg-gray-50 p-3 rounded-lg">
-                        {/* Input Fields */}
-                        <div className="inputDiv flex-1 flex flex-col sm:flex-row gap-3">
-                          <input
-                            type="text"
-                            value={field.label || ""}
-                            onChange={(e) =>
-                              updateField(sIndex, fIndex, "label", e.target.value)
-                            }
-                            placeholder={section.NewFieldLabel || "Label"}
-                            className="input border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none flex-1"
-                            autoComplete="off"
-                            autoCorrect="off"
-                            autoCapitalize="off"
-                          />
-                          <div className="input flex-1">
-                            {field.type === "text" && (
-                              <input
-                                type="text"
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                placeholder={field.placeholder || section.NewFieldValue || "Enter value"}
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                              />
-                            )}
-
-                            {field.type === "date" && (
-                              <input
-                                type="date"
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                onClick={openDatePicker}
-                                placeholder="Select Date"
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                              />
-                            )}
-
-                            {field.type === "time" && (
-                              <input
-                                type="time"
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                              />
-                            )}
-
-                            {field.type === "tel" && (
-                              <input
-                                type="tel"
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                placeholder={field.placeholder || section.NewFieldValue || "Enter value"}
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                              />
-                            )}
-
-                            {field.type === "email" && (
-                              <input
-                                type="email"
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                placeholder={field.placeholder || section.NewFieldValue || "Enter value"}
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                              />
-                            )}
-
-                            {field.type === "select" && (
-                              <select
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                              >
-                                <option value="">
-                                  {field.placeholder || section.NewFieldValue || "Select an option"}
-                                </option>
-                                {field.options?.map((option, idx) => (
-                                  <option key={idx} value={option}>
-                                    {option}
-                                  </option>
-                                ))}
-                              </select>
-                            )}
-
-                            {field.type === "textarea" && (
-                              <textarea
-                                value={field.value || ""}
-                                onChange={(e) =>
-                                  updateField(sIndex, fIndex, "value", e.target.value)
-                                }
-                                placeholder={field.placeholder || section.NewFieldValue || "Enter value"}
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                rows={3}
-                                autoComplete="off"
-                                autoCorrect="off"
-                                autoCapitalize="off"
-                              />
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="upDownsection flex items-center gap-2">
-                          <span className="actions flex flex-col gap-1">
-                            <button
-                              type="button"
-                              onClick={() => moveFieldUp(sIndex, fIndex)}
-                              disabled={fIndex === 0}
-                              className={`p-1 ${fIndex === 0 ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:text-blue-700"}`}
-                            >
-                              <IoCaretUpOutline size={20} />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => moveFieldDown(sIndex, fIndex)}
-                              disabled={fIndex === section.fields.length - 1}
-                              className={`p-1 ${fIndex === section.fields.length - 1 ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:text-blue-700"}`}
-                            >
-                              <IoCaretDownOutline size={20} />
-                            </button>
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => deleteField(sIndex, fIndex)}
-                            className="p-1 text-gray-600 hover:text-red-600"
-                          >
-                            <IoCloseOutline size={20} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Add Field Button */}
+            {/* God Image + Title */}
+            <section
+              aria-label="God photo and title"
+              className="text-center mb-8 border-b pb-6"
+            >
+              <div className="flex justify-center mb-3">
+                {godPhoto ? (
+                  <img
+                    src={godPhoto}
+                    alt="Selected deity"
+                    loading="lazy"
+                    className="w-20 h-20 sm:w-24 sm:h-24 object-cover border-blue-100"
+                  />
+                ) : (
                   <div
-                    className="addNewField mt-3 text-blue-600 hover:text-blue-700 cursor-pointer flex items-center gap-1 text-sm font-medium"
-                    onClick={() => addNewField(sIndex, section)}
+                    onClick={() => setShowGodPhotoSelector(true)}
+                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 text-gray-500 text-sm rounded-full cursor-pointer"
                   >
-                    <IoAddOutline size={18} />
-                    <span>{section.addExtraFiels || "Add New Field"}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Photo Upload Section */}
-            <div className="photo-section mt-8">
-              {/* Promo Banner */}
-              <div className="banner-container mb-4">
-                <div className="promo-banner bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-3 px-4 rounded-lg shadow-md">
-                  🎉 Create Your Free Marriage Biodata in 2 Minutes — 100% Free!
-                </div>
-              </div>
-
-              {/* Upload Section */}
-              <div className="photo-card bg-gray-50 p-6 rounded-lg border-2 border-dashed border-gray-300">
-                <h3 className="photo-title text-lg font-semibold text-gray-800 mb-4 text-center">
-                  {formData.uploadPhotoLabel || "Upload Photo"}
-                </h3>
-
-                <div
-                  className="photo-upload-box cursor-pointer mb-4 flex flex-col items-center justify-center"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  {photoPreview ? (
-                    <img
-                      src={photoPreview}
-                      alt="Profile Photo"
-                      className="w-32 h-32 rounded-full object-cover border-4 border-blue-200 shadow-md"
-                    />
-                  ) : (
-                    <div className="placeholder text-center">
-                      <IoCameraOutline size={48} className="mx-auto text-gray-400 mb-2" />
-                      <p className="text-gray-600 text-sm">Click to upload your photo</p>
-                    </div>
-                  )}
-                </div>
-
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={onPhotoSelected}
-                  className="hidden"
-                />
-
-                {photoPreview && (
-                  <div className="photo-buttons flex gap-3 justify-center">
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
-                    >
-                      Change Photo
-                    </button>
-                    <button
-                      type="button"
-                      onClick={removePhoto}
-                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm"
-                    >
-                      Remove Photo
-                    </button>
+                    Add Photo
                   </div>
                 )}
               </div>
 
-              {/* Submit Buttons */}
-              <div className="submit-buttons mt-6 space-y-3">
+              <div className="flex justify-center gap-3 mb-3">
+                <button
+                  type="button"
+                  onClick={() => setShowGodPhotoSelector(true)}
+                  className="text-blue-600 cursor-pointer text-sm font-medium"
+                >
+                  {godPhoto ? "Change" : "Add Photo"}
+                </button>
+                {godPhoto && (
+                  <button
+                    type="button"
+                    onClick={() => setGodPhoto("")}
+                    className="text-red-500 text-sm font-medium"
+                    aria-label="Remove god photo"
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+
+              {/* ---------- GOD TITLE SECTION (Updated with Modal) ---------- */}
+              <div className="flex justify-center items-center gap-2 flex-wrap">
+
+                {/* Title Text */}
+                <span className="text-lg sm:text-xl font-semibold text-gray-800 text-center">
+                  {godTitle || "Add Title"}
+                </span>
+
+                {/* Edit Button - Opens Modal */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTempGodTitle(godTitle);
+                    setGodTitleModalOpen(true);
+                  }}
+                  className="text-blue-600 hover:text-blue-800 transition"
+                  aria-label="Edit god title"
+                >
+                  <IoCreateOutline size={20} />
+                </button>
+
+                {/* Clear Button */}
+                {godTitle && (
+                  <button
+                    type="button"
+                    onClick={() => setGodTitle("")}
+                    className="text-gray-500 hover:text-red-600 transition"
+                    aria-label="Clear god title"
+                  >
+                    <IoCloseOutline size={20} />
+                  </button>
+                )}
+              </div>
+
+              {/* GOD TITLE EDIT MODAL */}
+              {isGodTitleModalOpen && (
+                <div className="fixed inset-0  flex justify-center items-center z-50">
+                  <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
+                    <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
+                      Edit God Title
+                    </h2>
+
+                    <input
+                      type="text"
+                      value={tempGodTitle}
+                      onChange={(e) => setTempGodTitle(e.target.value)}
+                      className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
+                      autoFocus
+                    />
+
+                    <div className="flex justify-end gap-3 mt-4">
+                      <button
+                        className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
+                        onClick={() => setGodTitleModalOpen(false)}
+                      >
+                        Cancel
+                      </button>
+
+                      <button
+                        className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
+                        onClick={() => {
+                          setGodTitle(tempGodTitle);
+                          setGodTitleModalOpen(false);
+                        }}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+            </section>
+
+            {/* Field Sections */}
+            <section aria-label="Form fields">
+              {formData.fieldSections.map((section: any, sIndex: number) => (
+                <div key={sIndex} className="mb-8">
+                  <div
+                    className="flex items-center mb-3 border-b pb-1 cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => {
+                      setEditingSectionIndex(sIndex);
+                      setTempSectionTitle(section.title || "");
+                      setShowTitleEditModal(true);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        setEditingSectionIndex(sIndex);
+                        setTempSectionTitle(section.title || "");
+                        setShowTitleEditModal(true);
+                      }
+                    }}
+                    aria-label={`Edit section title ${section.title}`}
+                  >
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800">
+                      {section.title}
+                    </h3>
+                    <IoCreateOutline   className="text-pink-600 mt-[2px] mx-[6px]" aria-hidden />
+                  </div>
+
+                  <div className="space-y-3">
+                    {section.fields.map((field: Field, fIndex: number) => (
+                      <div
+                        key={field.key}
+                        className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3 items-center"
+                      >
+                        <input
+                          id={field.key + "_label"}
+                          aria-label="Field label"
+                          type="text"
+                          value={field.label || ""}
+                          onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
+                          placeholder="Label (e.g., Name)"
+                          className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none"
+                        />
+
+                        {/* render select when type === 'select' */}
+                        {field.type === "select" ? (
+                          <select
+                            id={field.key}
+                            aria-label={`Select ${field.label || "option"}`}
+                            value={field.value || ""}
+                            onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
+                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full"
+                          >
+                            <option value="">{field.placeholder || "Select"}</option>
+                            {field.options?.map((op: string, idx: number) => (
+                              <option key={idx} value={op}>
+                                {op}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            id={field.key}
+                            aria-label={`Field value for ${field.label || "field"}`}
+                            type={field.type || "text"}
+                            value={field.value || ""}
+                            onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
+                            placeholder={field.placeholder || "Enter value"}
+                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none"
+                          />
+                        )}
+
+
+                        <div className="flex items-center gap-2 justify-end">
+
+                          {/* Move Up */}
+                          <button
+                            type="button"
+                            onClick={() => moveFieldUp(sIndex, fIndex)}
+                            disabled={fIndex === 0}
+                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+                          >
+                            <ChevronUp size={20} strokeWidth={1.8} />
+                          </button>
+
+                          {/* Move Down */}
+                          <button
+                            type="button"
+                            onClick={() => moveFieldDown(sIndex, fIndex)}
+                            disabled={fIndex === section.fields.length - 1}
+                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+                          >
+                            <ChevronDown size={20} strokeWidth={1.8} />
+                          </button>
+
+                          {/* Delete */}
+                          <button
+                            type="button"
+                            onClick={() => deleteField(sIndex, fIndex)}
+                            className="text-pink-400 transition"
+                            aria-label="Delete field"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+
+
+                        </div>
+
+
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => addNewField(sIndex, section)}
+                    className="text-pink-400 text-sm font-medium flex items-center gap-1 mt-1"
+                    aria-label={`Add new field to ${section.title}`}
+                  >
+                    <IoAddOutline /> Add New Field
+                  </button>
+                </div>
+              ))}
+            </section>
+          </main>
+
+          {/* RIGHT PANEL - sticky */}
+          <aside className="sticky top-24 pr-5 self-start">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-center p-4 shadow mb-4">
+              <h2 className="text-lg font-semibold">Your Digital Biodata</h2>
+              <p className="text-sm opacity-90">Upload your best photo & make it shine ✨</p>
+            </div>
+
+            <div className="border border-gray-200 rounded-2xl p-6 bg-white shadow-sm">
+              <h3 className="text-center text-lg font-semibold text-gray-800 mb-4">
+                {formData.uploadPhotoLabel || "Profile Photo"}
+              </h3>
+
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                role="button"
+                tabIndex={0}
+                className="cursor-pointer flex flex-col items-center justify-center"
+                aria-label="Upload profile photo"
+              >
+                {photoPreview ? (
+                  <img
+                    src={photoPreview}
+                    alt="User profile preview"
+                    loading="lazy"
+                    className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-blue-100 shadow"
+                  />
+                ) : (
+                  <div className="text-gray-500 text-center">
+                    <IoCameraOutline size={48} className="mx-auto mb-2" />
+                    <p className="text-sm">Click to upload</p>
+                  </div>
+                )}
+              </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={onPhotoSelected}
+                aria-hidden
+              />
+
+              {photoPreview && (
+                <div className="flex justify-center gap-2 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-pink-500 text-white px-3 py-1.5 rounded-md text-sm"
+                  >
+                    Change
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPhotoPreview(null)}
+                    className="bg-red-500 text-white px-3 py-1.5 rounded-md text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+
+              <div className="mt-8 flex flex-col gap-3">
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-md shadow-md"
+                  className="bg-pink-500 text-white py-2 rounded-md font-medium"
                 >
-                  {formData.generateBiodataBtnLabel ||
-                    (language === "mr"
-                      ? "बायोडाटा तयार करा"
-                      : "Generate Biodata")}
+                  {language === "mr" ? "बायोडाटा तयार करा" : "Generate Biodata"}
                 </button>
                 <button
                   type="button"
-                  onClick={resetForm}
-                  className="w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold py-3 px-4 rounded-md shadow-md"
+                  onClick={() => {
+                    // reset form & localStorage
+                    if (confirm(language === "mr" ? "रिअली रीसेट करायचंय?" : "Reset the form?")) {
+                      try {
+                        localStorage.removeItem("formData");
+                      } catch (err) { }
+                      // reload page to reinitialize
+                      window.location.reload();
+                    }
+                  }}
+                  className="bg-gray-400 text-white py-2 rounded-md font-medium"
                 >
-                  {language === "mr" ? "फॉर्म रीसेट करा" : "Reset Form"}
+                  {language === "mr" ? "रीसेट फॉर्म" : "Reset Form"}
                 </button>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </aside>
+        </div>
+      </form>
 
-      {/* Modals */}
+      {/* MODALS */}
       {showImageCropper && selectedFile && (
         <ImageCropper
           file={selectedFile}
@@ -661,30 +591,67 @@ export default function BiodataForm() {
           onClose={() => {
             setShowImageCropper(false);
             setSelectedFile(null);
-            if (fileInputRef.current) {
-              fileInputRef.current.value = "";
-            }
+            if (fileInputRef.current) fileInputRef.current.value = "";
           }}
         />
       )}
 
       {showGodPhotoSelector && (
         <GodPhotoSelector
-          onSelect={handleGodPhotoSelect}
+          onSelect={(path) => {
+            setGodPhoto(path);
+            setShowGodPhotoSelector(false);
+          }}
           onClose={() => setShowGodPhotoSelector(false)}
         />
       )}
 
-      {showTitleEditModal && editingSectionIndex !== -1 && formData && (
-        <TitleEditModal
-          initialTitle={formData.fieldSections[editingSectionIndex].title}
-          selectedLang={language}
-          onSave={handleTitleSave}
-          onClose={() => {
-            setShowTitleEditModal(false);
-            setEditingSectionIndex(-1);
-          }}
-        />
+      {/* Inline Section Title Edit Modal (fixed) */}
+{showTitleEditModal && editingSectionIndex >= 0 && (
+  <div className="fixed inset-0 flex justify-center items-center z-50">
+    <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
+      <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
+        Edit {formData.fieldSections[editingSectionIndex]?.title}
+      </h2>
+
+
+
+            <input
+              type="text"
+              value={tempSectionTitle}
+              onChange={(e) => setTempSectionTitle(e.target.value)}
+              className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
+              autoFocus
+            />
+
+            <div className="flex justify-end gap-3 mt-4">
+              <button
+                className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
+                onClick={() => setShowTitleEditModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
+                onClick={() => {
+                  // save into formData safely
+                  updateForm((updated) => {
+                    if (
+                      typeof editingSectionIndex === "number" &&
+                      updated.fieldSections?.[editingSectionIndex]
+                    ) {
+                      updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
+                    }
+                  });
+                  setShowTitleEditModal(false);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
