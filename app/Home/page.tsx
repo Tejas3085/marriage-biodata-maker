@@ -5,7 +5,6 @@ import {
   FaEdit,
   FaPalette,
   FaDownload,
-  FaGlobe,
   FaHeart,
   FaFacebook,
   FaInstagram,
@@ -45,115 +44,104 @@ export default function HomePage() {
   return (
     <main className="text-gray-800 bg-gradient-to-b from-white via-gray-50 to-gray-100">
       {/* ===== HEADER ===== */}
-   {/* ===== HEADER ===== */}
-<header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-md">
-  <div className="px-4 sm:px-6 lg:px-8">
-    <div className="flex items-center justify-between h-16">
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-md">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* LEFT SIDE — LOGO + TITLE */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg flex-shrink-0">
+                <FaHeart className="text-white text-xl sm:text-2xl" />
+              </div>
+              {/* Title */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-wide text-gray-800">
+                  Marriage Biodata Maker
+                </h1>
+              </div>
+            </div>
 
-      {/* LEFT SIDE — LOGO + TITLE */}
-      <div className="flex items-center gap-4">
-        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg flex-shrink-0">
-          <FaHeart className="text-white text-xl sm:text-2xl" />
+            {/* RIGHT SIDE — LANGUAGE SELECTOR */}
+            <div className="flex items-center">
+              <select
+                className="appearance-none bg-transparent border-none outline-none text-xs sm:text-sm md:text-base font-medium text-gray-700 cursor-pointer"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.25rem center",
+                  backgroundSize: "0.75rem",
+                  paddingRight: "1.25rem",
+                }}
+              >
+                <option value="en">English</option>
+                <option value="mr">मराठी</option>
+                <option value="hi">हिन्दी</option>
+              </select>
+            </div>
+          </div>
         </div>
-
-        {/* Title Left, Subtitle Right */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
-
-          <h1 className="text-lg sm:text-xl font-bold tracking-wide text-gray-800">
-            Marriage Biodata Maker
-          </h1>
-
-          <p className="text-[10px] sm:text-xs md:text-sm text-gray-500 sm:border-l sm:pl-3 sm:border-gray-300">
-            Create Professional & Stunning Biodatas
-          </p>
-
-        </div>
-      </div>
-
-      {/* RIGHT SIDE — LANGUAGE SELECTOR */}
-      <div className="flex items-center">
-        <select
-          className="appearance-none bg-transparent border-none outline-none text-xs sm:text-sm font-medium text-gray-700 cursor-pointer"
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 0.25rem center",
-            backgroundSize: "0.75rem",
-            paddingRight: "1.25rem",
-          }}
-        >
-          <option value="en">English</option>
-          <option value="mr">मराठी</option>
-          <option value="hi">हिन्दी</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</header>
-
-
+      </header>
 
       {/* ===== HERO SECTION ===== */}
       <section
-        className="flex flex-col-reverse md:flex-row items-center justify-around px-6 py-12 w-full gap-10 md:gap-16 shadow-xl"
-        style={{
-          background: "linear-gradient(135deg, #fddde6 0%, #e0c3fc 50%, #ffe7a1 100%)",
-        }}
+  className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-8 md:py-12 w-full gap-6 md:gap-16 shadow-xl"
+  style={{
+    background: "linear-gradient(135deg, #fddde6 0%, #e0c3fc 50%, #ffe7a1 100%)",
+  }}
+>
+  {/* Text Content */}
+  <div className="flex-1 flex flex-col justify-center space-y-3 md:space-y-5 max-w-lg md:max-w-md text-center md:text-left">
+    <h2
+      className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight"
+      style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}
+    >
+      {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
+    </h2>
+    <p className="text-gray-700 text-sm sm:text-base md:text-lg lg:text-xl">
+      {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
+    </p>
+
+    <div className="space-y-1 md:space-y-2">
+      {translations?.features?.map((f: string, i: number) => (
+        <p
+          key={i}
+          className="text-xs sm:text-sm md:text-base lg:text-lg font-medium flex items-center gap-2 justify-center md:justify-start text-gray-700"
+        >
+          <span className="text-green-500">✅</span> {f}
+        </p>
+      ))}
+    </div>
+
+    <div className="flex flex-col md:flex-row md:items-center md:gap-4 mt-4 md:mt-6 justify-center md:justify-start">
+      <button
+        onClick={scrollToForm}
+        className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105 text-sm sm:text-base md:text-lg"
       >
-        {/* Text Content */}
-        <div className="flex-1 flex flex-col justify-center space-y-6 max-w-lg md:max-w-md mx-auto md:mx-0 text-center md:text-left">
-          <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight">
-            {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
-          </h2>
-          <p className="text-lg text-gray-700">
-            {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
-          </p>
+        {translations?.createBiodataBtn || "Create Biodata Now"}
+      </button>
+      <p className="text-gray-600 mt-2 md:mt-0 text-xs sm:text-sm md:text-base">
+        {'12,000'}+ {translations?.biodatasCount || "biodatas created today"}
+      </p>
+    </div>
+  </div>
 
-          <div className="space-y-2">
-            {translations?.features?.map((f: string, i: number) => (
-              <p key={i} className="text-gray-700 font-medium flex items-center gap-2 justify-center md:justify-start">
-                <span className="text-green-500">✅</span> {f}
-              </p>
-            ))}
-          </div>
+  {/* Image Content */}
+  <div className="flex-1 flex justify-center md:justify-end items-center">
+    <img
+      src="/Images/homePageImage.jpg"
+      alt="Wedding Couple creating marriage biodata"
+      className="
+        w-4/5 sm:w-3/4 md:w-full
+        h-auto
+        max-h-60 sm:max-h-80 md:max-h-[400px]
+        rounded-3xl shadow-2xl
+        hover:scale-105 transition-transform
+      "
+    />
+  </div>
+</section>
 
-          <div className="flex flex-col md:flex-row md:items-center md:gap-4 grid justify-center md:justify-start mt-6">
-            <button
-              onClick={scrollToForm}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105"
-            >
-              {translations?.createBiodataBtn || "Create Biodata Now"}
-            </button>
-            <p className="text-gray-600 mt-3 md:mt-0 text-sm">
-              {'12,000'}+ {translations?.biodatasCount || "biodatas created today"}
-            </p>
-          </div>
-        </div>
-
-        {/* Image Content */}
-        <div className="flex-1 flex justify-center md:justify-end items-center max-w-md mx-auto md:mx-0">
-          <img
-  src="/Images/homePageImage.jpg"
-  alt="Wedding Couple creating marriage biodata"
-  className="
-    w-3/4          /* smaller on mobile */
-    sm:w-4/5       
-    md:w-full      /* full size on desktop */
-    h-auto 
-    max-h-64       /* mobile height smaller */
-    sm:max-h-80 
-    md:max-h-[500px] 
-    rounded-3xl 
-    shadow-2xl 
-    hover:scale-105 
-    transition-transform
-  "
-/>
-
-        </div>
-      </section>
 
       {/* ===== TEMPLATE GALLERY ===== */}
       <section
@@ -162,9 +150,11 @@ export default function HomePage() {
           background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)",
         }}
       >
-        <div className=" mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-3">Choose Your Template</h2>
-          <p className="text-gray-600 mb-12">
+        <div className="mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+            Choose Your Template
+          </h2>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
             Select from professionally designed marriage biodata templates to make your biodata unique and elegant.
           </p>
 
@@ -207,8 +197,10 @@ export default function HomePage() {
                       />
                     </div>
                     <div className="p-4 text-center bg-white">
-                      <h3 className="font-semibold text-gray-800 text-lg">{template.name}</h3>
-                      <button className="mt-3 bg-pink-500 text-white px-5 py-2 rounded-md text-sm font-medium shadow hover:bg-purple-600 transition-all">
+                      <h3 className="font-semibold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">
+                        {template.name}
+                      </h3>
+                      <button className="mt-3 bg-pink-500 text-white px-4 sm:px-5 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium shadow hover:bg-purple-600 transition-all">
                         Use Template
                       </button>
                     </div>
@@ -227,7 +219,7 @@ export default function HomePage() {
           background: "linear-gradient(135deg, #fef9f5 0%, #e6f7ff 50%, #fff3e6 100%)",
         }}
       >
-        <h2 className="text-center text-3xl font-bold mb-10 text-gray-800">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800">
           {translations?.howItWorksheading || "How It Works"}
         </h2>
 
@@ -235,13 +227,13 @@ export default function HomePage() {
           {translations?.howItWorks?.map((step: any, i: number) => (
             <div
               key={i}
-              className="p-8 rounded-2xl border border-gray-200 bg-white hover:border-pink-500 hover:shadow-2xl transition-all"
+              className="p-6 md:p-8 rounded-2xl border border-gray-200 bg-white hover:border-pink-500 hover:shadow-2xl transition-all"
             >
-              <div className="text-5xl text-pink-500 mb-4 flex justify-center">
+              <div className="text-3xl sm:text-4xl md:text-5xl text-pink-500 mb-4 flex justify-center">
                 {i === 0 ? <FaEdit /> : i === 1 ? <FaPalette /> : <FaDownload />}
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-800">{step.title}</h3>
-              <p className="text-gray-600">{step.desc}</p>
+              <h3 className="font-semibold text-lg sm:text-xl md:text-2xl mb-2 text-gray-800">{step.title}</h3>
+              <p className="text-xs sm:text-sm md:text-base text-gray-600">{step.desc}</p>
             </div>
           ))}
         </div>
@@ -262,11 +254,15 @@ export default function HomePage() {
       <footer className="bg-gray-900 text-gray-300 mt-12 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
-            <h3 className="text-lg font-semibold text-white">Marriage Biodata Maker</h3>
-            <p className="text-sm text-gray-400 mt-1">© {new Date().getFullYear()} All Rights Reserved.</p>
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white">
+              Marriage Biodata Maker
+            </h3>
+            <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-1">
+              © {new Date().getFullYear()} All Rights Reserved.
+            </p>
           </div>
 
-          <div className="flex space-x-5 text-gray-400 text-xl">
+          <div className="flex space-x-5 text-gray-400 text-xl sm:text-2xl">
             <a href="#" className="hover:text-blue-400 transition-colors">
               <FaFacebook />
             </a>

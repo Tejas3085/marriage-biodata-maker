@@ -1,62 +1,343 @@
 {
-  "godTitle":"|| श्री गणेशाय नमः ||",
+  "godTitle": "|| श्री गणेशाय नमः ||",
   "uploadPhotoLabel": "फोटो अपलोड करें",
   "generateBiodataBtnLabel": "बायोडाटा बनाएं",
   "fieldSections": [
     {
       "title": "व्यक्तिगत जानकारी",
-      "addExtraFiels" : "नया फील्ड जोड़ें",
+      "addExtraFiels": "नया फ़ील्ड जोड़ें",
       "NewFieldLabel": "लेबल दर्ज करें",
       "NewFieldValue": "मान दर्ज करें",
       "key": "personalInfo",
       "fields": [
-        { "label": "पूरा नाम", "key": "name", "type": "text", "placeholder": "पूरा नाम दर्ज करें", "value": "" },
-        { "label": "जन्म तिथि", "key": "dob", "type": "date", "placeholder": "DD-MM-YYYY", "value": "" },
-        { "label": "जन्म समय", "key": "birthTime", "type": "time", "placeholder": "--:--", "value": "" },
-        { "label": "जन्म स्थान", "key": "birthPlace", "type": "text", "placeholder": "जन्म स्थान दर्ज करें", "value": "" },
-        { "label": "धर्म", "key": "religion", "type": "text", "placeholder": "धर्म दर्ज करें", "value": "" },
-        { "label": "जाति", "key": "caste", "type": "text", "placeholder": "जाति दर्ज करें", "value": "" },
-        { "label": "कुलदेवता", "key": "kuldevta", "type": "text", "placeholder": "कुलदेवता दर्ज करें", "value": "" },
-        { "label": "राशि", "key": "rashi", "type": "select", "placeholder": "राशि चुनें", "value": "", "options": ["मेष","वृषभ","मिथुन","कर्क","सिंह","कन्या","तुला","वृश्चिक","धनु","मकर","कुंभ","मीन"] },
-        { "label": "नक्षत्र", "key": "nakshatra", "type": "text", "placeholder": "नक्षत्र दर्ज करें", "value": "" },
-        { "label": "गण", "key": "gan", "type": "select", "placeholder": "गण चुनें", "value": "", "options": ["देव","मनुष्य","राक्षस"] },
-        { "label": "नाड़ी", "key": "nadi", "type": "select", "placeholder": "नाड़ी चुनें", "value": "", "options": ["आदि","मध्य","अंत्य"] },
-        { "label": "मांगलिक", "key": "manglik", "type": "select", "placeholder": "चुनें", "value": "", "options": ["हाँ","नहीं","पता नहीं"] },
-        { "label": "गोत्र", "key": "gotra", "type": "text", "placeholder": "गोत्र दर्ज करें", "value": "" },
-        { "label": "ऊंचाई", "key": "height", "type": "text", "placeholder": "ऊंचाई दर्ज करें", "value": "" },
-        { "label": "वर्ण", "key": "varna", "type": "select", "placeholder": "वर्ण चुनें", "value": "", "options": ["गोरा","गव्हाळ","काला"] },
-        { "label": "रक्त समूह", "key": "bloodGroup", "type": "select", "placeholder": "रक्त समूह चुनें", "value": "", "options": ["A","B","AB","O"] },
-        { "label": "शिक्षा", "key": "education", "type": "text", "placeholder": "शिक्षा दर्ज करें", "value": "" },
-        { "label": "नौकरी", "key": "job", "type": "text", "placeholder": "नौकरी / व्यवसाय दर्ज करें", "value": "" },
-        { "label": "वेतन", "key": "salary", "type": "text", "placeholder": "वेतन / आय दर्ज करें", "value": "" }
+        {
+          "label": "पूरा नाम",
+          "key": "name",
+          "type": "text",
+          "placeholder": "अपना पूरा नाम दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "जन्म तिथि",
+          "key": "dob",
+          "type": "date",
+          "placeholder": "DD-MM-YYYY",
+          "value": ""
+        },
+        {
+          "label": "जन्म समय",
+          "key": "birthTime",
+          "type": "time",
+          "placeholder": "--:--",
+          "value": ""
+        },
+        {
+          "label": "जन्म स्थान",
+          "key": "birthPlace",
+          "type": "text",
+          "placeholder": "जन्म स्थान दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "धर्म",
+          "key": "religion",
+          "type": "text",
+          "placeholder": "धर्म दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "जाति",
+          "key": "caste",
+          "type": "text",
+          "placeholder": "जाति दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "कुलदेवता",
+          "key": "kuldevta",
+          "type": "text",
+          "placeholder": "कुलदेवता दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "राशि",
+          "key": "rashi",
+          "type": "select",
+          "placeholder": "राशि चुनें",
+          "value": "",
+          "options": [
+            "मेष",
+            "वृषभ",
+            "मिथुन",
+            "कर्क",
+            "सिंह",
+            "कन्या",
+            "तुला",
+            "वृश्चिक",
+            "धनु",
+            "मकर",
+            "कुंभ",
+            "मीन"
+          ]
+        },
+        {
+          "label": "नक्षत्र",
+          "key": "nakshatra",
+          "type": "text",
+          "placeholder": "नक्षत्र दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "गण",
+          "key": "gan",
+          "type": "select",
+          "placeholder": "गण चुनें",
+          "value": "",
+          "options": [
+            "देव",
+            "मनुष्य",
+            "राक्षस"
+          ]
+        },
+        {
+          "label": "नाड़ी",
+          "key": "nadi",
+          "type": "select",
+          "placeholder": "नाड़ी चुनें",
+          "value": "",
+          "options": [
+            "आदि",
+            "मध्य",
+            "अंत्य"
+          ]
+        },
+        {
+          "label": "मांगलिक",
+          "key": "manglik",
+          "type": "select",
+          "placeholder": "स्थिति चुनें",
+          "value": "",
+          "options": [
+            "हाँ",
+            "नहीं",
+            "पता नहीं"
+          ]
+        },
+        {
+          "label": "गोत्र",
+          "key": "gotra",
+          "type": "text",
+          "placeholder": "गोत्र दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "ऊंचाई",
+          "key": "height",
+          "type": "select",
+          "placeholder": "ऊंचाई चुनें",
+          "value": "",
+          "options": [
+            "3 फुट 5 इंच",
+            "3 फुट 6 इंच",
+            "3 फुट 7 इंच",
+            "3 फुट 8 इंच",
+            "3 फुट 9 इंच",
+            "3 फुट 10 इंच",
+            "3 फुट 11 इंच",
+            "3 फुट 12 इंच",
+            "4 फुट 0 इंच",
+            "4 फुट 1 इंच",
+            "4 फुट 2 इंच",
+            "4 फुट 3 इंच",
+            "4 फुट 4 इंच",
+            "4 फुट 5 इंच",
+            "4 फुट 6 इंच",
+            "4 फुट 7 इंच",
+            "4 फुट 8 इंच",
+            "4 फुट 9 इंच",
+            "4 फुट 10 इंच",
+            "4 फुट 11 इंच",
+            "4 फुट 12 इंच",
+            "5 फुट 0 इंच",
+            "5 फुट 1 इंच",
+            "5 फुट 2 इंच",
+            "5 फुट 3 इंच",
+            "5 फुट 4 इंच",
+            "5 फुट 5 इंच",
+            "5 फुट 6 इंच",
+            "5 फुट 7 इंच",
+            "5 फुट 8 इंच",
+            "5 फुट 9 इंच",
+            "5 फुट 10 इंच",
+            "5 फुट 11 इंच",
+            "5 फुट 12 इंच",
+            "6 फुट 0 इंच",
+            "6 फुट 1 इंच",
+            "6 फुट 2 इंच",
+            "6 फुट 3 इंच",
+            "6 फुट 4 इंच",
+            "6 फुट 5 इंच",
+            "6 फुट 6 इंच",
+            "6 फुट 7 इंच",
+            "6 फुट 8 इंच",
+            "6 फुट 9 इंच",
+            "6 फुट 10 इंच",
+            "6 फुट 11 इंच",
+            "6 फुट 12 इंच",
+            "7 फुट 0 इंच",
+            "7 फुट 1 इंच",
+            "7 फुट 2 इंच",
+            "7 फुट 3 इंच",
+            "7 फुट 4 इंच",
+            "7 फुट 5 इंच",
+            "7 फुट 6 इंच",
+            "7 फुट 7 इंच",
+            "7 फुट 8 इंच",
+            "7 फुट 9 इंच",
+            "7 फुट 10 इंच",
+            "7 फुट 11 इंच",
+            "7 फुट 12 इंच",
+            "8 फुट 0 इंच"
+          ]
+        },
+        {
+          "label": "वर्ण",
+          "key": "varna",
+          "type": "select",
+          "placeholder": "वर्ण चुनें",
+          "value": "",
+          "options": [
+            "गोरा",
+            "गव्हाळ",
+            "काला"
+          ]
+        },
+        {
+          "label": "रक्त समूह",
+          "key": "bloodGroup",
+          "type": "select",
+          "placeholder": "रक्त समूह चुनें",
+          "value": "",
+          "options": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+          ]
+        },
+        {
+          "label": "शिक्षा",
+          "key": "education",
+          "type": "text",
+          "placeholder": "शिक्षा दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "नौकरी / व्यवसाय",
+          "key": "job",
+          "type": "text",
+          "placeholder": "नौकरी या व्यवसाय दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "वेतन / आय",
+          "key": "salary",
+          "type": "text",
+          "placeholder": "वेतन या आय दर्ज करें",
+          "value": ""
+        }
       ]
     },
     {
       "title": "परिवार की जानकारी",
-      "addExtraFiels" : "नया फील्ड जोड़ें",
+      "addExtraFiels": "नया फ़ील्ड जोड़ें",
       "NewFieldLabel": "लेबल दर्ज करें",
       "NewFieldValue": "मान दर्ज करें",
       "key": "familyInfo",
       "fields": [
-        { "label": "पिता का नाम", "key": "fatherName", "type": "text", "placeholder": "पिता का नाम दर्ज करें", "value": "" },
-        { "label": "पिता का व्यवसाय", "key": "fatherOccupation", "type": "text", "placeholder": "पिता का व्यवसाय दर्ज करें", "value": "" },
-        { "label": "माता का नाम", "key": "motherName", "type": "text", "placeholder": "माता का नाम दर्ज करें", "value": "" },
-        { "label": "बहनें", "key": "sisters", "type": "text", "placeholder": "बहनों की संख्या", "value": "" },
-        { "label": "भाई", "key": "brothers", "type": "text", "placeholder": "भाइयों की संख्या", "value": "" },
-        { "label": "मामा", "key": "mama", "type": "text", "placeholder": "मामा दर्ज करें", "value": "" },
-        { "label": "संबंधी", "key": "relatives", "type": "textarea", "placeholder": "संबंधी दर्ज करें", "value": "" }
+        {
+          "label": "पिता का नाम",
+          "key": "fatherName",
+          "type": "text",
+          "placeholder": "पिता का नाम दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "पिता का व्यवसाय",
+          "key": "fatherOccupation",
+          "type": "text",
+          "placeholder": "पिता का व्यवसाय दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "माता का नाम",
+          "key": "motherName",
+          "type": "text",
+          "placeholder": "माता का नाम दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "बहनें",
+          "key": "sisters",
+          "type": "text",
+          "placeholder": "बहनों की संख्या दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "भाई",
+          "key": "brothers",
+          "type": "text",
+          "placeholder": "भाइयों की संख्या दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "मामा",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "मामा का नाम दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "संबंधी",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "संबंधियों के नाम दर्ज करें",
+          "value": ""
+        }
       ]
     },
     {
       "title": "संपर्क जानकारी",
-      "addExtraFiels" : "नया फील्ड जोड़ें",
+      "addExtraFiels": "नया फ़ील्ड जोड़ें",
       "NewFieldLabel": "लेबल दर्ज करें",
       "NewFieldValue": "मान दर्ज करें",
       "key": "contactInfo",
       "fields": [
-        { "label": "पता", "key": "address", "type": "textarea", "placeholder": "पता दर्ज करें", "value": "" },
-        { "label": "मोबाइल नंबर", "key": "mobile", "type": "tel", "placeholder": "मोबाइल नंबर दर्ज करें", "value": "" },
-        { "label": "ईमेल", "key": "email", "type": "email", "placeholder": "ईमेल दर्ज करें", "value": "" }
+        {
+          "label": "पता",
+          "key": "address",
+          "type": "textarea",
+          "placeholder": "पूरा पता दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "मोबाइल नंबर",
+          "key": "mobile",
+          "type": "tel",
+          "placeholder": "मोबाइल नंबर दर्ज करें",
+          "value": ""
+        },
+        {
+          "label": "ईमेल",
+          "key": "email",
+          "type": "email",
+          "placeholder": "ईमेल दर्ज करें",
+          "value": ""
+        }
       ]
     }
   ]

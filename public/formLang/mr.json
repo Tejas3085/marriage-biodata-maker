@@ -1,63 +1,339 @@
 {
-  "godTitle":"|| श्री गणेशाय नमः ||",
+  "godTitle": "|| श्री गणेशाय नमः ||",
   "uploadPhotoLabel": "छायाचित्र अपलोड करा",
   "generateBiodataBtnLabel": "बायोडाटा तयार करा",
   "fieldSections": [
-      
     {
       "title": "वैयक्तिक माहिती",
-      "addExtraFiels" : "नवीन फील्ड जोडा",
+      "addExtraFiels": "नवीन फील्ड जोडा",
       "NewFieldLabel": "लेबल प्रविष्ट करा",
       "NewFieldValue": "माहिती प्रविष्ट करा",
       "key": "personalInfo",
       "fields": [
-        { "label": "पूर्ण नाव", "key": "name", "type": "text", "placeholder": "आपले पूर्ण नाव भरा", "value": "" },
-        { "label": "जन्मतारीख", "key": "dob", "type": "date", "placeholder": "दि-महिना-वर्ष", "value": "" },
-        { "label": "जन्मवेळ", "key": "birthTime", "type": "time", "placeholder": "--:--", "value": "" },
-        { "label": "जन्मस्थान", "key": "birthPlace", "type": "text", "placeholder": "जन्मस्थान भरा", "value": "" },
-        { "label": "धर्म", "key": "religion", "type": "text", "placeholder": "आपला धर्म भरा", "value": "" },
-        { "label": "जात", "key": "caste", "type": "text", "placeholder": "आपली जात भरा", "value": "" },
-        { "label": "कुळदैवत", "key": "kuldevta", "type": "text", "placeholder": "कुळदैवत भरा", "value": "" },
-        { "label": "राशी", "key": "rashi", "type": "select", "placeholder": "राशी निवडा", "value": "", "options": ["मेष","वृषभ","मिथुन","कर्क","सिंह","कन्या","तुळा","वृश्चिक","धनू","मकर","कुंभ","मीन"] },
-        { "label": "नक्षत्र", "key": "nakshatra", "type": "text", "placeholder": "नक्षत्र भरा", "value": "" },
-        { "label": "गण", "key": "gan", "type": "select", "placeholder": "गण निवडा", "value": "", "options": ["देव","मनुष्य","राक्षस"] },
-        { "label": "नाडी", "key": "nadi", "type": "select", "placeholder": "नाडी निवडा", "value": "", "options": ["आदि","मध्य","अंत्य"] },
-        { "label": "मांगलिक", "key": "manglik", "type": "select", "placeholder": "निवडा", "value": "", "options": ["होय","नाही","माहित नाही"] },
-        { "label": "गोत्र", "key": "gotra", "type": "text", "placeholder": "गोत्र भरा", "value": "" },
-        { "label": "उंची", "key": "height", "type": "text", "placeholder": "उंची भरा", "value": "" },
-        { "label": "वर्ण", "key": "varna", "type": "select", "placeholder": "वर्ण निवडा", "value": "", "options": ["गोरापान","गव्हाळ","काळा"] },
-        { "label": "रक्तगट", "key": "bloodGroup", "type": "select", "placeholder": "रक्तगट निवडा", "value": "", "options": ["A","B","AB","O"] },
-        { "label": "शिक्षण", "key": "education", "type": "text", "placeholder": "शिक्षण", "value": "" },
-        { "label": "नोकरी", "key": "job", "type": "text", "placeholder": "नोकरी / व्यवसाय", "value": "" },
-        { "label": "वेतन", "key": "salary", "type": "text", "placeholder": "वेतन / उत्पन्न", "value": "" }
+        {
+          "label": "पूर्ण नाव",
+          "key": "name",
+          "type": "text",
+          "placeholder": "आपले पूर्ण नाव भरा",
+          "value": ""
+        },
+        {
+          "label": "जन्मतारीख",
+          "key": "dob",
+          "type": "date",
+          "placeholder": "दि-महिना-वर्ष",
+          "value": ""
+        },
+        {
+          "label": "जन्मवेळ",
+          "key": "birthTime",
+          "type": "time",
+          "placeholder": "--:--",
+          "value": ""
+        },
+        {
+          "label": "जन्मस्थान",
+          "key": "birthPlace",
+          "type": "text",
+          "placeholder": "जन्मस्थान भरा",
+          "value": ""
+        },
+        {
+          "label": "धर्म",
+          "key": "religion",
+          "type": "text",
+          "placeholder": "आपला धर्म भरा",
+          "value": ""
+        },
+        {
+          "label": "जात",
+          "key": "caste",
+          "type": "text",
+          "placeholder": "आपली जात भरा",
+          "value": ""
+        },
+        {
+          "label": "कुळदैवत",
+          "key": "kuldevta",
+          "type": "text",
+          "placeholder": "कुळदैवत भरा",
+          "value": ""
+        },
+        {
+          "label": "राशी",
+          "key": "rashi",
+          "type": "select",
+          "placeholder": "राशी निवडा",
+          "value": "",
+          "options": [
+            "मेष",
+            "वृषभ",
+            "मिथुन",
+            "कर्क",
+            "सिंह",
+            "कन्या",
+            "तुळा",
+            "वृश्चिक",
+            "धनू",
+            "मकर",
+            "कुंभ",
+            "मीन"
+          ]
+        },
+        {
+          "label": "नक्षत्र",
+          "key": "nakshatra",
+          "type": "text",
+          "placeholder": "नक्षत्र भरा",
+          "value": ""
+        },
+        {
+          "label": "गण",
+          "key": "gan",
+          "type": "select",
+          "placeholder": "गण निवडा",
+          "value": "",
+          "options": [
+            "देव",
+            "मनुष्य",
+            "राक्षस"
+          ]
+        },
+        {
+          "label": "नाडी",
+          "key": "nadi",
+          "type": "select",
+          "placeholder": "नाडी निवडा",
+          "value": "",
+          "options": [
+            "आदि",
+            "मध्य",
+            "अंत्य"
+          ]
+        },
+        {
+          "label": "मांगलिक",
+          "key": "manglik",
+          "type": "select",
+          "placeholder": "निवडा",
+          "value": "",
+          "options": [
+            "होय",
+            "नाही",
+            "माहित नाही"
+          ]
+        },
+        {
+          "label": "गोत्र",
+          "key": "gotra",
+          "type": "text",
+          "placeholder": "गोत्र भरा",
+          "value": ""
+        },
+        {
+          "label": "उंची",
+          "key": "height",
+          "type": "select",
+          "placeholder": "उंची भरा",
+          "value": "",
+          "options": [
+            "3 फूट 5 इंच",
+            "3 फूट 6 इंच",
+            "3 फूट 7 इंच",
+            "3 फूट 8 इंच",
+            "3 फूट 9 इंच",
+            "3 फूट 10 इंच",
+            "3 फूट 11 इंच",
+            "3 फूट 12 इंच",
+            "4 फूट 0 इंच",
+            "4 फूट 1 इंच",
+            "4 फूट 2 इंच",
+            "4 फूट 3 इंच",
+            "4 फूट 4 इंच",
+            "4 फूट 5 इंच",
+            "4 फूट 6 इंच",
+            "4 फूट 7 इंच",
+            "4 फूट 8 इंच",
+            "4 फूट 9 इंच",
+            "4 फूट 10 इंच",
+            "4 फूट 11 इंच",
+            "4 फूट 12 इंच",
+            "5 फूट 0 इंच",
+            "5 फूट 1 इंच",
+            "5 फूट 2 इंच",
+            "5 फूट 3 इंच",
+            "5 फूट 4 इंच",
+            "5 फूट 5 इंच",
+            "5 फूट 6 इंच",
+            "5 फूट 7 इंच",
+            "5 फूट 8 इंच",
+            "5 फूट 9 इंच",
+            "5 फूट 10 इंच",
+            "5 फूट 11 इंच",
+            "5 फूट 12 इंच",
+            "6 फूट 0 इंच",
+            "6 फूट 1 इंच",
+            "6 फूट 2 इंच",
+            "6 फूट 3 इंच",
+            "6 फूट 4 इंच",
+            "6 फूट 5 इंच",
+            "6 फूट 6 इंच",
+            "6 फूट 7 इंच",
+            "6 फूट 8 इंच",
+            "6 फूट 9 इंच",
+            "6 फूट 10 इंच",
+            "6 फूट 11 इंच",
+            "6 फूट 12 इंच",
+            "7 फूट 0 इंच",
+            "7 फूट 1 इंच",
+            "7 फूट 2 इंच",
+            "7 फूट 3 इंच",
+            "7 फूट 4 इंच",
+            "7 फूट 5 इंच",
+            "7 फूट 6 इंच",
+            "7 फूट 7 इंच",
+            "7 फूट 8 इंच",
+            "7 फूट 9 इंच",
+            "7 फूट 10 इंच",
+            "7 फूट 11 इंच",
+            "7 फूट 12 इंच",
+            "8 फूट 0 इंच"
+          ]
+        },
+        {
+          "label": "वर्ण",
+          "key": "varna",
+          "type": "select",
+          "placeholder": "वर्ण निवडा",
+          "value": "",
+          "options": [
+            "गोरापान",
+            "गव्हाळ",
+            "काळा"
+          ]
+        },
+        {
+          "label": "रक्तगट",
+          "key": "bloodGroup",
+          "type": "select",
+          "placeholder": "रक्तगट निवडा",
+          "value": "",
+          "options": [
+            "A",
+            "B",
+            "AB",
+            "O"
+          ]
+        },
+        {
+          "label": "शिक्षण",
+          "key": "education",
+          "type": "text",
+          "placeholder": "शिक्षण",
+          "value": ""
+        },
+        {
+          "label": "नोकरी",
+          "key": "job",
+          "type": "text",
+          "placeholder": "नोकरी / व्यवसाय",
+          "value": ""
+        },
+        {
+          "label": "वेतन",
+          "key": "salary",
+          "type": "text",
+          "placeholder": "वेतन / उत्पन्न",
+          "value": ""
+        }
       ]
     },
     {
       "title": "कौटुंबिक माहिती",
-      "addExtraFiels" : "नवीन फील्ड जोडा",
+      "addExtraFiels": "नवीन फील्ड जोडा",
       "NewFieldLabel": "लेबल प्रविष्ट करा",
       "NewFieldValue": "माहिती प्रविष्ट करा",
       "key": "familyInfo",
       "fields": [
-        { "label": "वडिलांचे नाव", "key": "fatherName", "type": "text", "placeholder": "वडिलांचे नाव भरा", "value": "" },
-        { "label": "वडिलांचा व्यवसाय", "key": "fatherOccupation", "type": "text", "placeholder": "वडिलांचा व्यवसाय भरा", "value": "" },
-        { "label": "आईचे नाव", "key": "motherName", "type": "text", "placeholder": "आईचे नाव भरा", "value": "" },
-        { "label": "बहिणी", "key": "sisters", "type": "text", "placeholder": "बहिणींची संख्या भरा", "value": "" },
-        { "label": "भाऊ", "key": "brothers", "type": "text", "placeholder": "भावांची संख्या भरा", "value": "" },
-        { "label": "मामा", "key": "mama", "type": "text", "placeholder": "मामा भरा", "value": "" },
-        { "label": "नातेसंबंध", "key": "relatives", "type": "textarea", "placeholder": "नातेसंबंध भरा", "value": "" }
+        {
+          "label": "वडिलांचे नाव",
+          "key": "fatherName",
+          "type": "text",
+          "placeholder": "वडिलांचे नाव भरा",
+          "value": ""
+        },
+        {
+          "label": "वडिलांचा व्यवसाय",
+          "key": "fatherOccupation",
+          "type": "text",
+          "placeholder": "वडिलांचा व्यवसाय भरा",
+          "value": ""
+        },
+        {
+          "label": "आईचे नाव",
+          "key": "motherName",
+          "type": "text",
+          "placeholder": "आईचे नाव भरा",
+          "value": ""
+        },
+        {
+          "label": "बहिणी",
+          "key": "sisters",
+          "type": "text",
+          "placeholder": "बहिणींची संख्या भरा",
+          "value": ""
+        },
+        {
+          "label": "भाऊ",
+          "key": "brothers",
+          "type": "text",
+          "placeholder": "भावांची संख्या भरा",
+          "value": ""
+        },
+        {
+          "label": "मामा",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "मामा भरा",
+          "value": ""
+        },
+        {
+          "label": "नातेसंबंध",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "नातेसंबंध भरा",
+          "value": ""
+        }
       ]
     },
     {
       "title": "संपर्क माहिती",
-      "addExtraFiels" : "नवीन फील्ड जोडा",
+      "addExtraFiels": "नवीन फील्ड जोडा",
       "NewFieldLabel": "लेबल प्रविष्ट करा",
       "NewFieldValue": "माहिती प्रविष्ट करा",
       "key": "contactInfo",
       "fields": [
-        { "label": "पत्ता", "key": "address", "type": "textarea", "placeholder": "पत्ता भरा", "value": "" },
-        { "label": "मोबाईल नंबर", "key": "mobile", "type": "tel", "placeholder": "मोबाईल नंबर भरा", "value": "" },
-        { "label": "ईमेल", "key": "email", "type": "email", "placeholder": "ईमेल भरा", "value": "" }
+        {
+          "label": "पत्ता",
+          "key": "address",
+          "type": "textarea",
+          "placeholder": "पत्ता भरा",
+          "value": ""
+        },
+        {
+          "label": "मोबाईल नंबर",
+          "key": "mobile",
+          "type": "tel",
+          "placeholder": "मोबाईल नंबर भरा",
+          "value": ""
+        },
+        {
+          "label": "ईमेल",
+          "key": "email",
+          "type": "email",
+          "placeholder": "ईमेल भरा",
+          "value": ""
+        }
       ]
     }
   ]

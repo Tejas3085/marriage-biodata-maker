@@ -1,62 +1,175 @@
 {
-  "godTitle":"|| Om Shree Ganeshaya Namah ||",
+  "godTitle": "|| Om Shree Ganeshaya Namah ||",
   "uploadPhotoLabel": "Upload Photo",
   "generateBiodataBtnLabel": "Generate Biodata",
+
   "fieldSections": [
     {
       "title": "Personal Information",
-      "addExtraFiels": "Add New Field", 
-      "NewFieldLabel": "Enter Label",
-      "NewFieldValue": "Enter Value",
+      "addExtraFiels": "Add New Field",
+      "NewFieldLabel": "Enter Field Label",
+      "NewFieldValue": "Enter Field Value",
       "key": "personalInfo",
+
       "fields": [
         { "label": "Full Name", "key": "name", "type": "text", "placeholder": "Enter your full name", "value": "" },
         { "label": "Date of Birth", "key": "dob", "type": "date", "placeholder": "DD-MM-YYYY", "value": "" },
-        { "label": "Time of Birth", "key": "birthTime", "type": "time", "placeholder": "--:--", "value": "" },
-        { "label": "Place of Birth", "key": "birthPlace", "type": "text", "placeholder": "Enter birth place", "value": "" },
+        { "label": "Time of Birth", "key": "birthTime", "type": "time", "placeholder": "HH:MM", "value": "" },
+        { "label": "Place of Birth", "key": "birthPlace", "type": "text", "placeholder": "Enter place of birth", "value": "" },
+
         { "label": "Religion", "key": "religion", "type": "text", "placeholder": "Enter religion", "value": "" },
         { "label": "Caste", "key": "caste", "type": "text", "placeholder": "Enter caste", "value": "" },
-        { "label": "Kuldevta", "key": "kuldevta", "type": "text", "placeholder": "Enter Kuldevta", "value": "" },
-        { "label": "Rashi", "key": "rashi", "type": "select", "placeholder": "Select Rashi", "value": "", "options": ["Mesh","Vrushabh","Mithun","Kark","Sinh","Kanya","Tula","Vrushchik","Dhanu","Makar","Kumbh","Meen"] },
+        { "label": "Kuldevta", "key": "kuldevta", "type": "text", "placeholder": "Enter Kuldevta (Family Deity)", "value": "" },
+
+        {
+          "label": "Rashi (Zodiac Sign)",
+          "key": "rashi",
+          "type": "select",
+          "placeholder": "Select Rashi",
+          "value": "",
+          "options": [
+            "Mesh (Aries)",
+            "Vrushabh (Taurus)",
+            "Mithun (Gemini)",
+            "Kark (Cancer)",
+            "Sinh (Leo)",
+            "Kanya (Virgo)",
+            "Tula (Libra)",
+            "Vrushchik (Scorpio)",
+            "Dhanu (Sagittarius)",
+            "Makar (Capricorn)",
+            "Kumbh (Aquarius)",
+            "Meen (Pisces)"
+          ]
+        },
+
         { "label": "Nakshatra", "key": "nakshatra", "type": "text", "placeholder": "Enter Nakshatra", "value": "" },
-        { "label": "Gan", "key": "gan", "type": "select", "placeholder": "Select Gan", "value": "", "options": ["Dev","Manushya","Rakshas"] },
-        { "label": "Nadi", "key": "nadi", "type": "select", "placeholder": "Select Nadi", "value": "", "options": ["Adi","Madhya","Antya"] },
-        { "label": "Manglik", "key": "manglik", "type": "select", "placeholder": "Select", "value": "", "options": ["Yes","No","Don't Know"] },
+
+        {
+          "label": "Gana",
+          "key": "gan",
+          "type": "select",
+          "placeholder": "Select Gana",
+          "value": "",
+          "options": ["Deva", "Manushya", "Rakshasa"]
+        },
+
+        {
+          "label": "Nadi",
+          "key": "nadi",
+          "type": "select",
+          "placeholder": "Select Nadi",
+          "value": "",
+          "options": ["Adi", "Madhya", "Antya"]
+        },
+
+        {
+          "label": "Manglik",
+          "key": "manglik",
+          "type": "select",
+          "placeholder": "Select Manglik Status",
+          "value": "",
+          "options": ["Yes", "No", "Not Sure"]
+        },
+
         { "label": "Gotra", "key": "gotra", "type": "text", "placeholder": "Enter Gotra", "value": "" },
-        { "label": "Height", "key": "height", "type": "text", "placeholder": "Enter height", "value": "" },
-        { "label": "Varna", "key": "varna", "type": "select", "placeholder": "Select Varna", "value": "", "options": ["Gorapan","Gavhal","Kala"] },
-        { "label": "Blood Group", "key": "bloodGroup", "type": "select", "placeholder": "Select Blood Group", "value": "", "options": ["A","B","AB","O"] },
-        { "label": "Education", "key": "education", "type": "text", "placeholder": "Enter education", "value": "" },
-        { "label": "Job", "key": "job", "type": "text", "placeholder": "Enter job / profession", "value": "" },
-        { "label": "Salary", "key": "salary", "type": "text", "placeholder": "Enter salary / income", "value": "" }
+        { "label": "Height", "key": "height", "type": "select", "placeholder": "Select height", "value": "",
+      "options": [
+                "3 feet 5 inches","3 feet 6 inches","3 feet 7 inches","3 feet 8 inches","3 feet 9 inches","3 feet 10 inches","3 feet 11 inches",
+                "4 feet 0 inches","4 feet 1 inches","4 feet 2 inches","4 feet 3 inches","4 feet 4 inches","4 feet 5 inches","4 feet 6 inches","4 feet 7 inches","4 feet 8 inches",
+                "4 feet 9 inches","4 feet 10 inches","4 feet 11 inches",
+                "5 feet 0 inches","5 feet 1 inches","5 feet 2 inches","5 feet 3 inches","5 feet 4 inches","5 feet 5 inches","5 feet 6 inches","5 feet 7 inches","5 feet 8 inches",
+                "5 feet 9 inches","5 feet 10 inches","5 feet 11 inches",
+                "6 feet 0 inches","6 feet 1 inches","6 feet 2 inches","6 feet 3 inches","6 feet 4 inches","6 feet 5 inches","6 feet 6 inches","6 feet 7 inches","6 feet 8 inches",
+                "6 feet 9 inches","6 feet 10 inches","6 feet 11 inches",
+                "7 feet 0 inches","7 feet 1 inches","7 feet 2 inches","7 feet 3 inches","7 feet 4 inches","7 feet 5 inches","7 feet 6 inches","7 feet 7 inches","7 feet 8 inches",
+                "7 feet 9 inches","7 feet 10 inches","7 feet 11 inches", "8 feet"
+]
+      },
+
+        {
+          "label": "Varna",
+          "key": "varna",
+          "type": "select",
+          "placeholder": "Select Varna",
+          "value": "",
+          "options": ["Gorapan", "Gavhal", "Kala"]
+        },
+
+        {
+          "label": "Blood Group",
+          "key": "bloodGroup",
+          "type": "select",
+          "placeholder": "Select Blood Group",
+          "value": "",
+          "options": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+        },
+
+        { "label": "Education", "key": "education", "type": "text", "placeholder": "Enter education details", "value": "" },
+        { "label": "Profession / Occupation", "key": "job", "type": "text", "placeholder": "Enter current profession", "value": "" },
+        { "label": "Annual Income", "key": "salary", "type": "text", "placeholder": "Enter annual income", "value": "" }
       ]
     },
+
     {
       "title": "Family Information",
       "addExtraFiels": "Add New Field",
-      "NewFieldLabel": "Enter Label",
-      "NewFieldValue": "Enter Value",
+      "NewFieldLabel": "Enter Field Label",
+      "NewFieldValue": "Enter Field Value",
       "key": "familyInfo",
+
       "fields": [
-        { "label": "Father's Name", "key": "fatherName", "type": "text", "placeholder": "Enter father's name", "value": "" },
+        { "label": "Father's Name", "key": "fatherName", "type": "text", "placeholder": "Enter father's full name", "value": "" },
         { "label": "Father's Occupation", "key": "fatherOccupation", "type": "text", "placeholder": "Enter father's occupation", "value": "" },
-        { "label": "Mother's Name", "key": "motherName", "type": "text", "placeholder": "Enter mother's name", "value": "" },
-        { "label": "Sisters", "key": "sisters", "type": "text", "placeholder": "Number of sisters", "value": "" },
-        { "label": "Brothers", "key": "brothers", "type": "text", "placeholder": "Number of brothers", "value": "" },
-        { "label": "Maternal Uncle", "key": "mama", "type": "text", "placeholder": "Enter maternal uncle", "value": "" },
-        { "label": "Relatives", "key": "relatives", "type": "textarea", "placeholder": "Enter relatives", "value": "" }
+
+        { "label": "Mother's Name", "key": "motherName", "type": "text", "placeholder": "Enter mother's full name", "value": "" },
+
+        { "label": "Number of Sisters", "key": "sisters", "type": "text", "placeholder": "Enter number of sisters", "value": "" },
+        { "label": "Number of Brothers", "key": "brothers", "type": "text", "placeholder": "Enter number of brothers", "value": "" },
+
+        {
+          "label": "Maternal Uncle (Mama)",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "Enter maternal uncle's name",
+          "value": ""
+        },
+
+        {
+          "label": "Relatives",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "Enter details of close relatives",
+          "value": ""
+        }
       ]
     },
+
     {
       "title": "Contact Information",
       "key": "contactInfo",
-      "NewFieldLabel": "Enter Label",
-      "NewFieldValue": "Enter Value",
-      "addExtraFiels": "Add New Field", 
+      "NewFieldLabel": "Enter Field Label",
+      "NewFieldValue": "Enter Field Value",
+      "addExtraFiels": "Add New Field",
+
       "fields": [
-        { "label": "Address", "key": "address", "type": "textarea", "placeholder": "Enter address", "value": "" },
-        { "label": "Mobile Number", "key": "mobile", "type": "tel", "placeholder": "Enter mobile number", "value": "" },
-        { "label": "Email", "key": "email", "type": "email", "placeholder": "Enter email", "value": "" }
+        { "label": "Full Address", "key": "address", "type": "textarea", "placeholder": "Enter your complete address", "value": "" },
+
+        {
+          "label": "Mobile Number",
+          "key": "mobile",
+          "type": "tel",
+          "placeholder": "Enter mobile number",
+          "value": ""
+        },
+
+        {
+          "label": "Email Address",
+          "key": "email",
+          "type": "email",
+          "placeholder": "Enter email address",
+          "value": ""
+        }
       ]
     }
   ]
