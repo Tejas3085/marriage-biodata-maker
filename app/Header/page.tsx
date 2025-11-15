@@ -1,3 +1,5 @@
+"use client";
+
 import { FaMedal } from "react-icons/fa";
 import { useLanguageContext } from "../hooks/useLanguage";
 
