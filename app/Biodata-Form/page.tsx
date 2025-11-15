@@ -23,6 +23,7 @@ type Field = {
   placeholder?: string;
   value?: any;
   options?: string[];
+  NewFieldValue: string
 };
 
 export default function BiodataForm() {
@@ -371,7 +372,7 @@ export default function BiodataForm() {
               {formData.fieldSections.map((section: any, sIndex: number) => (
                 <div key={sIndex} className="mb-8">
                   <div
-                    className="flex items-center mb-3 border-b pb-1 cursor-pointer"
+                    className="flex items-center mb-3 pb-1 cursor-pointer"
                     role="button"
                     tabIndex={0}
                     onClick={() => {
@@ -391,7 +392,7 @@ export default function BiodataForm() {
                     <h3 className="text-base sm:text-lg font-semibold text-gray-800">
                       {section.title}
                     </h3>
-                    <IoCreateOutline   className="text-pink-600 mt-[2px] mx-[6px]" aria-hidden />
+                    <IoCreateOutline className="text-pink-600 mt-[2px] mx-[6px]" aria-hidden />
                   </div>
 
                   <div className="space-y-3">
@@ -406,7 +407,7 @@ export default function BiodataForm() {
                           type="text"
                           value={field.label || ""}
                           onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
-                          placeholder="Label (e.g., Name)"
+                          placeholder={section.NewFieldLabel}
                           className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none"
                         />
 
@@ -607,52 +608,50 @@ export default function BiodataForm() {
       )}
 
       {/* Inline Section Title Edit Modal (fixed) */}
-{showTitleEditModal && editingSectionIndex >= 0 && (
-  <div className="fixed inset-0 flex justify-center items-center z-50">
+    {showTitleEditModal && editingSectionIndex >= 0 && (
+  <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex justify-center items-center z-50">
     <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
       <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
         Edit {formData.fieldSections[editingSectionIndex]?.title}
       </h2>
 
+      <input
+        type="text"
+        value={tempSectionTitle}
+        onChange={(e) => setTempSectionTitle(e.target.value)}
+        className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
+        autoFocus
+      />
 
+      <div className="flex justify-end gap-3 mt-4">
+        <button
+          className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
+          onClick={() => setShowTitleEditModal(false)}
+        >
+          Cancel
+        </button>
 
-            <input
-              type="text"
-              value={tempSectionTitle}
-              onChange={(e) => setTempSectionTitle(e.target.value)}
-              className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
-              autoFocus
-            />
+        <button
+          className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
+          onClick={() => {
+            updateForm((updated) => {
+              if (
+                typeof editingSectionIndex === "number" &&
+                updated.fieldSections?.[editingSectionIndex]
+              ) {
+                updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
+              }
+            });
+            setShowTitleEditModal(false);
+          }}
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
-            <div className="flex justify-end gap-3 mt-4">
-              <button
-                className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
-                onClick={() => setShowTitleEditModal(false)}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
-                onClick={() => {
-                  // save into formData safely
-                  updateForm((updated) => {
-                    if (
-                      typeof editingSectionIndex === "number" &&
-                      updated.fieldSections?.[editingSectionIndex]
-                    ) {
-                      updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
-                    }
-                  });
-                  setShowTitleEditModal(false);
-                }}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

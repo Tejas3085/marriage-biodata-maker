@@ -109,73 +109,71 @@ export default function HomePage() {
 
 
       {/* ===== TEMPLATE GALLERY ===== */}
-      <section
-        className="py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto"
-        style={{
-          background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)",
+     <section
+  className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto"
+  style={{
+    background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)",
+  }}
+>
+  <div className="mx-auto text-center">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+      Choose Your Template
+    </h2>
+    <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
+      Select from professionally designed marriage biodata templates to make your biodata unique and elegant.
+    </p>
+
+    <div className="relative">
+      <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10">
+        <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
+          <FaChevronLeft />
+        </button>
+      </div>
+      <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10">
+        <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
+          <FaChevronRight />
+        </button>
+      </div>
+
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={20}
+        slidesPerView={1}
+        pagination={false}          // ❌ Removed dots
+        // autoplay={{ delay: 2500, disableOnInteraction: false }}
+        navigation={{
+          nextEl: ".swiper-button-next-custom",
+          prevEl: ".swiper-button-prev-custom",
         }}
+        breakpoints={{
+          640: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        }}
+        className="pb-0"            // ❌ Removed extra bottom space
       >
-        <div className="mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
-            Choose Your Template
-          </h2>
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
-            Select from professionally designed marriage biodata templates to make your biodata unique and elegant.
-          </p>
-
-          <div className="relative">
-            <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10">
-              <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
-                <FaChevronLeft />
-              </button>
+        {templates.map((template) => (
+          <SwiperSlide key={template.id}>
+            <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white hover:scale-105 transition-transform">
+              <div className="flex items-center justify-center bg-gray-100">
+                <img
+                  src={template.img}
+                  alt={`${template.name} template`}
+                  className="w-full h-80 object-contain p-5"
+                />
+              </div>
+              {/* <div className="p-4 text-center bg-white">
+                <button className="mt-3 bg-pink-500 text-white px-4 sm:px-5 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium shadow hover:bg-purple-600 transition-all">
+                  Use Template
+                </button>
+              </div> */}
             </div>
-            <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10">
-              <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
-                <FaChevronRight />
-              </button>
-            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  </div>
+</section>
 
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={20}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 2500, disableOnInteraction: false }}
-              navigation={{
-                nextEl: ".swiper-button-next-custom",
-                prevEl: ".swiper-button-prev-custom",
-              }}
-              breakpoints={{
-                640: { slidesPerView: 3 },
-                1024: { slidesPerView: 4 },
-              }}
-              className="pb-12"
-            >
-              {templates.map((template) => (
-                <SwiperSlide key={template.id}>
-                  <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white hover:scale-105 transition-transform">
-                    <div className="flex items-center justify-center bg-gray-100">
-                      <img
-                        src={template.img}
-                        alt={`${template.name} template`}
-                        className="w-full h-80 object-contain"
-                      />
-                    </div>
-                    <div className="p-4 text-center bg-white">
-                      <h3 className="font-semibold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">
-                        {template.name}
-                      </h3>
-                      <button className="mt-3 bg-pink-500 text-white px-4 sm:px-5 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium shadow hover:bg-purple-600 transition-all">
-                        Use Template
-                      </button>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </div>
-      </section>
 
       {/* ===== HOW IT WORKS ===== */}
       <section
@@ -207,7 +205,7 @@ export default function HomePage() {
       {/* ===== FORM SECTION ===== */}
       <section
         ref={formRef}
-        className="px-4 md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto shadow-xl"
+        className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto shadow-xl"
         style={{
           background: "linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #fffde7 100%)",
         }}

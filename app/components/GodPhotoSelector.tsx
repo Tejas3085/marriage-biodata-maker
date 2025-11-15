@@ -12,15 +12,22 @@ const godPhotos = [
   "/gods/2.png",
   "/gods/3.png",
   "/gods/4.png",
+  "/gods/5.png",
+  "/gods/6.png",
+  "/gods/7.png",
+  "/gods/8.png",
+  "/gods/9.png",
+  "/gods/10.png",
+  "/gods/11.png",
+  "/gods/12.png",
+  "/gods/13.png",
 ];
 
-export default function GodPhotoSelector({
-  onSelect,
-  onClose,
-}: GodPhotoSelectorProps) {
+export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelectorProps) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+<div className="fixed inset-0 backdrop-blur-md bg-black/20 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto">
+        
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Select God Photo</h2>
           <button
@@ -31,7 +38,8 @@ export default function GodPhotoSelector({
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        {/* SCROLLABLE GRID */}
+        <div className="grid grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-2">
           {godPhotos.map((photo, index) => (
             <button
               key={index}
@@ -62,4 +70,3 @@ export default function GodPhotoSelector({
     </div>
   );
 }
-
