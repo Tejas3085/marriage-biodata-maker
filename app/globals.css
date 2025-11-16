@@ -162,3 +162,14 @@ select:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 2px #bfdbfe;
 }
+
+/* Hide scrollbar for Webkit (Chrome, Safari) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

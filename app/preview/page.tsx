@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import jsPDF from "jspdf";
 
 interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
@@ -101,7 +100,7 @@ export default function PreviewPage() {
       const godImg = await loadImage(formData.godPhoto);
       const godPhotoHeight = width * 0.10;
       ctx.drawImage(godImg, (width - godPhotoHeight) / 2, y, godPhotoHeight, godPhotoHeight);
-      y += godPhotoHeight + 10;
+      y += godPhotoHeight + 18;
     }
 
     // User Photo
@@ -138,7 +137,7 @@ export default function PreviewPage() {
       ctx.font = `600 ${godTitleFontSize}px "Noto Sans Devanagari", Arial, sans-serif`;
       ctx.textAlign = "center";
       ctx.fillText(formData.godTitle, width / 2, y);
-      y += godTitleFontSize + 10;
+      y += godTitleFontSize + 5;
     }
 
     sections.forEach((sec) => {
@@ -215,39 +214,66 @@ export default function PreviewPage() {
 
           {/* Sticky Download Button */}
           <div className="fixed bottom-6 left-0 w-full px-4 flex gap-4 z-50">
+            {/* Edit Biodata Button */}
+        <button
+  onClick={() => {
+    localStorage.setItem("page", "true");
+    router.push("/"); // navigate to home page
+  }}
+  className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
+>
+  Edit Biodata
+</button>
+
+
+
+            {/* Download PNG Button */}
             <button
               onClick={() => {
-                const firstName = formData?.personalInfo?.fields?.[0]?.value?.split(" ")[0] || "biodata";
+                const firstName =
+                  formData?.personalInfo?.fields?.[0]?.value?.split(" ")[0] || "biodata";
                 const safeName = sanitizeFileName(firstName);
                 const canvas = canvasRef.current;
                 if (!canvas) return;
-                const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: [canvas.width, canvas.height] });
-                pdf.addImage(canvas.toDataURL(), "PNG", 0, 0, canvas.width, canvas.height);
-                pdf.save(`${safeName}_biodata.pdf`);
+
+                // Create PNG download
+                const link = document.createElement("a");
+                link.href = canvas.toDataURL("image/png");
+                link.download = `${safeName}_biodata.png`;
+                link.click();
               }}
               className="flex-1 px-6 py-3 bg-pink-600 text-white rounded-lg shadow-lg hover:bg-pink-700 transition"
             >
-              Download PDF
+              Download PNG
             </button>
           </div>
+
         </div>
 
         {/* Templates */}
         <div className="flex-1 bg-white shadow-sm rounded-xl p-4 border overflow-y-auto">
-          <h2 className="text-lg font-semibold mb-4 text-gray-700 text-center">Choose Template</h2>
+          <h2 className="text-lg font-semibold text-gray-700 text-center">Choose Template</h2>
 
           {/* Mobile slider */}
-          <div className="flex md:hidden gap-2 overflow-x-auto scroll-smooth py-2">
+          {/* Mobile templates with hidden scrollbar */}
+          <div className="flex md:hidden gap-2 py-2 overflow-x-auto scroll-smooth scrollbar-hide">
             {templates.map((tpl) => (
               <div
                 key={tpl.id}
                 onClick={() => setSelectedTemplate(tpl)}
-                className={`w-28 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
+                className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"
+                  }`}
               >
-                <img src={tpl.img} alt={tpl.name} className="w-full h-20 object-contain bg-gray-100" />
+                <img
+                  src={tpl.img}
+                  alt={tpl.name}
+                  className="w-full h-20 object-contain bg-gray-100"
+                />
               </div>
             ))}
           </div>
+
+
 
           {/* Desktop grid */}
           <div className="hidden md:grid grid-cols-2 gap-4">
