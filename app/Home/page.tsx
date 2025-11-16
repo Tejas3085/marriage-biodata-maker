@@ -19,8 +19,9 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { FaMedal  } from "react-icons/fa";
+import { FaMedal } from "react-icons/fa";
 import Header from "../Header/page";
+import { CheckCircle } from "lucide-react";
 export default function HomePage() {
   const { language, setLanguage, translations, setFolder } = useLanguageContext();
   const formRef = useRef<HTMLDivElement | null>(null);
@@ -45,14 +46,14 @@ export default function HomePage() {
   return (
     <main className="text-gray-800 bg-gradient-to-b from-white via-gray-50 to-gray-100">
       {/* ===== HEADER ===== */}
-<Header/>
+      <Header />
 
 
       {/* ===== HERO SECTION ===== */}
       <section
         className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-8 md:py-12 w-full gap-6 md:gap-16 shadow-xl"
         style={{
-          background: "linear-gradient(135deg, #fddde6 0%, #e0c3fc 50%, #ffe7a1 100%)",
+          background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)",
         }}
       >
         {/* Text Content */}
@@ -67,21 +68,27 @@ export default function HomePage() {
             {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
           </p>
 
-          <div className="space-y-1 md:space-y-2">
+          <div className="space-y-2 md:space-y-3">
             {translations?.features?.map((f: string, i: number) => (
-              <p
+              <div
                 key={i}
-                className="text-xs sm:text-sm md:text-base lg:text-lg font-medium flex items-center gap-2 justify-center md:justify-start text-gray-700"
+                className="flex items-start gap-3 mx-auto md:mx-0 w-fit md:w-auto text-center md:text-left"
               >
-                <span className="text-green-500">✅</span> {f}
-              </p>
+                {/* Icon */}
+                <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+
+                {/* Text */}
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-gray-700 leading-snug">
+                  {f}
+                </p>
+              </div>
             ))}
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center md:gap-4 grid justify-center md:justify-start mt-4 md:mt-6">
             <button
               onClick={scrollToForm}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105 text-sm sm:text-base md:text-lg"
+              className="bg-gradient-to-r cursor-pointer from-pink-500 to-purple-600 text-white px-4 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105 text-sm sm:text-base md:text-lg"
             >
               {translations?.createBiodataBtn || "Create Biodata Now"}
             </button>
@@ -109,70 +116,70 @@ export default function HomePage() {
 
 
       {/* ===== TEMPLATE GALLERY ===== */}
-     <section
-  className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto"
-  style={{
-    background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)",
-  }}
->
-  <div className="mx-auto text-center">
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
-      Choose Your Template
-    </h2>
-    <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
-      Select from professionally designed marriage biodata templates to make your biodata unique and elegant.
-    </p>
-
-    <div className="relative">
-      <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10">
-        <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
-          <FaChevronLeft />
-        </button>
-      </div>
-      <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10">
-        <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
-          <FaChevronRight />
-        </button>
-      </div>
-
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        spaceBetween={20}
-        slidesPerView={1}
-        pagination={false}          // ❌ Removed dots
-        // autoplay={{ delay: 2500, disableOnInteraction: false }}
-        navigation={{
-          nextEl: ".swiper-button-next-custom",
-          prevEl: ".swiper-button-prev-custom",
+      <section
+        className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto"
+        style={{
+          background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)",
         }}
-        breakpoints={{
-          640: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
-        }}
-        className="pb-0"            // ❌ Removed extra bottom space
       >
-        {templates.map((template) => (
-          <SwiperSlide key={template.id}>
-            <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white hover:scale-105 transition-transform">
-              <div className="flex items-center justify-center bg-gray-100">
-                <img
-                  src={template.img}
-                  alt={`${template.name} template`}
-                  className="w-full h-80 object-contain p-5"
-                />
-              </div>
-              {/* <div className="p-4 text-center bg-white">
+        <div className="mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+            Choose Your Template
+          </h2>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
+            Select from professionally designed marriage biodata templates to make your biodata unique and elegant.
+          </p>
+
+          <div className="relative">
+            <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10">
+              <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
+                <FaChevronLeft />
+              </button>
+            </div>
+            <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10">
+              <button className="p-3 bg-white shadow-md rounded-full text-gray-700 hover:bg-pink-500 hover:text-white transition-all">
+                <FaChevronRight />
+              </button>
+            </div>
+
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={20}
+              slidesPerView={1}
+              pagination={false}          // ❌ Removed dots
+              // autoplay={{ delay: 2500, disableOnInteraction: false }}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
+              breakpoints={{
+                640: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
+              className="pb-0"            // ❌ Removed extra bottom space
+            >
+              {templates.map((template) => (
+                <SwiperSlide key={template.id}>
+                  <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white hover:scale-105 transition-transform">
+                    <div className="flex items-center justify-center bg-gray-100">
+                      <img
+                        src={template.img}
+                        alt={`${template.name} template`}
+                        className="w-full h-80 object-contain p-5 cursor-pointer"
+                      />
+                    </div>
+                    {/* <div className="p-4 text-center bg-white">
                 <button className="mt-3 bg-pink-500 text-white px-4 sm:px-5 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-medium shadow hover:bg-purple-600 transition-all">
                   Use Template
                 </button>
               </div> */}
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  </div>
-</section>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
 
 
       {/* ===== HOW IT WORKS ===== */}
@@ -186,7 +193,7 @@ export default function HomePage() {
           {translations?.howItWorksheading || "How It Works"}
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 cursor-pointer text-center max-w-6xl mx-auto">
           {translations?.howItWorks?.map((step: any, i: number) => (
             <div
               key={i}

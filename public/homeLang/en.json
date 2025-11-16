@@ -3,17 +3,26 @@
   "headerSubTitle": "Easy to make, beautiful to share.",
   "headerDesc": "Creating your marriage biodata has never been easier. Pick a template, fill in your details, and download a professional-looking biodata in no time—totally free!",
   "features": [
-    "Choose from a variety of elegant templates",
-    "Download instantly as PDF or PNG",
-    "Fast, simple, and completely free"
+                "Choose elegant and customizable biodata!!",
+                "Download your biodata instantly and easily",
+                "Create biodata easily & available free now!!"
   ],
   "createBiodataBtn": "Create My Biodata",
   "biodatasCount": "Thousands of Biodatas Created",
   "howItWorksheading": "How It Works",
   "howItWorks": [
-    { "title": "Fill Your Details", "desc": "Add your personal, family, and contact information easily." },
-    { "title": "Select a Template", "desc": "Pick from multiple beautifully designed templates." },
-    { "title": "Download & Share", "desc": "Save your biodata in PDF or PNG format and share instantly." }
+    {
+      "title": "Fill Your Details",
+      "desc": "Add your personal, family, and contact information easily."
+    },
+    {
+      "title": "Select a Template",
+      "desc": "Pick from multiple beautifully designed templates."
+    },
+    {
+      "title": "Download & Share",
+      "desc": "Save your biodata in PDF or PNG format and share instantly."
+    }
   ],
   "biodataInfoTitle": "Beautiful, Ready-to-Use Templates",
   "biodataInfoDesc": "Our templates make it simple to create a stylish and professional marriage biodata. Customize your details, choose your favorite design, and download it in minutes."

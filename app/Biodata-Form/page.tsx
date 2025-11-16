@@ -277,29 +277,38 @@ export default function BiodataForm() {
                 <button
                   type="button"
                   onClick={() => setShowGodPhotoSelector(true)}
-                  className="text-blue-600 cursor-pointer text-sm font-medium"
+                  className="px-3 py-1 text-sm font-medium bg-blue-50 text-blue-600 
+             rounded-full border border-blue-200 cursor-pointer
+             hover:bg-blue-100 hover:border-blue-300 transition"
                 >
                   {godPhoto ? "Change" : "Add Photo"}
                 </button>
+
+
                 {godPhoto && (
                   <button
                     type="button"
                     onClick={() => setGodPhoto("")}
-                    className="text-red-500 text-sm font-medium"
+                    className="px-3 py-1 text-sm font-medium 
+               bg-red-50 text-red-600 
+               rounded-full border border-red-200 
+               hover:bg-red-100 hover:border-red-300 transition"
                     aria-label="Remove god photo"
                   >
                     Remove
                   </button>
                 )}
+
               </div>
 
               {/* ---------- GOD TITLE SECTION (Updated with Modal) ---------- */}
               <div className="flex justify-center items-center gap-2 flex-wrap">
 
                 {/* Title Text */}
-                <span className="text-lg sm:text-xl font-semibold text-gray-800 text-center">
+                <span className="text-base sm:text-lg font-semibold text-gray-800 text-center">
                   {godTitle || "Add Title"}
                 </span>
+
 
                 {/* Edit Button - Opens Modal */}
                 <button
@@ -329,8 +338,11 @@ export default function BiodataForm() {
 
               {/* GOD TITLE EDIT MODAL */}
               {isGodTitleModalOpen && (
-                <div className="fixed inset-0  flex justify-center items-center z-50">
-                  <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
+                <div className="fixed inset-0 backdrop-blur-[2px] flex justify-center 
+                      items-start pt-20 
+                      md:items-center md:pt-0 
+                      z-50">
+                  <div className="bg-white p-6 rounded-xl w-80 border border-[#d0bdbd] shadow-lg">
                     <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
                       Edit God Title
                     </h2>
@@ -517,13 +529,17 @@ export default function BiodataForm() {
                     src={photoPreview}
                     alt="User profile preview"
                     loading="lazy"
-                    className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-blue-100 shadow"
+                    className="w-28 h-28 sm:w-32 sm:h-32 object-cover border-4 border-blue-100 shadow"
                   />
                 ) : (
-                  <div className="text-gray-500 text-center">
-                    <IoCameraOutline size={48} className="mx-auto mb-2" />
-                    <p className="text-sm">Click to upload</p>
+                  <div className="w-28 h-28 flex flex-col items-center justify-center
+    bg-white/70 backdrop-blur-md border border-gray-200
+    rounded-2xl shadow-sm cursor-pointer transition hover:shadow-md">
+
+                    <IoCameraOutline size={40} className="text-gray-600 mb-1" />
+                    <p className="text-xs font-medium text-gray-600">Click to upload</p>
                   </div>
+
                 )}
               </div>
 
@@ -608,49 +624,52 @@ export default function BiodataForm() {
       )}
 
       {/* Inline Section Title Edit Modal (fixed) */}
-    {showTitleEditModal && editingSectionIndex >= 0 && (
-  <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex justify-center items-center z-50">
-    <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
-      <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
-        Edit {formData.fieldSections[editingSectionIndex]?.title}
-      </h2>
+      {showTitleEditModal && editingSectionIndex >= 0 && (
+        <div className="fixed inset-0 backdrop-blur-[2px] flex justify-center 
+                      items-start pt-20 
+                      md:items-center md:pt-0 
+                      z-50">
+          <div className="bg-white border border-[#d0bdbd] p-6 rounded-xl w-80 shadow-lg">
+            <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
+              Edit {formData.fieldSections[editingSectionIndex]?.title}
+            </h2>
 
-      <input
-        type="text"
-        value={tempSectionTitle}
-        onChange={(e) => setTempSectionTitle(e.target.value)}
-        className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
-        autoFocus
-      />
+            <input
+              type="text"
+              value={tempSectionTitle}
+              onChange={(e) => setTempSectionTitle(e.target.value)}
+              className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
+              autoFocus
+            />
 
-      <div className="flex justify-end gap-3 mt-4">
-        <button
-          className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
-          onClick={() => setShowTitleEditModal(false)}
-        >
-          Cancel
-        </button>
+            <div className="flex justify-end gap-3 mt-4">
+              <button
+                className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
+                onClick={() => setShowTitleEditModal(false)}
+              >
+                Cancel
+              </button>
 
-        <button
-          className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
-          onClick={() => {
-            updateForm((updated) => {
-              if (
-                typeof editingSectionIndex === "number" &&
-                updated.fieldSections?.[editingSectionIndex]
-              ) {
-                updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
-              }
-            });
-            setShowTitleEditModal(false);
-          }}
-        >
-          Save
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+              <button
+                className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
+                onClick={() => {
+                  updateForm((updated) => {
+                    if (
+                      typeof editingSectionIndex === "number" &&
+                      updated.fieldSections?.[editingSectionIndex]
+                    ) {
+                      updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
+                    }
+                  });
+                  setShowTitleEditModal(false);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
