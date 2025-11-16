@@ -66,30 +66,32 @@ export default function PreviewPage() {
       img.src = src;
     });
 
-  function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
+function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
     const words = String(text).split(" ");
     let line = "";
     for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + (n === words.length - 1 ? "" : " ");
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && line !== "") {
-        ctx.fillText(line.trim(), x, y);
-        line = words[n] + " ";
-        y += lineHeight;
-      } else line = testLine;
+        const testLine = line + words[n] + (n === words.length - 1 ? "" : " ");
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && line !== "") {
+            ctx.fillText(line.trim(), x, y);
+            line = words[n] + " ";
+            y += lineHeight * 1.1; // slightly bigger spacing
+        } else line = testLine;
     }
     ctx.fillText(line.trim(), x, y);
-    return y + lineHeight;
-  }
+    return y + lineHeight * 1.1;
+}
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
 
   const drawBiodata = async (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     if (!formData || !selectedTemplate) return;
+
+    // Background
     ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
     ctx.fillRect(0, 0, width, height);
 
-    // Frame
+    // Template frame
     const frameImg = await loadImage(selectedTemplate.img);
     if (frameImg.src) ctx.drawImage(frameImg, 0, 0, width, height);
 
@@ -100,7 +102,17 @@ export default function PreviewPage() {
       const godImg = await loadImage(formData.godPhoto);
       const godPhotoHeight = width * 0.10;
       ctx.drawImage(godImg, (width - godPhotoHeight) / 2, y, godPhotoHeight, godPhotoHeight);
-      y += godPhotoHeight + 18;
+      y += godPhotoHeight + 20;
+    } else y += 10;
+
+    // God Title
+    if (formData.godTitle) {
+      const godTitleFontSize = 18;
+     ctx.font = `700 ${godTitleFontSize}px "Playfair Display", serif`;
+     ctx.fillStyle = selectedTemplate.godTitleColor || "#872341";
+      ctx.textAlign = "center";
+      ctx.fillText(formData.godTitle, width / 2, y);
+      y += godTitleFontSize + 5;
     }
 
     // User Photo
@@ -110,7 +122,7 @@ export default function PreviewPage() {
       photoWidth = width * 0.18;
       photoHeight = photoWidth * 1.2;
       photoX = width - photoWidth - width * 0.06;
-      photoY = height * 0.19;
+      photoY = y;
       ctx.fillStyle = "#fff";
       ctx.fillRect(photoX - 4, photoY - 4, photoWidth + 5, photoHeight + 5);
       ctx.drawImage(userImg, photoX, photoY, photoWidth, photoHeight);
@@ -120,56 +132,59 @@ export default function PreviewPage() {
     const sections = [formData.personalInfo, formData.familyInfo, formData.contactInfo].filter(Boolean);
     const totalFields = sections.reduce((sum, sec) => sum + (sec?.fields.length || 0), 0);
     const sectionCount = sections.length || 1;
-    const remainingHeight = height - y - 60;
-    const lineHeight = totalFields > 0 ? Math.max(18, remainingHeight / (totalFields + sectionCount * 2 + 1)) : 22;
+    const paddingBottom = 40;
+    let lineHeight = totalFields > 0 ? (height - y - paddingBottom) / (totalFields + sectionCount * 2 + 1) : 22;
+    lineHeight = Math.max(12, Math.min(22, lineHeight));
 
-    const godTitleFontSize = Math.max(12, lineHeight * 0.9);
-    const sectionTitleFontSize = Math.max(12, lineHeight * 0.8);
+    const sectionTitleFontSize = Math.max(12, lineHeight * 0.9);
     const labelFontSize = Math.max(10, lineHeight * 0.75);
-    const valueFontSize = Math.max(10, lineHeight * 0.7);
+    const valueFontSize = Math.max(10, lineHeight * 0.75);
 
     const labelX = width * (selectedTemplate.labelsLeftPadding ?? 0.12);
-    const colonX = width * 0.38;
+    const colonX = width * 0.35;
     const valueX = colonX + 12;
 
-    if (formData.godTitle) {
-      ctx.fillStyle = selectedTemplate.godTitleColor || "#000";
-      ctx.font = `600 ${godTitleFontSize}px "Noto Sans Devanagari", Arial, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.fillText(formData.godTitle, width / 2, y);
-      y += godTitleFontSize + 5;
-    }
+  sections.forEach((sec, idx) => {
+  if (!sec) return;
 
-    sections.forEach((sec) => {
-      if (!sec) return;
+  // Check if ANY field has BOTH label + value
+  const validFields = sec.fields.filter(f =>
+    f.label?.trim() !== "" &&
+    f.value?.trim() !== ""
+  );
 
-      ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
-      ctx.font = `600 ${sectionTitleFontSize}px "Noto Sans Devanagari", Arial, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.fillText(sec.title || "", width / 2, y);
-      y += sectionTitleFontSize + lineHeight * 0.2;
+  // If no field has both label & value -> skip whole section
+  if (validFields.length === 0) return;
 
-      ctx.textAlign = "left";
-      sec.fields.forEach((f) => {
-        ctx.fillStyle = selectedTemplate.textColor || "#000";
-        ctx.font = `600 ${labelFontSize}px "Noto Sans Devanagari", Arial, sans-serif`;
-        const safeRightForLabel = photoWidth ? photoX - 10 : width - 40;
-        let labelToDraw = f.label || "";
-        while (ctx.measureText(labelToDraw + "…").width > Math.max(60, safeRightForLabel - labelX - 6)) labelToDraw = labelToDraw.slice(0, -1);
-        if (labelToDraw.length < (f.label || "").length) labelToDraw += "…";
-        ctx.fillText(labelToDraw, labelX, y);
+  // --- Section Title ---
+  ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
+ctx.font = `600 ${sectionTitleFontSize}px "Merriweather", serif`;
+  ctx.textAlign = "center";
+  ctx.fillText(sec.title || "", width / 2, y);
 
-        ctx.fillText(":", colonX, y);
+  y += sectionTitleFontSize + lineHeight * 0.2;
 
-        ctx.fillStyle = selectedTemplate.textColor || "#000";
-        ctx.font = `400 ${valueFontSize}px "Noto Sans Devanagari", Arial, sans-serif`;
-        const rightLimit = photoWidth ? photoX - 16 : width - 40;
-        const maxValueWidth = Math.max(60, rightLimit - valueX);
-        y = wrapText(ctx, f.value || "", valueX, y, maxValueWidth, lineHeight);
-      });
+  // --- Fields ---
+  ctx.textAlign = "left";
+  validFields.forEach(f => {
+    // LABEL (bold)
+    ctx.fillStyle = selectedTemplate.textColor || "#000";
+ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
 
-      y += lineHeight * 0.5;
-    });
+    const safeRight = photoWidth ? photoX - 16 : width - 40;
+    ctx.fillText(f.label, labelX, y);
+
+    // colon
+    ctx.fillText(":", colonX, y);
+
+    // VALUE (semi-bold)
+ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
+    y = wrapText(ctx, f.value, valueX, y, safeRight - valueX, lineHeight);
+  });
+
+  y += lineHeight * 0.5;
+});
+
   };
 
   const updateCanvas = async () => {
@@ -200,34 +215,33 @@ export default function PreviewPage() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
-        {/* Canvas */}
+    <div className="min-h-screen bg-gray-50 pl-4 pr-4 md:p-8">
+      <div className="max-w-7xl mx-auto text-center">
+        <h4 className="sm:text-3xl md:text-4xl font-bold text-yellow-600 border-b-2 pb-1 border-pink-200 inline-flex items-center gap-3">
+          <span className="text-purple-600">✨</span>
+          Select Template & Download
+          <span className="text-purple-600">✨</span>
+        </h4>
+      </div>
+
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-6">
         <div className="flex-1 flex flex-col items-center relative">
           <div className="bg-white rounded-xl shadow-md p-4 w-full flex justify-center">
             <canvas
               ref={canvasRef}
-              className="border rounded-md shadow-inner bg-white w-full"
+              className="shadow-inner bg-white w-full"
               style={{ height: isMobile ? "50vh" : "auto", maxHeight: "1100px", maxWidth: "400px" }}
             />
           </div>
 
-          {/* Sticky Download Button */}
           <div className="fixed bottom-6 left-0 w-full px-4 flex gap-4 z-50">
-            {/* Edit Biodata Button */}
-        <button
-  onClick={() => {
-    localStorage.setItem("page", "true");
-    router.push("/"); // navigate to home page
-  }}
-  className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
->
-  Edit Biodata
-</button>
+            <button
+              onClick={() => router.push("/")}
+              className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
+            >
+              Edit Biodata
+            </button>
 
-
-
-            {/* Download PNG Button */}
             <button
               onClick={() => {
                 const firstName =
@@ -236,7 +250,6 @@ export default function PreviewPage() {
                 const canvas = canvasRef.current;
                 if (!canvas) return;
 
-                // Create PNG download
                 const link = document.createElement("a");
                 link.href = canvas.toDataURL("image/png");
                 link.download = `${safeName}_biodata.png`;
@@ -247,35 +260,22 @@ export default function PreviewPage() {
               Download PNG
             </button>
           </div>
-
         </div>
 
-        {/* Templates */}
-        <div className="flex-1 bg-white shadow-sm rounded-xl p-4 border overflow-y-auto">
+        <div className="flex-1 bg-white shadow-sm rounded-xl p-4 overflow-y-auto">
           <h2 className="text-lg font-semibold text-gray-700 text-center">Choose Template</h2>
-
-          {/* Mobile slider */}
-          {/* Mobile templates with hidden scrollbar */}
           <div className="flex md:hidden gap-2 py-2 overflow-x-auto scroll-smooth scrollbar-hide">
             {templates.map((tpl) => (
               <div
                 key={tpl.id}
                 onClick={() => setSelectedTemplate(tpl)}
-                className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"
-                  }`}
+                className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
               >
-                <img
-                  src={tpl.img}
-                  alt={tpl.name}
-                  className="w-full h-20 object-contain bg-gray-100"
-                />
+                <img src={tpl.img} alt={tpl.name} className="w-full h-20 object-contain bg-gray-100" />
               </div>
             ))}
           </div>
 
-
-
-          {/* Desktop grid */}
           <div className="hidden md:grid grid-cols-2 gap-4">
             {templates.map((tpl) => (
               <div
