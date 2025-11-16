@@ -1,29 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface GodPhotoSelectorProps {
   onSelect: (photoPath: string) => void;
   onClose: () => void;
 }
 
-const godPhotos = [
-  "/gods/1.png",
-  "/gods/2.png",
-  "/gods/3.png",
-  "/gods/4.png",
-  "/gods/5.png",
-  "/gods/6.png",
-  "/gods/7.png",
-  "/gods/8.png",
-  "/gods/9.png",
-  "/gods/10.png",
-  "/gods/11.png",
-  "/gods/12.png",
-  "/gods/13.png",
-];
+
+
 
 export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelectorProps) {
+  const [godPhotos, setGodPhotos] = useState([]);
+useEffect(() => {
+  const images: any = [];
+  for (let i = 1; i <= 14; i++) {
+    images.push(`/gods/${i}.png`);
+  }
+  setGodPhotos(images);
+}, []);
+
+
   return (
 <div className="fixed inset-0 backdrop-blur-md bg-black/20 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto">
