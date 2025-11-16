@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguageContext } from "../hooks/useLanguage";
 
 interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
@@ -33,6 +34,7 @@ export default function PreviewPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const { language, setLanguage } = useLanguageContext();
 
   const templates: Template[] = [
     { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#872341", sectionTitleColor: "#184578" },
@@ -51,7 +53,7 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
-    const saved = localStorage.getItem("formData");
+    const saved = localStorage.getItem(language);
     if (saved) setFormData(JSON.parse(saved));
     setSelectedTemplate(templates[0]);
     setLoading(false);
@@ -66,21 +68,21 @@ export default function PreviewPage() {
       img.src = src;
     });
 
-function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
+  function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
     const words = String(text).split(" ");
     let line = "";
     for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + (n === words.length - 1 ? "" : " ");
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > maxWidth && line !== "") {
-            ctx.fillText(line.trim(), x, y);
-            line = words[n] + " ";
-            y += lineHeight * 1.1; // slightly bigger spacing
-        } else line = testLine;
+      const testLine = line + words[n] + (n === words.length - 1 ? "" : " ");
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && line !== "") {
+        ctx.fillText(line.trim(), x, y);
+        line = words[n] + " ";
+        y += lineHeight * 1.1; // slightly bigger spacing
+      } else line = testLine;
     }
     ctx.fillText(line.trim(), x, y);
     return y + lineHeight * 1.1;
-}
+  }
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
 
@@ -108,8 +110,8 @@ function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: num
     // God Title
     if (formData.godTitle) {
       const godTitleFontSize = 18;
-     ctx.font = `700 ${godTitleFontSize}px "Playfair Display", serif`;
-     ctx.fillStyle = selectedTemplate.godTitleColor || "#872341";
+      ctx.font = `700 ${godTitleFontSize}px "Playfair Display", serif`;
+      ctx.fillStyle = selectedTemplate.godTitleColor || "#872341";
       ctx.textAlign = "center";
       ctx.fillText(formData.godTitle, width / 2, y);
       y += godTitleFontSize + 5;
@@ -144,46 +146,46 @@ function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: num
     const colonX = width * 0.35;
     const valueX = colonX + 12;
 
-  sections.forEach((sec, idx) => {
-  if (!sec) return;
+    sections.forEach((sec, idx) => {
+      if (!sec) return;
 
-  // Check if ANY field has BOTH label + value
-  const validFields = sec.fields.filter(f =>
-    f.label?.trim() !== "" &&
-    f.value?.trim() !== ""
-  );
+      // Check if ANY field has BOTH label + value
+      const validFields = sec.fields.filter(f =>
+        f.label?.trim() !== "" &&
+        f.value?.trim() !== ""
+      );
 
-  // If no field has both label & value -> skip whole section
-  if (validFields.length === 0) return;
+      // If no field has both label & value -> skip whole section
+      if (validFields.length === 0) return;
 
-  // --- Section Title ---
-  ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
-ctx.font = `600 ${sectionTitleFontSize}px "Merriweather", serif`;
-  ctx.textAlign = "center";
-  ctx.fillText(sec.title || "", width / 2, y);
+      // --- Section Title ---
+      ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
+      ctx.font = `600 ${sectionTitleFontSize}px "Merriweather", serif`;
+      ctx.textAlign = "center";
+      ctx.fillText(sec.title || "", width / 2, y);
 
-  y += sectionTitleFontSize + lineHeight * 0.2;
+      y += sectionTitleFontSize + lineHeight * 0.2;
 
-  // --- Fields ---
-  ctx.textAlign = "left";
-  validFields.forEach(f => {
-    // LABEL (bold)
-    ctx.fillStyle = selectedTemplate.textColor || "#000";
-ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
+      // --- Fields ---
+      ctx.textAlign = "left";
+      validFields.forEach(f => {
+        // LABEL (bold)
+        ctx.fillStyle = selectedTemplate.textColor || "#000";
+        ctx.font = `600 ${labelFontSize}px "Poppins", sans-serif`;
 
-    const safeRight = photoWidth ? photoX - 16 : width - 40;
-    ctx.fillText(f.label, labelX, y);
+        const safeRight = photoWidth ? photoX - 16 : width - 40;
+        ctx.fillText(f.label, labelX, y);
 
-    // colon
-    ctx.fillText(":", colonX, y);
+        // colon
+        ctx.fillText(":", colonX, y);
 
-    // VALUE (semi-bold)
-ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
-    y = wrapText(ctx, f.value, valueX, y, safeRight - valueX, lineHeight);
-  });
+        // VALUE (semi-bold)
+        ctx.font = `600 ${labelFontSize}px "Poppins", sans-serif`;
+        y = wrapText(ctx, f.value, valueX, y, safeRight - valueX, lineHeight);
+      });
 
-  y += lineHeight * 0.5;
-});
+      y += lineHeight * 0.5;
+    });
 
   };
 
@@ -234,14 +236,33 @@ ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
             />
           </div>
 
-          <div className="fixed bottom-6 left-0 w-full px-4 flex gap-4 z-50">
+          <div
+            className="
+    fixed bottom-6 left-1/2 -translate-x-1/2 
+    w-[95%] md:w-auto 
+    px-4 py-3 
+    bg-white/80 backdrop-blur-md 
+    rounded-2xl shadow-xl border border-gray-200
+    flex gap-4 items-center justify-center
+    z-50
+  "
+          >
+            {/* Edit Button */}
             <button
-              onClick={() => router.push("/")}
-              className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
+              onClick={() => { localStorage.setItem('page', 'true'), router.push("/") }}
+              className="
+      px-6 py-3 
+      bg-gray-700 text-white font-semibold 
+      rounded-xl shadow-md 
+      hover:bg-gray-800 hover:shadow-lg 
+      transition-all duration-200
+      min-w-[120px]
+    "
             >
               Edit Biodata
             </button>
 
+            {/* Download Button */}
             <button
               onClick={() => {
                 const firstName =
@@ -255,11 +276,19 @@ ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
                 link.download = `${safeName}_biodata.png`;
                 link.click();
               }}
-              className="flex-1 px-6 py-3 bg-pink-600 text-white rounded-lg shadow-lg hover:bg-pink-700 transition"
+              className="
+      px-6 py-3 
+      bg-pink-600 text-white font-semibold 
+      rounded-xl shadow-md 
+      hover:bg-pink-700 hover:shadow-lg 
+      transition-all duration-200
+      min-w-[120px]
+    "
             >
               Download PNG
             </button>
           </div>
+
         </div>
 
         <div className="flex-1 bg-white shadow-sm rounded-xl p-4 overflow-y-auto">
@@ -276,18 +305,37 @@ ctx.font = `500 ${labelFontSize}px "Poppins", sans-serif`;
             ))}
           </div>
 
-          <div className="hidden md:grid grid-cols-2 gap-4">
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             {templates.map((tpl) => (
               <div
                 key={tpl.id}
                 onClick={() => setSelectedTemplate(tpl)}
-                className={`cursor-pointer border rounded-lg overflow-hidden transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-2 ring-pink-300" : "border-gray-300"}`}
+                className={`
+        cursor-pointer rounded-xl overflow-hidden bg-white shadow-sm border transition-all 
+        hover:shadow-lg hover:-translate-y-1 hover:border-pink-400 
+        ${tpl.id === selectedTemplate?.id ? "border-pink-500 ring-2 ring-pink-300" : "border-gray-200"}
+      `}
               >
-                <img src={tpl.img} alt={tpl.name} className="w-full h-32 object-contain bg-gray-100" />
-                <p className="text-center text-sm font-medium py-2 bg-gray-50">{tpl.name}</p>
+                <div className="w-full h-40 flex items-center justify-center bg-gray-100 px-3 py-3">
+                  <img
+                    src={tpl.img}
+                    alt={tpl.name}
+                    className="w-full h-full object-contain rounded-md"
+                  />
+                </div>
+
+                <div className="px-3 py-3 text-center bg-gray-50 border-t">
+                  <p
+                    className={`text-sm font-semibold tracking-wide ${tpl.id === selectedTemplate?.id ? "text-pink-600" : "text-gray-700"
+                      }`}
+                  >
+                    {tpl.name}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </div>

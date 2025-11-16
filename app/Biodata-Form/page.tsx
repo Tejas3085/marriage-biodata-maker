@@ -71,40 +71,42 @@ export default function BiodataForm() {
     if (!translationsForm || isInitialized.current) return;
 
     const clone = structuredClone(translationsForm);
-    const saved = typeof window !== "undefined" ? localStorage.getItem("formData") : null;
+const saved = typeof window !== "undefined"
+  ? localStorage.getItem(language)
+  : null;
 
-    if (saved) {
-      try {
-        const groupedData = JSON.parse(saved);
-        const keyValueLookup: Record<string, any> = {};
+if (saved) {
+  try {
+    const groupedData = JSON.parse(saved);
+    const keyValueLookup: Record<string, any> = {};
 
-        for (const sectionKey of Object.keys(groupedData)) {
-          const section = (groupedData as any)[sectionKey];
-          if (section?.fields) {
-            section.fields.forEach((field: any) => {
-              if (field?.key) keyValueLookup[field.key] = field.value;
-            });
-          }
-        }
-
-        if (clone.fieldSections) {
-          clone.fieldSections.forEach((section: any) => {
-            section.fields?.forEach((field: any) => {
-              if (keyValueLookup.hasOwnProperty(field.key)) {
-                field.value = keyValueLookup[field.key];
-              }
-            });
-          });
-        }
-
-        if (groupedData.photo) setPhotoPreview(groupedData.photo);
-        if (groupedData.godPhoto) setGodPhoto(groupedData.godPhoto);
-        if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
-      } catch (err) {
-        // fail gracefully
-        console.error("Failed to load saved form data:", err);
+    for (const sectionKey of Object.keys(groupedData)) {
+      const section = (groupedData as any)[sectionKey];
+      if (section?.fields) {
+        section.fields.forEach((field: any) => {
+          if (field?.key) keyValueLookup[field.key] = field.value;
+        });
       }
     }
+
+    if (clone.fieldSections) {
+      clone.fieldSections.forEach((section: any) => {
+        section.fields?.forEach((field: any) => {
+          if (keyValueLookup.hasOwnProperty(field.key)) {
+            field.value = keyValueLookup[field.key];
+          }
+        });
+      });
+    }
+
+    if (groupedData.photo) setPhotoPreview(groupedData.photo);
+    if (groupedData.godPhoto) setGodPhoto(groupedData.godPhoto);
+    if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
+  } catch (err) {
+    console.error("Failed to load saved form data:", err);
+  }
+}
+
 
     setFormData(clone);
     isInitialized.current = true;
@@ -202,7 +204,7 @@ export default function BiodataForm() {
     groupedData.godPhoto = godPhoto;
 
     try {
-      localStorage.setItem("formData", JSON.stringify(groupedData));
+        localStorage.setItem(language, JSON.stringify(groupedData));
     } catch (err) {
       console.warn("Could not save to localStorage:", err);
     }
@@ -584,7 +586,7 @@ export default function BiodataForm() {
                     // reset form & localStorage
                     if (confirm(language === "mr" ? "रिअली रीसेट करायचंय?" : "Reset the form?")) {
                       try {
-                        localStorage.removeItem("formData");
+                        localStorage.removeItem(language);
                       } catch (err) { }
                       // reload page to reinitialize
                       window.location.reload();
