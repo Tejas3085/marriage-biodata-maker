@@ -88,7 +88,7 @@ export default function PreviewPage() {
 
   const drawBiodata = async (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     if (!formData || !selectedTemplate) return;
-
+console.log(formData)
     // Background
     ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
     ctx.fillRect(0, 0, width, height);
@@ -121,6 +121,7 @@ export default function PreviewPage() {
     let photoWidth = 0, photoHeight = 0, photoX = 0, photoY = 0;
     if (formData.photo) {
       const userImg = await loadImage(formData.photo);
+      console.log('userImg: ', userImg);
       photoWidth = width * 0.18;
       photoHeight = photoWidth * 1.2;
       photoX = width - photoWidth - width * 0.06;
