@@ -47,12 +47,9 @@ export default function ImageCropper({
   const [aspect, setAspect] = useState<number | undefined>(1);
 
   React.useEffect(() => {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      setImgSrc(reader.result?.toString() || "");
-    });
-    reader.readAsDataURL(file);
+    compressBeforeLoad(file).then((smallImg) => setImgSrc(smallImg));
   }, [file]);
+
 
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget;
@@ -112,6 +109,37 @@ export default function ImageCropper({
     const croppedImage = canvas.toDataURL("image/jpeg", 0.9);
     onCropComplete(croppedImage);
     onClose();
+  }
+  async function compressBeforeLoad(file: File): Promise<string> {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+
+      img.onload = () => {
+        const MAX_SIZE = 1500;
+        let w = img.width;
+        let h = img.height;
+
+        if (w > MAX_SIZE || h > MAX_SIZE) {
+          const ratio = Math.min(MAX_SIZE / w, MAX_SIZE / h);
+          w *= ratio;
+          h *= ratio;
+        }
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d")!;
+        canvas.width = w;
+        canvas.height = h;
+
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", 0.85));
+      };
+    });
   }
 
   return (
