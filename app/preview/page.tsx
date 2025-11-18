@@ -213,7 +213,7 @@ console.log(formData)
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center">
         <p>No data found. Please fill the form first.</p>
-        <button onClick={() => router.push("/form")} className="mt-4 px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700">Go to Form</button>
+        <button onClick={() => router.push("/")} className="mt-4 px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700">Go to Form</button>
       </div>
     );
 
