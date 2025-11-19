@@ -12,14 +12,14 @@
       "key": "personalInfo",
 
       "fields": [
-        { "label": "Full Name", "key": "name", "type": "text", "placeholder": "Enter your full name", "value": "" },
+        { "label": "Full Name", "key": "name", "type": "textarea", "placeholder": "Enter your full name", "value": "" },
         { "label": "Date of Birth", "key": "dob", "type": "date", "placeholder": "DD-MM-YYYY", "value": "" },
         { "label": "Time of Birth", "key": "birthTime", "type": "time", "placeholder": "HH:MM", "value": "" },
-        { "label": "Place of Birth", "key": "birthPlace", "type": "text", "placeholder": "Enter place of birth", "value": "" },
+        { "label": "Place of Birth", "key": "birthPlace", "type": "textarea", "placeholder": "Enter place of birth", "value": "" },
 
-        { "label": "Religion", "key": "religion", "type": "text", "placeholder": "Enter religion", "value": "" },
-        { "label": "Caste", "key": "caste", "type": "text", "placeholder": "Enter caste", "value": "" },
-        { "label": "Kuldevta", "key": "kuldevta", "type": "text", "placeholder": "Enter Kuldevta (Family Deity)", "value": "" },
+        { "label": "Religion", "key": "religion", "type": "textarea", "placeholder": "Enter religion", "value": "" },
+        { "label": "Caste", "key": "caste", "type": "textarea", "placeholder": "Enter caste", "value": "" },
+        { "label": "Kuldevta", "key": "kuldevta", "type": "textarea", "placeholder": "Enter Kuldevta (Family Deity)", "value": "" },
 
         {
           "label": "Rashi (Zodiac Sign)",
@@ -43,7 +43,7 @@
           ]
         },
 
-        { "label": "Nakshatra", "key": "nakshatra", "type": "text", "placeholder": "Enter Nakshatra", "value": "" },
+        { "label": "Nakshatra", "key": "nakshatra", "type": "textarea", "placeholder": "Enter Nakshatra", "value": "" },
 
         {
           "label": "Gana",
@@ -72,7 +72,7 @@
           "options": ["Yes", "No", "Not Sure"]
         },
 
-        { "label": "Gotra", "key": "gotra", "type": "text", "placeholder": "Enter Gotra", "value": "" },
+        { "label": "Gotra", "key": "gotra", "type": "textarea", "placeholder": "Enter Gotra", "value": "" },
         { "label": "Height", "key": "height", "type": "select", "placeholder": "Select height", "value": "",
       "options": [
                 "3 feet 5 inches","3 feet 6 inches","3 feet 7 inches","3 feet 8 inches","3 feet 9 inches","3 feet 10 inches","3 feet 11 inches",
@@ -105,9 +105,9 @@
           "options": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
         },
 
-        { "label": "Education", "key": "education", "type": "text", "placeholder": "Enter education details", "value": "" },
-        { "label": "Profession / Occupation", "key": "job", "type": "text", "placeholder": "Enter current profession", "value": "" },
-        { "label": "Annual Income", "key": "salary", "type": "text", "placeholder": "Enter annual income", "value": "" }
+        { "label": "Education", "key": "education", "type": "textarea", "placeholder": "Enter education details", "value": "" },
+        { "label": "Profession / Occupation", "key": "job", "type": "textarea", "placeholder": "Enter current profession", "value": "" },
+        { "label": "Annual Income", "key": "salary", "type": "textarea", "placeholder": "Enter annual income", "value": "" }
       ]
     },
 
@@ -119,18 +119,18 @@
       "key": "familyInfo",
 
       "fields": [
-        { "label": "Father's Name", "key": "fatherName", "type": "text", "placeholder": "Enter father's full name", "value": "" },
-        { "label": "Father's Occupation", "key": "fatherOccupation", "type": "text", "placeholder": "Enter father's occupation", "value": "" },
+        { "label": "Father's Name", "key": "fatherName", "type": "textarea", "placeholder": "Enter father's full name", "value": "" },
+        { "label": "Father's Occupation", "key": "fatherOccupation", "type": "textarea", "placeholder": "Enter father's occupation", "value": "" },
 
-        { "label": "Mother's Name", "key": "motherName", "type": "text", "placeholder": "Enter mother's full name", "value": "" },
+        { "label": "Mother's Name", "key": "motherName", "type": "textarea", "placeholder": "Enter mother's full name", "value": "" },
 
-        { "label": "Number of Sisters", "key": "sisters", "type": "text", "placeholder": "Enter number of sisters", "value": "" },
-        { "label": "Number of Brothers", "key": "brothers", "type": "text", "placeholder": "Enter number of brothers", "value": "" },
+        { "label": "Number of Sisters", "key": "sisters", "type": "textarea", "placeholder": "Enter number of sisters", "value": "" },
+        { "label": "Number of Brothers", "key": "brothers", "type": "textarea", "placeholder": "Enter number of brothers", "value": "" },
 
         {
           "label": "Maternal Uncle (Mama)",
           "key": "mama",
-          "type": "text",
+          "type": "textareaarea",
           "placeholder": "Enter maternal uncle's name",
           "value": ""
         },
@@ -138,7 +138,7 @@
         {
           "label": "Relatives",
           "key": "relatives",
-          "type": "textarea",
+          "type": "textareaarea",
           "placeholder": "Enter details of close relatives",
           "value": ""
         }
@@ -153,7 +153,7 @@
       "addExtraFiels": "Add New Field",
 
       "fields": [
-        { "label": "Full Address", "key": "address", "type": "textarea", "placeholder": "Enter your complete address", "value": "" },
+        { "label": "Full Address", "key": "address", "type": "textareaarea", "placeholder": "Enter your complete address", "value": "" },
 
         {
           "label": "Mobile Number",

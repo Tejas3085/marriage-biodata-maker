@@ -12,7 +12,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
 
   useEffect(() => {
     const images: string[] = [];
-    for (let i = 1; i <= 18; i++) {
+    for (let i = 0; i <= 18; i++) {
       images.push(`/gods/${i}.png`);
     }
     setGodPhotos(images);
@@ -38,7 +38,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
 
         {/* Choose from Gallery */}
         <div className="mb-4">
-          <label className="w-full block bg-pink-600 text-white text-center py-2 rounded-lg cursor-pointer hover:bg-pink-700">
+          <label className="w-full block bg-pink-800 text-white text-center py-2 rounded-lg cursor-pointer hover:bg-pink-700">
             Choose from Gallery
             <input
               type="file"
@@ -47,6 +47,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
               onChange={handleGallerySelect}
             />
           </label>
+          <h3 className="text-center w-full">Or</h3>
         </div>
 
         {/* Scrollable Grid */}
@@ -60,7 +61,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
               }}
               className="border-2 border-gray-200 rounded-lg p-2 hover:border-pink-500 transition"
             >
-              <img src={photo} alt={`God ${index + 1}`} className="w-full h-24 object-contain" />
+                 <img src={photo} alt={`God ${index + 1}`} className="w-full h-20 object-contain" />
             </button>
           ))}
         </div>

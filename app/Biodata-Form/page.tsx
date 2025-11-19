@@ -71,41 +71,41 @@ export default function BiodataForm() {
     if (!translationsForm || isInitialized.current) return;
 
     const clone = structuredClone(translationsForm);
-const saved = typeof window !== "undefined"
-  ? localStorage.getItem(language)
-  : null;
+    const saved = typeof window !== "undefined"
+      ? localStorage.getItem(language)
+      : null;
 
-if (saved) {
-  try {
-    const groupedData = JSON.parse(saved);
-    const keyValueLookup: Record<string, any> = {};
+    if (saved) {
+      try {
+        const groupedData = JSON.parse(saved);
+        const keyValueLookup: Record<string, any> = {};
 
-    for (const sectionKey of Object.keys(groupedData)) {
-      const section = (groupedData as any)[sectionKey];
-      if (section?.fields) {
-        section.fields.forEach((field: any) => {
-          if (field?.key) keyValueLookup[field.key] = field.value;
-        });
+        for (const sectionKey of Object.keys(groupedData)) {
+          const section = (groupedData as any)[sectionKey];
+          if (section?.fields) {
+            section.fields.forEach((field: any) => {
+              if (field?.key) keyValueLookup[field.key] = field.value;
+            });
+          }
+        }
+
+        if (clone.fieldSections) {
+          clone.fieldSections.forEach((section: any) => {
+            section.fields?.forEach((field: any) => {
+              if (keyValueLookup.hasOwnProperty(field.key)) {
+                field.value = keyValueLookup[field.key];
+              }
+            });
+          });
+        }
+
+        if (groupedData.photo) setPhotoPreview(groupedData.photo);
+        if (groupedData.godPhoto) setGodPhoto(groupedData.godPhoto);
+        if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
+      } catch (err) {
+        console.error("Failed to load saved form data:", err);
       }
     }
-
-    if (clone.fieldSections) {
-      clone.fieldSections.forEach((section: any) => {
-        section.fields?.forEach((field: any) => {
-          if (keyValueLookup.hasOwnProperty(field.key)) {
-            field.value = keyValueLookup[field.key];
-          }
-        });
-      });
-    }
-
-    if (groupedData.photo) setPhotoPreview(groupedData.photo);
-    if (groupedData.godPhoto) setGodPhoto(groupedData.godPhoto);
-    if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
-  } catch (err) {
-    console.error("Failed to load saved form data:", err);
-  }
-}
 
 
     setFormData(clone);
@@ -157,6 +157,11 @@ if (saved) {
     });
   }, [updateForm]);
 
+  const autoResize = (e: any) => {
+    e.target.style.height = "auto";       // reset height
+    e.target.style.height = e.target.scrollHeight + "px"; // expand
+  };
+
   const updateField = useCallback((sIndex: number, fIndex: number, key: "label" | "value", value: any) => {
     updateForm((updated) => {
       if (!updated.fieldSections?.[sIndex]?.fields?.[fIndex]) return;
@@ -180,9 +185,9 @@ if (saved) {
   };
 
   // Generate biodata (save and navigate)
-  const generateBiodata = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData) return;
+ const generateBiodata = (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!formData) return;
 
     const groupedData: any = {};
     formData.fieldSections.forEach((section: any) => {
@@ -199,18 +204,19 @@ if (saved) {
       };
     });
 
-    groupedData.photo = photoPreview;
-    groupedData.godTitle = godTitle;
-    groupedData.godPhoto = godPhoto;
+  groupedData.photo = photoPreview;
+  groupedData.godTitle = godTitle;
+  groupedData.godPhoto = godPhoto;
 
-    try {
-        localStorage.setItem(language, JSON.stringify(groupedData));
-    } catch (err) {
-      console.warn("Could not save to localStorage:", err);
-    }
+  try {
+    localStorage.setItem(language, JSON.stringify(groupedData));
+  } catch (err) {
+    console.warn("Could not save to localStorage:", err);
+  }
 
-    router.push("/preview");
-  };
+  router.push("/preview");
+};
+
 
   // If not initialized or translations missing show loading
   if (!formData) {
@@ -442,15 +448,19 @@ if (saved) {
                             ))}
                           </select>
                         ) : (
-                          <input
+                          <textarea
                             id={field.key}
                             aria-label={`Field value for ${field.label || "field"}`}
-                            type={field.type || "text"}
                             value={field.value || ""}
-                            onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
+                            onChange={(e) => {
+                              updateField(sIndex, fIndex, "value", e.target.value);
+                              autoResize(e);
+                            }}
                             placeholder={field.placeholder || "Enter value"}
-                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full"
+                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full resize-none overflow-hidden"
+                            rows={1}
                           />
+
                         )}
 
 
