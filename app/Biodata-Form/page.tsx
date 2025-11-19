@@ -415,94 +415,95 @@ export default function BiodataForm() {
                     <IoCreateOutline className="text-pink-600 mt-[2px] mx-[6px]" aria-hidden />
                   </div>
 
-                  <div className="space-y-3">
-                    {section.fields.map((field: Field, fIndex: number) => (
-                      <div
-                        key={field.key}
-                        className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3 items-center"
-                      >
-                        <input
-                          id={field.key + "_label"}
-                          aria-label="Field label"
-                          type="text"
-                          value={field.label || ""}
-                          onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
-                          placeholder={section.NewFieldLabel}
-                          className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none"
-                        />
+<div className="space-y-3">
+  {section.fields.map((field: Field, fIndex: number) => (
+    <div
+      key={field.key}
+      className="
+        flex sm:grid-cols-[1fr_auto] sm:items-center gap-2 sm:gap-3                  /* Mobile: vertical */
+        sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-3 /* Tablet: horizontal */
+        lg:flex lg:flex-row lg:items-center lg:gap-3                /* Large: horizontal flex */
+      "
+    >
+      {/* Input / Textarea / Select */}
+      <div className="w-full flex flex-col lg:flex-row lg:gap-3">
+        <input
+          id={field.key + "_label"}
+          aria-label="Field label"
+          type="text"
+          value={field.label || ""}
+          onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
+          placeholder={section.NewFieldLabel}
+          className="border w-full border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none mb-2 lg:mb-0"
+        />
 
-                        {/* render select when type === 'select' */}
-                        {field.type === "select" ? (
-                          <select
-                            id={field.key}
-                            aria-label={`Select ${field.label || "option"}`}
-                            value={field.value || ""}
-                            onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full"
-                          >
-                            <option value="">{field.placeholder || "Select"}</option>
-                            {field.options?.map((op: string, idx: number) => (
-                              <option key={idx} value={op}>
-                                {op}
-                              </option>
-                            ))}
-                          </select>
-                        ) : (
-                          <textarea
-                            id={field.key}
-                            aria-label={`Field value for ${field.label || "field"}`}
-                            value={field.value || ""}
-                            onChange={(e) => {
-                              updateField(sIndex, fIndex, "value", e.target.value);
-                              autoResize(e);
-                            }}
-                            placeholder={field.placeholder || "Enter value"}
-                            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full resize-none overflow-hidden"
-                            rows={1}
-                          />
+        {field.type === "select" ? (
+          <select
+            id={field.key}
+            aria-label={`Select ${field.label || "option"}`}
+            value={field.value || ""}
+            onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
+            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full"
+          >
+            <option value="">{field.placeholder || "Select"}</option>
+            {field.options?.map((op: string, idx: number) => (
+              <option key={idx} value={op}>
+                {op}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <textarea
+            id={field.key}
+            aria-label={`Field value for ${field.label || "field"}`}
+            value={field.value || ""}
+            onChange={(e) => {
+              updateField(sIndex, fIndex, "value", e.target.value);
+              autoResize(e);
+            }}
+            placeholder={field.placeholder || "Enter value"}
+            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full resize-none overflow-hidden"
+            rows={1}
+          />
+        )}
+      </div>
 
-                        )}
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-col lg:flex-row gap-2 justify-start sm:justify-end lg:justify-end">
+        <button
+          type="button"
+          onClick={() => moveFieldUp(sIndex, fIndex)}
+          disabled={fIndex === 0}
+          className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+        >
+          <ChevronUp size={20} strokeWidth={1.8} />
+        </button>
 
+        <button
+          type="button"
+          onClick={() => moveFieldDown(sIndex, fIndex)}
+          disabled={fIndex === section.fields.length - 1}
+          className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+        >
+          <ChevronDown size={20} strokeWidth={1.8} />
+        </button>
 
-                        <div className="flex items-center gap-2 justify-end">
-
-                          {/* Move Up */}
-                          <button
-                            type="button"
-                            onClick={() => moveFieldUp(sIndex, fIndex)}
-                            disabled={fIndex === 0}
-                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
-                          >
-                            <ChevronUp size={20} strokeWidth={1.8} />
-                          </button>
-
-                          {/* Move Down */}
-                          <button
-                            type="button"
-                            onClick={() => moveFieldDown(sIndex, fIndex)}
-                            disabled={fIndex === section.fields.length - 1}
-                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
-                          >
-                            <ChevronDown size={20} strokeWidth={1.8} />
-                          </button>
-
-                          {/* Delete */}
-                          <button
-                            type="button"
-                            onClick={() => deleteField(sIndex, fIndex)}
-                            className="text-pink-400 transition"
-                            aria-label="Delete field"
-                          >
-                            <Trash2 size={18} />
-                          </button>
-
-
-                        </div>
+        <button
+          type="button"
+          onClick={() => deleteField(sIndex, fIndex)}
+          className="text-pink-400 transition"
+          aria-label="Delete field"
+        >
+          <Trash2 size={18} />
+        </button>
 
 
-                      </div>
-                    ))}
-                  </div>
+      </div>
+
+
+    </div>
+  ))}
+</div>
 
                   <button
                     type="button"

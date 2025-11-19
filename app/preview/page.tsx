@@ -137,7 +137,6 @@ export default function PreviewPage() {
     let photoWidth = 0, photoHeight = 0, photoX = 0, photoY = 0;
     if (formData.photo) {
       const userImg = await loadImage(formData.photo);
-      console.log('userImg: ', userImg);
       photoWidth = width * 0.18;
       photoHeight = photoWidth * 1.2;
       photoX = width - photoWidth - width * 0.06;

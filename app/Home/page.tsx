@@ -159,7 +159,7 @@ export default function HomePage() {
       </section>
 
       {/* FORM SECTION */}
-      <section ref={formRef} className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto shadow-xl" style={{ background: "linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #fffde7 100%)" }}>
+      <section ref={formRef} className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl md:mx-auto shadow-xl" style={{ background: "linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #fffde7 100%)" }}>
         <BiodataForm />
       </section>
 
