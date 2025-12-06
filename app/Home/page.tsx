@@ -95,8 +95,33 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="flex-1 flex justify-center md:justify-end items-center max-w-xs sm:max-w-sm md:max-w-md mx-auto md:mx-0">
-          <img src="/Images/homePageImage.jpg" alt="Wedding Couple creating marriage biodata" className="w-4/5 sm:w-3/4 md:w-full h-auto max-h-60 sm:max-h-80 md:max-h-[400px] rounded-3xl shadow-2xl hover:scale-105 transition-transform" />
+        <div className="relative flex justify-center items-center h-[175px] sm:h-[375px] md:h-[425px] w-full md:flex-1 max-w-md mx-auto md:mx-0 perspective-1000 mt-5 md:mt-0 mb-12 md:mb-0">
+          {/* Left Card */}
+          <div className="absolute left-2 sm:left-4 md:-left-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+            <img
+              src="/templates/template2.jpg"
+              alt="Modern Template"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+
+          {/* Right Card */}
+          <div className="absolute right-2 sm:right-4 md:-right-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+            <img
+              src="/templates/template3.jpg"
+              alt="Elegant Template"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+
+          {/* Center Card */}
+          <div className="absolute top-0 w-36 sm:w-60 md:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 hover:z-30 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+            <img
+              src="/templates/template1.jpg"
+              alt="Classic Template"
+              className="w-full h-auto object-cover"
+            />
+          </div>
         </div>
       </section>
 
