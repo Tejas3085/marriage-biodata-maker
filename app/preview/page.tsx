@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import NextImage from "next/image";
 import { useLanguageContext } from "../hooks/useLanguage";
 
 interface Field { label: string; value: string; }
@@ -38,47 +39,47 @@ export default function PreviewPage() {
   const [isMobile, setIsMobile] = useState(false);
   const { language, setLanguage } = useLanguageContext();
 
-const templates: Template[] = [
-  { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft:0.06 },
+  const templates: Template[] = [
+    { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.06 },
 
-  { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft:0.06 },
+    { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft: 0.06 },
 
-  { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft:0.08 },
+    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.08 },
 
-  { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft:0.06 },
+    { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft: 0.06 },
 
-  { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#4A2C2A", sectionTitleColor: "#D1A054", userPhotomarginLeft:0.09 },
+    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#4A2C2A", sectionTitleColor: "#D1A054", userPhotomarginLeft: 0.09 },
 
-  { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#243B55", sectionTitleColor: "#CE8E8E", userPhotomarginLeft:0.09 },
+    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#243B55", sectionTitleColor: "#CE8E8E", userPhotomarginLeft: 0.09 },
 
-  { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft:0.13 },
+    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.13 },
 
-  { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft:0.12 },
+    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft: 0.12 },
 
-  { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft:0.06 },
+    { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.06 },
 
-  { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft:0.14 },
+    { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft: 0.14 },
 
-  { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#4A2C2A", sectionTitleColor: "#D1A054", userPhotomarginLeft:0.12 },
+    { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#4A2C2A", sectionTitleColor: "#D1A054", userPhotomarginLeft: 0.12 },
 
-  { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#243B55", sectionTitleColor: "#CE8E8E", userPhotomarginLeft:0.12 },
+    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#243B55", sectionTitleColor: "#CE8E8E", userPhotomarginLeft: 0.12 },
 
-  { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft:0.12 },
+    { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.12 },
 
-  { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.10, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft:0.06 },
+    { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft: 0.06 },
 
-  { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.07, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft:0.12 },
+    { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.12 },
 
-  { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft:0.06 },
+    { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft: 0.06 },
 
-  { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#da392eff", sectionTitleColor: "#D1A054", userPhotomarginLeft:0.06 },
+    { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#da392eff", sectionTitleColor: "#D1A054", userPhotomarginLeft: 0.06 },
 
-  { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#13c445ff", sectionTitleColor: "#CE8E8E", userPhotomarginLeft:0.08 },
+    { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#13c445ff", sectionTitleColor: "#CE8E8E", userPhotomarginLeft: 0.08 },
 
-  { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft:0.06 },
+    { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.06 },
 
-  { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft:0.12 },
-];
+    { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.12 },
+  ];
 
 
 
@@ -221,58 +222,58 @@ const templates: Template[] = [
         y = wrapText(ctx, f.value, valueX, y, safeRight - valueX, lineHeight);
       });
 
-      y += lineHeight *0.1;
+      y += lineHeight * 0.1;
     });
 
   };
 
-const updateCanvas = async () => {
-  const canvas = canvasRef.current;
-  if (!canvas || !selectedTemplate || !formData) return;
+  const updateCanvas = async () => {
+    const canvas = canvasRef.current;
+    if (!canvas || !selectedTemplate || !formData) return;
 
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-  const width = 600;
-  const FIXED_HEIGHT = 950;  // your template height
+    const width = 600;
+    const FIXED_HEIGHT = 950;  // your template height
 
-  const sections = [
-    formData.personalInfo,
-    formData.familyInfo,
-    formData.contactInfo,
-  ]
-    .filter(Boolean)
-    .map((sec: any) =>
-      sec.fields.filter(
-        (f: any) => f.label?.trim() !== "" && f.value?.trim() !== ""
-      )
-    );
+    const sections = [
+      formData.personalInfo,
+      formData.familyInfo,
+      formData.contactInfo,
+    ]
+      .filter(Boolean)
+      .map((sec: any) =>
+        sec.fields.filter(
+          (f: any) => f.label?.trim() !== "" && f.value?.trim() !== ""
+        )
+      );
 
-  const totalFields = sections.reduce((sum, fields) => sum + fields.length, 0);
+    const totalFields = sections.reduce((sum, fields) => sum + fields.length, 0);
 
-  const LINE_HEIGHT = 28;      // default line height
-  const TOP_MARGIN = 250;      // header, image, titles
-  const BOTTOM_MARGIN = 80;
+    const LINE_HEIGHT = 28;      // default line height
+    const TOP_MARGIN = 250;      // header, image, titles
+    const BOTTOM_MARGIN = 80;
 
-  let requiredHeight = TOP_MARGIN + totalFields * LINE_HEIGHT + BOTTOM_MARGIN;
+    let requiredHeight = TOP_MARGIN + totalFields * LINE_HEIGHT + BOTTOM_MARGIN;
 
-  let fontSize = 18; // starting font size
+    let fontSize = 18; // starting font size
 
-  // 🔥 STEP-1: Reduce font size until it fits inside canvas
-  while (requiredHeight > FIXED_HEIGHT && fontSize > 10) {
-    fontSize -= 1;
-    requiredHeight = TOP_MARGIN + totalFields * (fontSize + 10) + BOTTOM_MARGIN;
-  }
+    // 🔥 STEP-1: Reduce font size until it fits inside canvas
+    while (requiredHeight > FIXED_HEIGHT && fontSize > 10) {
+      fontSize -= 1;
+      requiredHeight = TOP_MARGIN + totalFields * (fontSize + 10) + BOTTOM_MARGIN;
+    }
 
-  // set canvas size
-  const scale = devicePixelRatio || 1;
-  canvas.width = width * scale;
-  canvas.height = FIXED_HEIGHT * scale;
-  ctx.scale(scale, scale);
+    // set canvas size
+    const scale = devicePixelRatio || 1;
+    canvas.width = width * scale;
+    canvas.height = FIXED_HEIGHT * scale;
+    ctx.scale(scale, scale);
 
-  // 🔥 STEP-2: Send final font-size to draw function
-  await drawBiodata(ctx, width, FIXED_HEIGHT, fontSize);
-};
+    // 🔥 STEP-2: Send final font-size to draw function
+    await drawBiodata(ctx, width, FIXED_HEIGHT, fontSize);
+  };
 
 
   useEffect(() => {
@@ -324,19 +325,20 @@ const updateCanvas = async () => {
               <canvas
                 ref={canvasRef}
                 className="shadow-inner bg-white w-full"
-                style={{ height: isMobile ? "50vh" : "auto", maxHeight: "1100px", maxWidth: "400px" }}
+                style={{ height: isMobile ? "50vh" : "auto", maxHeight: "800px", maxWidth: "250px" }}
               />
             </div>
 
             <div
               className="
     fixed bottom-1 left-1/2 -translate-x-1/2 
+    md:static md:translate-x-0
     w-[95%] md:w-auto 
     px-4 py-3 
-    bg-white/80 backdrop-blur-md 
-    rounded-2xl shadow-xl border border-gray-200
+    bg-white/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none
+    rounded-2xl shadow-xl md:shadow-none border border-gray-200 md:border-none
     flex gap-4 items-center justify-center
-    z-50
+    z-50 md:z-auto md:mt-6
   "
             >
               {/* Edit Button */}
@@ -379,9 +381,9 @@ const updateCanvas = async () => {
     px-4 py-2 
     sm:px-5 sm:py-3 
     md:px-6 md:py-3
-    bg-pink-600 text-white font-semibold 
+    bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold 
     rounded-xl shadow-md 
-    hover:bg-pink-700 hover:shadow-lg 
+    hover:from-pink-600 hover:to-rose-700 hover:shadow-lg hover:-translate-y-0.5
     transition-all duration-200
     text-sm sm:text-base md:text-lg
   "
@@ -394,7 +396,7 @@ const updateCanvas = async () => {
           </div>
 
           <div className="flex-1 bg-white shadow-sm rounded-xl p-4 overflow-y-auto">
-            <h2 className="text-lg font-semibold text-gray-700 text-center">Choose Template</h2>
+            <h2 className="text-lg font-semibold text-gray-700 text-center mb-4">Choose Template</h2>
             <div className="flex md:hidden gap-2 py-2 overflow-x-auto scroll-smooth scrollbar-hide">
               {templates.map((tpl) => (
                 <div
@@ -402,7 +404,14 @@ const updateCanvas = async () => {
                   onClick={() => setSelectedTemplate(tpl)}
                   className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
                 >
-                  <img src={tpl.img} alt={tpl.name} className="w-full h-20 object-contain bg-gray-100" />
+                  <div className="relative w-full h-20 bg-gray-100">
+                    <NextImage
+                      src={tpl.img}
+                      alt={tpl.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -415,15 +424,16 @@ const updateCanvas = async () => {
                   onClick={() => setSelectedTemplate(tpl)}
                   className={`
         cursor-pointer rounded-xl overflow-hidden bg-white shadow-sm border transition-all 
-        hover:shadow-lg hover:-translate-y-1 hover:border-pink-400 
+        hover:shadow-lg hover:-translate-y-1 hover:border-pink-400 group
         ${tpl.id === selectedTemplate?.id ? "border-pink-500 ring-2 ring-pink-300" : "border-gray-200"}
       `}
                 >
-                  <div className="w-full h-40 flex items-center justify-center bg-gray-100 px-3 py-3">
-                    <img
+                  <div className="w-full h-40 flex items-center justify-center bg-gray-100 px-3 py-3 relative">
+                    <NextImage
                       src={tpl.img}
                       alt={tpl.name}
-                      className="w-full h-full object-contain rounded-md"
+                      fill
+                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
 
@@ -444,8 +454,8 @@ const updateCanvas = async () => {
         </div>
 
         {/* Extra Info Section */}
-        <div className="mt-4">
-          <h3 className="text-xl font-bold text-gray-800 text-center">
+        <div className="mt-12 mb-24">
+          <h3 className="text-2xl font-bold text-gray-800 text-center">
             Why Choose Our Biodata Maker?
           </h3>
 
@@ -453,57 +463,57 @@ const updateCanvas = async () => {
             We provide beautiful, customizable and fully editable biodata templates for FREE.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-6xl mx-auto">
             {/* Card 1 */}
-            <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border border-gray-100">
-              <div className="text-pink-600 text-3xl mb-2">🎁</div>
-              <h4 className="text-lg font-semibold text-gray-800">100% Free Templates</h4>
-              <p className="text-sm text-gray-600 mt-1">
+            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+              <div className="text-pink-600 text-4xl mb-3">🎁</div>
+              <h4 className="text-lg font-bold text-gray-800">100% Free Templates</h4>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
                 All biodata templates are completely free to use—no signup required.
               </p>
             </div>
 
             {/* Card 2 */}
-            <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border border-gray-100">
-              <div className="text-blue-600 text-3xl mb-2">✨</div>
-              <h4 className="text-lg font-semibold text-gray-800">Modern & Clean Designs</h4>
-              <p className="text-sm text-gray-600 mt-1">
+            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+              <div className="text-blue-600 text-4xl mb-3">✨</div>
+              <h4 className="text-lg font-bold text-gray-800">Modern & Clean Designs</h4>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
                 Professionally crafted templates that look elegant and beautiful.
               </p>
             </div>
 
             {/* Card 3 */}
-            <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border border-gray-100">
-              <div className="text-green-600 text-3xl mb-2">⚡</div>
-              <h4 className="text-lg font-semibold text-gray-800">Fast PNG Download</h4>
-              <p className="text-sm text-gray-600 mt-1">
+            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+              <div className="text-green-600 text-4xl mb-3">⚡</div>
+              <h4 className="text-lg font-bold text-gray-800">Fast PNG Download</h4>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
                 Download your biodata instantly in high-quality PNG format.
               </p>
             </div>
 
             {/* Card 4 */}
-            <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border border-gray-100">
-              <div className="text-purple-600 text-3xl mb-2">📱</div>
-              <h4 className="text-lg font-semibold text-gray-800">Mobile Friendly</h4>
-              <p className="text-sm text-gray-600 mt-1">
+            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+              <div className="text-purple-600 text-4xl mb-3">📱</div>
+              <h4 className="text-lg font-bold text-gray-800">Mobile Friendly</h4>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
                 Create biodata easily on any mobile device without app installation.
               </p>
             </div>
 
             {/* Card 5 */}
-            <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all border border-gray-100">
-              <div className="text-orange-600 text-3xl mb-2">🎨</div>
-              <h4 className="text-lg font-semibold text-gray-800">Fully Customizable</h4>
-              <p className="text-sm text-gray-600 mt-1">
+            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+              <div className="text-orange-600 text-4xl mb-3">🎨</div>
+              <h4 className="text-lg font-bold text-gray-800">Fully Customizable</h4>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
                 Edit every section — personal info, family details, photos & more.
               </p>
             </div>
 
             {/* Card 6 */}
-            <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all mb-[20%] border border-gray-100">
-              <div className="text-red-600 text-3xl mb-2">⭐</div>
-              <h4 className="text-lg font-semibold text-gray-800">Premium Look</h4>
-              <p className="text-sm text-gray-600 mt-1">
+            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+              <div className="text-red-600 text-4xl mb-3">⭐</div>
+              <h4 className="text-lg font-bold text-gray-800">Premium Look</h4>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
                 Stand out with premium designs that impress everyone instantly.
               </p>
             </div>

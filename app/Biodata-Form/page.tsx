@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useLanguageContext } from "../hooks/useLanguage";
 import ImageCropper from "../components/ImageCropper";
 import GodPhotoSelector from "../components/GodPhotoSelector";
@@ -185,9 +186,9 @@ export default function BiodataForm() {
   };
 
   // Generate biodata (save and navigate)
- const generateBiodata = (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!formData) return;
+  const generateBiodata = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData) return;
 
     const groupedData: any = {};
     formData.fieldSections.forEach((section: any) => {
@@ -204,18 +205,18 @@ export default function BiodataForm() {
       };
     });
 
-  groupedData.photo = photoPreview;
-  groupedData.godTitle = godTitle;
-  groupedData.godPhoto = godPhoto;
+    groupedData.photo = photoPreview;
+    groupedData.godTitle = godTitle;
+    groupedData.godPhoto = godPhoto;
 
-  try {
-    localStorage.setItem(language, JSON.stringify(groupedData));
-  } catch (err) {
-    console.warn("Could not save to localStorage:", err);
-  }
+    try {
+      localStorage.setItem(language, JSON.stringify(groupedData));
+    } catch (err) {
+      console.warn("Could not save to localStorage:", err);
+    }
 
-  router.push("/preview");
-};
+    router.push("/preview");
+  };
 
 
   // If not initialized or translations missing show loading
@@ -265,16 +266,18 @@ export default function BiodataForm() {
             >
               <div className="flex justify-center mb-3">
                 {godPhoto ? (
-                  <img
-                    src={godPhoto}
-                    alt="Selected deity"
-                    loading="lazy"
-                    className="w-20 h-20 sm:w-24 sm:h-24 object-cover border-blue-100"
-                  />
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-blue-100">
+                    <Image
+                      src={godPhoto}
+                      alt="Selected deity"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 ) : (
                   <div
                     onClick={() => setShowGodPhotoSelector(true)}
-                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 text-gray-500 text-sm rounded-full cursor-pointer"
+                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 text-gray-500 text-sm rounded-full cursor-pointer hover:border-pink-400 hover:bg-pink-50 transition-all"
                   >
                     Add Photo
                   </div>
@@ -359,20 +362,20 @@ export default function BiodataForm() {
                       type="text"
                       value={tempGodTitle}
                       onChange={(e) => setTempGodTitle(e.target.value)}
-                      className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
+                      className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all"
                       autoFocus
                     />
 
                     <div className="flex justify-end gap-3 mt-4">
                       <button
-                        className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
+                        className="px-3 py-1.5 bg-gray-300 rounded-md text-sm hover:bg-gray-400 transition-all"
                         onClick={() => setGodTitleModalOpen(false)}
                       >
                         Cancel
                       </button>
 
                       <button
-                        className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
+                        className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition-all"
                         onClick={() => {
                           setGodTitle(tempGodTitle);
                           setGodTitleModalOpen(false);
@@ -392,7 +395,7 @@ export default function BiodataForm() {
               {formData.fieldSections.map((section: any, sIndex: number) => (
                 <div key={sIndex} className="mb-8">
                   <div
-                    className="flex items-center mb-3 pb-1 cursor-pointer"
+                    className="flex items-center mb-3 pb-1 cursor-pointer hover:text-pink-600 transition-colors"
                     role="button"
                     tabIndex={0}
                     onClick={() => {
@@ -415,100 +418,100 @@ export default function BiodataForm() {
                     <IoCreateOutline className="text-pink-600 mt-[2px] mx-[6px]" aria-hidden />
                   </div>
 
-<div className="space-y-3">
-  {section.fields.map((field: Field, fIndex: number) => (
-    <div
-      key={field.key}
-      className="
+                  <div className="space-y-3">
+                    {section.fields.map((field: Field, fIndex: number) => (
+                      <div
+                        key={field.key}
+                        className="
         flex sm:grid-cols-[1fr_auto] sm:items-center gap-2 sm:gap-3                  /* Mobile: vertical */
         sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-3 /* Tablet: horizontal */
         lg:flex lg:flex-row lg:items-center lg:gap-3                /* Large: horizontal flex */
       "
-    >
-      {/* Input / Textarea / Select */}
-      <div className="w-full flex flex-col lg:flex-row lg:gap-3">
-        <input
-          id={field.key + "_label"}
-          aria-label="Field label"
-          type="text"
-          value={field.label || ""}
-          onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
-          placeholder={section.NewFieldLabel}
-          className="border w-full border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none mb-2 lg:mb-0"
-        />
+                      >
+                        {/* Input / Textarea / Select */}
+                        <div className="w-full flex flex-col lg:flex-row lg:gap-3">
+                          <input
+                            id={field.key + "_label"}
+                            aria-label="Field label"
+                            type="text"
+                            value={field.label || ""}
+                            onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
+                            placeholder={section.NewFieldLabel}
+                            className="border w-full border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all mb-2 lg:mb-0"
+                          />
 
-        {field.type === "select" ? (
-          <select
-            id={field.key}
-            aria-label={`Select ${field.label || "option"}`}
-            value={field.value || ""}
-            onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full"
-          >
-            <option value="">{field.placeholder || "Select"}</option>
-            {field.options?.map((op: string, idx: number) => (
-              <option key={idx} value={op}>
-                {op}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <textarea
-            id={field.key}
-            aria-label={`Field value for ${field.label || "field"}`}
-            value={field.value || ""}
-            onChange={(e) => {
-              updateField(sIndex, fIndex, "value", e.target.value);
-              autoResize(e);
-            }}
-            placeholder={field.placeholder || "Enter value"}
-            className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none w-full resize-none overflow-hidden"
-            rows={1}
-          />
-        )}
-      </div>
+                          {field.type === "select" ? (
+                            <select
+                              id={field.key}
+                              aria-label={`Select ${field.label || "option"}`}
+                              value={field.value || ""}
+                              onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
+                              className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full"
+                            >
+                              <option value="">{field.placeholder || "Select"}</option>
+                              {field.options?.map((op: string, idx: number) => (
+                                <option key={idx} value={op}>
+                                  {op}
+                                </option>
+                              ))}
+                            </select>
+                          ) : (
+                            <textarea
+                              id={field.key}
+                              aria-label={`Field value for ${field.label || "field"}`}
+                              value={field.value || ""}
+                              onChange={(e) => {
+                                updateField(sIndex, fIndex, "value", e.target.value);
+                                autoResize(e);
+                              }}
+                              placeholder={field.placeholder || "Enter value"}
+                              className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full resize-none overflow-hidden"
+                              rows={1}
+                            />
+                          )}
+                        </div>
 
-      {/* Buttons */}
-      <div className="flex flex-col sm:flex-col lg:flex-row gap-2 justify-start sm:justify-end lg:justify-end">
-        <button
-          type="button"
-          onClick={() => moveFieldUp(sIndex, fIndex)}
-          disabled={fIndex === 0}
-          className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
-        >
-          <ChevronUp size={20} strokeWidth={1.8} />
-        </button>
+                        {/* Buttons */}
+                        <div className="flex flex-col sm:flex-col lg:flex-row gap-2 justify-start sm:justify-end lg:justify-end">
+                          <button
+                            type="button"
+                            onClick={() => moveFieldUp(sIndex, fIndex)}
+                            disabled={fIndex === 0}
+                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+                          >
+                            <ChevronUp size={20} strokeWidth={1.8} />
+                          </button>
 
-        <button
-          type="button"
-          onClick={() => moveFieldDown(sIndex, fIndex)}
-          disabled={fIndex === section.fields.length - 1}
-          className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
-        >
-          <ChevronDown size={20} strokeWidth={1.8} />
-        </button>
+                          <button
+                            type="button"
+                            onClick={() => moveFieldDown(sIndex, fIndex)}
+                            disabled={fIndex === section.fields.length - 1}
+                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+                          >
+                            <ChevronDown size={20} strokeWidth={1.8} />
+                          </button>
 
-        <button
-          type="button"
-          onClick={() => deleteField(sIndex, fIndex)}
-          className="text-pink-400 transition"
-          aria-label="Delete field"
-        >
-          <Trash2 size={18} />
-        </button>
-
-
-      </div>
+                          <button
+                            type="button"
+                            onClick={() => deleteField(sIndex, fIndex)}
+                            className="text-pink-400 hover:text-pink-600 transition"
+                            aria-label="Delete field"
+                          >
+                            <Trash2 size={18} />
+                          </button>
 
 
-    </div>
-  ))}
-</div>
+                        </div>
+
+
+                      </div>
+                    ))}
+                  </div>
 
                   <button
                     type="button"
                     onClick={() => addNewField(sIndex, section)}
-                    className="text-pink-400 text-sm font-medium flex items-center gap-1 mt-1"
+                    className="text-pink-400 text-sm font-medium flex items-center gap-1 mt-1 hover:text-pink-600 transition-colors"
                     aria-label={`Add new field to ${section.title}`}
                   >
                     <IoAddOutline /> Add New Field
@@ -520,7 +523,7 @@ export default function BiodataForm() {
 
           {/* RIGHT PANEL - sticky */}
           <aside className="sticky top-24 pr-5 self-start">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-center p-4 shadow mb-4">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-center p-4 shadow mb-4 rounded-lg">
               <h2 className="text-lg font-semibold">Your Digital Biodata</h2>
               <p className="text-sm opacity-90">Upload your best photo & make it shine ✨</p>
             </div>
@@ -538,16 +541,18 @@ export default function BiodataForm() {
                 aria-label="Upload profile photo"
               >
                 {photoPreview ? (
-                  <img
-                    src={photoPreview}
-                    alt="User profile preview"
-                    loading="lazy"
-                    className="w-28 h-28 sm:w-32 sm:h-32 object-cover border-4 border-blue-100 shadow"
-                  />
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden border-4 border-blue-100 shadow">
+                    <Image
+                      src={photoPreview}
+                      alt="User profile preview"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 ) : (
                   <div className="w-28 h-28 flex flex-col items-center justify-center
     bg-white/70 backdrop-blur-md border border-gray-200
-    rounded-2xl shadow-sm cursor-pointer transition hover:shadow-md">
+    rounded-2xl shadow-sm cursor-pointer transition-all hover:shadow-md hover:border-pink-400 hover:bg-pink-50">
 
                     <IoCameraOutline size={40} className="text-gray-600 mb-1" />
                     <p className="text-xs font-medium text-gray-600">Click to upload</p>

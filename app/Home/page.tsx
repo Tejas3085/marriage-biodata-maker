@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import {
   FaEdit,
   FaPalette,
@@ -69,9 +70,9 @@ export default function HomePage() {
       {/* HERO SECTION */}
       <section className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-8 md:py-12 w-full gap-6 md:gap-16 shadow-xl" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)" }}>
         <div className="flex-1 flex flex-col justify-center space-y-3 md:space-y-5 max-w-lg md:max-w-md mx-auto md:mx-0 text-center md:text-left">
-          <h2 className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight" style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}>
+          <h1 className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight" style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}>
             {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
-          </h2>
+          </h1>
           <p className="text-gray-700 text-sm sm:text-base md:text-lg lg:text-xl">
             {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
           </p>
@@ -95,31 +96,40 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative flex justify-center items-center h-[175px] sm:h-[375px] md:h-[425px] w-full md:flex-1 max-w-md mx-auto md:mx-0 perspective-1000 mt-5 md:mt-0 mb-12 md:mb-0">
+        <div className="relative flex justify-center items-center h-[260px] sm:h-[375px] md:h-[425px] w-full md:flex-1 max-w-md mx-auto md:mx-0 perspective-1000 mt-5 md:mt-0 md:mb-0">
           {/* Left Card */}
           <div className="absolute left-2 sm:left-4 md:-left-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-            <img
+            <Image
               src="/templates/template2.jpg"
               alt="Modern Template"
+              width={300}
+              height={400}
               className="w-full h-auto object-cover"
+              priority
             />
           </div>
 
           {/* Right Card */}
           <div className="absolute right-2 sm:right-4 md:-right-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-            <img
+            <Image
               src="/templates/template3.jpg"
               alt="Elegant Template"
+              width={300}
+              height={400}
               className="w-full h-auto object-cover"
+              priority
             />
           </div>
 
           {/* Center Card */}
           <div className="absolute top-0 w-36 sm:w-60 md:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 hover:z-30 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-            <img
+            <Image
               src="/templates/template1.jpg"
               alt="Classic Template"
+              width={300}
+              height={400}
               className="w-full h-auto object-cover"
+              priority
             />
           </div>
         </div>
@@ -159,7 +169,7 @@ export default function HomePage() {
                 <SwiperSlide key={template.id}>
                   <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white hover:scale-105 transition-transform">
                     <div className="flex items-center justify-center bg-gray-100">
-                      <img src={template.img} alt={`${template.name} template`} className="w-full h-80 object-contain p-5 cursor-pointer" />
+                      <Image src={template.img} alt={`${template.name} template`} width={300} height={400} className="w-full h-80 object-contain p-5 cursor-pointer" />
                     </div>
                   </div>
                 </SwiperSlide>
@@ -174,7 +184,7 @@ export default function HomePage() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800">{translations?.howItWorksheading || "How It Works"}</h2>
         <div className="grid md:grid-cols-3 gap-8 cursor-pointer text-center max-w-6xl mx-auto">
           {translations?.howItWorks?.map((step: any, i: number) => (
-            <div key={i} className="p-6 md:p-8 rounded-2xl border border-gray-200 bg-white hover:border-pink-500 hover:shadow-2xl transition-all">
+            <div key={i} className="p-6 md:p-8 rounded-2xl border border-gray-200 bg-white hover:border-pink-500 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
               <div className="text-3xl sm:text-4xl md:text-5xl text-pink-500 mb-4 flex justify-center">{i === 0 ? <FaEdit /> : i === 1 ? <FaPalette /> : <FaDownload />}</div>
               <h3 className="font-semibold text-lg sm:text-xl md:text-2xl mb-2 text-gray-800">{step.title}</h3>
               <p className="text-xs sm:text-sm md:text-base text-gray-600">{step.desc}</p>
