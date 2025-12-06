@@ -26,8 +26,10 @@ interface Template {
   labelFontSize?: number;
   godTitleColor?: string;
   sectionTitleColor?: string;
-  userPhotomarginLeft: number,
-  godMarginTop: number
+  userPhotomarginLeft: number;
+  godMarginTop: number;
+  marginBottom?: number;
+  labelMarginBottom?: number;
 }
 
 export default function PreviewPage() {
@@ -40,48 +42,50 @@ export default function PreviewPage() {
   const { language, setLanguage } = useLanguageContext();
 
   const templates: Template[] = [
-    { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.06 },
+    { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#800000", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft: 0.06 },
+    { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#000080", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.08 },
+    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
-    { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft: 0.06 },
+    { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#006400", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#4A2C2A", sectionTitleColor: "#D1A054", userPhotomarginLeft: 0.09 },
+    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#2F4F4F", sectionTitleColor: "#A0522D", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#243B55", sectionTitleColor: "#CE8E8E", userPhotomarginLeft: 0.09 },
+    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.13 },
+    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom: 0, labelMarginBottom: -4 },
 
-    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft: 0.12 },
+    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.12, marginBottom: 250, labelMarginBottom: -2 },
 
-    { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.06 },
+    { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#483D8B", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft: 0.14 },
+    { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.14, labelMarginBottom: -1 },
 
-    { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#4A2C2A", sectionTitleColor: "#D1A054", userPhotomarginLeft: 0.12 },
+    { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.12, labelMarginBottom: -1 },
 
-    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#243B55", sectionTitleColor: "#CE8E8E", userPhotomarginLeft: 0.12 },
+    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.12, labelMarginBottom: -3 },
 
-    { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.12 },
+    { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#880E4F", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
 
-    { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft: 0.06 },
+    { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#1A237E", sectionTitleColor: "#FBC02D", userPhotomarginLeft: 0.06, labelMarginBottom: -3 },
 
-    { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.12 },
+    { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#311B92", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: 1 },
 
-    { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft: 0.06 },
+    { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#006064", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#da392eff", sectionTitleColor: "#D1A054", userPhotomarginLeft: 0.06 },
+    { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#B71C1C", sectionTitleColor: "#F9A825", userPhotomarginLeft: 0.06, labelMarginBottom: -1.5 },
 
-    { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#13c445ff", sectionTitleColor: "#CE8E8E", userPhotomarginLeft: 0.08 },
+    { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#1B5E20", sectionTitleColor: "#827717", userPhotomarginLeft: 0.08, labelMarginBottom: 1 },
 
-    { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft: 0.06 },
+    { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft: 0.12 },
+    { id: 20, name: "Elegant 19", img: "/templates/template20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#BF360C", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+
+    { id: 21, name: "Elegant 20", img: "/templates/template21.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#1A237E", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+
+    { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#33691E", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
   ];
-
-
 
   // Detect mobile
   useEffect(() => {
@@ -107,88 +111,101 @@ export default function PreviewPage() {
       img.src = src;
     });
 
-  function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
+  function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number, draw: boolean = true) {
     const words = String(text).split(" ");
     let line = "";
     for (let n = 0; n < words.length; n++) {
       const testLine = line + words[n] + (n === words.length - 1 ? "" : " ");
       const metrics = ctx.measureText(testLine);
       if (metrics.width > maxWidth && line !== "") {
-        ctx.fillText(line.trim(), x, y);
+        if (draw) ctx.fillText(line.trim(), x, y);
         line = words[n] + " ";
         y += lineHeight * 1.1; // slightly bigger spacing
       } else line = testLine;
     }
-    ctx.fillText(line.trim(), x, y);
+    if (draw) ctx.fillText(line.trim(), x, y);
     return y + lineHeight * 1.1;
   }
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
 
-  const drawBiodata = async (ctx: CanvasRenderingContext2D, width: number, height: number, fontSize: number) => {
-    if (!formData || !selectedTemplate) return;
-    // Background
-    ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
-    ctx.fillRect(0, 0, width, height);
+  const drawBiodata = (
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    config: { fontSize: number; godPhotoSize: number; godTitleSize: number },
+    images: { frameImg: HTMLImageElement; godImg: HTMLImageElement | null; userImg: HTMLImageElement | null },
+    dryRun: boolean = false
+  ) => {
+    if (!formData || !selectedTemplate) return 0;
 
-    // Template frame
-    const frameImg = await loadImage(selectedTemplate.img);
-    if (frameImg.src) ctx.drawImage(frameImg, 0, 0, width, height);
+    const { fontSize, godPhotoSize, godTitleSize } = config;
+    const { frameImg, godImg, userImg } = images;
+
+    // Background
+    if (!dryRun) {
+      ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
+      ctx.fillRect(0, 0, width, height);
+
+      // Template frame
+      if (frameImg.src) ctx.drawImage(frameImg, 0, 0, width, height);
+    }
 
     let y = height * selectedTemplate.godMarginTop;
 
     // God Photo
-    if (formData.godPhoto) {
-      const godImg = await loadImage(formData.godPhoto);
-      const godPhotoHeight = width * 0.10;
-      ctx.drawImage(godImg, (width - godPhotoHeight) / 2, y, godPhotoHeight, godPhotoHeight);
-      y += godPhotoHeight + 20;
-    } else y += 10;
+    if (godImg) {
+      if (!dryRun) {
+        ctx.drawImage(godImg, (width - godPhotoSize) / 2, y, godPhotoSize, godPhotoSize);
+      }
+      y += godPhotoSize + 20;
+    } else {
+      y += 10;
+    }
 
     // God Title
     if (formData.godTitle) {
-      const godTitleFontSize = 18;
-      ctx.font = `700 ${godTitleFontSize}px "Playfair Display", serif`;
-      ctx.fillStyle = selectedTemplate.godTitleColor || "#872341";
-      ctx.textAlign = "center";
-      ctx.fillText(formData.godTitle, width / 2, y);
-      y += godTitleFontSize + 5;
+      if (!dryRun) {
+        ctx.font = `700 ${godTitleSize}px "Playfair Display", serif`;
+        ctx.fillStyle = selectedTemplate.godTitleColor || "#872341";
+        ctx.textAlign = "center";
+        ctx.fillText(formData.godTitle, width / 2, y);
+      }
+      y += godTitleSize + 5;
     }
 
     // User Photo
     let photoWidth = 0, photoHeight = 0, photoX = 0, photoY = 0;
-    if (formData.photo) {
-      const userImg = await loadImage(formData.photo);
+    if (userImg) {
       photoWidth = width * 0.18;
       photoHeight = photoWidth * 1.2;
       photoX = width - photoWidth - width * selectedTemplate.userPhotomarginLeft; // more right space
       photoY = y;
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(photoX - 4, photoY - 4, photoWidth + 5, photoHeight + 5);
-      ctx.drawImage(userImg, photoX, photoY, photoWidth, photoHeight);
+
+      if (!dryRun) {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(photoX - 4, photoY - 4, photoWidth + 5, photoHeight + 5);
+        ctx.drawImage(userImg, photoX, photoY, photoWidth, photoHeight);
+      }
     }
 
     // Sections
     const sections = [formData.personalInfo, formData.familyInfo, formData.contactInfo].filter(Boolean);
-    const totalFields = sections.reduce((sum, sec) => sum + (sec?.fields.length || 0), 0);
-    const sectionCount = sections.length || 1;
-    const paddingBottom = 40;
-    let lineHeight = totalFields > 0 ? (height - y - paddingBottom) / (totalFields + sectionCount * 2 + 1) : 22;
-    lineHeight = Math.max(12, Math.min(22, lineHeight));
+
+    // Calculate line height based on fontSize
+    let lineHeight = fontSize * 1.5;
 
     const sectionTitleFontSize = Math.max(12, lineHeight * 0.9);
-    const labelFontSize = Math.max(10, lineHeight * 0.75);
-    const valueFontSize = Math.max(10, lineHeight * 0.75);
 
     const labelX = width * (selectedTemplate.labelsLeftPadding ?? 0.12);
-    const colonX = width * 0.30;
+    const colonX = width * 0.38;
     const valueX = colonX + 12;
 
-    sections.forEach((sec, idx) => {
+    sections.forEach((sec: any) => {
       if (!sec) return;
 
       // Check if ANY field has BOTH label + value
-      const validFields = sec.fields.filter(f =>
+      const validFields = sec.fields.filter((f: any) =>
         f.label?.trim() !== "" &&
         f.value?.trim() !== ""
       );
@@ -197,34 +214,50 @@ export default function PreviewPage() {
       if (validFields.length === 0) return;
 
       // --- Section Title ---
-      ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
-      ctx.font = `600 ${fontSize}px "Merriweather", serif`;
-      ctx.textAlign = "center";
-      ctx.fillText(sec.title || "", width / 2, y);
+      if (!dryRun) {
+        ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
+        ctx.font = `600 ${fontSize}px "Merriweather", serif`;
+        ctx.textAlign = "center";
+        ctx.fillText(sec.title || "", width / 2, y);
+      }
 
       y += sectionTitleFontSize + lineHeight * 0.2;
 
       // --- Fields ---
-      ctx.textAlign = "left";
-      validFields.forEach(f => {
-        // LABEL (bold)
-        ctx.fillStyle = selectedTemplate.textColor || "#000";
-        ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+      if (!dryRun) ctx.textAlign = "left";
 
-        const safeRight = photoWidth ? photoX - 16 : width - 40;
-        ctx.fillText(f.label, labelX, y);
+      validFields.forEach((f: any) => {
+        const safeRight = photoWidth && y < (photoY + photoHeight + 20) ? photoX - 16 : width - 40;
+        const labelMaxWidth = colonX - labelX - 5;
+        const valueMaxWidth = safeRight - valueX;
 
-        // colon
-        ctx.fillText(":", colonX, y);
+        if (!dryRun) {
+          // LABEL (bold)
+          ctx.fillStyle = selectedTemplate.textColor || "#000";
+          ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+        }
 
-        // VALUE (semi-bold)
-        ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
-        y = wrapText(ctx, f.value, valueX, y, safeRight - valueX, lineHeight);
+        // Calculate height for Label
+        if (dryRun) ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+        const nextYLabel = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, !dryRun);
+
+        if (!dryRun) {
+          // colon
+          ctx.fillText(":", colonX, y);
+          // VALUE (semi-bold)
+          ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+        }
+
+        if (dryRun) ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+        const nextYValue = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, !dryRun);
+
+        y = Math.max(nextYLabel, nextYValue) + (selectedTemplate.labelMarginBottom || 0);
       });
 
       y += lineHeight * 0.1;
     });
 
+    return y;
   };
 
   const updateCanvas = async () => {
@@ -237,42 +270,51 @@ export default function PreviewPage() {
     const width = 600;
     const FIXED_HEIGHT = 950;  // your template height
 
-    const sections = [
-      formData.personalInfo,
-      formData.familyInfo,
-      formData.contactInfo,
-    ]
-      .filter(Boolean)
-      .map((sec: any) =>
-        sec.fields.filter(
-          (f: any) => f.label?.trim() !== "" && f.value?.trim() !== ""
-        )
-      );
+    // Load images once
+    const [frameImg, godImg, userImg] = await Promise.all([
+      loadImage(selectedTemplate.img),
+      formData.godPhoto ? loadImage(formData.godPhoto) : Promise.resolve(null),
+      formData.photo ? loadImage(formData.photo) : Promise.resolve(null),
+    ]);
 
-    const totalFields = sections.reduce((sum, fields) => sum + fields.length, 0);
+    const images = { frameImg, godImg, userImg };
 
-    const LINE_HEIGHT = 28;      // default line height
-    const TOP_MARGIN = 250;      // header, image, titles
-    const BOTTOM_MARGIN = 80;
+    // Iterative sizing
+    let fontSize = 18;
+    let godPhotoSize = width * 0.10;
+    let godTitleSize = 18;
 
-    let requiredHeight = TOP_MARGIN + totalFields * LINE_HEIGHT + BOTTOM_MARGIN;
+    // Try to fit
+    let contentHeight = 0;
+    let attempts = 0;
 
-    let fontSize = 18; // starting font size
+    while (attempts < 20) {
+      const config = { fontSize, godPhotoSize, godTitleSize };
+      // We need to set context font for measureText to work in dryRun
+      // But drawBiodata sets it before calling wrapText, so it's fine.
+      contentHeight = drawBiodata(ctx, width, FIXED_HEIGHT, config, images, true);
 
-    // 🔥 STEP-1: Reduce font size until it fits inside canvas
-    while (requiredHeight > FIXED_HEIGHT && fontSize > 10) {
-      fontSize -= 1;
-      requiredHeight = TOP_MARGIN + totalFields * (fontSize + 10) + BOTTOM_MARGIN;
+      if (contentHeight <= FIXED_HEIGHT - 40) { // 40px buffer
+        break;
+      }
+
+      // Reduce sizes
+      if (fontSize > 10) fontSize -= 0.5;
+      if (godPhotoSize > width * 0.06) godPhotoSize *= 0.95;
+      if (godTitleSize > 12) godTitleSize -= 0.5;
+
+      if (fontSize <= 10 && godPhotoSize <= width * 0.06 && godTitleSize <= 12) break; // Minimums reached
+
+      attempts++;
     }
 
-    // set canvas size
+    // Final Draw
     const scale = devicePixelRatio || 1;
     canvas.width = width * scale;
     canvas.height = FIXED_HEIGHT * scale;
     ctx.scale(scale, scale);
 
-    // 🔥 STEP-2: Send final font-size to draw function
-    await drawBiodata(ctx, width, FIXED_HEIGHT, fontSize);
+    drawBiodata(ctx, width, FIXED_HEIGHT, { fontSize, godPhotoSize, godTitleSize }, images, false);
   };
 
 
