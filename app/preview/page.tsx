@@ -9,7 +9,7 @@ interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
 interface FormData {
   personalInfo?: Section;
-  familyInfo?: Section;
+  familyInfo?: Section; 
   contactInfo?: Section;
   godPhoto?: string;
   godTitle?: string;
