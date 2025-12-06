@@ -43,7 +43,7 @@ const templates: Template[] = [
 
   { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0D3B66", sectionTitleColor: "#D4AF37", userPhotomarginLeft:0.06 },
 
-  { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft:0.08 },
+  { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#5A2A83", sectionTitleColor: "#D8B26E", userPhotomarginLeft:0.08 },
 
   { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft:0.06 },
 
@@ -71,9 +71,9 @@ const templates: Template[] = [
 
   { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#0F7B6C", sectionTitleColor: "#B8763A", userPhotomarginLeft:0.06 },
 
-  { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#da392eff", sectionTitleColor: "#D1A054", userPhotomarginLeft:0.06 },
+  { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#da392eff", sectionTitleColor: "#D1A054", userPhotomarginLeft:0.06 },
 
-  { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#13c445ff", sectionTitleColor: "#CE8E8E", userPhotomarginLeft:0.08 },
+  { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#13c445ff", sectionTitleColor: "#CE8E8E", userPhotomarginLeft:0.08 },
 
   { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop:0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#8B1E3F", sectionTitleColor: "#C89C00", userPhotomarginLeft:0.06 },
 
@@ -124,7 +124,7 @@ const templates: Template[] = [
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
 
-  const drawBiodata = async (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+  const drawBiodata = async (ctx: CanvasRenderingContext2D, width: number, height: number, fontSize: number) => {
     if (!formData || !selectedTemplate) return;
     // Background
     ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
@@ -197,7 +197,7 @@ const templates: Template[] = [
 
       // --- Section Title ---
       ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
-      ctx.font = `600 ${sectionTitleFontSize}px "Merriweather", serif`;
+      ctx.font = `600 ${fontSize}px "Merriweather", serif`;
       ctx.textAlign = "center";
       ctx.fillText(sec.title || "", width / 2, y);
 
@@ -208,7 +208,7 @@ const templates: Template[] = [
       validFields.forEach(f => {
         // LABEL (bold)
         ctx.fillStyle = selectedTemplate.textColor || "#000";
-        ctx.font = `600 ${labelFontSize}px "Poppins", sans-serif`;
+        ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
 
         const safeRight = photoWidth ? photoX - 16 : width - 40;
         ctx.fillText(f.label, labelX, y);
@@ -217,28 +217,63 @@ const templates: Template[] = [
         ctx.fillText(":", colonX, y);
 
         // VALUE (semi-bold)
-        ctx.font = `600 ${labelFontSize}px "Poppins", sans-serif`;
+        ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
         y = wrapText(ctx, f.value, valueX, y, safeRight - valueX, lineHeight);
       });
 
-      y += lineHeight * 0.5;
+      y += lineHeight *0.1;
     });
 
   };
 
-  const updateCanvas = async () => {
-    const canvas = canvasRef.current;
-    if (!canvas || !selectedTemplate) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const width = 600;
-    const height = 800;
-    const scale = window.devicePixelRatio || 1;
-    canvas.width = width * scale;
-    canvas.height = height * scale;
-    ctx.scale(scale, scale);
-    await drawBiodata(ctx, width, height);
-  };
+const updateCanvas = async () => {
+  const canvas = canvasRef.current;
+  if (!canvas || !selectedTemplate || !formData) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const width = 600;
+  const FIXED_HEIGHT = 950;  // your template height
+
+  const sections = [
+    formData.personalInfo,
+    formData.familyInfo,
+    formData.contactInfo,
+  ]
+    .filter(Boolean)
+    .map((sec: any) =>
+      sec.fields.filter(
+        (f: any) => f.label?.trim() !== "" && f.value?.trim() !== ""
+      )
+    );
+
+  const totalFields = sections.reduce((sum, fields) => sum + fields.length, 0);
+
+  const LINE_HEIGHT = 28;      // default line height
+  const TOP_MARGIN = 250;      // header, image, titles
+  const BOTTOM_MARGIN = 80;
+
+  let requiredHeight = TOP_MARGIN + totalFields * LINE_HEIGHT + BOTTOM_MARGIN;
+
+  let fontSize = 18; // starting font size
+
+  // 🔥 STEP-1: Reduce font size until it fits inside canvas
+  while (requiredHeight > FIXED_HEIGHT && fontSize > 10) {
+    fontSize -= 1;
+    requiredHeight = TOP_MARGIN + totalFields * (fontSize + 10) + BOTTOM_MARGIN;
+  }
+
+  // set canvas size
+  const scale = devicePixelRatio || 1;
+  canvas.width = width * scale;
+  canvas.height = FIXED_HEIGHT * scale;
+  ctx.scale(scale, scale);
+
+  // 🔥 STEP-2: Send final font-size to draw function
+  await drawBiodata(ctx, width, FIXED_HEIGHT, fontSize);
+};
+
 
   useEffect(() => {
     updateCanvas();
