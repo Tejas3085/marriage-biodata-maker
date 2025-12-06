@@ -88,7 +88,7 @@ export default function PreviewPage() {
   ];
 
   // Detect mobile
-  useEffect(() => {
+  useEffect(() => { 
     setIsMobile(window.innerWidth < 768);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
