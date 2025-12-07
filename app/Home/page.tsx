@@ -68,7 +68,7 @@ export default function HomePage() {
       <Header />
 
       {/* HERO SECTION */}
-      <section className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-8 md:py-12 w-full gap-6 md:gap-16 shadow-xl" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)" }}>
+      <section className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-6 md:py-12 w-full gap-4 md:gap-16 shadow-xl" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)" }}>
         <div className="flex-1 flex flex-col justify-center space-y-3 md:space-y-5 max-w-lg md:max-w-md mx-auto md:mx-0 text-center md:text-left">
           <h1 className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight" style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}>
             {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
@@ -96,7 +96,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative flex justify-center items-center h-[260px] sm:h-[375px] md:h-[425px] w-full md:flex-1 max-w-md mx-auto md:mx-0 perspective-1000 mt-5 md:mt-0 md:mb-0">
+        <div className="relative flex justify-center items-center h-[260px] sm:h-[375px] md:h-[425px] w-full md:flex-1 max-w-md mx-auto md:mx-0 perspective-1000 md:mt-0 md:mb-0">
           {/* Left Card */}
           <div className="absolute left-2 sm:left-4 md:-left-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
             <Image
