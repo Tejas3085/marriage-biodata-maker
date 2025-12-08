@@ -9,7 +9,7 @@ interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
 interface FormData {
   personalInfo?: Section;
-  familyInfo?: Section; 
+  familyInfo?: Section;
   contactInfo?: Section;
   godPhoto?: string;
   godTitle?: string;
@@ -86,7 +86,7 @@ export default function PreviewPage() {
   ];
 
   // Detect mobile
-  useEffect(() => { 
+  useEffect(() => {
     setIsMobile(window.innerWidth < 768);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
@@ -225,32 +225,39 @@ export default function PreviewPage() {
       if (!dryRun) ctx.textAlign = "left";
 
       validFields.forEach((f: any) => {
-        const safeRight = photoWidth && y < (photoY + photoHeight + 20) ? photoX - 16 : width - 40;
+        const safeRight = photoWidth && y < (photoY + photoHeight + 20)
+          ? photoX - 16
+          : width - 40;
+
         const labelMaxWidth = colonX - labelX - 5;
         const valueMaxWidth = safeRight - valueX;
 
-        if (!dryRun) {
-          // LABEL (bold)
-          ctx.fillStyle = selectedTemplate.textColor || "#000";
-          ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
-        }
+        // Set fonts
+        ctx.fillStyle = selectedTemplate.textColor || "#000";
+        ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+        ctx.textAlign = "left";
 
-        // Calculate height for Label
-        if (dryRun) ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
-        const nextYLabel = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, !dryRun);
+        // --- Calculate wrapped label height ---
+        const labelHeight = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, false);
 
-        if (!dryRun) {
-          // colon
-          ctx.fillText(":", colonX, y);
-          // VALUE (semi-bold)
-          ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
-        }
+        // Colon always single line
+        const colonHeight = y + lineHeight;
 
-        if (dryRun) ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
-        const nextYValue = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, !dryRun);
+        // --- Calculate wrapped value height ---
+        const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false);
 
-        y = Math.max(nextYLabel, nextYValue) + (selectedTemplate.labelMarginBottom || 0);
+        // New Y = tallest column → SAFE
+        const newY = Math.max(labelHeight, valueHeight + lineHeight);
+
+        // ---- NOW DRAW ----
+        wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);
+        ctx.fillText(":", colonX, y);
+        wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true);
+
+        // Move to next row
+        y = newY + (selectedTemplate.labelMarginBottom || 0);
       });
+
 
       y += lineHeight * 0.1;
     });
