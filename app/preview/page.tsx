@@ -122,7 +122,7 @@ export default function PreviewPage() {
       } else line = testLine;
     }
     if (draw) ctx.fillText(line.trim(), x, y);
-    return y + lineHeight * 1.1;
+    return y + lineHeight * 0.2;
   }
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
