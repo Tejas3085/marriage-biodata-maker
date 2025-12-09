@@ -1,4 +1,11 @@
+/* Devanagari fonts for Hindi/Marathi used in canvas and UI */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Serif:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
 @import "tailwindcss";
+
+/* When html[lang] or body[data-lang] indicates hi/mr, prefer Devanagari fonts globally */
+html[lang="hi"], body[data-lang="hi"], html[lang="mr"], body[data-lang="mr"] {
+  font-family: "Noto Sans Devanagari", "Noto Serif", "Poppins", Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
 
 /* ===== Global Form Container ===== */
 .biodata-card {

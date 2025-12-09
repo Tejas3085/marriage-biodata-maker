@@ -22,7 +22,7 @@
         { "label": "Kuldevta", "key": "kuldevta", "type": "textarea", "placeholder": "Enter Kuldevta (Family Deity)", "value": "" },
 
         {
-          "label": "Rashi (Zodiac Sign)",
+          "label": "Rashi",
           "key": "rashi",
           "type": "select",
           "placeholder": "Select Rashi",

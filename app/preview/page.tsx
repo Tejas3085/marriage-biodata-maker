@@ -110,19 +110,74 @@ export default function PreviewPage() {
     });
 
   function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number, draw: boolean = true) {
+    // Build lines first (same logic for measure and draw)
     const words = String(text).split(" ");
-    let line = "";
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + (n === words.length - 1 ? "" : " ");
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && line !== "") {
-        if (draw) ctx.fillText(line.trim(), x, y);
-        line = words[n] + " ";
-        y += lineHeight * 1.1; // slightly bigger spacing
-      } else line = testLine;
+    const lines: string[] = [];
+    let current = "";
+
+    for (let w = 0; w < words.length; w++) {
+      const word = words[w];
+
+      // Try to append the word
+      const sep = current ? " " : "";
+      const test = current + sep + word;
+      const testWidth = ctx.measureText(test).width;
+
+      if (testWidth <= maxWidth) {
+        current = test;
+        continue;
+      }
+
+      // If current line has content, push it and start new line with word
+      if (current) {
+        lines.push(current);
+        current = word;
+        // If the new word itself is too long, we'll handle below
+        if (ctx.measureText(current).width > maxWidth) {
+          // fall through to breaking long word
+        } else {
+          continue;
+        }
+      }
+
+      // At this point current is empty OR word is too long to fit on its own
+      if (ctx.measureText(word).width <= maxWidth) {
+        // fits alone
+        current = word;
+        continue;
+      }
+
+      // Break a very long word into chunks by characters
+      let chunk = "";
+      for (let i = 0; i < word.length; i++) {
+        chunk += word[i];
+        const wWidth = ctx.measureText(chunk).width;
+        if (wWidth > maxWidth) {
+          // push chunk without last char
+          const pushChunk = chunk.slice(0, -1);
+          if (pushChunk) lines.push(pushChunk);
+          // start new chunk with current char
+          chunk = word[i];
+        }
+      }
+      if (chunk) {
+        current = chunk;
+      } else {
+        current = "";
+      }
     }
-    if (draw) ctx.fillText(line.trim(), x, y);
-    return y + lineHeight * 0.2;
+
+    if (current) lines.push(current);
+
+    // Draw or measure
+    for (let i = 0; i < lines.length; i++) {
+      const lineText = lines[i];
+      if (draw) ctx.fillText(lineText, x, y + i * lineHeight * 1.1);
+    }
+
+    // return the Y position after the last drawn line
+    const endY = y + lines.length * lineHeight * 1.1;
+    return endY;
   }
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
@@ -164,7 +219,8 @@ export default function PreviewPage() {
     // God Title
     if (formData.godTitle) {
       if (!dryRun) {
-        ctx.font = `700 ${godTitleSize}px "Playfair Display", serif`;
+        const serifFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Playfair Display", serif';
+        ctx.font = `700 ${godTitleSize}px ${serifFont}`;
         ctx.fillStyle = selectedTemplate.godTitleColor || "#872341";
         ctx.textAlign = "center";
         ctx.fillText(formData.godTitle, width / 2, y);
@@ -214,7 +270,8 @@ export default function PreviewPage() {
       // --- Section Title ---
       if (!dryRun) {
         ctx.fillStyle = selectedTemplate.sectionTitleColor || "#000";
-        ctx.font = `600 ${fontSize}px "Merriweather", serif`;
+        const sectionFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Merriweather", serif';
+        ctx.font = `600 ${fontSize}px ${sectionFont}`;
         ctx.textAlign = "center";
         ctx.fillText(sec.title || "", width / 2, y);
       }
@@ -234,7 +291,8 @@ export default function PreviewPage() {
 
         // Set fonts
         ctx.fillStyle = selectedTemplate.textColor || "#000";
-        ctx.font = `600 ${fontSize}px "Poppins", sans-serif`;
+        const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
+        ctx.font = `600 ${fontSize}px ${labelFont}`;
         ctx.textAlign = "left";
 
         // --- Calculate wrapped label height ---
@@ -246,8 +304,8 @@ export default function PreviewPage() {
         // --- Calculate wrapped value height ---
         const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false);
 
-        // New Y = tallest column → SAFE
-        const newY = Math.max(labelHeight, valueHeight + lineHeight);
+  // New Y = lowest point after the tallest column
+       const newY = Math.max(labelHeight, valueHeight);
 
         // ---- NOW DRAW ----
         wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);

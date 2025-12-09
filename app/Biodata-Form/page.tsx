@@ -79,25 +79,70 @@ export default function BiodataForm() {
     if (saved) {
       try {
         const groupedData = JSON.parse(saved);
-        const keyValueLookup: Record<string, any> = {};
 
-        for (const sectionKey of Object.keys(groupedData)) {
-          const section = (groupedData as any)[sectionKey];
-          if (section?.fields) {
-            section.fields.forEach((field: any) => {
-              if (field?.key) keyValueLookup[field.key] = field.value;
-            });
-          }
+        // Build a map of existing sections by key for quick lookup
+        const sectionsByKey = new Map<string, any>();
+        if (Array.isArray(clone.fieldSections)) {
+          clone.fieldSections.forEach((s: any) => sectionsByKey.set(s.key, s));
+        } else {
+          clone.fieldSections = [];
         }
 
-        if (clone.fieldSections) {
-          clone.fieldSections.forEach((section: any) => {
-            section.fields?.forEach((field: any) => {
-              if (keyValueLookup.hasOwnProperty(field.key)) {
-                field.value = keyValueLookup[field.key];
+        // Iterate saved sections and merge them into the cloned template.
+        // This will:
+        // - update values of existing fields
+        // - append any extra saved fields that aren't present in the template
+        // - create a whole new section if the saved data contains a section not in the template
+        for (const sectionKey of Object.keys(groupedData)) {
+          const savedSection = (groupedData as any)[sectionKey];
+          if (!savedSection) continue;
+
+          // Skip the special keys handled separately
+          if (sectionKey === "photo" || sectionKey === "godPhoto" || sectionKey === "godTitle") continue;
+
+          const target = sectionsByKey.get(sectionKey);
+          if (target) {
+            const existingByKey = new Map<string, any>();
+            target.fields = target.fields || [];
+            target.fields.forEach((f: any) => existingByKey.set(f.key, f));
+
+            // Merge each saved field
+            (savedSection.fields || []).forEach((sf: any) => {
+              if (!sf || !sf.key) return;
+              if (existingByKey.has(sf.key)) {
+                const ef = existingByKey.get(sf.key);
+                // update value and optionally label/placeholder/options if present
+                ef.value = sf.value;
+                if (sf.label !== undefined) ef.label = sf.label;
+                if (sf.placeholder !== undefined) ef.placeholder = sf.placeholder;
+                if (sf.options !== undefined) ef.options = sf.options;
+              } else {
+                // append extra field that was added by the user previously
+                target.fields.push({
+                  label: sf.label || "",
+                  value: sf.value,
+                  key: sf.key,
+                  type: sf.type || "text",
+                  placeholder: sf.placeholder || "",
+                  options: sf.options || [],
+                });
               }
             });
-          });
+          } else {
+            // If the template didn't contain this section, create it from saved data
+            clone.fieldSections.push({
+              key: sectionKey,
+              title: savedSection.title || "",
+              fields: (savedSection.fields || []).map((sf: any) => ({
+                label: sf.label || "",
+                value: sf.value,
+                key: sf.key || `field_${Date.now()}_${Math.random().toString(36).slice(2,8)}`,
+                type: sf.type || "text",
+                placeholder: sf.placeholder || "",
+                options: sf.options || [],
+              })),
+            });
+          }
         }
 
         if (groupedData.photo) setPhotoPreview(groupedData.photo);
@@ -107,7 +152,6 @@ export default function BiodataForm() {
         console.error("Failed to load saved form data:", err);
       }
     }
-
 
     setFormData(clone);
     isInitialized.current = true;
