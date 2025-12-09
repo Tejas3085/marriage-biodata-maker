@@ -94,12 +94,11 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
-    const selectedLang = localStorage.getItem('selectedLang') || 'en';
-    const saved = localStorage.getItem(selectedLang);
+    const saved = localStorage.getItem(language);
     if (saved) setFormData(JSON.parse(saved));
     setSelectedTemplate(templates[0]);
     setLoading(false);
-  }, []);
+  }, [language]);
 
   const loadImage = (src: string) =>
     new Promise<HTMLImageElement>((resolve) => {
