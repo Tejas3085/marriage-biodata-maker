@@ -94,7 +94,8 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
-    const saved = localStorage.getItem(language);
+    const selectedLang = localStorage.getItem('selectedLang') || 'en';
+    const saved = localStorage.getItem(selectedLang);
     if (saved) setFormData(JSON.parse(saved));
     setSelectedTemplate(templates[0]);
     setLoading(false);

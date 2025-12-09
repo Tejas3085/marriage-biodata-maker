@@ -180,7 +180,7 @@ export default function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="px-4 md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto" style={{ background: "linear-gradient(135deg, #fef9f5 0%, #e6f7ff 50%, #fff3e6 100%)" }}>
+      <section className="px-4 md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto mt-5" style={{ background: "linear-gradient(135deg, #fef9f5 0%, #e6f7ff 50%, #fff3e6 100%)" }}>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800">{translations?.howItWorksheading || "How It Works"}</h2>
         <div className="grid md:grid-cols-3 gap-8 cursor-pointer text-center max-w-6xl mx-auto">
           {translations?.howItWorks?.map((step: any, i: number) => (
@@ -194,7 +194,7 @@ export default function HomePage() {
       </section>
 
       {/* FORM SECTION */}
-      <section ref={formRef} className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl md:mx-auto shadow-xl" style={{ background: "linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #fffde7 100%)" }}>
+      <section ref={formRef} className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl md:mx-auto shadow-xl mt-5" style={{ background: "linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #fffde7 100%)" }}>
         <BiodataForm />
       </section>
 

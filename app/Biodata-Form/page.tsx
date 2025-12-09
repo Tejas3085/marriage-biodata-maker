@@ -266,7 +266,7 @@ export default function BiodataForm() {
             >
               <div className="flex justify-center mb-3">
                 {godPhoto ? (
-                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-blue-100">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
                     <Image
                       src={godPhoto}
                       alt="Selected deity"
