@@ -13,7 +13,23 @@ type LanguageContextType = {
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<string>("en");
+  // Initialize language from localStorage so selection persists across refreshes
+  const [language, setLanguageState] = useState<string>(() => {
+    try {
+      return localStorage.getItem("language") || "en";
+    } catch (err) {
+      return "en";
+    }
+  });
+  // wrapper setter that persists selection
+  const setLanguage = useCallback((lang: string) => {
+    setLanguageState(lang);
+    try {
+      localStorage.setItem("language", lang);
+    } catch (err) {
+      // ignore
+    }
+  }, []);
   const [translations, setTranslations] = useState<any | null>(null);
   const [translationsForm, setTranslationsForm] = useState<any | null>(null);
 
@@ -57,6 +73,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // setFolder is stable because of useCallback and depends on `language`.
   }, [language, setFolder]);
 
+  // Sync DOM attributes so global CSS can target the current language.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      document.documentElement.lang = language;
+      document.body.setAttribute("data-lang", language);
+    } catch (err) {
+      // ignore
+    }
+  }, [language]);
+
   // Memoize the context value so consumers don't rerender unnecessarily
   const value = useMemo(
     () => ({
@@ -66,7 +93,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       translationsForm,
       setFolder,
     }),
-    [language, translations, translationsForm, setFolder]
+    [language, translations, translationsForm, setFolder, setLanguage]
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

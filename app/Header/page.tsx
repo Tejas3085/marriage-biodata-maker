@@ -35,11 +35,18 @@ export default function Header() {
                     <div className="flex items-center">
                         <select
                             className="appearance-none bg-transparent border-none outline-none text-xs sm:text-sm md:text-base font-medium text-gray-700 cursor-pointer"
+                            // Controlled by context language state (not direct localStorage reads)
                             value={language}
                             onChange={(e) => {
                                 const newLang = e.target.value;
+                                // update provider state
                                 setLanguage(newLang);
-                                localStorage.setItem("selectedLang", newLang);
+                                // persist selection so refresh/navigation can restore it
+                                try {
+                                  localStorage.setItem("language", newLang);
+                                } catch (err) {
+                                  /* ignore */
+                                }
                             }}
                             style={{
                                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
