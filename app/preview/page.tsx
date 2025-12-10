@@ -363,6 +363,15 @@ export default function PreviewPage() {
 
     const images = { frameImg, godImg, userImg };
 
+    // Wait for fonts to be ready so measureText uses the correct font metrics
+    if (typeof document !== "undefined" && (document as any).fonts && (document as any).fonts.ready) {
+      try {
+        await (document as any).fonts.ready;
+      } catch (err) {
+        // ignore font loading errors and proceed
+      }
+    }
+
     // Iterative sizing
     let fontSize = 18;
     let godPhotoSize = width * 0.10;
@@ -437,8 +446,18 @@ export default function PreviewPage() {
 
 
   useEffect(() => {
-    updateCanvas();
-  }, [formData, selectedTemplate]);
+    // Ensure canvas redraw when language changes (fonts/metrics depend on language)
+    // Wrap in try/catch to avoid unhandled rejections from font loading
+    (async () => {
+      try {
+        await updateCanvas();
+      } catch (err) {
+        // log but don't crash the UI
+        // eslint-disable-next-line no-console
+        console.error("Failed to update preview canvas:", err);
+      }
+    })();
+  }, [formData, selectedTemplate, language]);
 
   if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>;
   if (!formData)
@@ -459,7 +478,7 @@ export default function PreviewPage() {
             {/* MAIN HEADING */}
             <h1
               className="text-xl sm:text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
-        bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 
+  bg-linear-to-r from-pink-600 via-purple-600 to-indigo-600 
         tracking-wide drop-shadow-sm"
             >
               Choose Your Biodata Template
@@ -541,7 +560,7 @@ export default function PreviewPage() {
     px-4 py-2 
     sm:px-5 sm:py-3 
     md:px-6 md:py-3
-    bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold 
+  bg-linear-to-r from-pink-500 to-rose-600 text-white font-semibold 
     rounded-xl shadow-md 
     hover:from-pink-600 hover:to-rose-700 hover:shadow-lg hover:-translate-y-0.5
     transition-all duration-200
@@ -562,7 +581,7 @@ export default function PreviewPage() {
                 <div
                   key={tpl.id}
                   onClick={() => setSelectedTemplate(tpl)}
-                  className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
+                  className={`w-20 cursor-pointer border rounded-lg overflow-hidden shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
                 >
                   <div className="relative w-full h-20 bg-gray-100">
                     <NextImage
