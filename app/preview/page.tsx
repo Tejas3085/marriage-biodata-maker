@@ -42,47 +42,47 @@ export default function PreviewPage() {
   const { language, setLanguage } = useLanguageContext();
 
   const templates: Template[] = [
-    { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#800000", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.06, labelMarginBottom: -2 },
+    { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#800000", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#000080", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: -2.2 },
+    { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#000080", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: -3.4 },
+    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
     { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#006400", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#2F4F4F", sectionTitleColor: "#A0522D", userPhotomarginLeft: 0.09, labelMarginBottom: -2 },
+    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#2F4F4F", sectionTitleColor: "#A0522D", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: -3 },
+    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom:100, labelMarginBottom: -4.9 },
+    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom: 0, labelMarginBottom: -3.9 },
 
-    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.13, marginBottom: 100, labelMarginBottom: -3.9 },
+    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.12, marginBottom: 250, labelMarginBottom: -2 },
 
-    { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#483D8B", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.12, marginBottom: 100, labelMarginBottom: -2 },
+    { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#483D8B", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.14, marginBottom: 100, labelMarginBottom: -3 },
+    { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.14, labelMarginBottom: -1 },
 
-    { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.12, labelMarginBottom: -0 },
+    { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.12, labelMarginBottom: -1 },
 
-    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.12, labelMarginBottom: -3.6 },
+    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.12, labelMarginBottom: -3.8 },
 
     { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#880E4F", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
 
-    { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#1A237E", sectionTitleColor: "#FBC02D", userPhotomarginLeft: 0.06, labelMarginBottom: -3.6 },
+    { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#1A237E", sectionTitleColor: "#FBC02D", userPhotomarginLeft: 0.06, labelMarginBottom: -3 },
 
-    { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#311B92", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: -1 },
+    { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#311B92", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: 1 },
 
-    { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#006064", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.06, labelMarginBottom: -2 },
+    { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#006064", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#B71C1C", sectionTitleColor: "#F9A825", userPhotomarginLeft: 0.06, labelMarginBottom: -1.5 },
 
     { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#1B5E20", sectionTitleColor: "#827717", userPhotomarginLeft: 0.08, labelMarginBottom: 1 },
 
-    { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: -2 },
+    { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     { id: 20, name: "Elegant 19", img: "/templates/template20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#BF360C", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#33691E", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: -1 },
+    { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#33691E", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
   ];
 
   // Detect mobile
@@ -94,37 +94,10 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
-    // Prefer the language stored in localStorage (header may write it as 'language' or 'selectedLang')
-    const getActiveLang = () => {
-      if (typeof window === "undefined") return language;
-      return localStorage.getItem("language") ?? localStorage.getItem("selectedLang") ?? language;
-    };
-
-    const loadForLang = (langKey: string) => {
-      try {
-        const saved = localStorage.getItem(langKey);
-        if (saved) setFormData(JSON.parse(saved));
-      } catch (err) {
-        // ignore parse errors
-      }
-    };
-
-    const active = getActiveLang();
-    loadForLang(active);
+    const saved = localStorage.getItem(language);
+    if (saved) setFormData(JSON.parse(saved));
     setSelectedTemplate(templates[0]);
     setLoading(false);
-
-    // Listen for storage events (other tabs) and update if language or its data changes
-    const onStorage = (e: StorageEvent) => {
-      if (!e.key) return;
-      const keysOfInterest = ["language", "selectedLang", active, language];
-      if (keysOfInterest.includes(e.key)) {
-        const newLang = getActiveLang();
-        loadForLang(newLang);
-      }
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
   }, [language]);
 
   const loadImage = (src: string) =>
@@ -339,29 +312,8 @@ export default function PreviewPage() {
         ctx.fillText(":", colonX, y);
         wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true);
 
-        // Compute dynamic margin based on how many lines the label took
-        const labelLines = Math.max(1, Math.ceil((labelHeight - y) / (lineHeight * 1.1)));
-        const baseLabelMargin = selectedTemplate.labelMarginBottom ?? 0;
-        // Add a small extra gap for each additional wrapped line so rows don't look cramped
-        const extraPerLine = lineHeight * 0.25;
-        let dynamicLabelMargin = baseLabelMargin + (labelLines - 1) * extraPerLine;
-
-        // Avoid using strong negative margins when plenty of vertical space remains
-        // remainingAfterRow is how much vertical space would remain after placing this row
-        const remainingAfterRow = height - newY;
-        const LARGE_FREE_SPACE = height * 0.15; // 15% of canvas height
-        if (remainingAfterRow > LARGE_FREE_SPACE) {
-          // when there's a lot of space, prefer non-negative margins so template artwork isn't overlapped
-          dynamicLabelMargin = Math.max(dynamicLabelMargin, 0);
-        }
-
-        // Clamp to reasonable bounds to prevent extreme spacing that breaks the layout
-        const minMargin = -lineHeight * 0.75; // allow a small negative tuck
-        const maxMargin = lineHeight * 2;     // generous top gap for many wrapped lines
-        dynamicLabelMargin = Math.max(minMargin, Math.min(dynamicLabelMargin, maxMargin));
-
-        // Move to next row using dynamic margin
-        y = newY + dynamicLabelMargin;
+        // Move to next row
+        y = newY + (selectedTemplate.labelMarginBottom || 0);
       });
 
 
@@ -390,62 +342,31 @@ export default function PreviewPage() {
 
     const images = { frameImg, godImg, userImg };
 
-    // Wait for fonts to be ready so measureText uses the correct font metrics
-    if (typeof document !== "undefined" && (document as any).fonts && (document as any).fonts.ready) {
-      try {
-        await (document as any).fonts.ready;
-      } catch (err) {
-        // ignore font loading errors and proceed
-      }
-    }
-
     // Iterative sizing
     let fontSize = 18;
     let godPhotoSize = width * 0.10;
     let godTitleSize = 18;
 
-    // Determine allowed content height based on template bottom padding
-    const bottomPadding = (selectedTemplate.marginBottom ?? 40);
-    const maxAllowedHeight = FIXED_HEIGHT - bottomPadding;
-
-    // Try to fit - if there are many labels we'll scale fonts proportionally to avoid overlap
+    // Try to fit
     let contentHeight = 0;
     let attempts = 0;
-    const MIN_FONT = 8;
 
-    while (attempts < 30) {
+    while (attempts < 20) {
       const config = { fontSize, godPhotoSize, godTitleSize };
-      // dry run to measure content
+      // We need to set context font for measureText to work in dryRun
+      // But drawBiodata sets it before calling wrapText, so it's fine.
       contentHeight = drawBiodata(ctx, width, FIXED_HEIGHT, config, images, true);
 
-      if (contentHeight <= maxAllowedHeight) {
+      if (contentHeight <= FIXED_HEIGHT - 40) { // 40px buffer
         break;
       }
 
-      // Proportional scaling factor
-      const scale = maxAllowedHeight / Math.max(1, contentHeight);
+      // Reduce sizes
+      if (fontSize > 10) fontSize -= 0.5;
+      if (godPhotoSize > width * 0.06) godPhotoSize *= 0.95;
+      if (godTitleSize > 12) godTitleSize -= 0.5;
 
-      // If scale is very small, cap a single-step reduction to avoid huge jumps; otherwise apply scale
-      const stepScale = Math.max(0.6, scale);
-
-      // Apply proportional scaling; ensure we don't go below minimum font size
-      const nextFont = Math.max(MIN_FONT, Math.floor(fontSize * stepScale * 100) / 100);
-      const nextGodPhoto = Math.max(width * 0.06, godPhotoSize * Math.max(0.75, stepScale));
-      const nextGodTitle = Math.max(10, Math.floor(godTitleSize * stepScale));
-
-      // If sizes didn't change meaningfully, fall back to small decrements to avoid infinite loop
-      if (Math.abs(nextFont - fontSize) < 0.01) {
-        if (fontSize > MIN_FONT) fontSize = Math.max(MIN_FONT, fontSize - 0.5);
-        if (godPhotoSize > width * 0.06) godPhotoSize *= 0.95;
-        if (godTitleSize > 10) godTitleSize = Math.max(10, godTitleSize - 0.5);
-      } else {
-        fontSize = nextFont;
-        godPhotoSize = nextGodPhoto;
-        godTitleSize = nextGodTitle;
-      }
-
-      // Stop if we've hit minimums
-      if (fontSize <= MIN_FONT && godPhotoSize <= width * 0.06 && godTitleSize <= 10) break;
+      if (fontSize <= 10 && godPhotoSize <= width * 0.06 && godTitleSize <= 12) break; // Minimums reached
 
       attempts++;
     }
@@ -456,35 +377,13 @@ export default function PreviewPage() {
     canvas.height = FIXED_HEIGHT * scale;
     ctx.scale(scale, scale);
 
-  // Ensure a consistent bottom padding regardless of content height.
-  // bottomPadding was computed earlier (based on template.marginBottom or default 40px).
-  // contentHeight is the measured end-Y from drawBiodata during dryRun.
-    // Compute a positive shift so that final content bottom sits at FIXED_HEIGHT - bottomPadding.
-    let shift = (FIXED_HEIGHT - bottomPadding) - contentHeight;
-    // If content overflows, don't shift positively; clamp so we don't move content off-canvas upwards too far.
-    if (shift < 0) shift = 0;
-
-    // Apply translation so final draw preserves the same bottom gap.
-    ctx.save();
-    ctx.translate(0, shift);
     drawBiodata(ctx, width, FIXED_HEIGHT, { fontSize, godPhotoSize, godTitleSize }, images, false);
-    ctx.restore();
   };
 
 
   useEffect(() => {
-    // Ensure canvas redraw when language changes (fonts/metrics depend on language)
-    // Wrap in try/catch to avoid unhandled rejections from font loading
-    (async () => {
-      try {
-        await updateCanvas();
-      } catch (err) {
-        // log but don't crash the UI
-        // eslint-disable-next-line no-console
-        console.error("Failed to update preview canvas:", err);
-      }
-    })();
-  }, [formData, selectedTemplate, language]);
+    updateCanvas();
+  }, [formData, selectedTemplate]);
 
   if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>;
   if (!formData)
@@ -505,7 +404,7 @@ export default function PreviewPage() {
             {/* MAIN HEADING */}
             <h1
               className="text-xl sm:text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
-  bg-linear-to-r from-pink-600 via-purple-600 to-indigo-600 
+        bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 
         tracking-wide drop-shadow-sm"
             >
               Choose Your Biodata Template
@@ -587,7 +486,7 @@ export default function PreviewPage() {
     px-4 py-2 
     sm:px-5 sm:py-3 
     md:px-6 md:py-3
-  bg-linear-to-r from-pink-500 to-rose-600 text-white font-semibold 
+    bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold 
     rounded-xl shadow-md 
     hover:from-pink-600 hover:to-rose-700 hover:shadow-lg hover:-translate-y-0.5
     transition-all duration-200
@@ -608,7 +507,7 @@ export default function PreviewPage() {
                 <div
                   key={tpl.id}
                   onClick={() => setSelectedTemplate(tpl)}
-                  className={`w-20 cursor-pointer border rounded-lg overflow-hidden shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
+                  className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
                 >
                   <div className="relative w-full h-20 bg-gray-100">
                     <NextImage
