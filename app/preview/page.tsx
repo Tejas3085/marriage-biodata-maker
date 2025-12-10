@@ -46,15 +46,15 @@ export default function PreviewPage() {
 
     { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#000080", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
+    // { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
     { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#006400", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#2F4F4F", sectionTitleColor: "#A0522D", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    // { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom: 0, labelMarginBottom: -3.9 },
+    // { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom: 0, labelMarginBottom: -3.9 },
 
     { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.12, marginBottom: 250, labelMarginBottom: -2 },
 
@@ -64,7 +64,7 @@ export default function PreviewPage() {
 
     { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.12, labelMarginBottom: -1 },
 
-    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.12, labelMarginBottom: -3.8 },
+    // { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.12, labelMarginBottom: -3.8 },
 
     { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#880E4F", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
 
@@ -80,7 +80,7 @@ export default function PreviewPage() {
 
     { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 20, name: "Elegant 19", img: "/templates/template20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#BF360C", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+    // { id: 20, name: "Elegant 19", img: "/templates/template20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#BF360C", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#33691E", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
   ];
@@ -110,74 +110,70 @@ export default function PreviewPage() {
     });
 
   function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number, draw: boolean = true) {
-    // Build lines first (same logic for measure and draw)
-    const words = String(text).split(" ");
-    const lines: string[] = [];
-    let current = "";
+    // Support explicit newlines: treat each paragraph (split by \n) separately
+    const paragraphs = String(text).split(/\r?\n/);
+    let cursorY = y;
 
-    for (let w = 0; w < words.length; w++) {
-      const word = words[w];
+    for (let p = 0; p < paragraphs.length; p++) {
+      const para = paragraphs[p] || "";
 
-      // Try to append the word
-      const sep = current ? " " : "";
-      const test = current + sep + word;
-      const testWidth = ctx.measureText(test).width;
+      // Build lines for this paragraph
+      const words = para.split(" ");
+      const lines: string[] = [];
+      let current = "";
 
-      if (testWidth <= maxWidth) {
-        current = test;
-        continue;
-      }
+      for (let w = 0; w < words.length; w++) {
+        const word = words[w];
+        const sep = current ? " " : "";
+        const test = current + sep + word;
+        const testWidth = ctx.measureText(test).width;
 
-      // If current line has content, push it and start new line with word
-      if (current) {
-        lines.push(current);
-        current = word;
-        // If the new word itself is too long, we'll handle below
-        if (ctx.measureText(current).width > maxWidth) {
-          // fall through to breaking long word
-        } else {
+        if (testWidth <= maxWidth) {
+          current = test;
           continue;
         }
-      }
 
-      // At this point current is empty OR word is too long to fit on its own
-      if (ctx.measureText(word).width <= maxWidth) {
-        // fits alone
-        current = word;
-        continue;
-      }
-
-      // Break a very long word into chunks by characters
-      let chunk = "";
-      for (let i = 0; i < word.length; i++) {
-        chunk += word[i];
-        const wWidth = ctx.measureText(chunk).width;
-        if (wWidth > maxWidth) {
-          // push chunk without last char
-          const pushChunk = chunk.slice(0, -1);
-          if (pushChunk) lines.push(pushChunk);
-          // start new chunk with current char
-          chunk = word[i];
+        if (current) {
+          lines.push(current);
+          current = word;
+          if (ctx.measureText(current).width > maxWidth) {
+            // fall through to breaking long word
+          } else {
+            continue;
+          }
         }
+
+        // Break a very long word into chunks by characters
+        let chunk = "";
+        for (let i = 0; i < word.length; i++) {
+          chunk += word[i];
+          const wWidth = ctx.measureText(chunk).width;
+          if (wWidth > maxWidth) {
+            const pushChunk = chunk.slice(0, -1);
+            if (pushChunk) lines.push(pushChunk);
+            chunk = word[i];
+          }
+        }
+        if (chunk) current = chunk;
+        else current = "";
       }
-      if (chunk) {
-        current = chunk;
-      } else {
-        current = "";
+
+      if (current) lines.push(current);
+
+      // Draw or measure lines for this paragraph
+      for (let i = 0; i < lines.length; i++) {
+        const lineText = lines[i];
+        if (draw) ctx.fillText(lineText, x, cursorY + i * lineHeight * 1.1);
       }
+
+      // advance cursorY by number of lines
+      cursorY = cursorY + lines.length * lineHeight * 1.1;
+
+      // Add a small paragraph gap after each paragraph except the last
+      if (p < paragraphs.length - 1) cursorY += lineHeight * 0.3;
     }
 
-    if (current) lines.push(current);
-
-    // Draw or measure
-    for (let i = 0; i < lines.length; i++) {
-      const lineText = lines[i];
-      if (draw) ctx.fillText(lineText, x, y + i * lineHeight * 1.1);
-    }
-
-    // return the Y position after the last drawn line
-    const endY = y + lines.length * lineHeight * 1.1;
-    return endY;
+    return cursorY;
   }
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");

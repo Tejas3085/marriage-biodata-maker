@@ -150,6 +150,18 @@ export default function BiodataForm() {
         if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
       } catch (err) {
         console.error("Failed to load saved form data:", err);
+        // If localStorage contains a non-JSON value (commonly "[object Object]"), remove it to recover
+        try {
+          if (typeof window !== "undefined") {
+            const raw = localStorage.getItem(language);
+            if (raw && (raw.trim() === "[object Object]" || (raw.trim()[0] !== "{" && raw.trim()[0] !== "["))) {
+              console.warn(`Stored value for key '${language}' is malformed; removing it.`);
+              localStorage.removeItem(language);
+            }
+          }
+        } catch (rmErr) {
+          console.warn("Failed to clean malformed saved data:", rmErr);
+        }
       }
     }
 
@@ -490,7 +502,7 @@ export default function BiodataForm() {
                               aria-label={`Select ${field.label || "option"}`}
                               value={field.value || ""}
                               onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-                              className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full"
+                              className="border border-gray-200 px-3 py-2 mb-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full"
                             >
                               <option value="">{field.placeholder || "Select"}</option>
                               {field.options?.map((op: string, idx: number) => (
@@ -509,7 +521,7 @@ export default function BiodataForm() {
                                 autoResize(e);
                               }}
                               placeholder={field.placeholder || "Enter value"}
-                              className="border border-gray-200 px-3 py-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full resize-none overflow-hidden"
+                              className="border border-gray-200 px-3 py-2 mb-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full resize-none overflow-hidden"
                               rows={1}
                             />
                           )}
