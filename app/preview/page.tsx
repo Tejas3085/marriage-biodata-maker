@@ -94,10 +94,37 @@ export default function PreviewPage() {
   }, []);
 
   useEffect(() => {
-    const saved = localStorage.getItem(language);
-    if (saved) setFormData(JSON.parse(saved));
+    // Prefer the language stored in localStorage (header may write it as 'language' or 'selectedLang')
+    const getActiveLang = () => {
+      if (typeof window === "undefined") return language;
+      return localStorage.getItem("language") ?? localStorage.getItem("selectedLang") ?? language;
+    };
+
+    const loadForLang = (langKey: string) => {
+      try {
+        const saved = localStorage.getItem(langKey);
+        if (saved) setFormData(JSON.parse(saved));
+      } catch (err) {
+        // ignore parse errors
+      }
+    };
+
+    const active = getActiveLang();
+    loadForLang(active);
     setSelectedTemplate(templates[0]);
     setLoading(false);
+
+    // Listen for storage events (other tabs) and update if language or its data changes
+    const onStorage = (e: StorageEvent) => {
+      if (!e.key) return;
+      const keysOfInterest = ["language", "selectedLang", active, language];
+      if (keysOfInterest.includes(e.key)) {
+        const newLang = getActiveLang();
+        loadForLang(newLang);
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, [language]);
 
   const loadImage = (src: string) =>
