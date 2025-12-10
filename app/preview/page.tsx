@@ -188,7 +188,7 @@ export default function PreviewPage() {
       }
 
       // advance cursorY by number of lines
-      cursorY = cursorY + lines.length * lineHeight * 1.1;
+      cursorY = cursorY + lines.length * lineHeight * 0.6;
 
       // Add a small paragraph gap after each paragraph except the last
       if (p < paragraphs.length - 1) cursorY += lineHeight * 0.3;
