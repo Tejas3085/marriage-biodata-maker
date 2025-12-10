@@ -426,11 +426,11 @@ export default function PreviewPage() {
         {/* </div> */}
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-6">
           <div className="flex-1 flex flex-col items-center relative">
-            <div className="bg-white rounded-xl shadow-md p-4 w-full flex justify-center">
+            <div className="bg-white rounded-xl shadow-md p-4 w-full flex justify-center mt-0">
               <canvas
                 ref={canvasRef}
                 className="shadow-inner bg-white w-full"
-                style={{ height: isMobile ? "50vh" : "auto", maxHeight: "800px", maxWidth: "250px" }}
+                style={{ height: isMobile ? "60vh" : "auto", maxHeight: "1000px", maxWidth: "100%" }}
               />
             </div>
 
