@@ -61,7 +61,7 @@ export default function PreviewPage() {
     // { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom: 0, labelMarginBottom: -3.9 },
 
     // { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.13, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.12, marginBottom: 250, labelMarginBottom: -2 },
-    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: -3.7 },
+    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0-2 },
 
     // { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.015, godTitleColor: "#483D8B", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
     { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: -2.5 },
@@ -130,13 +130,34 @@ export default function PreviewPage() {
       img.src = src;
     });
 
-  function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number, draw: boolean = true) {
+  function wrapText(
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    x: number,
+    y: number,
+    maxWidth: number,
+    lineHeight: number,
+    draw: boolean = true,
+    spacingMultiplier?: number
+  ) {
     // Support explicit newlines: treat each paragraph (split by \n) separately
     const paragraphs = String(text).split(/\r?\n/);
     let cursorY = y;
 
+    // Spacing configuration
+    const defaultLineSpacing = 1.02; // spacing between wrapped lines
+    const lineSpacing = spacingMultiplier ?? defaultLineSpacing;
+    const lineBreakGap = Math.max(0, lineHeight * 0.12); // small gap for single newline (user Enter)
+    const paragraphGapLarge = Math.max(0, lineHeight * 0.45); // larger gap for empty-line paragraph separation
+
     for (let p = 0; p < paragraphs.length; p++) {
-      const para = paragraphs[p] || "";
+      const para = paragraphs[p];
+
+      // Empty paragraph (caused by double newline) -> large paragraph gap
+      if (para === "") {
+        cursorY += paragraphGapLarge;
+        continue;
+      }
 
       // Build lines for this paragraph
       const words = para.split(" ");
@@ -184,14 +205,18 @@ export default function PreviewPage() {
       // Draw or measure lines for this paragraph
       for (let i = 0; i < lines.length; i++) {
         const lineText = lines[i];
-        if (draw) ctx.fillText(lineText, x, cursorY + i * lineHeight * 1.1);
+        if (draw) ctx.fillText(lineText, x, cursorY + i * lineHeight * lineSpacing);
       }
 
-      // advance cursorY by number of lines
-      cursorY = cursorY + lines.length * lineHeight * 1.2;
+      // advance cursorY by number of wrapped lines
+      cursorY = cursorY + lines.length * lineHeight * lineSpacing;
 
-      // Add a small paragraph gap after each paragraph except the last
-      if (p < paragraphs.length - 1) cursorY += lineHeight * 0;
+      // If next paragraph exists and is non-empty, add a small lineBreak gap.
+      // If next paragraph is empty, the next loop iteration will add a larger paragraph gap.
+      if (p < paragraphs.length - 1) {
+        const nextPara = paragraphs[p + 1];
+        if (nextPara !== "") cursorY += lineBreakGap;
+      }
     }
 
     return cursorY;
@@ -199,7 +224,16 @@ export default function PreviewPage() {
 
   const sanitizeFileName = (name: string) => name.replace(/[^a-z0-9]/gi, "_");
 
-  const drawBiodata = (
+  // Draw only the frame/background (no content). Keeps frame at native size so we can scale content separately.
+  const drawFrame = (ctx: CanvasRenderingContext2D, width: number, height: number, frameImg: HTMLImageElement | null) => {
+    if (!selectedTemplate) return;
+    ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
+    ctx.fillRect(0, 0, width, height);
+    if (frameImg && frameImg.src) ctx.drawImage(frameImg, 0, 0, width, height);
+  };
+
+  // Draw or measure content (everything except the frame). When dryRun === true we only measure and do not paint.
+  const drawBiodataContent = (
     ctx: CanvasRenderingContext2D,
     width: number,
     height: number,
@@ -210,16 +244,7 @@ export default function PreviewPage() {
     if (!formData || !selectedTemplate) return 0;
 
     const { fontSize, godPhotoSize, godTitleSize } = config;
-    const { frameImg, godImg, userImg } = images;
-
-    // Background
-    if (!dryRun) {
-      ctx.fillStyle = selectedTemplate.backgroundColor || "#fff";
-      ctx.fillRect(0, 0, width, height);
-
-      // Template frame
-      if (frameImg.src) ctx.drawImage(frameImg, 0, 0, width, height);
-    }
+    const { godImg, userImg } = images;
 
     let y = height * selectedTemplate.godMarginTop;
 
@@ -264,7 +289,7 @@ export default function PreviewPage() {
     const sections = [formData.personalInfo, formData.familyInfo, formData.contactInfo].filter(Boolean);
 
     // Calculate line height based on fontSize
-    let lineHeight = fontSize * 1.5;
+    let lineHeight = fontSize * 1.35; // slightly tighter base than before
 
     const sectionTitleFontSize = Math.max(12, lineHeight * 0.9);
 
@@ -315,11 +340,8 @@ export default function PreviewPage() {
         // --- Calculate wrapped label height ---
         const labelHeight = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, false);
 
-        // Colon always single line
-        const colonHeight = y + lineHeight;
-
-        // --- Calculate wrapped value height ---
-        const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false);
+        // --- Calculate wrapped value height (use slightly tighter spacing for values)
+        const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false, 1.0);
 
         // New Y = lowest point after the tallest column
         const newY = Math.max(labelHeight, valueHeight);
@@ -327,14 +349,13 @@ export default function PreviewPage() {
         // ---- NOW DRAW ----
         wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);
         ctx.fillText(":", colonX, y);
-        wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true);
+        wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true, 1.0);
 
         // Move to next row
         y = newY + (selectedTemplate.labelMarginBottom || 0);
       });
 
-
-      y += lineHeight * 0.1;
+      y += lineHeight * 0.08;
     });
 
     return y;
@@ -359,7 +380,7 @@ export default function PreviewPage() {
 
     const images = { frameImg, godImg, userImg };
 
-    // Iterative sizing
+    // Iterative sizing to try to fit content into the template height
     let fontSize = 18;
     let godPhotoSize = width * 0.13;
     let godTitleSize = 18;
@@ -367,34 +388,59 @@ export default function PreviewPage() {
     // Try to fit
     let contentHeight = 0;
     let attempts = 0;
+    const bottomPadding = selectedTemplate.marginBottom ?? 40;
+    const availableHeight = FIXED_HEIGHT - bottomPadding;
 
-    while (attempts < 20) {
+    // Use an offscreen canvas/context for measuring so we don't disturb the real canvas state
+    const measureCanvas = document.createElement("canvas");
+    const measureCtx = measureCanvas.getContext("2d");
+    if (!measureCtx) return;
+
+    while (attempts < 30) {
       const config = { fontSize, godPhotoSize, godTitleSize };
-      // We need to set context font for measureText to work in dryRun
-      // But drawBiodata sets it before calling wrapText, so it's fine.
-      contentHeight = drawBiodata(ctx, width, FIXED_HEIGHT, config, images, true);
+      // Measure content height without drawing on the visible canvas
+      contentHeight = drawBiodataContent(measureCtx, width, FIXED_HEIGHT, config, images, true);
 
-      if (contentHeight <= FIXED_HEIGHT - 40) { // 40px buffer
+      if (contentHeight <= availableHeight) {
         break;
       }
 
-      // Reduce sizes
-      if (fontSize > 10) fontSize -= 0.5;
-      if (godPhotoSize > width * 0.06) godPhotoSize *= 0.95;
-      if (godTitleSize > 12) godTitleSize -= 0.5;
+      // Reduce sizes more aggressively if needed
+      if (fontSize > 8) fontSize -= Math.max(0.6, (fontSize - 8) * 0.06);
+      if (godPhotoSize > width * 0.05) godPhotoSize *= 0.94;
+      if (godTitleSize > 10) godTitleSize -= Math.max(0.6, (godTitleSize - 10) * 0.05);
 
-      if (fontSize <= 10 && godPhotoSize <= width * 0.06 && godTitleSize <= 12) break; // Minimums reached
+      // stop if everything is small already
+      if (fontSize <= 8 && godPhotoSize <= width * 0.05 && godTitleSize <= 10) break;
 
       attempts++;
     }
 
-    // Final Draw
-    const scale = devicePixelRatio || 1;
-    canvas.width = width * scale;
-    canvas.height = FIXED_HEIGHT * scale;
-    ctx.scale(scale, scale);
+    // Final Draw with devicePixelRatio and optional content scaling so we never overflow the frame
+    const dpr = devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = FIXED_HEIGHT * dpr;
+    ctx.scale(dpr, dpr);
 
-    drawBiodata(ctx, width, FIXED_HEIGHT, { fontSize, godPhotoSize, godTitleSize }, images, false);
+    // Draw frame at native/full size (so frame artwork is not squashed)
+    drawFrame(ctx, width, FIXED_HEIGHT, images.frameImg);
+
+    // If content still too tall, compute a final content scale to fit inside availableHeight
+    const finalContentScale = contentHeight > 0 && contentHeight > availableHeight ? (availableHeight / contentHeight) : 1;
+
+    const configFinal = { fontSize, godPhotoSize, godTitleSize };
+
+    if (finalContentScale < 1) {
+      ctx.save();
+      // center content vertically inside frame
+      const translateY = (FIXED_HEIGHT - contentHeight * finalContentScale) / 2;
+      ctx.translate(0, translateY);
+      ctx.scale(finalContentScale, finalContentScale);
+      drawBiodataContent(ctx, width, FIXED_HEIGHT, configFinal, images, false);
+      ctx.restore();
+    } else {
+      drawBiodataContent(ctx, width, FIXED_HEIGHT, configFinal, images, false);
+    }
   };
 
 
@@ -447,7 +493,8 @@ export default function PreviewPage() {
               <canvas
                 ref={canvasRef}
                 className="shadow-inner bg-white w-full"
-                style={{ height: isMobile ? "60vh" : "auto", maxHeight: "1000px", maxWidth: "100%" }}
+                style={{ height: isMobile ? "60vh" : "70vh", maxHeight: "800px", maxWidth: isMobile? "100%":"70%" }}
+
               />
             </div>
 
