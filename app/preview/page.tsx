@@ -43,7 +43,7 @@ export default function PreviewPage() {
 
   const templates: Template[] = [
     // { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#800000", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-    { id: 1, name: "Elegant", img: "/templates/template1.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: -2.5 },
+    { id: 1, name: "Elegant", img: "/templates/template1.jpg", textColor: "#212529", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: -2.5 },
 
     // { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#000080", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
     { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: -2.5 },
@@ -61,7 +61,7 @@ export default function PreviewPage() {
     // { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.10, labelsLeftPadding: 0.16, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.13, marginBottom: 0, labelMarginBottom: -3.9 },
 
     // { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.13, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.12, marginBottom: 250, labelMarginBottom: -2 },
-    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0-2 },
+    // { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 2 },
 
     // { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.015, godTitleColor: "#483D8B", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
     { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: -2.5 },
@@ -147,7 +147,7 @@ export default function PreviewPage() {
     // Spacing configuration
     const defaultLineSpacing = 1.02; // spacing between wrapped lines
     const lineSpacing = spacingMultiplier ?? defaultLineSpacing;
-    const lineBreakGap = Math.max(0, lineHeight * 0.12); // small gap for single newline (user Enter)
+    const lineBreakGap = Math.max(0, lineHeight * 0); // small gap for single newline (user Enter)
     const paragraphGapLarge = Math.max(0, lineHeight * 0.45); // larger gap for empty-line paragraph separation
 
     for (let p = 0; p < paragraphs.length; p++) {
@@ -293,9 +293,10 @@ export default function PreviewPage() {
 
     const sectionTitleFontSize = Math.max(12, lineHeight * 0.9);
 
-    const labelX = width * (selectedTemplate.labelsLeftPadding ?? 0.12);
-    const colonX = width * 0.38;
-    const valueX = colonX + 12;
+  const labelX = width * (selectedTemplate.labelsLeftPadding ?? 0.12);
+  // Move colon and value a bit left so values sit closer to labels
+  const colonX = width * 0.325;
+  const valueX = colonX + 23;
 
     sections.forEach((sec: any) => {
       if (!sec) return;
@@ -328,28 +329,36 @@ export default function PreviewPage() {
           ? photoX - 16
           : width - 40;
 
-        const labelMaxWidth = colonX - labelX - 5;
+  const labelMaxWidth = colonX - labelX - 8;
         const valueMaxWidth = safeRight - valueX;
 
-        // Set fonts
-        ctx.fillStyle = selectedTemplate.textColor || "#000";
-        const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
-        ctx.font = `600 ${fontSize}px ${labelFont}`;
-        ctx.textAlign = "left";
+  // Set fonts (use slightly smaller sizes for labels/values so dense lists fit better)
+  ctx.fillStyle = selectedTemplate.textColor || "#000";
+  const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
+  const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
 
-        // --- Calculate wrapped label height ---
-        const labelHeight = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, false);
+  // derive label/value font sizes from base fontSize with a small reduction
+  const labelFontSize = Math.max(9, Math.round(fontSize * 0.88));
+  const valueFontSize = Math.max(9, Math.round(fontSize * 0.88));
+  ctx.textAlign = "left";
 
-        // --- Calculate wrapped value height (use slightly tighter spacing for values)
-        const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false, 1.0);
+  // --- Calculate wrapped label height ---
+  ctx.font = `600 ${labelFontSize}px ${labelFont}`;
+  const labelHeight = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, false);
 
-        // New Y = lowest point after the tallest column
-        const newY = Math.max(labelHeight, valueHeight);
+  // --- Calculate wrapped value height (use slightly tighter spacing for values)
+  ctx.font = `400 ${valueFontSize}px ${valueFont}`;
+  const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false, 1.0);
 
-        // ---- NOW DRAW ----
-        wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);
-        ctx.fillText(":", colonX, y);
-        wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true, 1.0);
+  // New Y = lowest point after the tallest column
+  const newY = Math.max(labelHeight, valueHeight);
+
+  // ---- NOW DRAW ----
+  ctx.font = `400 ${labelFontSize}px ${labelFont}`;
+  wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);
+  ctx.font = `400 ${valueFontSize}px ${valueFont}`;
+  ctx.fillText(":", colonX, y);
+  wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true, 1.0);
 
         // Move to next row
         y = newY + (selectedTemplate.labelMarginBottom || 0);
@@ -487,13 +496,13 @@ export default function PreviewPage() {
         {/* <div className="max-w-7xl mx-auto text-center"> */}
 
         {/* </div> */}
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-2">
           <div className="flex-1 flex flex-col items-center relative">
             <div className="bg-white rounded-xl shadow-md w-full flex justify-center mt-0">
               <canvas
                 ref={canvasRef}
                 className="shadow-inner bg-white w-full"
-                style={{ height: isMobile ? "60vh" : "70vh", maxHeight: "800px", maxWidth: isMobile? "100%":"70%" }}
+                style={{ height: isMobile ? "60vh" : "75vh", maxHeight: "800px", maxWidth: isMobile? "100%":"70%" }}
 
               />
             </div>
