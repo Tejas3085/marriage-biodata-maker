@@ -27,6 +27,7 @@ interface Template {
   godTitleColor?: string;
   sectionTitleColor?: string;
   userPhotomarginLeft: number;
+  userPhotomarginTop?: number;
   godMarginTop: number;
   marginBottom?: number;
   labelMarginBottom?: number;
@@ -42,70 +43,71 @@ export default function PreviewPage() {
   const [isCanvasVisible, setIsCanvasVisible] = useState(false);
   const { language, setLanguage } = useLanguageContext();
 
-  const templates: Template[] = [
-    // { id: 1, name: "Classic", img: "/templates/template1.jpg", textColor: "#68696a", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#800000", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-    { id: 1, name: "Elegant", img: "/templates/template1.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+const templates: Template[] = [
+  // ELEGANT BASE (1, 2, 3)
+  { id: 1,  name: "Elegant",   img: "/templates/t1.jpg",  textColor: "#6f7174", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
 
-    // { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#000080", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-    { id: 2, name: "Elegant 1", img: "/templates/template2.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+  { id: 2,  name: "Elegant",   img: "/templates/t2.jpg",  textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 3, name: "Elegant 2", img: "/templates/template3.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.08, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
+  { id: 3,  name: "Elegant",   img: "/templates/t3.jpg",  textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
-    // { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#006400", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-    { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+  // ELEGANT 1 SERIES
+  { id: 4,  name: "Elegant 1", img: "/templates/t4.jpg",  textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
-    // { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#2F4F4F", sectionTitleColor: "#A0522D", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+  { id: 5,  name: "Elegant 1", img: "/templates/t5.jpg",  textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
-    { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+  { id: 6,  name: "Elegant 1", img: "/templates/t6.jpg",  textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
 
-    { id: 7, name: "Elegant 6", img: "/templates/template7.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+  // ELEGANT 2
+  { id: 7,  name: "Elegant 2", img: "/templates/t7.jpg",  textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
-    { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-    // { id: 8, name: "Elegant 7", img: "/templates/template8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.09, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 2 },
+  // ELEGANT 3
+  { id: 8,  name: "Elegant 3", img: "/templates/t8.jpg",  textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.16, godMarginTop: 0.08, labelsLeftPadding: 0.12, labelFontSize: 0.020, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
-    // { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.015, godTitleColor: "#483D8B", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-    { id: 9, name: "Elegant 8", img: "/templates/template9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+  // ELEGANT 4
+  { id: 9,  name: "Elegant 4", img: "/templates/t9.jpg",  textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.18, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.022, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+
+  // ELEGANT 5
+  { id: 10, name: "Elegant 5", img: "/templates/t10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 6
+  { id: 11, name: "Elegant 6", img: "/templates/t11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.12, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 7
+  { id: 12, name: "Elegant 7", img: "/templates/t12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 8
+  { id: 13, name: "Elegant 8", img: "/templates/t13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.12, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 9
+  // { id: 14, name: "Elegant 9", img: "/templates/t14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.13, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 10
+  { id: 15, name: "Elegant 10", img: "/templates/t15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 11
+  { id: 16, name: "Elegant 11", img: "/templates/t16.jpg", textColor: "white", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.13, labelFontSize: 0.020, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 12
+  { id: 17, name: "Elegant 12", img: "/templates/t17.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.020, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
+
+  // ELEGANT 13
+  { id: 18, name: "Elegant 13", img: "/templates/t18.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1, godMarginTop: 0.06, labelsLeftPadding: 0.14, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+
+  // ELEGANT 14 (t19)
+  { id: 19, name: "Elegant 14", img: "/templates/t19.jpg", textColor: "#6f7174", backgroundColor: "#fff", lineHeightFactor: 1, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+
+  // ELEGANT 15
+  { id: 20, name: "Elegant 15", img: "/templates/t20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+
+  // ELEGANT 16
+  { id: 21, name: "Elegant 16", img: "/templates/t21.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
+
+  // ELEGANT 17
+  { id: 22, name: "Elegant 17", img: "/templates/t22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.020, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+];
 
 
-    // { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.08, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.14, labelMarginBottom: -1.5 },
-    { id: 10, name: "Elegant 9", img: "/templates/template10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
-
-    { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "white", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
-    // { id: 11, name: "Elegant 10", img: "/templates/template11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.08, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
-
-
-    { id: 12, name: "Elegant 11", img: "/templates/template12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
-
-    // { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#880E4F", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.12, labelMarginBottom: 1 },
-    { id: 13, name: "Elegant 12", img: "/templates/template13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.06, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
-
-
-    { id: 14, name: "Elegant 13", img: "/templates/template14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#1A237E", sectionTitleColor: "#FBC02D", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-
-    // { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#311B92", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.12, labelMarginBottom: -2.5 },
-    { id: 15, name: "Elegant 14", img: "/templates/template15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.07, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.12, labelMarginBottom: 0 },
-
-
-
-    // { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#006064", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.06, labelMarginBottom: 2 },
-    { id: 16, name: "Elegant 15", img: "/templates/template16.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-
-
-    // { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f0ebebff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.13, labelFontSize: 0.015, godTitleColor: "#B71C1C", sectionTitleColor: "#F9A825", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-    { id: 17, name: "Elegant 16", img: "/templates/template17.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-
-
-    // { id: 18, name: "Elegant 17", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.015, godTitleColor: "#1B5E20", sectionTitleColor: "#827717", userPhotomarginLeft: 0.08, labelMarginBottom: 1 },
-    { id: 18, name: "Elegant 18", img: "/templates/template18.jpg", textColor: "#f3f1f1ff", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-
-
-    { id: 19, name: "Elegant 18", img: "/templates/template19.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-
-    // { id: 20, name: "Elegant 19", img: "/templates/template20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.14, labelFontSize: 0.015, godTitleColor: "#004D40", sectionTitleColor: "#BF360C", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
-
-    { id: 22, name: "Elegant 22", img: "/templates/template22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-  ];
 
   // Detect mobile
   useEffect(() => {
@@ -187,7 +189,7 @@ export default function PreviewPage() {
     // Spacing configuration
     const defaultLineSpacing = 1.02; // spacing between wrapped lines
     const lineSpacing = spacingMultiplier ?? defaultLineSpacing;
-    const lineBreakGap = Math.max(0, lineHeight * 0); // small gap for single newline (user Enter)
+    const lineBreakGap = Math.max(0, lineHeight * 0.2); // small gap for single newline (user Enter)
     const paragraphGapLarge = Math.max(0, lineHeight * 0.45); // larger gap for empty-line paragraph separation
 
     for (let p = 0; p < paragraphs.length; p++) {
@@ -293,7 +295,8 @@ export default function PreviewPage() {
       if (!dryRun) {
         ctx.drawImage(godImg, (width - godPhotoSize) / 2, y, godPhotoSize, godPhotoSize);
       }
-      y += godPhotoSize + 20;
+        // Smaller gap after the god photo: proportional to the photo size + a small absolute min
+        y += godPhotoSize + Math.max(6, Math.round(godPhotoSize * 0.35));
     } else {
       y += 10;
     }
@@ -307,7 +310,10 @@ export default function PreviewPage() {
         ctx.textAlign = "center";
         ctx.fillText(formData.godTitle, width / 2, y);
       }
-      y += godTitleSize + 5;
+        // smaller proportional gap after God Title
+        // y += godTitleSize + Math.max(4, Math.round(godTitleSize * 0.001));
+              y += godTitleSize + 0.01;
+
     }
 
     // User Photo
@@ -316,7 +322,15 @@ export default function PreviewPage() {
       photoWidth = width * 0.18;
       photoHeight = photoWidth * 1.2;
       photoX = width - photoWidth - width * selectedTemplate.userPhotomarginLeft; // more right space
-      photoY = y;
+      // Add optional top margin for the user photo. If template sets userPhotomarginTop as
+      // a small fractional value (e.g., 0.02) we treat it as fraction of the canvas width.
+      // If absent, provide a small default offset relative to photo height.
+      const defaultTopOffset = Math.max(4, Math.round(photoHeight * 0.20));
+      photoY = y + (typeof selectedTemplate.userPhotomarginTop === 'number'
+        ? (selectedTemplate.userPhotomarginTop > 0 && selectedTemplate.userPhotomarginTop < 1
+          ? Math.round(width * selectedTemplate.userPhotomarginTop)
+          : Math.round(selectedTemplate.userPhotomarginTop))
+        : defaultTopOffset);
 
       if (!dryRun) {
         ctx.fillStyle = "#fff";
@@ -328,8 +342,14 @@ export default function PreviewPage() {
     // Sections
     const sections = [formData.personalInfo, formData.familyInfo, formData.contactInfo].filter(Boolean);
 
-    // Calculate line height based on fontSize
-    let lineHeight = fontSize * 1.35; // slightly tighter base than before
+  // Calculate line height using the selected template's lineHeightFactor when provided
+  const templateLineFactor = selectedTemplate?.lineHeightFactor ?? 1.25;
+  // Allow templates to scale line-height, but clamp to reasonable minima/maxima to avoid too-tight or huge gaps
+  const lineHeightFactor = Math.max(0.85, Math.min(1.5, templateLineFactor));
+  let lineHeight = fontSize * lineHeightFactor; // base multiplier controlled by template
+
+  // Use top baseline so y corresponds to the top of the text block (prevents baseline-descender gaps)
+  ctx.textBaseline = "top";
 
     const sectionTitleFontSize = Math.max(12, lineHeight * 0.9);
 
@@ -359,12 +379,16 @@ export default function PreviewPage() {
         ctx.fillText(sec.title || "", width / 2, y);
       }
 
-      y += sectionTitleFontSize + lineHeight * 0.2;
+  // Tighten spacing between section title and prior content; use a smaller multiplier
+  y += sectionTitleFontSize + lineHeight * 0.2;
 
       // --- Fields ---
       if (!dryRun) ctx.textAlign = "left";
 
       validFields.forEach((f: any) => {
+        // Normalize/trim values to avoid accidental trailing whitespace/newlines which create extra gaps
+        const labelText = (f.label ?? "").toString().trim();
+        const valueText = (f.value ?? "").toString().trim();
         const safeRight = photoWidth && y < (photoY + photoHeight + 20)
           ? photoX - 16
           : width - 40;
@@ -377,28 +401,47 @@ export default function PreviewPage() {
   const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
   const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
 
-  // derive label/value font sizes from base fontSize with a small reduction
-  const labelFontSize = Math.max(9, Math.round(fontSize * 0.85));
-  const valueFontSize = Math.max(9, Math.round(fontSize * 0.85));
+  // derive label/value font sizes from the template when provided.
+  // Templates currently use a small fractional value (e.g. 0.015) which
+  // we interpret as a fraction of the canvas width. If the template
+  // provides an absolute px value (>= 1) we accept that as px. Otherwise
+  // fall back to a scale of the base fontSize so older templates still work.
+  const computeFontFromTemplate = (tplSize?: number, defaultScale = 0.85) => {
+    if (typeof tplSize === "number") {
+      if (tplSize > 0 && tplSize < 1) {
+        // fractional value relative to canvas width
+        return Math.max(9, Math.round(width * tplSize));
+      }
+      if (tplSize >= 1) {
+        // explicit px value
+        return Math.max(9, Math.round(tplSize));
+      }
+    }
+    return Math.max(9, Math.round(fontSize * defaultScale));
+  };
+
+  const labelFontSize = computeFontFromTemplate(selectedTemplate.labelFontSize, 0.85);
+  // Keep value size consistent with label size (matches previous behavior)
+  const valueFontSize = labelFontSize;
   ctx.textAlign = "left";
 
   // --- Calculate wrapped label height ---
   ctx.font = `600 ${labelFontSize}px ${labelFont}`;
-  const labelHeight = wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, false);
+  const labelHeight = wrapText(ctx, labelText, labelX, y, labelMaxWidth, lineHeight, false);
 
   // --- Calculate wrapped value height (use slightly tighter spacing for values)
   ctx.font = `600 ${valueFontSize}px ${valueFont}`;
-  const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false, 1.0);
+  const valueHeight = wrapText(ctx, valueText, valueX, y, valueMaxWidth, lineHeight, false, 1.0);
 
   // New Y = lowest point after the tallest column
   const newY = Math.max(labelHeight, valueHeight);
 
   // ---- NOW DRAW ----
   ctx.font = `600 ${labelFontSize}px ${labelFont}`;
-  wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);
+  wrapText(ctx, labelText, labelX, y, labelMaxWidth, lineHeight, true);
   ctx.font = `600 ${valueFontSize}px ${valueFont}`;
   ctx.fillText(":", colonX, y);
-  wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, true, 1);
+  wrapText(ctx, valueText, valueX, y, valueMaxWidth, lineHeight, true, 1);
 
         // Move to next row
         y = newY + (selectedTemplate.labelMarginBottom || 0);
@@ -445,6 +488,8 @@ export default function PreviewPage() {
   measureCanvasRef.current = measureCanvas;
   const measureCtx = measureCanvas.getContext("2d");
     if (!measureCtx) return;
+    // Make sure measurement context uses the same textBaseline for accurate line height calculations
+    measureCtx.textBaseline = "top";
 
   while (attempts < 30) {
       const config = { fontSize, godPhotoSize, godTitleSize };
@@ -629,16 +674,16 @@ export default function PreviewPage() {
                   link.click();
                 }}
                 className="
-    w-full sm:w-auto
-    px-4 py-2 
-    sm:px-5 sm:py-3 
-    md:px-6 md:py-3
-    bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold 
-    rounded-xl shadow-md 
-    hover:from-pink-600 hover:to-rose-700 hover:shadow-lg hover:-translate-y-0.5
-    transition-all duration-200
-    text-sm sm:text-base md:text-lg
-  "
+                w-full sm:w-auto
+                px-4 py-2 
+                sm:px-5 sm:py-3 
+                md:px-6 md:py-3
+                bg-linear-to-r from-pink-500 to-rose-600 text-white font-semibold 
+                rounded-xl shadow-md 
+                hover:from-pink-600 hover:to-rose-700 hover:shadow-lg hover:-translate-y-0.5
+                transition-all duration-200
+                text-sm sm:text-base md:text-lg
+              "
               >
                 Download PNG
               </button>
@@ -654,7 +699,7 @@ export default function PreviewPage() {
                 <div
                   key={tpl.id}
                   onClick={() => setSelectedTemplate(tpl)}
-                  className={`w-20 cursor-pointer border rounded-lg overflow-hidden flex-shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
+                  className={`w-20 cursor-pointer border rounded-lg overflow-hidden shrink-0 transition-transform hover:scale-105 ${tpl.id === selectedTemplate?.id ? "border-pink-600 ring-1 ring-pink-300" : "border-none"}`}
                 >
                   <div className="relative w-full h-20 bg-gray-100">
                     <NextImage
@@ -693,14 +738,14 @@ export default function PreviewPage() {
                     />
                   </div>
 
-                  <div className="px-3 py-3 text-center bg-gray-50 border-t">
+                  {/* <div className="px-3 py-3 text-center bg-gray-50 border-t">
                     <p
                       className={`text-sm font-semibold tracking-wide ${tpl.id === selectedTemplate?.id ? "text-pink-600" : "text-gray-700"
                         }`}
                     >
                       {tpl.name}
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
