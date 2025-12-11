@@ -32,9 +32,13 @@ export default function Header() {
                     </div>
 
                     {/* RIGHT SIDE — LANGUAGE SELECTOR */}
-                    <div className="flex items-center">
+                    <nav className="flex items-center" aria-label="Language selection">
+                        <label htmlFor="language-selector" className="sr-only">
+                            Select Language
+                        </label>
                         <select
-                            className="appearance-none bg-transparent border-none outline-none text-xs sm:text-sm md:text-base font-medium text-gray-700 cursor-pointer"
+                            id="language-selector"
+                            className="appearance-none bg-transparent border-none outline-none text-xs sm:text-sm md:text-base font-medium text-gray-700 cursor-pointer focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 rounded"
                             // Controlled by context language state (not direct localStorage reads)
                             value={language}
                             onChange={(e) => {
@@ -43,11 +47,12 @@ export default function Header() {
                                 setLanguage(newLang);
                                 // persist selection so refresh/navigation can restore it
                                 try {
-                                  localStorage.setItem("language", newLang);
+                                    localStorage.setItem("language", newLang);
                                 } catch (err) {
-                                  /* ignore */
+                                    /* ignore */
                                 }
                             }}
+                            aria-label="Choose your preferred language"
                             style={{
                                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                                 backgroundRepeat: "no-repeat",
@@ -57,11 +62,11 @@ export default function Header() {
                             }}
                         >
                             <option value="en">English</option>
-                            <option value="mr">मराठी</option>
-                            <option value="hi">हिन्दी</option>
+                            <option value="mr" lang="mr">मराठी</option>
+                            <option value="hi" lang="hi">हिन्दी</option>
                         </select>
 
-                    </div>
+                    </nav>
 
                 </div>
             </div>

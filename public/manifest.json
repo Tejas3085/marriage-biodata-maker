@@ -1,0 +1,30 @@
+{
+    "name": "Marriage Biodata Maker",
+    "short_name": "Biodata Maker",
+    "description": "Create beautiful marriage biodata in multiple languages with professional templates",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ec4899",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icon/favicon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "utilities"
+    ],
+    "lang": "en",
+    "dir": "ltr"
+}

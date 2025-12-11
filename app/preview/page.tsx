@@ -39,6 +39,7 @@ export default function PreviewPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isCanvasVisible, setIsCanvasVisible] = useState(false);
   const { language, setLanguage } = useLanguageContext();
 
   const templates: Template[] = [
@@ -121,14 +122,53 @@ export default function PreviewPage() {
     setLoading(false);
   }, [language]);
 
-  const loadImage = (src: string) =>
-    new Promise<HTMLImageElement>((resolve) => {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => resolve(img);
-      img.onerror = () => resolve(document.createElement("img"));
-      img.src = src;
+  // Cache loaded images so navigating templates or re-rendering doesn't re-download them
+  const imageCacheRef = useRef<Map<string, Promise<HTMLImageElement>>>(new Map());
+  // Offscreen measurement canvas reused to avoid re-allocating a canvas object frequently
+  const measureCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  // Debounce/RAF helpers for scheduling canvas draws
+  const rafRef = useRef<number | null>(null);
+  const loadImage = (src: string) => {
+    if (!src) return Promise.resolve<HTMLImageElement>(document.createElement("img"));
+    const cache = imageCacheRef.current;
+    // cache key is the original src string
+    if (cache.has(src)) return cache.get(src)!;
+
+    // Build variants to try: prefer AVIF, then WEBP, then original
+    const tryVariants = (url: string) => {
+      const ext = url.substring(url.lastIndexOf('.'));
+      const base = url.substring(0, url.lastIndexOf('.'));
+      return [`${base}.avif`, `${base}.webp`, `${base}${ext}`];
+    };
+
+    const variants = tryVariants(src);
+
+    const promise = new Promise<HTMLImageElement>((resolve) => {
+      let loaded = false;
+      const tryNext = (index: number) => {
+        if (index >= variants.length) {
+          // no variant loaded; return empty image element
+          return resolve(document.createElement("img"));
+        }
+        const url = variants[index];
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          loaded = true;
+          resolve(img);
+        };
+        img.onerror = () => {
+          // try next variant
+          tryNext(index + 1);
+        };
+        img.src = url;
+      };
+      tryNext(0);
     });
+
+    cache.set(src, promise);
+    return promise;
+  };
 
   function wrapText(
     ctx: CanvasRenderingContext2D,
@@ -400,12 +440,13 @@ export default function PreviewPage() {
     const bottomPadding = selectedTemplate.marginBottom ?? 40;
     const availableHeight = FIXED_HEIGHT - bottomPadding;
 
-    // Use an offscreen canvas/context for measuring so we don't disturb the real canvas state
-    const measureCanvas = document.createElement("canvas");
-    const measureCtx = measureCanvas.getContext("2d");
+  // Use a single offscreen canvas/context for measuring so we don't disturb the real canvas state
+  const measureCanvas = measureCanvasRef.current || document.createElement("canvas");
+  measureCanvasRef.current = measureCanvas;
+  const measureCtx = measureCanvas.getContext("2d");
     if (!measureCtx) return;
 
-    while (attempts < 30) {
+  while (attempts < 30) {
       const config = { fontSize, godPhotoSize, godTitleSize };
       // Measure content height without drawing on the visible canvas
       contentHeight = drawBiodataContent(measureCtx, width, FIXED_HEIGHT, config, images, true);
@@ -425,8 +466,8 @@ export default function PreviewPage() {
       attempts++;
     }
 
-    // Final Draw with devicePixelRatio and optional content scaling so we never overflow the frame
-    const dpr = devicePixelRatio || 1;
+  // Final Draw with devicePixelRatio and optional content scaling so we never overflow the frame
+  const dpr = Math.min(devicePixelRatio || 1, 2); // cap DPR to 2 to avoid huge canvas sizes on high-DPI displays
     canvas.width = width * dpr;
     canvas.height = FIXED_HEIGHT * dpr;
     ctx.scale(dpr, dpr);
@@ -453,9 +494,38 @@ export default function PreviewPage() {
   };
 
 
+  // Always update canvas when data or selected template changes.
+  // Keep intersection observer for other performance optimizations, but users expect immediate preview updates when clicking templates.
+  // Helper to schedule a single canvas draw via requestAnimationFrame
+  const scheduleUpdate = () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => updateCanvas());
+  };
+
+  // Always update canvas when template changes (users expect immediate preview changes)
   useEffect(() => {
-    updateCanvas();
-  }, [formData, selectedTemplate]);
+    if (selectedTemplate) scheduleUpdate();
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    };
+  }, [selectedTemplate]);
+
+  // Only update when form data changes if the canvas is visible (saves CPU while off-screen)
+  useEffect(() => {
+    if (formData && isCanvasVisible) scheduleUpdate();
+  }, [formData, isCanvasVisible]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      setIsCanvasVisible(entry.isIntersecting);
+    }, { root: null, threshold: 0.1 });
+    observer.observe(canvas);
+    return () => observer.disconnect();
+  }, [canvasRef]);
 
   if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>;
   if (!formData)
@@ -591,6 +661,8 @@ export default function PreviewPage() {
                       src={tpl.img}
                       alt={tpl.name}
                       fill
+                      loading={tpl.id === selectedTemplate?.id ? "eager" : "lazy"}
+                      sizes="80px"
                       className="object-contain"
                     />
                   </div>
@@ -615,6 +687,8 @@ export default function PreviewPage() {
                       src={tpl.img}
                       alt={tpl.name}
                       fill
+                      loading={tpl.id === selectedTemplate?.id ? "eager" : "lazy"}
+                      sizes="240px"
                       className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>

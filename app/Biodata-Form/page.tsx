@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -286,6 +287,42 @@ export default function BiodataForm() {
     router.push("/preview");
   };
 
+  // Autosave helper: persist the current form state (debounced via effect below)
+  const saveGroupedDataToLocalStorage = useCallback(() => {
+    if (!formData) return;
+    const groupedData: any = {};
+    formData.fieldSections.forEach((section: any) => {
+      groupedData[section.key] = {
+        title: section.title,
+        fields: section.fields.map((sf: Field) => ({
+          label: sf.label,
+          key: sf.key,
+          type: sf.type,
+          value: sf.value,
+          placeholder: sf.placeholder,
+          options: sf.options,
+        })),
+      };
+    });
+
+    groupedData.photo = photoPreview;
+    groupedData.godTitle = godTitle;
+    groupedData.godPhoto = godPhoto;
+
+    try {
+      localStorage.setItem(language, JSON.stringify(groupedData));
+    } catch (err) {
+      console.warn("Could not save to localStorage:", err);
+    }
+  }, [formData, photoPreview, godPhoto, godTitle, language]);
+
+  // Debounced save on changes to relevant data and after hydration
+  useEffect(() => {
+    if (!isInitialized.current) return;
+    const handler = setTimeout(() => saveGroupedDataToLocalStorage(), 700);
+    return () => clearTimeout(handler);
+  }, [formData, photoPreview, godPhoto, godTitle, saveGroupedDataToLocalStorage]);
+
 
   // If not initialized or translations missing show loading
   if (!formData) {
@@ -295,6 +332,21 @@ export default function BiodataForm() {
   // ---------- Render ----------
   return (
     <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-md p-4 sm:p-6 md:p-8">
+      {/* Page-level structured data for SEO (no PII) */}
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Create Marriage Biodata",
+            description:
+              "Create a beautiful marriage biodata in English, Hindi, or Marathi by filling a simple form and choosing a template.",
+            url: "https://yourwebsite.com/Biodata-Form",
+          }),
+        }}
+      />
       {/* JSON-LD structured data (helps SEO, lightweight) */}
       <script
         type="application/ld+json"
@@ -337,8 +389,10 @@ export default function BiodataForm() {
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
                     <Image
                       src={formData.godPhoto || godPhoto}
-                      alt="Selected deity"
+                      alt={formData.godPhoto ? (language === "mr" ? "निवडलेले देवत्व" : "Selected deity image") : (language === "mr" ? "पूर्वनिर्धारित देवत्व" : "Default deity image")}
                       fill
+                      loading="eager"
+                      sizes="80px"
                       className="object-cover"
                     />
                   </div>
@@ -612,8 +666,10 @@ export default function BiodataForm() {
                   <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden border-4 border-blue-100 shadow">
                     <Image
                       src={photoPreview}
-                      alt="User profile preview"
+                      alt={language === "mr" ? "प्रोफाइल फोटो" : "User profile photo preview"}
                       fill
+                      loading="eager"
+                      sizes="112px"
                       className="object-cover"
                     />
                   </div>
