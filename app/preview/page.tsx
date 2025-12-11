@@ -188,10 +188,10 @@ export default function PreviewPage() {
       }
 
       // advance cursorY by number of lines
-      cursorY = cursorY + lines.length * lineHeight * 1.1;
+      cursorY = cursorY + lines.length * lineHeight * 1.2;
 
       // Add a small paragraph gap after each paragraph except the last
-      if (p < paragraphs.length - 1) cursorY += lineHeight * 0.3;
+      if (p < paragraphs.length - 1) cursorY += lineHeight * 0;
     }
 
     return cursorY;
@@ -361,7 +361,7 @@ export default function PreviewPage() {
 
     // Iterative sizing
     let fontSize = 18;
-    let godPhotoSize = width * 0.10;
+    let godPhotoSize = width * 0.13;
     let godTitleSize = 18;
 
     // Try to fit
