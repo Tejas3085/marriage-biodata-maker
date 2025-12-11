@@ -1,173 +1,326 @@
 {
-  "godTitle": "|| Om Shree Ganeshaya Namah ||",
+  "godTitle": "|| Shri Ganeshaya Namah ||",
   "uploadPhotoLabel": "Upload Photo",
   "generateBiodataBtnLabel": "Generate Biodata",
-
+  "headerSubTitle": "Make it yours in seconds",
   "fieldSections": [
     {
       "title": "Personal Information",
       "addExtraFiels": "Add New Field",
-      "NewFieldLabel": "Enter Field Label",
-      "NewFieldValue": "Enter Field Value",
+      "NewFieldLabel": "Enter New Label",
+      "NewFieldValue": "Enter Value",
       "key": "personalInfo",
-
       "fields": [
-        { "label": "Full Name", "key": "name", "type": "textarea", "placeholder": "Enter your full name", "value": "" },
-        { "label": "Date of Birth", "key": "dob", "type": "date", "placeholder": "DD-MM-YYYY", "value": "" },
-        { "label": "Time of Birth", "key": "birthTime", "type": "time", "placeholder": "HH:MM", "value": "" },
-        { "label": "Place of Birth", "key": "birthPlace", "type": "textarea", "placeholder": "Enter place of birth", "value": "" },
-
-        { "label": "Religion", "key": "religion", "type": "textarea", "placeholder": "Enter religion", "value": "" },
-        { "label": "Caste", "key": "caste", "type": "textarea", "placeholder": "Enter caste", "value": "" },
-        { "label": "Kuldevta", "key": "kuldevta", "type": "textarea", "placeholder": "Enter Kuldevta (Family Deity)", "value": "" },
-
         {
-          "label": "Rashi",
+          "label": "Full Name",
+          "key": "name",
+          "type": "text",
+          "placeholder": "Enter full name",
+          "value": ""
+        },
+        {
+          "label": "Date of Birth",
+          "key": "dob",
+          "type": "date",
+          "placeholder": "DD-MM-YYYY",
+          "value": ""
+        },
+        {
+          "label": "Birth Time",
+          "key": "birthTime",
+          "type": "text",
+          "placeholder": "Enter birth time",
+          "value": ""
+        },
+        {
+          "label": "Birth Place",
+          "key": "birthPlace",
+          "type": "text",
+          "placeholder": "Enter birth place",
+          "value": ""
+        },
+        {
+          "label": "Religion",
+          "key": "religion",
+          "type": "text",
+          "placeholder": "Enter religion",
+          "value": ""
+        },
+        {
+          "label": "Caste",
+          "key": "caste",
+          "type": "text",
+          "placeholder": "Enter caste",
+          "value": ""
+        },
+        {
+          "label": "Kuldevta",
+          "key": "kuldevta",
+          "type": "text",
+          "placeholder": "Enter Kuldevta",
+          "value": ""
+        },
+        {
+          "label": "Rashi (Zodiac)",
           "key": "rashi",
           "type": "select",
           "placeholder": "Select Rashi",
           "value": "",
           "options": [
-            "Mesh (Aries)",
-            "Vrushabh (Taurus)",
-            "Mithun (Gemini)",
-            "Kark (Cancer)",
-            "Sinh (Leo)",
-            "Kanya (Virgo)",
-            "Tula (Libra)",
-            "Vrushchik (Scorpio)",
-            "Dhanu (Sagittarius)",
-            "Makar (Capricorn)",
-            "Kumbh (Aquarius)",
-            "Meen (Pisces)"
+            "Aries",
+            "Taurus",
+            "Gemini",
+            "Cancer",
+            "Leo",
+            "Virgo",
+            "Libra",
+            "Scorpio",
+            "Sagittarius",
+            "Capricorn",
+            "Aquarius",
+            "Pisces"
           ]
         },
-
-        { "label": "Nakshatra", "key": "nakshatra", "type": "textarea", "placeholder": "Enter Nakshatra", "value": "" },
-
         {
-          "label": "Gana",
+          "label": "Nakshatra",
+          "key": "nakshatra",
+          "type": "select",
+          "placeholder": "Select Nakshatra",
+          "value": "",
+          "options": [
+            "Ashwini",
+            "Bharani",
+            "Krittika",
+            "Rohini",
+            "Mrigashira",
+            "Ardra",
+            "Punarvasu",
+            "Pushya",
+            "Ashlesha",
+            "Magha",
+            "Purva Phalguni",
+            "Uttara Phalguni",
+            "Hasta",
+            "Chitra",
+            "Swati",
+            "Vishakha",
+            "Anuradha",
+            "Jyeshtha",
+            "Moola",
+            "Purvashada",
+            "Uttarashada",
+            "Shravana",
+            "Dhanishta",
+            "Shatabhisha",
+            "Purvabhadrapada",
+            "Uttarabhadrapada",
+            "Revati"
+          ]
+        },
+        {
+          "label": "Gan",
           "key": "gan",
           "type": "select",
-          "placeholder": "Select Gana",
+          "placeholder": "Select Gan",
           "value": "",
-          "options": ["Deva", "Manushya", "Rakshasa"]
+          "options": [
+            "Dev",
+            "Manushya",
+            "Rakshas"
+          ]
         },
-
         {
           "label": "Nadi",
           "key": "nadi",
           "type": "select",
           "placeholder": "Select Nadi",
           "value": "",
-          "options": ["Adi", "Madhya", "Antya"]
+          "options": [
+            "Adi",
+            "Madhya",
+            "Antya"
+          ]
         },
-
         {
           "label": "Manglik",
           "key": "manglik",
           "type": "select",
-          "placeholder": "Select Manglik Status",
+          "placeholder": "Select Option",
           "value": "",
-          "options": ["Yes", "No", "Not Sure"]
+          "options": [
+            "Yes",
+            "No",
+            "Don't know"
+          ]
         },
-
-        { "label": "Gotra", "key": "gotra", "type": "textarea", "placeholder": "Enter Gotra", "value": "" },
-        { "label": "Height", "key": "height", "type": "select", "placeholder": "Select height", "value": "",
-      "options": [
-                "3 feet 5 inches","3 feet 6 inches","3 feet 7 inches","3 feet 8 inches","3 feet 9 inches","3 feet 10 inches","3 feet 11 inches",
-                "4 feet 0 inches","4 feet 1 inches","4 feet 2 inches","4 feet 3 inches","4 feet 4 inches","4 feet 5 inches","4 feet 6 inches","4 feet 7 inches","4 feet 8 inches",
-                "4 feet 9 inches","4 feet 10 inches","4 feet 11 inches",
-                "5 feet 0 inches","5 feet 1 inches","5 feet 2 inches","5 feet 3 inches","5 feet 4 inches","5 feet 5 inches","5 feet 6 inches","5 feet 7 inches","5 feet 8 inches",
-                "5 feet 9 inches","5 feet 10 inches","5 feet 11 inches",
-                "6 feet 0 inches","6 feet 1 inches","6 feet 2 inches","6 feet 3 inches","6 feet 4 inches","6 feet 5 inches","6 feet 6 inches","6 feet 7 inches","6 feet 8 inches",
-                "6 feet 9 inches","6 feet 10 inches","6 feet 11 inches",
-                "7 feet 0 inches","7 feet 1 inches","7 feet 2 inches","7 feet 3 inches","7 feet 4 inches","7 feet 5 inches","7 feet 6 inches","7 feet 7 inches","7 feet 8 inches",
-                "7 feet 9 inches","7 feet 10 inches","7 feet 11 inches", "8 feet"
-]
-      },
-
         {
-          "label": "Varna",
+          "label": "Gotra",
+          "key": "gotra",
+          "type": "text",
+          "placeholder": "Enter Gotra",
+          "value": ""
+        },
+        {
+          "label": "Height",
+          "key": "height",
+          "type": "select",
+          "placeholder": "Select Height",
+          "value": "",
+          "options": [
+            "4 ft 5 in",
+            "4 ft 6 in",
+            "4 ft 7 in",
+            "4 ft 8 in",
+            "4 ft 9 in",
+            "4 ft 10 in",
+            "4 ft 11 in",
+            "5 ft 0 in",
+            "5 ft 1 in",
+            "5 ft 2 in",
+            "5 ft 3 in",
+            "5 ft 4 in",
+            "5 ft 5 in",
+            "5 ft 6 in",
+            "5 ft 7 in",
+            "5 ft 8 in",
+            "5 ft 9 in",
+            "5 ft 10 in",
+            "5 ft 11 in",
+            "6 ft 0 in",
+            "6 ft 1 in",
+            "6 ft 2 in",
+            "6 ft 3 in"
+          ]
+        },
+        {
+          "label": "Complexion",
           "key": "varna",
           "type": "select",
-          "placeholder": "Select Varna",
+          "placeholder": "Select complexion",
           "value": "",
-          "options": ["Gorapan", "Gavhal", "Kala"]
+          "options": [
+            "Fair",
+            "Wheatish",
+            "Dark"
+          ]
         },
-
         {
           "label": "Blood Group",
           "key": "bloodGroup",
           "type": "select",
-          "placeholder": "Select Blood Group",
+          "placeholder": "Select blood group",
           "value": "",
-          "options": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+          "options": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+          ]
         },
-
-        { "label": "Education", "key": "education", "type": "textarea", "placeholder": "Enter education details", "value": "" },
-        { "label": "Profession / Occupation", "key": "job", "type": "textarea", "placeholder": "Enter current profession", "value": "" },
-        { "label": "Annual Income", "key": "salary", "type": "textarea", "placeholder": "Enter annual income", "value": "" }
-      ]
-    },
-
-    {
-      "title": "Family Information",
-      "addExtraFiels": "Add New Field",
-      "NewFieldLabel": "Enter Field Label",
-      "NewFieldValue": "Enter Field Value",
-      "key": "familyInfo",
-
-      "fields": [
-        { "label": "Father's Name", "key": "fatherName", "type": "textarea", "placeholder": "Enter father's full name", "value": "" },
-        { "label": "Father's Occupation", "key": "fatherOccupation", "type": "textarea", "placeholder": "Enter father's occupation", "value": "" },
-
-        { "label": "Mother's Name", "key": "motherName", "type": "textarea", "placeholder": "Enter mother's full name", "value": "" },
-
-        { "label": "Number of Sisters", "key": "sisters", "type": "textarea", "placeholder": "Enter number of sisters", "value": "" },
-        { "label": "Number of Brothers", "key": "brothers", "type": "textarea", "placeholder": "Enter number of brothers", "value": "" },
-
         {
-          "label": "Maternal Uncle (Mama)",
-          "key": "mama",
-          "type": "textareaarea",
-          "placeholder": "Enter maternal uncle's name",
+          "label": "Education",
+          "key": "education",
+          "type": "text",
+          "placeholder": "Enter education details",
           "value": ""
         },
-
         {
-          "label": "Relatives",
-          "key": "relatives",
-          "type": "textareaarea",
-          "placeholder": "Enter details of close relatives",
+          "label": "Job / Occupation",
+          "key": "job",
+          "type": "text",
+          "placeholder": "Enter job or occupation",
+          "value": ""
+        },
+        {
+          "label": "Income / Salary",
+          "key": "salary",
+          "type": "text",
+          "placeholder": "Enter income or salary",
           "value": ""
         }
       ]
     },
-
+    {
+      "title": "Family Information",
+      "addExtraFiels": "Add New Field",
+      "NewFieldLabel": "Enter Label",
+      "NewFieldValue": "Enter Value",
+      "key": "familyInfo",
+      "fields": [
+        {
+          "label": "Father's Name",
+          "key": "fatherName",
+          "type": "text",
+          "placeholder": "Enter father's name",
+          "value": ""
+        },
+        {
+          "label": "Father's Occupation",
+          "key": "fatherOccupation",
+          "type": "text",
+          "placeholder": "Enter father's occupation",
+          "value": ""
+        },
+        {
+          "label": "Mother's Name",
+          "key": "motherName",
+          "type": "text",
+          "placeholder": "Enter mother's name",
+          "value": ""
+        },
+        {
+          "label": "Sisters",
+          "key": "sisters",
+          "type": "text",
+          "placeholder": "Enter number of sisters",
+          "value": ""
+        },
+        {
+          "label": "Brothers",
+          "key": "brothers",
+          "type": "text",
+          "placeholder": "Enter number of brothers",
+          "value": ""
+        },
+        {
+          "label": "Maternal Family",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "Enter maternal family details",
+          "value": ""
+        },
+        {
+          "label": "Relatives",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "Enter relative details",
+          "value": ""
+        }
+      ]
+    },
     {
       "title": "Contact Information",
-      "key": "contactInfo",
-      "NewFieldLabel": "Enter Field Label",
-      "NewFieldValue": "Enter Field Value",
       "addExtraFiels": "Add New Field",
-
+      "NewFieldLabel": "Enter Label",
+      "NewFieldValue": "Enter Value",
+      "key": "contactInfo",
       "fields": [
-        { "label": "Full Address", "key": "address", "type": "textareaarea", "placeholder": "Enter your complete address", "value": "" },
-
+        {
+          "label": "Address",
+          "key": "address",
+          "type": "textarea",
+          "placeholder": "Enter full address",
+          "value": ""
+        },
         {
           "label": "Mobile Number",
           "key": "mobile",
           "type": "tel",
           "placeholder": "Enter mobile number",
-          "value": ""
-        },
-
-        {
-          "label": "Email Address",
-          "key": "email",
-          "type": "email",
-          "placeholder": "Enter email address",
           "value": ""
         }
       ]

@@ -54,7 +54,7 @@ export default function PreviewPage() {
     { id: 4, name: "Elegant 3", img: "/templates/template4.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: -2.5 },
 
     // { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.015, godTitleColor: "#2F4F4F", sectionTitleColor: "#A0522D", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
-    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: -2.5 },
+    { id: 5, name: "Elegant 4", img: "/templates/template5.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.015, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: -2.5 },
 
     // { id: 6, name: "Elegant 5", img: "/templates/template6.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.05, godMarginTop: 0.05, labelsLeftPadding: 0.15, labelFontSize: 0.015, godTitleColor: "#191970", sectionTitleColor: "#C0C0C0", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
@@ -321,8 +321,8 @@ export default function PreviewPage() {
         // --- Calculate wrapped value height ---
         const valueHeight = wrapText(ctx, f.value, valueX, y, valueMaxWidth, lineHeight, false);
 
-  // New Y = lowest point after the tallest column
-       const newY = Math.max(labelHeight, valueHeight);
+        // New Y = lowest point after the tallest column
+        const newY = Math.max(labelHeight, valueHeight);
 
         // ---- NOW DRAW ----
         wrapText(ctx, f.label, labelX, y, labelMaxWidth, lineHeight, true);
@@ -443,7 +443,7 @@ export default function PreviewPage() {
         {/* </div> */}
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-6">
           <div className="flex-1 flex flex-col items-center relative">
-            <div className="bg-white rounded-xl shadow-md p-4 w-full flex justify-center mt-0">
+            <div className="bg-white rounded-xl shadow-md w-full flex justify-center mt-0">
               <canvas
                 ref={canvasRef}
                 className="shadow-inner bg-white w-full"
