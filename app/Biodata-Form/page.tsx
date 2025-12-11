@@ -145,9 +145,21 @@ export default function BiodataForm() {
           }
         }
 
-        if (groupedData.photo) setPhotoPreview(groupedData.photo);
-        if (groupedData.godPhoto) setGodPhoto(groupedData.godPhoto);
-        if (groupedData.godTitle) setGodTitle(groupedData.godTitle);
+        // Respect explicit saved values, including empty strings (user removed photo)
+        if (Object.prototype.hasOwnProperty.call(groupedData, "photo")) {
+          setPhotoPreview(groupedData.photo || null);
+          // reflect in the form clone too so UI uses the saved photo status
+          clone.photo = groupedData.photo || null;
+        }
+        if (Object.prototype.hasOwnProperty.call(groupedData, "godPhoto")) {
+          // allow empty string to mean removed
+          setGodPhoto(groupedData.godPhoto ?? "");
+          clone.godPhoto = groupedData.godPhoto ?? "";
+        }
+        if (Object.prototype.hasOwnProperty.call(groupedData, "godTitle")) {
+          setGodTitle(groupedData.godTitle ?? "");
+          clone.godTitle = groupedData.godTitle ?? "";
+        }
       } catch (err) {
         console.error("Failed to load saved form data:", err);
         // If localStorage contains a non-JSON value (commonly "[object Object]"), remove it to recover
@@ -324,7 +336,7 @@ export default function BiodataForm() {
                 {godPhoto ? (
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
                     <Image
-                      src={godPhoto}
+                      src={formData.godPhoto || godPhoto}
                       alt="Selected deity"
                       fill
                       className="object-cover"
