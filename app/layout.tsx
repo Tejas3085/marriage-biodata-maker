@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     siteName: "Marriage Biodata Maker",
     images: [
       {
-        url: "/templates/template1.jpg",
+        url: "/templates/t1.jpg",
         width: 1200,
         height: 630,
         alt: "Marriage Biodata Maker Preview",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: "Marriage Biodata Maker - Create Beautiful Biodata Online",
     description:
       "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker.",
-    images: ["/templates/template1.jpg"],
+    images: ["/templates/t1.jpg"],
     creator: "@yourhandle", // Update with your Twitter handle
   },
   robots: {

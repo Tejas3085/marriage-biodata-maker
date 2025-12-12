@@ -137,7 +137,7 @@ export default function BiodataForm() {
               fields: (savedSection.fields || []).map((sf: any) => ({
                 label: sf.label || "",
                 value: sf.value,
-                key: sf.key || `field_${Date.now()}_${Math.random().toString(36).slice(2,8)}`,
+                key: sf.key || `field_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
                 type: sf.type || "text",
                 placeholder: sf.placeholder || "",
                 options: sf.options || [],
@@ -421,7 +421,13 @@ export default function BiodataForm() {
                 {godPhoto && (
                   <button
                     type="button"
-                    onClick={() => setGodPhoto("")}
+                    onClick={() => {
+                      setGodPhoto("");
+                      // Also update formData.godPhoto
+                      updateForm((updated) => {
+                        updated.godPhoto = "";
+                      });
+                    }}
                     className="px-3 py-1 text-sm font-medium 
                bg-red-50 text-red-600 
                rounded-full border border-red-200 
@@ -759,6 +765,10 @@ export default function BiodataForm() {
         <GodPhotoSelector
           onSelect={(path) => {
             setGodPhoto(path);
+            // Also update formData.godPhoto so the Image component shows the new photo
+            updateForm((updated) => {
+              updated.godPhoto = path;
+            });
             setShowGodPhotoSelector(false);
           }}
           onClose={() => setShowGodPhotoSelector(false)}

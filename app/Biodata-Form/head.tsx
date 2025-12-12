@@ -12,7 +12,7 @@ export default function Head() {
       {/* Open Graph */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content="/templates/template1.jpg" />
+      <meta property="og:image" content="/templates/t1.jpg" />
       <meta property="og:url" content="https://yourwebsite.com/Biodata-Form" />
 
       {/* JSON-LD WebPage */}
