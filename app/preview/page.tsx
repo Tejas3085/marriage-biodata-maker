@@ -45,24 +45,24 @@ export default function PreviewPage() {
 
   const templates: Template[] = [
     // ELEGANT BASE (1, 2, 3)
-    { id: 1, name: "Elegant", img: "/templates/t1.jpg", textColor: "#463b3bff", backgroundColor: "#fff", lineHeightFactor: 1.26, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#de8511ff", sectionTitleColor: "#c28b44ff", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
+    { id: 1, name: "Elegant", img: "/templates/t1.jpg", textColor: "#1e1a1aff", backgroundColor: "#fff", lineHeightFactor: 1.26, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#ae239cff", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
 
-    { id: 2, name: "Elegant", img: "/templates/t2.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 2, name: "Elegant", img: "/templates/t2.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4155b8ff", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 3, name: "Elegant", img: "/templates/t3.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.13, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
+    { id: 3, name: "Elegant", img: "/templates/t3.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.13, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
     // ELEGANT 1 SERIES
-    { id: 4, name: "Elegant 1", img: "/templates/t4.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
+    { id: 4, name: "Elegant 1", img: "/templates/t4.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
-    { id: 5, name: "Elegant 1", img: "/templates/t5.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
+    { id: 5, name: "Elegant 1", img: "/templates/t5.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
-    { id: 6, name: "Elegant 1", img: "/templates/t6.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.30, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
+    { id: 6, name: "Elegant 1", img: "/templates/t6.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.30, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
 
     // ELEGANT 2
     { id: 7, name: "Elegant 2", img: "/templates/t7.jpg", textColor: "#282626ff", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 3
-    { id: 8, name: "Elegant 3", img: "/templates/t8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.08, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
+    { id: 8, name: "Elegant 3", img: "/templates/t8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.08, labelsLeftPadding: 0.13, labelFontSize: 0.024, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
     // ELEGANT 4
     { id: 9, name: "Elegant 4", img: "/templates/t9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
@@ -88,7 +88,7 @@ export default function PreviewPage() {
     { id: 15, name: "Elegant 10", img: "/templates/t15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 11
-    { id: 16, name: "Elegant 11", img: "/templates/t16.jpg", textColor: "white", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 16, name: "Elegant 11", img: "/templates/t16.jpg", textColor: "#a3a0a2ff", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#3f9e5bff", sectionTitleColor: "#ccc310ff", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 12
     { id: 17, name: "Elegant 12", img: "/templates/t17.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.025, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
