@@ -50,12 +50,12 @@ export default function HomePage() {
   }, [translations, setFolder]);
 
   const templates = [
-    { id: 1, name: "Classic", img: "/templates/template1.jpg" },
-    { id: 2, name: "Modern", img: "/templates/template2.jpg" },
-    { id: 3, name: "Elegant", img: "/templates/template3.jpg" },
-    { id: 4, name: "Minimal", img: "/templates/template4.jpg" },
-    { id: 5, name: "Traditional", img: "/templates/template5.jpg" },
-    { id: 6, name: "Royal", img: "/templates/template6.jpg" },
+    { id: 1, name: "Classic", img: "/templates/t1.jpg" },
+    { id: 2, name: "Modern", img: "/templates/t2.jpg" },
+    { id: 3, name: "Elegant", img: "/templates/t3.jpg" },
+    { id: 4, name: "Minimal", img: "/templates/t4.jpg" },
+    { id: 5, name: "Traditional", img: "/templates/t5.jpg" },
+    { id: 6, name: "Royal", img: "/templates/t6.jpg" },
   ];
 
   const handleScrollToForm = () => {
@@ -112,7 +112,7 @@ export default function HomePage() {
           {/* Left Card */}
           <div className="absolute left-2 sm:left-4 md:-left-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
             <Image
-              src="/templates/template2.jpg"
+              src="/templates/t2.jpg"
               alt="Modern marriage biodata template with elegant design and professional layout"
               width={300}
               height={400}
@@ -124,7 +124,7 @@ export default function HomePage() {
           {/* Right Card */}
           <div className="absolute right-2 sm:right-4 md:-right-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
             <Image
-              src="/templates/template3.jpg"
+              src="/templates/t3.jpg"
               alt="Elegant marriage biodata template with sophisticated styling and beautiful colors"
               width={300}
               height={400}
@@ -136,7 +136,7 @@ export default function HomePage() {
           {/* Center Card */}
           <div className="absolute top-0 w-36 sm:w-60 md:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 hover:z-30 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
             <Image
-              src="/templates/template1.jpg"
+              src="/templates/t1.jpg"
               alt="Classic marriage biodata template with traditional design and timeless appeal"
               width={300}
               height={400}
