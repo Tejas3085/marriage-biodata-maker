@@ -34,7 +34,7 @@ export default function BiodataForm() {
 
   // state
   const [formData, setFormData] = useState<any | null>(null);
-  const [godPhoto, setGodPhoto] = useState<string>("/gods/1.png");
+  const [godPhoto, setGodPhoto] = useState<string>("/gods/1.jpg");
   const [godTitle, setGodTitle] = useState<string>("|| श्री गणेशाय नमः ||");
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [enableGodTitle, setEnableGodTitle] = useState(true);
@@ -389,7 +389,7 @@ export default function BiodataForm() {
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
                     <Image
                       src={formData.godPhoto || godPhoto}
-                      alt={formData.godPhoto ? (language === "mr" ? "निवडलेले देवत्व" : "Selected deity image") : (language === "mr" ? "पूर्वनिर्धारित देवत्व" : "Default deity image")}
+                      alt={formData.godPhoto ? (language === "mr" ? "निवडलेले देव" : "Selected deity image") : (language === "mr" ? "पूर्वनिर्धारित देवत्व" : "Default deity image")}
                       fill
                       loading="eager"
                       sizes="80px"
@@ -565,7 +565,7 @@ export default function BiodataForm() {
                             value={field.label || ""}
                             onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
                             placeholder={section.NewFieldLabel}
-                            className="border w-full border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all mb-2 lg:mb-0"
+                            className="border w-full border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all mb-2"
                           />
 
                           {field.type === "select" ? (
@@ -642,7 +642,7 @@ export default function BiodataForm() {
                     className="text-pink-400 text-sm font-medium flex items-center gap-1 mt-1 hover:text-pink-600 transition-colors"
                     aria-label={`Add new field to ${section.title}`}
                   >
-                    <IoAddOutline /> Add New Field
+                    <IoAddOutline /> {section.addExtraFiels || "Add New Field"}
                   </button>
                 </div>
               ))}

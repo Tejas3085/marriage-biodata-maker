@@ -2,7 +2,7 @@
   "godTitle": "|| श्री गणेशाय नमः ||",
   "uploadPhotoLabel": "फोटो अपलोड करें",
   "generateBiodataBtnLabel": "बायोडाटा बनाएं",
-  "headerSubTitle": "Make it yours in seconds",
+  "headerSubTitle": "कुछ ही सेकंड में आपका बायोडाटा तैयार करें",
   "fieldSections": [
     {
       "title": "व्यक्तिगत जानकारी",
@@ -22,7 +22,7 @@
           "label": "जन्म तिथि",
           "key": "dob",
           "type": "date",
-          "placeholder": "DD-MM-YYYY",
+          "placeholder": "जन्म तिथि दर्ज करें",
           "value": ""
         },
         {
@@ -189,7 +189,16 @@
             "6 फुट 0 इंच",
             "6 फुट 1 इंच",
             "6 फुट 2 इंच",
-            "6 फुट 3 इंच"
+            "6 फुट 3 इंच",
+            "6 फुट 4 इंच",
+            "6 फुट 5 इंच",
+            "6 फुट 6 इंच",
+            "6 फुट 7 इंच",
+            "6 फुट 8 इंच",
+            "6 फुट 9 इंच",
+            "6 फुट 10 इंच",
+            "6 फुट 11 इंच",
+            "7 फुट 0 इंच"
           ]
         },
         {
@@ -201,6 +210,7 @@
           "options": [
             "गोरा",
             "गेहुआँ",
+            "सावला",
             "काला"
           ]
         },
@@ -273,17 +283,24 @@
           "value": ""
         },
         {
+          "label": "माता का व्यवसाय",
+          "key": "motherOccupation",
+          "type": "text",
+          "placeholder": "उदा: गृहिणी / नौकरी",
+          "value": ""
+        },
+        {
           "label": "बहनें",
           "key": "sisters",
           "type": "text",
-          "placeholder": "बहनों की संख्या दर्ज करें",
+          "placeholder": "बहनों की संख्या / नाम दर्ज करें",
           "value": ""
         },
         {
           "label": "भाई",
           "key": "brothers",
           "type": "text",
-          "placeholder": "भाइयों की संख्या दर्ज करें",
+          "placeholder": "भाइयों की संख्या / नाम दर्ज करें",
           "value": ""
         },
         {
@@ -297,7 +314,7 @@
           "label": "संबंधी",
           "key": "relatives",
           "type": "textarea",
-          "placeholder": "संबंधी दर्ज करें",
+          "placeholder": "संबंधी के आडनाव दर्ज करें",
           "value": ""
         }
       ]

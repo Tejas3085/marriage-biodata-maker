@@ -12,8 +12,8 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
 
   useEffect(() => {
     const images: string[] = [];
-    for (let i = 0; i <= 18; i++) {
-      images.push(`/gods/${i}.png`);
+    for (let i = 1; i <= 19; i++) {
+      images.push(`/gods/${i}.jpg`);
     }
     setGodPhotos(images);
   }, []);

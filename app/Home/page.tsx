@@ -21,6 +21,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CheckCircle } from "lucide-react";
 import Header from "../Header/page";
+import FooterPage from "../Footer/page";
 
 export default function HomePage() {
   const { translations, setFolder } = useLanguageContext();
@@ -63,7 +64,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="text-gray-800 bg-gradient-to-b from-white via-gray-50 to-gray-100">
+    <main className="text-gray-800 bg-linear-to-b from-white via-gray-50 to-gray-100">
       {/* Skip to content link for accessibility */}
       <a
         href="#main-content"
@@ -75,80 +76,106 @@ export default function HomePage() {
       {/* HEADER */}
       <Header />
 
-      {/* HERO SECTION */}
-      <section id="main-content" className="flex flex-col-reverse md:flex-row items-center justify-around px-4 sm:px-6 py-6 md:py-12 w-full gap-4 md:gap-16 shadow-xl" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)" }} aria-label="Hero section">
-        <div className="flex-1 flex flex-col justify-center space-y-3 md:space-y-5 max-w-lg md:max-w-md mx-auto md:mx-0 text-center md:text-left">
-          <h1 className="font-extrabold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-tight" style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}>
-            {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
-          </h1>
-          <p className="text-gray-700 text-sm sm:text-base md:text-lg lg:text-xl">
-            {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
-          </p>
+      {/* HERO SECTION - Optimized for visibility without scrolling */}
+      <section
+        id="main-content"
+        className="relative overflow-hidden py-4 sm:py-6 md:py-8 lg:py-12 min-h-[calc(100vh-80px)]"
+        aria-label="Hero section"
+        style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)" }}
+      >
+        {/* Decorative faint shape */}
+        <div className="pointer-events-none absolute -right-28 -top-20 opacity-20 transform rotate-12 w-80 h-80 rounded-full bg-gradient-to-tr from-pink-200 to-purple-200 blur-3xl" aria-hidden />
 
-          <div className="space-y-2 md:space-y-3">
-            {translations?.features?.map((f: string, i: number) => (
-              <div key={i} className="flex items-start gap-3 mx-auto md:mx-0 w-fit md:w-auto text-center md:text-left">
-                <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-gray-700 leading-snug">{f}</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center w-full">
+            {/* LEFT - Copy */}
+            <div className="order-2 lg:order-1 text-center lg:text-left space-y-3 sm:space-y-4">
+              <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 leading-tight p-4 m-0 text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ lineHeight: 1.1 }}>
+                {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
+              </h1>
+
+              <p className="text-gray-700 max-w-2xl mx-auto lg:mx-0 text-sm sm:text-base md:text-lg">
+                {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
+              </p>
+
+              {/* Features grid - Compact on mobile */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 max-w-xl mx-auto lg:mx-0">
+                {translations?.features?.map((f: string, i: number) => (
+                  <div key={i} className="flex items-start gap-1">
+                    <span className="flex-none mt-0.5 p-1 rounded-md bg-white shadow-sm text-green-600">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </span>
+                    <p className="text-xs sm:text-sm md:text-base text-gray-700 font-medium pt-[2%]">
+                      {f}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          <div className="flex flex-col md:flex-row md:items-center md:gap-4 grid justify-center md:justify-start mt-4 md:mt-6">
-            <button
-              onClick={handleScrollToForm}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 sm:px-5 md:px-6 py-2 sm:py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all hover:scale-105 text-sm sm:text-base md:text-lg"
-              aria-label="Scroll to biodata creation form"
-            >
-              {translations?.createBiodataBtn || "Create Biodata Now"}
-            </button>
-            <p className="text-gray-600 mt-2 md:mt-0 text-xs sm:text-sm md:text-base">
-              12,000+ {translations?.biodatasCount || "biodatas created today"}
-            </p>
-          </div>
-        </div>
+              {/* CTA - Prominent and always visible */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 justify-center lg:justify-start pt-2">
+                <button
+                  onClick={handleScrollToForm}
+                  className="inline-flex items-center justify-center rounded-lg px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 hover:scale-105"
+                  aria-label="Scroll to biodata creation form"
+                >
+                  {translations?.createBiodataBtn || "Create Biodata Now"}
+                </button>
 
-        <div className="relative flex justify-center items-center h-[260px] sm:h-[375px] md:h-[425px] w-full md:flex-1 max-w-md mx-auto md:mx-0 perspective-1000 md:mt-0 md:mb-0">
-          {/* Left Card */}
-          <div className="absolute left-2 sm:left-4 md:-left-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-            <Image
-              src="/templates/t2.jpg"
-              alt="Modern marriage biodata template with elegant design and professional layout"
-              width={300}
-              height={400}
-              className="w-full h-auto object-cover"
-              priority
-            />
-          </div>
+              </div>
 
-          {/* Right Card */}
-          <div className="absolute right-2 sm:right-4 md:-right-8 top-8 sm:top-10 w-32 sm:w-56 md:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-            <Image
-              src="/templates/t3.jpg"
-              alt="Elegant marriage biodata template with sophisticated styling and beautiful colors"
-              width={300}
-              height={400}
-              className="w-full h-auto object-cover"
-              priority
-            />
-          </div>
+              <p className="text-xs sm:text-sm text-gray-600 flex items-center justify-center lg:justify-start gap-1">
+                <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                12,000+ {translations?.biodatasCount || "biodatas created today"}
+              </p>
+            </div>
 
-          {/* Center Card */}
-          <div className="absolute top-0 w-36 sm:w-60 md:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 hover:z-30 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-            <Image
-              src="/templates/t1.jpg"
-              alt="Classic marriage biodata template with traditional design and timeless appeal"
-              width={300}
-              height={400}
-              className="w-full h-auto object-cover"
-              priority
-            />
+            {/* RIGHT - Template Cards - Properly sized for desktop */}
+            <div className="order-1 lg:order-2 relative mx-auto lg:mx-0 w-full max-w-sm lg:max-w-lg xl:max-w-xl">
+              <div className="relative w-full h-[200px] sm:h-[280px] md:h-[340px] lg:h-[450px] xl:h-[500px]">
+                {/* Left Card */}
+                <div className="absolute left-2 sm:left-4 lg:-left-4 xl:-left-8 top-8 sm:top-10 lg:top-12 w-28 sm:w-48 md:w-56 lg:w-64 xl:w-72 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+                  <Image
+                    src="/templates/t2.jpg"
+                    alt="Modern marriage biodata template with elegant design and professional layout"
+                    width={300}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
+
+                {/* Right Card */}
+                <div className="absolute right-2 sm:right-4 lg:-right-4 xl:-right-8 top-8 sm:top-10 lg:top-12 w-28 sm:w-48 md:w-56 lg:w-64 xl:w-72 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+                  <Image
+                    src="/templates/t3.jpg"
+                    alt="Elegant marriage biodata template with sophisticated styling and beautiful colors"
+                    width={300}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
+
+                {/* Center Card */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 sm:w-56 md:w-64 lg:w-72 xl:w-80 transform hover:-translate-y-2 transition-all duration-500 z-20 hover:z-30 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+                  <Image
+                    src="/templates/t1.jpg"
+                    alt="Classic marriage biodata template with traditional design and timeless appeal"
+                    width={300}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* TEMPLATE GALLERY */}
-      <section className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)" }} aria-label="Template gallery">
+
+      <section id="template-gallery" className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)" }} aria-label="Template gallery">
         <div className="mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">Choose Your Template</h2>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
@@ -224,25 +251,7 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-gray-300 mt-12 py-8" role="contentinfo">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white">Marriage Biodata Maker</h3>
-            <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-1">© {new Date().getFullYear()} All Rights Reserved.</p>
-          </div>
-          <div className="flex space-x-5 text-gray-400 text-xl sm:text-2xl" role="navigation" aria-label="Social media links">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors" aria-label="Visit our Facebook page">
-              <FaFacebook aria-hidden="true" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition-colors" aria-label="Visit our Instagram profile">
-              <FaInstagram aria-hidden="true" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400 transition-colors" aria-label="Visit our Twitter profile">
-              <FaTwitter aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <FooterPage />
     </main>
   );
 }

@@ -45,68 +45,68 @@ export default function PreviewPage() {
 
   const templates: Template[] = [
     // ELEGANT BASE (1, 2, 3)
-    { id: 1, name: "Elegant", img: "/templates/t1.jpg", textColor: "#463b3bff", backgroundColor: "#fff", lineHeightFactor: 1.26, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#8B4513", sectionTitleColor: "#D2691E", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
+    { id: 1, name: "Elegant", img: "/templates/t1.jpg", textColor: "#463b3bff", backgroundColor: "#fff", lineHeightFactor: 1.26, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#de8511ff", sectionTitleColor: "#c28b44ff", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
 
-    { id: 2, name: "Elegant", img: "/templates/t2.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#6A1B9A", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 2, name: "Elegant", img: "/templates/t2.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
-    { id: 3, name: "Elegant", img: "/templates/t3.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.13, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.025, godTitleColor: "#C62828", sectionTitleColor: "#F57C00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
+    { id: 3, name: "Elegant", img: "/templates/t3.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.13, godMarginTop: 0.06, labelsLeftPadding: 0.13, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
     // ELEGANT 1 SERIES
-    { id: 4, name: "Elegant 1", img: "/templates/t4.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#1565C0", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
+    { id: 4, name: "Elegant 1", img: "/templates/t4.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
-    { id: 5, name: "Elegant 1", img: "/templates/t5.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#2E7D32", sectionTitleColor: "#EF6C00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
+    { id: 5, name: "Elegant 1", img: "/templates/t5.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
-    { id: 6, name: "Elegant 1", img: "/templates/t6.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.30, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#AD1457", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
+    { id: 6, name: "Elegant 1", img: "/templates/t6.jpg", textColor: "#676363", backgroundColor: "#fff", lineHeightFactor: 1.30, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
 
     // ELEGANT 2
-    { id: 7, name: "Elegant 2", img: "/templates/t7.jpg", textColor: "#282626ff", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#6A1B9A", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+    { id: 7, name: "Elegant 2", img: "/templates/t7.jpg", textColor: "#282626ff", backgroundColor: "#fff", lineHeightFactor: 1.27, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 3
-    { id: 8, name: "Elegant 3", img: "/templates/t8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.08, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#D84315", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
+    { id: 8, name: "Elegant 3", img: "/templates/t8.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.08, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4B0082", sectionTitleColor: "#CD853F", userPhotomarginLeft: 0.08, labelMarginBottom: 0 },
 
     // ELEGANT 4
-    { id: 9, name: "Elegant 4", img: "/templates/t9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#C62828", sectionTitleColor: "#F57C00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+    { id: 9, name: "Elegant 4", img: "/templates/t9.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 5
-    { id: 10, name: "Elegant 5", img: "/templates/t10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#1565C0", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 10, name: "Elegant 5", img: "/templates/t10.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 6
-    { id: 11, name: "Elegant 6", img: "/templates/t11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#1565C0", sectionTitleColor: "#42A5F5", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 11, name: "Elegant 6", img: "/templates/t11.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#191970", sectionTitleColor: "#7eb0e1", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 7
     {
-      id: 12, name: "Elegant 7", img: "/templates/t12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.18, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#C62828", sectionTitleColor: "#F9A825", userPhotomarginLeft: 0.09, labelMarginBottom: 0
+      id: 12, name: "Elegant 7", img: "/templates/t12.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.18, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#8B0000", sectionTitleColor: "#DAA520", userPhotomarginLeft: 0.09, labelMarginBottom: 0
     },
 
     // ELEGANT 8
-    { id: 13, name: "Elegant 8", img: "/templates/t13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.18, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#1565C0", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 13, name: "Elegant 8", img: "/templates/t13.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.18, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#00008B", sectionTitleColor: "#B8860B", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 9
     // { id: 14, name: "Elegant 9", img: "/templates/t14.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.15, godMarginTop: 0.05, labelsLeftPadding: 0.13, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 10
-    { id: 15, name: "Elegant 10", img: "/templates/t15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#6A1B9A", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 15, name: "Elegant 10", img: "/templates/t15.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 11
-    { id: 16, name: "Elegant 11", img: "/templates/t16.jpg", textColor: "white", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4E342E", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 16, name: "Elegant 11", img: "/templates/t16.jpg", textColor: "white", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.07, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#3E2723", sectionTitleColor: "#8D6E63", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 12
-    { id: 17, name: "Elegant 12", img: "/templates/t17.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.025, godTitleColor: "#37474F", sectionTitleColor: "#78909C", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
+    { id: 17, name: "Elegant 12", img: "/templates/t17.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.10, labelFontSize: 0.025, godTitleColor: "#212121", sectionTitleColor: "#757575", userPhotomarginLeft: 0.05, labelMarginBottom: 0 },
 
     // ELEGANT 13
-    { id: 18, name: "Elegant 13", img: "/templates/t18.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.12, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#AD1457", sectionTitleColor: "#FF6F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 18, name: "Elegant 13", img: "/templates/t18.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.12, godMarginTop: 0.06, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     // ELEGANT 14 (t19)
-    { id: 19, name: "Elegant 14", img: "/templates/t19.jpg", textColor: "#6f7174", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.025, godTitleColor: "#2E7D32", sectionTitleColor: "#EF6C00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+    { id: 19, name: "Elegant 14", img: "/templates/t19.jpg", textColor: "#6f7174", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 15
-    { id: 20, name: "Elegant 15", img: "/templates/t20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#C62828", sectionTitleColor: "#F57C00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+    { id: 20, name: "Elegant 15", img: "/templates/t20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 16
-    { id: 21, name: "Elegant 16", img: "/templates/t21.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#1565C0", sectionTitleColor: "#F57F17", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
+    { id: 21, name: "Elegant 16", img: "/templates/t21.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
 
     // ELEGANT 17
-    { id: 22, name: "Elegant 17", img: "/templates/t22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#6A1B9A", sectionTitleColor: "#E65100", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 22, name: "Elegant 17", img: "/templates/t22.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
   ];
 
 
@@ -142,7 +142,8 @@ export default function PreviewPage() {
     const tryVariants = (url: string) => {
       const ext = url.substring(url.lastIndexOf('.'));
       const base = url.substring(0, url.lastIndexOf('.'));
-      return [`${base}.avif`, `${base}.webp`, `${base}${ext}`];
+      console.log('base: ', base);
+      return [`${base}.jpg`, `${base}.png`, `${base}${ext}`];
     };
 
     const variants = tryVariants(src);
@@ -315,7 +316,7 @@ export default function PreviewPage() {
       }
       // smaller proportional gap after God Title
       // y += godTitleSize + Math.max(4, Math.round(godTitleSize * 0.001));
-      y += godTitleSize - 2;
+      y += godTitleSize + 0.01;
 
     }
 

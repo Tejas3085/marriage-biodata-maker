@@ -21,8 +21,8 @@
         {
           "label": "Date of Birth",
           "key": "dob",
-          "type": "date",
-          "placeholder": "DD-MM-YYYY",
+          "type": "text",
+          "placeholder": "Enter date of birth",
           "value": ""
         },
         {
@@ -150,7 +150,7 @@
           "options": [
             "Yes",
             "No",
-            "Don't know"
+            "Don't Know"
           ]
         },
         {
@@ -189,7 +189,16 @@
             "6 ft 0 in",
             "6 ft 1 in",
             "6 ft 2 in",
-            "6 ft 3 in"
+            "6 ft 3 in",
+            "6 ft 4 in",
+            "6 ft 5 in",
+            "6 ft 6 in",
+            "6 ft 7 in",
+            "6 ft 8 in",
+            "6 ft 9 in",
+            "6 ft 10 in",
+            "6 ft 11 in",
+            "7 ft 0 in"
           ]
         },
         {
@@ -201,6 +210,8 @@
           "options": [
             "Fair",
             "Wheatish",
+            "Wheatish Brown",
+            "Dusky",
             "Dark"
           ]
         },
@@ -273,31 +284,38 @@
           "value": ""
         },
         {
+          "label": "Occupation",
+          "key": "motherjob",
+          "type": "text",
+          "placeholder": "eg. Homemaker / job",
+          "value": ""
+        },
+        {
           "label": "Sisters",
           "key": "sisters",
           "type": "text",
-          "placeholder": "Enter number of sisters",
+          "placeholder": "Enter number of sisters / names",
           "value": ""
         },
         {
           "label": "Brothers",
           "key": "brothers",
           "type": "text",
-          "placeholder": "Enter number of brothers",
+          "placeholder": "Enter number of brothers / names",
           "value": ""
         },
         {
-          "label": "Maternal Family",
+          "label": "Mama",
           "key": "mama",
           "type": "text",
-          "placeholder": "Enter maternal family details",
+          "placeholder": "Enter mama's name",
           "value": ""
         },
         {
           "label": "Relatives",
           "key": "relatives",
           "type": "textarea",
-          "placeholder": "Enter relative details",
+          "placeholder": "Enter relative's surname",
           "value": ""
         }
       ]
