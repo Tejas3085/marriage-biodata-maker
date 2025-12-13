@@ -389,7 +389,7 @@ export default function BiodataForm() {
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
                     <Image
                       src={formData.godPhoto || godPhoto}
-                      alt={formData.godPhoto ? (language === "mr" ? "निवडलेले देव" : "Selected deity image") : (language === "mr" ? "पूर्वनिर्धारित देवत्व" : "Default deity image")}
+                      alt="Selected image"
                       fill
                       loading="eager"
                       sizes="80px"

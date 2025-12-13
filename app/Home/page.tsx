@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   FaEdit,
@@ -22,10 +22,51 @@ import "swiper/css/pagination";
 import { CheckCircle } from "lucide-react";
 import Header from "../Header/page";
 import FooterPage from "../Footer/page";
-
 export default function HomePage() {
-  const { translations, setFolder } = useLanguageContext();
+  // const { translations, setFolder } = useLanguageContext();
   const formRef = useRef<HTMLDivElement | null>(null);
+  const [isWeb, setIsWeb] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsWeb(window.innerWidth >= 1024); // Treat width ≥1024px as web/desktop
+    }
+  }, []);
+
+
+  const en = {
+    headerTitle: "Your Marriage Biodata, Ready in Minutes",
+    headerSubTitle: "Easy to make, beautiful to share.",
+    headerDesc:
+      "Pick a template, fill in your details, and download a professional-looking biodata in no time—totally free!",
+    features: [
+      "Choose elegant and fully customizable templates",
+      "Download your biodata instantly in high quality",
+      "Create your marriage biodata easily – 100% free"
+    ],
+
+    createBiodataBtn: "Create My Biodata",
+    biodatasCount: "Thousands of Biodatas Created",
+    howItWorksheading: "How It Works",
+    howItWorks: [
+      {
+        title: "Fill Your Details",
+        desc: "Add your personal, family, and contact information easily."
+      },
+      {
+        title: "Select a Template",
+        desc: "Pick from multiple beautifully designed templates."
+      },
+      {
+        title: "Download & Share",
+        desc: "Save your biodata in PDF or PNG format and share instantly."
+      }
+    ],
+    biodataInfoTitle: "Beautiful, Ready-to-Use Templates",
+    biodataInfoDesc:
+      "Our templates make it simple to create a stylish and professional marriage biodata."
+  };
+
 
   // Scroll when coming from preview using localStorage flag
   useEffect(() => {
@@ -46,9 +87,9 @@ export default function HomePage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (!translations) setFolder("homeLang");
-  }, [translations, setFolder]);
+  // useEffect(() => {
+  //   if (!translations) setFolder("homeLang");
+  // }, [translations, setFolder]);
 
   const templates = [
     { id: 1, name: "Classic", img: "/templates/t1.jpg" },
@@ -57,6 +98,23 @@ export default function HomePage() {
     { id: 4, name: "Minimal", img: "/templates/t4.jpg" },
     { id: 5, name: "Traditional", img: "/templates/t5.jpg" },
     { id: 6, name: "Royal", img: "/templates/t6.jpg" },
+    { id: 7, name: "Floral", img: "/templates/t7.jpg" },
+    { id: 8, name: "Vintage", img: "/templates/t8.jpg" },
+    { id: 9, name: "Chic", img: "/templates/t9.jpg" },
+    { id: 10, name: "Bold", img: "/templates/t10.jpg" },
+    { id: 11, name: "Sophisticated", img: "/templates/t11.jpg" },
+    { id: 12, name: "Creative", img: "/templates/t12.jpg" },
+    { id: 13, name: "Creative", img: "/templates/t13.jpg" },
+    { id: 14, name: "Creative", img: "/templates/t14.jpg" },
+    { id: 15, name: "Creative", img: "/templates/t15.jpg" },
+    { id: 16, name: "Creative", img: "/templates/t16.jpg" },
+    { id: 17, name: "Creative", img: "/templates/t17.jpg" },
+    { id: 18, name: "Creative", img: "/templates/t18.jpg" },
+    { id: 19, name: "Creative", img: "/templates/t19.jpg" },
+    { id: 20, name: "Creative", img: "/templates/t20.jpg" },
+    { id: 21, name: "Creative", img: "/templates/t21.jpg" },
+    { id: 22, name: "Creative", img: "/templates/t22.jpg" },
+
   ];
 
   const handleScrollToForm = () => {
@@ -64,121 +122,108 @@ export default function HomePage() {
   };
 
   return (
-    <main className="text-gray-800 bg-linear-to-b from-white via-gray-50 to-gray-100">
-      {/* Skip to content link for accessibility */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-pink-600 focus:text-white focus:rounded-lg focus:shadow-lg"
-      >
-        Skip to main content
-      </a>
-
-      {/* HEADER */}
+    <main className="text-gray-800 bg-gray-50">
       <Header />
 
-      {/* HERO SECTION - Optimized for visibility without scrolling */}
-      <section
-        id="main-content"
-        className="relative overflow-hidden py-4 sm:py-6 md:py-8 lg:py-12 min-h-[calc(100vh-80px)]"
-        aria-label="Hero section"
-        style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #edece7ff 100%)" }}
-      >
+      {/* HERO SECTION */}
+    <section
+  id="main-content"
+  className="relative overflow-hidden py-1 md:py-12 bg-cover bg-center bg-no-repeat"
+  style={{
+    backgroundImage: !isWeb
+      ? `
+        linear-gradient(
+          135deg,
+          rgba(255,240,245,0.95) 0%,
+          rgba(240,248,255,0.9) 50%,
+          rgba(237,236,231,0.95) 100%
+        )
+      `
+      : `
+      linear-gradient(135deg, rgb(238 175 196 / 95%) 0%, #fff 50%, #a5ebe3 100%), url(/images/home2.jpg)
+      `,
+  }}
+>
+
+
         {/* Decorative faint shape */}
-        <div className="pointer-events-none absolute -right-28 -top-20 opacity-20 transform rotate-12 w-80 h-80 rounded-full bg-gradient-to-tr from-pink-200 to-purple-200 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -right-28 -top-20 opacity-20 transform rotate-12 w-80 h-80 rounded-full bg-gradient-to-tr from-pink-200 to-purple-200 blur-3xl" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center w-full">
-            {/* LEFT - Copy */}
-            <div className="order-2 lg:order-1 text-center lg:text-left space-y-3 sm:space-y-4">
-              <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 leading-tight p-4 m-0 text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ lineHeight: 1.1 }}>
-                {translations?.headerTitle || "The Ultimate Marriage Biodata Maker"}
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-center w-full">
+            {/* LEFT - Text */}
+            <div className="order-2 md:order-1 text-center md:text-left space-y-4">
+              <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600">
+                {en.headerTitle}
               </h1>
-
-              <p className="text-gray-700 max-w-2xl mx-auto lg:mx-0 text-sm sm:text-base md:text-lg">
-                {translations?.headerDesc || "Create beautiful biodatas easily and professionally."}
+              <p className="text-sm sm:text-base md:text-lg font-medium bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600">
+                {en.headerDesc}
               </p>
 
-              {/* Features grid - Compact on mobile */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 max-w-xl mx-auto lg:mx-0">
-                {translations?.features?.map((f: string, i: number) => (
-                  <div key={i} className="flex items-start gap-1">
-                    <span className="flex-none mt-0.5 p-1 rounded-md bg-white shadow-sm text-green-600">
-                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+              {/* Features */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-xl mx-auto md:mx-0">
+                {en.features.map((f, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <span className="p-1 rounded-md bg-white shadow-sm text-green-600">
+                      <CheckCircle className="w-4 sm:w-5 h-4 sm:h-5" />
                     </span>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-700 font-medium pt-[2%]">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-700 font-medium">
                       {f}
                     </p>
                   </div>
                 ))}
               </div>
 
-              {/* CTA - Prominent and always visible */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 justify-center lg:justify-start pt-2">
+              {/* CTA Button */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 justify-center md:justify-start mt-4">
                 <button
                   onClick={handleScrollToForm}
-                  className="inline-flex items-center justify-center rounded-lg px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 hover:scale-105"
-                  aria-label="Scroll to biodata creation form"
+                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-[#a32323] text-white font-semibold shadow-md shadow-indigo-400/20 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-1 active:scale-95"
                 >
-                  {translations?.createBiodataBtn || "Create Biodata Now"}
+                  {en.createBiodataBtn}
                 </button>
-
               </div>
 
-              <p className="text-xs sm:text-sm text-gray-600 flex items-center justify-center lg:justify-start gap-1">
-                <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                12,000+ {translations?.biodatasCount || "biodatas created today"}
+              <p className="text-xs sm:text-sm text-gray-600 flex items-center justify-center md:justify-start gap-2 mt-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                {en.biodatasCount}
               </p>
             </div>
 
-            {/* RIGHT - Template Cards - Properly sized for desktop */}
-            <div className="order-1 lg:order-2 relative mx-auto lg:mx-0 w-full max-w-sm lg:max-w-lg xl:max-w-xl">
-              <div className="relative w-full h-[200px] sm:h-[280px] md:h-[340px] lg:h-[450px] xl:h-[500px]">
-                {/* Left Card */}
-                <div className="absolute left-2 sm:left-4 lg:-left-4 xl:-left-8 top-8 sm:top-10 lg:top-12 w-28 sm:w-48 md:w-56 lg:w-64 xl:w-72 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image
-                    src="/templates/t2.jpg"
-                    alt="Modern marriage biodata template with elegant design and professional layout"
-                    width={300}
-                    height={400}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
+            {/* RIGHT - Hero Templates */}
+            <div className="order-1 md:order-2 relative mx-auto md:mx-0 w-full mt-8 md:mt-0">
+              {/* Desktop: absolute floating cards */}
+              <div className="hidden md:block relative w-full h-[360px] lg:h-[450px] xl:h-[500px]">
+                <div className="absolute left-2 sm:left-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+                  <Image src="/images/m1.png" alt="Modern template" width={300} height={400} className="w-full h-full object-cover" />
                 </div>
-
-                {/* Right Card */}
-                <div className="absolute right-2 sm:right-4 lg:-right-4 xl:-right-8 top-8 sm:top-10 lg:top-12 w-28 sm:w-48 md:w-56 lg:w-64 xl:w-72 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 hover:z-30 hover:scale-105 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image
-                    src="/templates/t3.jpg"
-                    alt="Elegant marriage biodata template with sophisticated styling and beautiful colors"
-                    width={300}
-                    height={400}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
+                <div className="absolute right-2 sm:right-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+                  <Image src="/images/m2.png" alt="Elegant template" width={300} height={400} className="w-full h-full object-cover" />
                 </div>
-
-                {/* Center Card */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 sm:w-56 md:w-64 lg:w-72 xl:w-80 transform hover:-translate-y-2 transition-all duration-500 z-20 hover:z-30 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image
-                    src="/templates/t1.jpg"
-                    alt="Classic marriage biodata template with traditional design and timeless appeal"
-                    width={300}
-                    height={400}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 sm:w-56 md:w-64 lg:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
+                  <Image src="/images/m3.png" alt="Classic template" width={300} height={400} className="w-full h-full object-cover" />
                 </div>
               </div>
+
+              {/* Mobile/Tablet: stacked smaller cards */}
+              <div className="flex md:hidden justify-center gap-4">
+                {["/images/m1.png", "/images/m2.png", "/images/m3.png"].map((img, idx) => (
+                  <div key={idx} className="w-28 sm:w-32 rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <Image src={img} alt={`Template ${idx + 1}`} width={200} height={300} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
             </div>
+
           </div>
         </div>
       </section>
 
-
-      <section id="template-gallery" className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto" style={{ background: "linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fffacd 100%)" }} aria-label="Template gallery">
-        <div className="mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3">Choose Your Template</h2>
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-12">
+      {/* TEMPLATE SWIPER SECTION */}
+      <section className="mt-10 py-12 px-4 md:px-6 rounded-2xl mx-4 md:mx-auto bg-gradient-to-tr from-pink-50 via-blue-50 to-yellow-50 relative">
+        <div className="text-center max-w-8xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">Choose Your Template</h2>
+          <p className="text-sm sm:text-base md:text-lg mb-12 text-gray-600">
             Select from professionally designed marriage biodata templates to make your biodata unique and elegant.
           </p>
 
@@ -208,7 +253,11 @@ export default function HomePage() {
                 nextEl: ".swiper-button-next-custom",
                 prevEl: ".swiper-button-prev-custom",
               }}
-              breakpoints={{ 640: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
             >
               {templates.map((template) => (
                 <SwiperSlide key={template.id}>
@@ -216,11 +265,10 @@ export default function HomePage() {
                     <div className="flex items-center justify-center bg-gray-100">
                       <Image
                         src={template.img}
-                        alt={`${template.name} marriage biodata template - professional design for creating beautiful biodatas`}
+                        alt={`${template.name} template`}
                         width={300}
                         height={400}
                         className="w-full h-80 object-contain p-5 cursor-pointer"
-                        loading="lazy"
                       />
                     </div>
                   </div>
@@ -232,26 +280,55 @@ export default function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="px-4 md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto mt-5" style={{ background: "linear-gradient(135deg, #fef9f5 0%, #e6f7ff 50%, #fff3e6 100%)" }} aria-label="How it works">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800">{translations?.howItWorksheading || "How It Works"}</h2>
-        <div className="grid md:grid-cols-3 gap-8 cursor-pointer text-center max-w-6xl mx-auto">
-          {translations?.howItWorks?.map((step: any, i: number) => (
+      <section className="px-4 md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl mx-4 md:mx-auto mt-5 bg-gradient-to-tr from-white via-blue-50 to-yellow-50 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10">{en.howItWorksheading}</h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {en.howItWorks.map((step, i) => (
             <div key={i} className="p-6 md:p-8 rounded-2xl border border-gray-200 bg-white hover:border-pink-500 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-              <div className="text-3xl sm:text-4xl md:text-5xl text-pink-500 mb-4 flex justify-center" aria-hidden="true">{i === 0 ? <FaEdit /> : i === 1 ? <FaPalette /> : <FaDownload />}</div>
-              <h3 className="font-semibold text-lg sm:text-xl md:text-2xl mb-2 text-gray-800">{step.title}</h3>
-              <p className="text-xs sm:text-sm md:text-base text-gray-600">{step.desc}</p>
+              <div className="text-3xl sm:text-4xl md:text-5xl text-pink-500 mb-4 flex justify-center">
+                {i === 0 ? <FaEdit /> : i === 1 ? <FaPalette /> : <FaDownload />}
+              </div>
+              <h3 className="font-semibold text-lg sm:text-xl md:text-2xl mb-2">{step.title}</h3>
+              <p className="text-sm sm:text-base md:text-lg text-gray-600">{step.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* FORM SECTION */}
-      <section ref={formRef} className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl md:mx-auto shadow-xl mt-5" style={{ background: "linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #fffde7 100%)" }} aria-label="Biodata creation form">
+      <section ref={formRef} className="md:px-6 py-12 md:py-16 rounded-2xl md:rounded-3xl md:mx-auto shadow-xl mt-5 bg-gradient-to-tr from-pink-50 via-blue-50 to-yellow-50">
         <BiodataForm />
       </section>
 
-      {/* FOOTER */}
+      <section className="py-10 mt-5 px-4 md:px-6 bg-gradient-to-tr from-pink-50 via-blue-50 to-yellow-50">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 text-gray-800">
+            Why Choose Our Service
+          </h2>
+
+          <div className="flex flex-wrap justify-center gap-5">
+            {[
+              { title: "100% Free", desc: "No hidden charges or subscriptions" },
+              { title: "Secure & Private", desc: "Your data stays on your device" },
+              { title: "Easy to Use", desc: "Simple and user-friendly interface" },
+              { title: "Instant Download", desc: "Download your biodata instantly" }
+            ]
+              .map((item, idx) => (
+                <div
+                  key={idx}
+                  className="w-[90%] sm:w-48 md:w-52 p-5 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow text-left"
+                >
+                  <h3 className="text-lg sm:text-xl font-semibold text-pink-600 mb-2">{item.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600">{item.desc}</p>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+
       <FooterPage />
     </main>
+
   );
 }

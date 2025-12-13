@@ -47,7 +47,7 @@ export default function PreviewPage() {
     // ELEGANT BASE (1, 2, 3)
     { id: 1, name: "Elegant", img: "/templates/t1.jpg", textColor: "#1e1a1aff", backgroundColor: "#fff", lineHeightFactor: 1.26, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#ae239cff", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
 
-    { id: 2, name: "Elegant", img: "/templates/t2.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.28, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4155b8ff", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 2, name: "Elegant", img: "/templates/t2.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.30, godMarginTop: 0.05, labelsLeftPadding: 0.11, labelFontSize: 0.024, godTitleColor: "#4155b8ff", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
     { id: 3, name: "Elegant", img: "/templates/t3.jpg", textColor: "#252020ff", backgroundColor: "#fff", lineHeightFactor: 1.10, godMarginTop: 0.06, labelsLeftPadding: 0.11, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.10, labelMarginBottom: 0 },
 
@@ -100,7 +100,7 @@ export default function PreviewPage() {
     { id: 19, name: "Elegant 14", img: "/templates/t19.jpg", textColor: "#6f7174", backgroundColor: "#fff", lineHeightFactor: 1.25, godMarginTop: 0.05, labelsLeftPadding: 0.09, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 15
-    { id: 20, name: "Elegant 15", img: "/templates/t20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
+    { id: 20, name: "Elegant 15", img: "/templates/t20.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.13, labelFontSize: 0.024, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.06, labelMarginBottom: 0 },
 
     // ELEGANT 16
     { id: 21, name: "Elegant 16", img: "/templates/t21.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.22, godMarginTop: 0.05, labelsLeftPadding: 0.12, labelFontSize: 0.025, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.07, labelMarginBottom: 0 },
@@ -302,7 +302,7 @@ export default function PreviewPage() {
       // Smaller gap after the god photo: proportional to the photo size + a small absolute min
       y += godPhotoSize + Math.max(6, Math.round(godPhotoSize * 0.25));
     } else {
-      y += 10;
+      y += 20;
     }
 
     // God Title
@@ -359,7 +359,7 @@ export default function PreviewPage() {
 
     const labelX = width * (template.labelsLeftPadding ?? 0.12);
     // Move colon and value slightly left so values sit closer to labels
-    const colonX = width * 0.31;
+    const colonX = width * 0.32;
     const valueX = colonX + 18;
 
     sections.forEach((sec: any) => {
@@ -489,9 +489,9 @@ export default function PreviewPage() {
 
     // Smart pre-sizing: Start with smaller font if many fields detected
     // This improves appearance and reduces iteration count
-    let fontSize = 18;
+    let fontSize = 19;
     let godPhotoSize = width * 0.13;
-    let godTitleSize = 18;
+    let godTitleSize = 20;
 
     // Create an adjusted template with modified labelFontSize based on field count
     let adjustedTemplate = selectedTemplate;

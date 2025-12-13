@@ -7,9 +7,9 @@ body {
 }
 
 /* When html[lang] or body[data-lang] indicates hi/mr, prefer Devanagari fonts globally */
-html[lang="hi"], body[data-lang="hi"], html[lang="mr"], body[data-lang="mr"] {
+/* html[lang="hi"], body[data-lang="hi"], html[lang="mr"], body[data-lang="mr"] {
   font-family: var(--font-noto-devanagari), var(--font-poppins), var(--font-inter), system-ui, sans-serif;
-}
+} */
 
 /* ===== Global Form Container ===== */
 .biodata-card {

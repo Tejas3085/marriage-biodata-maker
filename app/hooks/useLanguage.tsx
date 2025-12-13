@@ -7,7 +7,7 @@ type LanguageContextType = {
   setLanguage: (lang: string) => void;
   translations: any | null;
   translationsForm: any | null;
-  setFolder: (folder: "homeLang" | "formLang") => Promise<void>;
+  setFolder: (folder: "formLang") => Promise<void>;
 };
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
@@ -51,10 +51,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
         // Only update if data actually changed (simple JSON string compare)
         if (folder === "homeLang") {
-          const prev = translations;
-          const prevJson = prev ? JSON.stringify(prev) : null;
-          const newJson = JSON.stringify(data);
-          if (prevJson !== newJson) setTranslations(data);
+          // const prev = translations;
+          // const prevJson = prev ? JSON.stringify(prev) : null;
+          // const newJson = JSON.stringify(data);
+          // if (prevJson !== newJson) setTranslations(data);
         } else {
           const prev = translationsForm;
           const prevJson = prev ? JSON.stringify(prev) : null;
@@ -73,7 +73,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     // load both - provider ensures they are set
     setFolder("formLang");
-    setFolder("homeLang");
+    // setFolder("homeLang");
     // We intentionally do not include translations/translationsForm here to avoid infinite loops.
     // setFolder is stable because of useCallback and depends on `language`.
   }, [language, setFolder]);
