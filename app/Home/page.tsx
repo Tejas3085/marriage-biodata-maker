@@ -191,7 +191,7 @@ export default function HomePage() {
             </div>
 
             {/* RIGHT - Hero Templates */}
-            <div className="order-1 md:order-2 relative mx-auto md:mx-0 w-full mt-8 md:mt-0">
+             <div className="order-1 md:order-2 relative mx-auto md:mx-0 w-full mt-8 md:mt-0">
               {/* Desktop: absolute floating cards */}
               <div className="hidden md:block relative w-full h-[360px] lg:h-[450px] xl:h-[500px]">
                 <div className="absolute left-2 sm:left-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
@@ -206,22 +206,17 @@ export default function HomePage() {
               </div>
 
               {/* Mobile/Tablet: stacked smaller cards */}
-              <div className="flex md:hidden justify-center gap-4 h-[220px]">
+              <div className="flex md:hidden justify-center gap-4">
                 {["/Images/m1.png", "/Images/m2.png", "/Images/m3.png"].map((img, idx) => (
-                  <div
-                    key={idx}
-                    className="w-28 sm:w-32 rounded-xl shadow-lg overflow-hidden border border-gray-200"
-                  >
-                    <img
-                      src={img}
-                      alt={`Template ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+                  <div key={idx} className="w-28 sm:w-32 rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                    <Image src={img} alt={`Template ${idx + 1}`} width={200} height={300} className="w-full h-full object-cover" />
                   </div>
                 ))}
               </div>
-
             </div>
+
+this templates not showing on UI
+alt test is showing
 
           </div>
         </div>
