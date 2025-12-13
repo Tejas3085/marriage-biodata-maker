@@ -140,7 +140,7 @@ export default function HomePage() {
         )
       `
       : `
-      linear-gradient(135deg, rgb(238 175 196 / 95%) 0%, #fff 50%, #a5ebe3 100%), url(/images/home2.jpg)
+      linear-gradient(135deg, rgb(238 175 196 / 95%) 0%, #fff 50%, #a5ebe3 100%)
       `,
   }}
 >
