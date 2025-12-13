@@ -178,7 +178,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 justify-center md:justify-start mt-4">
                 <button
                   onClick={handleScrollToForm}
-                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-[#a32323] text-white font-semibold shadow-md shadow-indigo-400/20 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-1 active:scale-95"
+                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-[#b634b3] text-white font-semibold shadow-md shadow-indigo-400/20 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-1 active:scale-95"
                 >
                   {en.createBiodataBtn}
                 </button>
