@@ -126,12 +126,12 @@ export default function HomePage() {
       <Header />
 
       {/* HERO SECTION */}
-    <section
-  id="main-content"
-  className="relative overflow-hidden py-1 md:py-12 bg-cover bg-center bg-no-repeat"
-  style={{
-    backgroundImage: !isWeb
-      ? `
+      <section
+        id="main-content"
+        className="relative overflow-hidden py-1 md:py-12 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: !isWeb
+            ? `
         linear-gradient(
           135deg,
           rgba(255,240,245,0.95) 0%,
@@ -139,11 +139,11 @@ export default function HomePage() {
           rgba(237,236,231,0.95) 100%
         )
       `
-      : `
+            : `
       linear-gradient(135deg, rgb(238 175 196 / 95%) 0%, #fff 50%, #a5ebe3 100%)
       `,
-  }}
->
+        }}
+      >
 
 
         {/* Decorative faint shape */}
@@ -195,24 +195,32 @@ export default function HomePage() {
               {/* Desktop: absolute floating cards */}
               <div className="hidden md:block relative w-full h-[360px] lg:h-[450px] xl:h-[500px]">
                 <div className="absolute left-2 sm:left-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image src="/images/m1.png" alt="Modern template" width={300} height={400} className="w-full h-full object-cover" />
+                  <Image src="/Images/m1.png" alt="Modern template" width={300} height={400} className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute right-2 sm:right-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image src="/images/m2.png" alt="Elegant template" width={300} height={400} className="w-full h-full object-cover" />
+                  <Image src="/Images/m2.png" alt="Elegant template" width={300} height={400} className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 sm:w-56 md:w-64 lg:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image src="/images/m3.png" alt="Classic template" width={300} height={400} className="w-full h-full object-cover" />
+                  <Image src="/Images/m3.png" alt="Classic template" width={300} height={400} className="w-full h-full object-cover" />
                 </div>
               </div>
 
               {/* Mobile/Tablet: stacked smaller cards */}
-              <div className="flex md:hidden justify-center gap-4">
-                {["/images/m1.png", "/images/m2.png", "/images/m3.png"].map((img, idx) => (
-                  <div key={idx} className="w-28 sm:w-32 rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                    <Image src={img} alt={`Template ${idx + 1}`} width={200} height={300} className="w-full h-full object-cover" />
+              <div className="flex md:hidden justify-center gap-4 h-[220px]">
+                {["/Images/m1.png", "/Images/m2.png", "/Images/m3.png"].map((img, idx) => (
+                  <div
+                    key={idx}
+                    className="w-28 sm:w-32 rounded-xl shadow-lg overflow-hidden border border-gray-200"
+                  >
+                    <img
+                      src={img}
+                      alt={`Template ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 ))}
               </div>
+
             </div>
 
           </div>
