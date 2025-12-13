@@ -215,9 +215,6 @@ export default function HomePage() {
               </div>
             </div>
 
-this templates not showing on UI
-alt test is showing
-
           </div>
         </div>
       </section>
