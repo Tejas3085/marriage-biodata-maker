@@ -208,7 +208,7 @@ export default function HomePage() {
               {/* Mobile/Tablet: stacked smaller cards */}
               <div className="flex md:hidden justify-center gap-4">
                 {["/Images/m1.png", "/Images/m2.png", "/Images/m3.png"].map((img, idx) => (
-                  <div key={idx} className="w-28 sm:w-32 rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                  <div key={idx} className="w-28 sm:w-32 shadow-lg overflow-hidden border border-gray-200">
                     <Image src={img} alt={`Template ${idx + 1}`} width={200} height={300} className="w-full h-full object-cover" />
                   </div>
                 ))}
