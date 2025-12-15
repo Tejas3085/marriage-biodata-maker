@@ -410,9 +410,11 @@ export default function BiodataForm() {
                 <button
                   type="button"
                   onClick={() => setShowGodPhotoSelector(true)}
-                  className="px-3 py-1 text-sm font-medium bg-blue-50 text-blue-600 
-             rounded-full border border-blue-200 cursor-pointer
-             hover:bg-blue-100 hover:border-blue-300 transition"
+                  className="px-4 py-1.5 text-xs font-medium
+                   rounded-lg bg-pink-100 text-pink-700
+                   hover:bg-pink-200 transition border border-pink-300 flex items-center gap-1"
+                    aria-label="Add/change god photo"
+
                 >
                   {godPhoto ? "Change" : "Add Photo"}
                 </button>
@@ -428,10 +430,9 @@ export default function BiodataForm() {
                         updated.godPhoto = "";
                       });
                     }}
-                    className="px-3 py-1 text-sm font-medium 
-               bg-red-50 text-red-600 
-               rounded-full border border-red-200 
-               hover:bg-red-100 hover:border-red-300 transition"
+                    className="px-4 py-1.5 text-xs font-medium
+                     rounded-lg bg-gray-100 text-gray-600
+                     hover:bg-gray-200 transition border border-gray-300 flex items-center gap-1"
                     aria-label="Remove god photo"
                   >
                     Remove
@@ -445,7 +446,7 @@ export default function BiodataForm() {
 
                 {/* Title Text */}
                 <span className="text-base sm:text-lg font-semibold text-gray-800 text-center">
-                  {godTitle || "Add Title"}
+                  {formData.godTitle || "Add Title"}
                 </span>
 
 
@@ -565,7 +566,7 @@ export default function BiodataForm() {
                             value={field.label || ""}
                             onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
                             placeholder={section.NewFieldLabel}
-                            className="border w-full border-gray-200 px-3 py-2 rounded-md text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all mb-2"
+                            className="border w-full border-[#abb2b9] px-3 py-2 rounded-md text-sm bg-[#eef1f5] focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all mb-2"
                           />
 
                           {field.type === "select" ? (
@@ -651,14 +652,21 @@ export default function BiodataForm() {
 
           {/* RIGHT PANEL - sticky */}
           <aside className="sticky top-24 pr-5 self-start">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-center p-4 shadow mb-4 rounded-lg">
-              <h2 className="text-lg font-semibold">Your Digital Biodata</h2>
-              <p className="text-sm opacity-90">Upload your best photo & make it shine ✨</p>
+            <div className="mb-6 flex justify-center px-4">
+              <div className="max-w-xl rounded-2xl border border-pink-200 bg-white px-6 py-4 text-center shadow-md">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-medium">
+                  Upload your photo to create a clean and professional marriage biodata.✨
+                </p>
+              </div>
+
             </div>
+
+
+
 
             <div className="border border-gray-200 rounded-2xl p-6 bg-white shadow-sm">
               <h3 className="text-center text-lg font-semibold text-gray-800 mb-4">
-                {formData.uploadPhotoLabel || "Profile Photo"}
+                {"Profile Photo"}
               </h3>
 
               <div
@@ -680,12 +688,23 @@ export default function BiodataForm() {
                     />
                   </div>
                 ) : (
-                  <div className="w-28 h-28 flex flex-col items-center justify-center
-    bg-white/70 backdrop-blur-md border border-gray-200
-    rounded-2xl shadow-sm cursor-pointer transition-all hover:shadow-md hover:border-pink-400 hover:bg-pink-50">
+                  <div
+                    className="
+    w-24 h-24 sm:w-28 sm:h-28
+    flex flex-col items-center justify-center
+    bg-white/70 backdrop-blur-md
+    border border-gray-200
+    rounded-xl
+    shadow-sm cursor-pointer
+    transition-all
+    hover:shadow-md hover:border-pink-400 hover:bg-pink-50
+  "
+                  >
 
-                    <IoCameraOutline size={40} className="text-gray-600 mb-1" />
-                    <p className="text-xs font-medium text-gray-600">Click to upload</p>
+
+                    <IoCameraOutline size={34} className="text-gray-600 mb-1" />
+                    <p className="text-[11px] font-medium text-gray-600">Click to upload</p>
+
                   </div>
 
                 )}
@@ -701,7 +720,7 @@ export default function BiodataForm() {
               />
 
               {photoPreview && (
-                <div className="flex justify-center gap-2 mt-4">
+                <div className="flex justify-center gap-2 mt-3">
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
@@ -719,30 +738,31 @@ export default function BiodataForm() {
                 </div>
               )}
 
-              <div className="mt-8 flex flex-col gap-3">
-                <button
-                  type="submit"
-                  className="bg-pink-500 text-white py-2 rounded-md font-medium"
-                >
-                  {language === "mr" ? "बायोडाटा तयार करा" : "Generate Biodata"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    // reset form & localStorage
-                    if (confirm(language === "mr" ? "रिअली रीसेट करायचंय?" : "Reset the form?")) {
-                      try {
-                        localStorage.removeItem(language);
-                      } catch (err) { }
-                      // reload page to reinitialize
-                      window.location.reload();
-                    }
-                  }}
-                  className="bg-gray-400 text-white py-2 rounded-md font-medium"
-                >
-                  {language === "mr" ? "रीसेट फॉर्म" : "Reset Form"}
-                </button>
-              </div>
+
+            </div>
+            <div className="mt-8 flex flex-col gap-3">
+              <button
+                type="submit"
+                className="bg-pink-500 text-white py-2 rounded-md font-medium"
+              >
+                {"Generate Biodata"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  // reset form & localStorage
+                  if (confirm(language === "mr" ? "रिअली रीसेट करायचंय?" : "Reset the form?")) {
+                    try {
+                      localStorage.removeItem(language);
+                    } catch (err) { }
+                    // reload page to reinitialize
+                    window.location.reload();
+                  }
+                }}
+                className="bg-gray-400 text-white py-2 rounded-md font-medium"
+              >
+                {"Reset Form"}
+              </button>
             </div>
           </aside>
         </div>

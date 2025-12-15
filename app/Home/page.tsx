@@ -35,7 +35,7 @@ export default function HomePage() {
 
 
   const en = {
-    headerTitle: "Your Marriage Biodata, Ready in Minutes",
+    headerTitle: "Create Your Marriage Biodata in Minutes",
     headerSubTitle: "Easy to make, beautiful to share.",
     headerDesc:
       "Pick a template, fill in your details, and download a professional-looking biodata in no time—totally free!",
@@ -99,8 +99,8 @@ export default function HomePage() {
     { id: 5, name: "Traditional", img: "/templates/t5.jpg" },
     { id: 6, name: "Royal", img: "/templates/t6.jpg" },
     { id: 7, name: "Floral", img: "/templates/t7.jpg" },
-    { id: 8, name: "Vintage", img: "/templates/t8.jpg" },
-    { id: 9, name: "Chic", img: "/templates/t9.jpg" },
+    // { id: 8, name: "Vintage", img: "/templates/t8.jpg" },
+    // { id: 9, name: "Chic", img: "/templates/t9.jpg" },
     { id: 10, name: "Bold", img: "/templates/t10.jpg" },
     { id: 11, name: "Sophisticated", img: "/templates/t11.jpg" },
     { id: 12, name: "Creative", img: "/templates/t12.jpg" },
@@ -140,8 +140,7 @@ export default function HomePage() {
         )
       `
             : `
-      linear-gradient(135deg, rgb(238 175 196 / 95%) 0%, #fff 50%, #a5ebe3 100%)
-      `,
+linear-gradient(135deg, rgb(204 190 195 / 95%) 0%, rgb(255, 255, 255) 50%, rgb(165, 235, 227) 100%)      `,
         }}
       >
 
@@ -153,11 +152,11 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-center w-full">
             {/* LEFT - Text */}
             <div className="order-2 md:order-1 text-center md:text-left space-y-4">
-              <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600">
+              <h1 className="font-extrabold text-2xl sm:text-4xl md:text-xl lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600">
                 {en.headerTitle}
               </h1>
               <p className="text-sm sm:text-base md:text-lg font-medium bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600">
-                {en.headerDesc}
+                {/* {en.headerDesc} */}
               </p>
 
               {/* Features */}
@@ -178,7 +177,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 justify-center md:justify-start mt-4">
                 <button
                   onClick={handleScrollToForm}
-                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-[#b634b3] text-white font-semibold shadow-md shadow-indigo-400/20 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-1 active:scale-95"
+                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-pink-400 text-white font-semibold shadow-md shadow-indigo-400/20 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-1 active:scale-95"
                 >
                   {en.createBiodataBtn}
                 </button>
@@ -191,7 +190,7 @@ export default function HomePage() {
             </div>
 
             {/* RIGHT - Hero Templates */}
-             <div className="order-1 md:order-2 relative mx-auto md:mx-0 w-full mt-8 md:mt-0">
+            <div className="order-1 md:order-2 relative mx-auto md:mx-0 w-full mt-5 md:mt-0">
               {/* Desktop: absolute floating cards */}
               <div className="hidden md:block relative w-full h-[360px] lg:h-[450px] xl:h-[500px]">
                 <div className="absolute left-2 sm:left-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
@@ -206,12 +205,20 @@ export default function HomePage() {
               </div>
 
               {/* Mobile/Tablet: stacked smaller cards */}
-              <div className="flex md:hidden justify-center gap-4">
-                {["/Images/m1.png", "/Images/m2.png", "/Images/m3.png"].map((img, idx) => (
-                  <div key={idx} className="w-28 sm:w-32 shadow-lg overflow-hidden border border-gray-200">
-                    <Image src={img} alt={`Template ${idx + 1}`} width={200} height={300} className="w-full h-full object-cover" />
-                  </div>
-                ))}
+              {/* Mobile/Tablet: Web-Style Floating Cards */}
+              <div className="block md:hidden relative w-full h-[250px]">
+                {/* Left Card */}
+                <div className="absolute left-[5%] top-8 w-32 transform -rotate-6 z-10 shadow-lg rounded-lg overflow-hidden border-2 border-white opacity-90">
+                  <Image src="/Images/m1.png" alt="Template Left" width={150} height={130} className="w-full h-full object-cover" />
+                </div>
+                {/* Right Card */}
+                <div className="absolute right-[5%] top-8 w-32 transform rotate-6 z-10 shadow-lg rounded-lg overflow-hidden border-2 border-white opacity-90">
+                  <Image src="/Images/m2.png" alt="Template Right" width={150} height={130} className="w-full h-full object-cover" />
+                </div>
+                {/* Center Hero Card */}
+                <div className="absolute left-1/2 -translate-x-1/2 top-0 w-40 z-20 shadow-2xl rounded-xl overflow-hidden border-[3px] border-white transform hover:-translate-y-1 transition-transform">
+                  <Image src="/Images/m3.png" alt="Template Center" width={150} height={130} className="w-full h-full object-cover" />
+                </div>
               </div>
             </div>
 
@@ -318,7 +325,7 @@ export default function HomePage() {
                   key={idx}
                   className="w-[90%] sm:w-48 md:w-52 p-5 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow text-left"
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold text-pink-600 mb-2">{item.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-green-500 mb-2">{item.title}</h3>
                   <p className="text-sm sm:text-base text-gray-600">{item.desc}</p>
                 </div>
               ))}

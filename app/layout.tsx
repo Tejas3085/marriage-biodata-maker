@@ -98,7 +98,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-     // Noto Serif may not be available in all Next versions; omit explicit import to avoid runtime errors.
+  // Noto Serif may not be available in all Next versions; omit explicit import to avoid runtime errors.
   return (
     <html lang="en">
       <head>
@@ -142,9 +142,9 @@ export default function RootLayout({
           }}
         />
       </head>
-  <body>
+      <body>
         <LanguageProvider>{children}</LanguageProvider>
-        <Analytics />
+        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
   );
