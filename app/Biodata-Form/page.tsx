@@ -446,7 +446,7 @@ export default function BiodataForm() {
 
                 {/* Title Text */}
                 <span className="text-base sm:text-lg font-semibold text-gray-800 text-center">
-                  {formData.godTitle || "Add Title"}
+                  {godTitle || "Add Title"}
                 </span>
 
 
