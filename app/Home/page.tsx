@@ -19,7 +19,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, CircleDollarSign, Globe, ShieldCheck, Zap } from "lucide-react";
 import Header from "../Header/page";
 import FooterPage from "../Footer/page";
 export default function HomePage() {
@@ -35,7 +35,7 @@ export default function HomePage() {
 
 
   const en = {
-    headerTitle: "Create Your Marriage Biodata in Minutes",
+    headerTitle: "Begin Your Beautiful Journey with the Perfect Biodata",
     headerSubTitle: "Easy to make, beautiful to share.",
     headerDesc:
       "Pick a template, fill in your details, and download a professional-looking biodata in no time—totally free!",
@@ -46,8 +46,8 @@ export default function HomePage() {
     ],
 
     createBiodataBtn: "Create My Biodata",
-    biodatasCount: "Thousands of Biodatas Created",
-    howItWorksheading: "How It Works",
+    biodatasCount: "50,000+ Happy Users This Month",
+    howItWorksheading: "Quick & Simple Steps",
     howItWorks: [
       {
         title: "Fill Your Details",
@@ -59,7 +59,7 @@ export default function HomePage() {
       },
       {
         title: "Download & Share",
-        desc: "Save your biodata in PDF or PNG format and share instantly."
+        desc: "Save your biodata in PNG format and share instantly."
       }
     ],
     biodataInfoTitle: "Beautiful, Ready-to-Use Templates",
@@ -177,7 +177,7 @@ linear-gradient(135deg, rgb(204 190 195 / 95%) 0%, rgb(255, 255, 255) 50%, rgb(1
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 justify-center md:justify-start mt-4">
                 <button
                   onClick={handleScrollToForm}
-                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-pink-400 text-white font-semibold shadow-md shadow-indigo-400/20 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-1 active:scale-95"
+                  className="inline-flex items-center justify-center rounded-xl px-6 py-3 sm:px-7 sm:py-3.5 bg-pink-500 text-white font-semibold shadow-md transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus:outline-none active:scale-95"
                 >
                   {en.createBiodataBtn}
                 </button>
@@ -307,28 +307,93 @@ linear-gradient(135deg, rgb(204 190 195 / 95%) 0%, rgb(255, 255, 255) 50%, rgb(1
         <BiodataForm />
       </section>
 
-      <section className="py-10 mt-5 px-4 md:px-6 bg-gradient-to-tr from-pink-50 via-blue-50 to-yellow-50">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 text-gray-800">
-            Why Choose Our Service
-          </h2>
+      {/* WHY CHOOSE US - Pro Polish */}
+      <section className="py-10 mt-5 bg-[#fafbfc] overflow-hidden border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-16 items-start">
 
-          <div className="flex flex-wrap justify-center gap-5">
-            {[
-              { title: "100% Free", desc: "No hidden charges or subscriptions" },
-              { title: "Secure & Private", desc: "Your data stays on your device" },
-              { title: "Easy to Use", desc: "Simple and user-friendly interface" },
-              { title: "Instant Download", desc: "Download your biodata instantly" }
-            ]
-              .map((item, idx) => (
+            {/* Left Column: Trust Statement (5 Cols) */}
+            <div className="lg:col-span-5 space-y-10">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-xl shadow-gray-200/20 border border-gray-100">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Verified Service</span>
+              </div>
+
+              <h2 className="text-4xl sm:text-6xl font-black text-gray-900 leading-[1.05] tracking-tight">
+                Crafted for <span className="text-pink-500">Trust,</span> Built for <span className="text-pink-500">Love.</span>
+              </h2>
+
+              <p className="text-xl text-gray-600 font-bold leading-relaxed max-w-md">
+                We combine modern security with traditional elegance to help you find your perfect life partner.
+              </p>
+
+              {/* Enhanced Testimonial */}
+              <div className="p-10 bg-white rounded-[3rem] shadow-2xl shadow-pink-100/30 border border-pink-50 relative overflow-hidden group">
+                <div className="absolute -top-10 -right-10 p-6 opacity-[0.03] group-hover:scale-125 group-hover:rotate-12 transition-all duration-700">
+                  <FaPalette size={180} className="text-pink-500" />
+                </div>
+                <div className="flex text-yellow-500 text-sm mb-6">
+                  {[1, 2, 3, 4, 5].map(i => <span key={i}>★</span>)}
+                </div>
+                <p className="text-gray-900 font-black text-2xl italic leading-[1.4] relative z-10">
+                  "The designs were so graceful that my match was impressed instantly. Exceptional!"
+                </p>
+                <div className="mt-8 flex items-center gap-4 relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-pink-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-pink-200">A</div>
+                  <div>
+                    <p className="text-base font-black text-gray-900 leading-tight">Ananya Sharma</p>
+                    <p className="text-[11px] font-black text-pink-400 uppercase tracking-widest mt-0.5">Verified Bride-to-be</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Feature Grid (7 Cols) */}
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-8 relative lg:pt-12">
+              {/* Ambient Background Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-pink-100/40 rounded-full blur-[140px] -z-10" />
+
+              {[
+                {
+                  title: "100% Free Forever",
+                  desc: "Create and download premium biodatas without paying a single penny. No ads.",
+                  icon: <CircleDollarSign className="w-7 h-7" />,
+                  color: "text-blue-500 bg-blue-50/50"
+                },
+                {
+                  title: "Privacy Protected",
+                  desc: "Your data is processed locally. We never store or share your personal info.",
+                  icon: <ShieldCheck className="w-7 h-7" />,
+                  color: "text-green-500 bg-green-50/50"
+                },
+                {
+                  title: "Instant HD Export",
+                  desc: "Download high-resolution, print-ready PDFs optimized for WhatsApp sharing.",
+                  icon: <Zap className="w-7 h-7" />,
+                  color: "text-yellow-500 bg-yellow-50/50"
+                },
+                {
+                  title: "Multilingual Support",
+                  desc: "Supports English, Hindi, and Marathi to honor every cultural tradition.",
+                  icon: <Globe className="w-7 h-7" />,
+                  color: "text-purple-500 bg-purple-50/50"
+                }
+              ].map((item, idx) => (
                 <div
                   key={idx}
-                  className="w-[90%] sm:w-48 md:w-52 p-5 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow text-left"
+                  className="p-10 rounded-[2.5rem] bg-white border border-white shadow-sm hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 group"
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold text-green-500 mb-2">{item.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-600">{item.desc}</p>
+                  <div className={`w-16 h-16 rounded-[1.25rem] ${item.color} flex items-center justify-center mb-8 shadow-inner border border-white group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-black text-gray-900 mb-4 uppercase tracking-tight">{item.title}</h3>
+                  <p className="text-gray-700 font-bold leading-relaxed">{item.desc}</p>
                 </div>
               ))}
+            </div>
           </div>
         </div>
       </section>

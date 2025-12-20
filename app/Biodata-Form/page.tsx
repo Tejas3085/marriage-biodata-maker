@@ -17,6 +17,7 @@ import {
   IoCloseOutline,
   IoCameraOutline,
 } from "react-icons/io5";
+import { FaRegImage } from "react-icons/fa";
 
 type Field = {
   label: string;
@@ -65,6 +66,12 @@ export default function BiodataForm() {
     // deep clone safe copy so we can mutate
     const base = structuredClone(translationsForm);
     setFormData(base);
+
+    // Sync standalone godTitle with the fresh JSON template
+    if (base.godTitle) {
+      setGodTitle(base.godTitle);
+    }
+
     isInitialized.current = false;
   }, [translationsForm]);
 
@@ -103,23 +110,22 @@ export default function BiodataForm() {
 
           const target = sectionsByKey.get(sectionKey);
           if (target) {
-            const existingByKey = new Map<string, any>();
-            target.fields = target.fields || [];
-            target.fields.forEach((f: any) => existingByKey.set(f.key, f));
+            const templateFieldsByKey = new Map<string, any>();
+            (target.fields || []).forEach((f: any) => templateFieldsByKey.set(f.key, f));
 
-            // Merge each saved field
+            // Rebuild the field list based on what was saved
+            const rebuiltFields: any[] = [];
             (savedSection.fields || []).forEach((sf: any) => {
               if (!sf || !sf.key) return;
-              if (existingByKey.has(sf.key)) {
-                const ef = existingByKey.get(sf.key);
-                // update value and optionally label/placeholder/options if present
+
+              if (templateFieldsByKey.has(sf.key)) {
+                // If it's a template field, use the fresh metadata from JSON but the user's value
+                const ef = templateFieldsByKey.get(sf.key);
                 ef.value = sf.value;
-                if (sf.label !== undefined) ef.label = sf.label;
-                if (sf.placeholder !== undefined) ef.placeholder = sf.placeholder;
-                if (sf.options !== undefined) ef.options = sf.options;
+                rebuiltFields.push(ef);
               } else {
-                // append extra field that was added by the user previously
-                target.fields.push({
+                // If it's a user-added custom field, restore it as is
+                rebuiltFields.push({
                   label: sf.label || "",
                   value: sf.value,
                   key: sf.key,
@@ -129,6 +135,9 @@ export default function BiodataForm() {
                 });
               }
             });
+
+            // Replace the template fields with the user's specific set of fields
+            target.fields = rebuiltFields;
           } else {
             // If the template didn't contain this section, create it from saved data
             clone.fieldSections.push({
@@ -181,6 +190,25 @@ export default function BiodataForm() {
     setFormData(clone);
     isInitialized.current = true;
   }, [translationsForm]);
+
+  // Prevent background scrolling when any modal is open
+  useEffect(() => {
+    const isAnyModalOpen =
+      showImageCropper ||
+      showGodPhotoSelector ||
+      showTitleEditModal ||
+      isGodTitleModalOpen;
+
+    if (isAnyModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showImageCropper, showGodPhotoSelector, showTitleEditModal, isGodTitleModalOpen]);
 
   // ---------- Callbacks & small helpers ----------
   const updateForm = useCallback((updater: (prev: any) => any) => {
@@ -385,13 +413,13 @@ export default function BiodataForm() {
               className="text-center mb-8 border-b pb-6"
             >
               <div className="flex justify-center mb-3">
-                {godPhoto ? (
+                  {godPhoto ? (
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
-                    <Image
-                      src={formData.godPhoto || godPhoto}
-                      alt="Selected image"
-                      fill
-                      loading="eager"
+                        <Image
+                          src={formData.godPhoto || godPhoto}
+                          alt="Selected image"
+                          fill
+                          loading="eager"
                       sizes="80px"
                       className="object-cover"
                     />
@@ -407,9 +435,9 @@ export default function BiodataForm() {
               </div>
 
               <div className="flex justify-center gap-3 mb-3">
-                <button
-                  type="button"
-                  onClick={() => setShowGodPhotoSelector(true)}
+                          <button
+                            type="button"
+                            onClick={() => setShowGodPhotoSelector(true)}
                   className="px-4 py-1.5 text-xs font-medium
                    rounded-lg bg-pink-100 text-pink-700
                    hover:bg-pink-200 transition border border-pink-300 flex items-center gap-1"
@@ -417,29 +445,29 @@ export default function BiodataForm() {
 
                 >
                   {godPhoto ? "Change" : "Add Photo"}
-                </button>
+                          </button>
 
 
                 {godPhoto && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setGodPhoto("");
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setGodPhoto("");
                       // Also update formData.godPhoto
                       updateForm((updated) => {
                         updated.godPhoto = "";
                       });
-                    }}
+                            }}
                     className="px-4 py-1.5 text-xs font-medium
                      rounded-lg bg-gray-100 text-gray-600
                      hover:bg-gray-200 transition border border-gray-300 flex items-center gap-1"
                     aria-label="Remove god photo"
-                  >
+                          >
                     Remove
-                  </button>
+                          </button>
                 )}
 
-              </div>
+                </div>
 
               {/* ---------- GOD TITLE SECTION (Updated with Modal) ---------- */}
               <div className="flex justify-center items-center gap-2 flex-wrap">
@@ -447,71 +475,94 @@ export default function BiodataForm() {
                 {/* Title Text */}
                 <span className="text-base sm:text-lg font-semibold text-gray-800 text-center">
                   {godTitle || "Add Title"}
-                </span>
+                    </span>
 
 
                 {/* Edit Button - Opens Modal */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setTempGodTitle(godTitle);
-                    setGodTitleModalOpen(true);
-                  }}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTempGodTitle(godTitle);
+                          setGodTitleModalOpen(true);
+                        }}
                   className="text-blue-600 hover:text-blue-800 transition"
                   aria-label="Edit god title"
-                >
+                      >
                   <IoCreateOutline size={20} />
-                </button>
+                      </button>
 
                 {/* Clear Button */}
-                {godTitle && (
-                  <button
-                    type="button"
-                    onClick={() => setGodTitle("")}
+                      {godTitle && (
+                        <button
+                          type="button"
+                          onClick={() => setGodTitle("")}
                     className="text-gray-500 hover:text-red-600 transition"
                     aria-label="Clear god title"
-                  >
+                        >
                     <IoCloseOutline size={20} />
-                  </button>
-                )}
+                        </button>
+                      )}
               </div>
 
-              {/* GOD TITLE EDIT MODAL */}
+              {/* GOD TITLE EDIT MODAL - Simple Design */}
               {isGodTitleModalOpen && (
-                <div className="fixed inset-0 backdrop-blur-[2px] flex justify-center 
-                      items-start pt-20 
-                      md:items-center md:pt-0 
-                      z-50">
-                  <div className="bg-white p-6 rounded-xl w-80 border border-[#d0bdbd] shadow-lg">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
-                      Edit God Title
-                    </h2>
+                <div className="fixed inset-0 z-[100] flex justify-center items-start pt-18 sm:pt-24 px-4">
+                  <div
+                    className="absolute inset-0 bg-black/20"
+                    onClick={() => setGodTitleModalOpen(false)}
+                  />
 
-                    <input
-                      type="text"
-                      value={tempGodTitle}
-                      onChange={(e) => setTempGodTitle(e.target.value)}
-                      className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all"
-                      autoFocus
-                    />
+                  <div className="relative bg-white p-6 rounded-2xl w-full max-w-sm shadow-xl border border-gray-200 animate-in zoom-in-95 duration-200">
+                    {/* Close Button */}
+                    <button
+                      type="button"
+                      onClick={() => setGodTitleModalOpen(false)}
+                      className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1"
+                      aria-label="Close modal"
+                    >
+                      <IoCloseOutline size={24} />
+                    </button>
 
-                    <div className="flex justify-end gap-3 mt-4">
-                      <button
-                        className="px-3 py-1.5 bg-gray-300 rounded-md text-sm hover:bg-gray-400 transition-all"
-                        onClick={() => setGodTitleModalOpen(false)}
-                      >
-                        Cancel
-                      </button>
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <IoCreateOutline size={20} />
+                      </div>
+                      <h2 className="text-lg font-bold text-gray-800">Edit God Title</h2>
+                    </div>
 
-                      <button
-                        className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition-all"
-                        onClick={() => {
-                          setGodTitle(tempGodTitle);
-                          setGodTitleModalOpen(false);
+                    <div className="space-y-4">
+                      <input
+                        type="text"
+                        value={tempGodTitle}
+                        onChange={(e) => setTempGodTitle(e.target.value)}
+                        placeholder="e.g. || श्री गणेशाय नमः ||"
+                        className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-100 focus:border-pink-300 transition-all"
+                        autoFocus
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            setGodTitle(tempGodTitle);
+                            setGodTitleModalOpen(false);
+                          }
                         }}
-                      >
-                        Save
-                      </button>
+                      />
+
+                      <div className="flex gap-2">
+                        <button
+                          className="flex-1 py-2.5 bg-pink-500 text-white rounded-lg font-semibold text-sm hover:bg-pink-600 transition-colors"
+                          onClick={() => {
+                            setGodTitle(tempGodTitle);
+                            setGodTitleModalOpen(false);
+                          }}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="flex-1 py-2.5 bg-white text-gray-600 border border-gray-300 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+                          onClick={() => setGodTitleModalOpen(false)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -795,49 +846,72 @@ export default function BiodataForm() {
         />
       )}
 
-      {/* Inline Section Title Edit Modal (fixed) */}
+      {/* Simple Section Title Edit Modal */}
       {showTitleEditModal && editingSectionIndex >= 0 && (
-        <div className="fixed inset-0 backdrop-blur-[2px] flex justify-center 
-                      items-start pt-20 
-                      md:items-center md:pt-0 
-                      z-50">
-          <div className="bg-white border border-[#d0bdbd] p-6 rounded-xl w-80 shadow-lg">
-            <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
-              Edit {formData.fieldSections[editingSectionIndex]?.title}
-            </h2>
+        <div className="fixed inset-0 z-[100] flex justify-center items-start pt-16 sm:pt-24 px-4">
+          <div
+            className="absolute inset-0 bg-black/20"
+            onClick={() => setShowTitleEditModal(false)}
+          />
 
-            <input
-              type="text"
-              value={tempSectionTitle}
-              onChange={(e) => setTempSectionTitle(e.target.value)}
-              className="w-full border px-3 py-2 rounded-md text-sm focus:outline-none"
-              autoFocus
-            />
+          <div className="relative bg-white p-6 rounded-2xl w-full max-w-sm shadow-xl border border-gray-200 animate-in zoom-in-95 duration-200">
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setShowTitleEditModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1"
+              aria-label="Close modal"
+            >
+              <IoCloseOutline size={24} />
+            </button>
 
-            <div className="flex justify-end gap-3 mt-4">
-              <button
-                className="px-3 py-1.5 bg-gray-300 rounded-md text-sm"
-                onClick={() => setShowTitleEditModal(false)}
-              >
-                Cancel
-              </button>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <IoCreateOutline size={20} />
+              </div>
+              <h2 className="text-lg font-bold text-gray-800">Edit Section Title</h2>
+            </div>
 
-              <button
-                className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm"
-                onClick={() => {
-                  updateForm((updated) => {
-                    if (
-                      typeof editingSectionIndex === "number" &&
-                      updated.fieldSections?.[editingSectionIndex]
-                    ) {
-                      updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
-                    }
-                  });
-                  setShowTitleEditModal(false);
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={tempSectionTitle}
+                onChange={(e) => setTempSectionTitle(e.target.value)}
+                className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-100 focus:border-pink-300 transition-all"
+                autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    updateForm((updated) => {
+                      if (typeof editingSectionIndex === "number" && updated.fieldSections?.[editingSectionIndex]) {
+                        updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
+                      }
+                    });
+                    setShowTitleEditModal(false);
+                  }
                 }}
-              >
-                Save
-              </button>
+              />
+
+              <div className="flex gap-2">
+                <button
+                  className="flex-1 py-2.5 bg-pink-500 text-white rounded-lg font-semibold text-sm hover:bg-pink-600 transition-colors"
+                  onClick={() => {
+                    updateForm((updated) => {
+                      if (typeof editingSectionIndex === "number" && updated.fieldSections?.[editingSectionIndex]) {
+                        updated.fieldSections[editingSectionIndex].title = tempSectionTitle;
+                      }
+                    });
+                    setShowTitleEditModal(false);
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  className="flex-1 py-2.5 bg-white text-gray-600 border border-gray-300 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+                  onClick={() => setShowTitleEditModal(false)}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>

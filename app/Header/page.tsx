@@ -14,8 +14,33 @@ export default function Header() {
     const { language, setLanguage } = useLanguageContext();
     const [showLangMenu, setShowLangMenu] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [lastSelectedLang, setLastSelectedLang] = useState("");
 
     useEffect(() => setMounted(true), []);
+
+    const handleLanguageChange = (code: string) => {
+        if (code === language) {
+            setShowLangMenu(false);
+            return;
+        }
+        setLanguage(code);
+        setLastSelectedLang(code);
+        setShowLangMenu(false);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 1500);
+    };
+
+    const getToastMessage = () => {
+        switch (lastSelectedLang) {
+            case "mr":
+                return "मराठी निवडली! तुमचा सुंदर बायोडाटा तयार करायला आता सुरुवात करा. ✨";
+            case "hi":
+                return "हिंदी चुनी गई! अपना शानदार बायोडाटा बनाना अभी शुरू करें। ✨";
+            default:
+                return "English selected! You're all set to create your professional biodata. ✨";
+        }
+    };
 
     return (
         <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-200 shadow-sm">
@@ -26,27 +51,27 @@ export default function Header() {
                     <div className="flex items-center gap-2">
 
                         {/* Logo Box */}
-                                                {/* Logo */}
-                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg hover:scale-105 ml-1 transition-transform duration-300">
+                        {/* Logo */}
+                        <div className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg hover:scale-110 ml-1 transition-transform duration-300">
                             <FaMedal className="text-white text-2xl sm:text-3xl" />
+                        </div>
 
-</div>
                         {/* Desktop Title */}
-                        <div className="hidden sm:flex flex-col leading-tight">
-                            <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent 
-                                bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600">
-                                Create Biodata
+                        <div className="hidden sm:flex flex-col leading-tight ml-1">
+                            <h1 className="text-xl md:text-2xl font-black bg-clip-text text-transparent 
+                                bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 tracking-tight">
+                                Biodata Maker
                             </h1>
-                            <p className="text-sm text-gray-600">Make It Yours, Fast</p>
+                            <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Premium Designs</p>
                         </div>
 
                         {/* Mobile Title */}
-                        <div className="sm:hidden flex flex-col leading-tight" style={{ fontFamily: "Arial" }}>
-                            <span className="text-base font-semibold bg-gradient-to-r bg-clip-text text-transparent
-                                from-pink-600 to-purple-600">
-                                Free Biodata Maker
+                        <div className="sm:hidden flex flex-col leading-tight ml-1">
+                            <span className="text-lg font-black bg-gradient-to-r bg-clip-text text-transparent
+                                from-pink-600 to-purple-600 tracking-tight">
+                                Biodata Maker
                             </span>
-                            <p className="text-[11px] text-gray-500">Beautiful Biodata, Effortlessly.</p>
+                            <p className="text-[9px] uppercase tracking-widest font-bold text-gray-400">100% Free • Fast</p>
                         </div>
                     </div>
 
@@ -72,10 +97,7 @@ export default function Header() {
                                 {LANGUAGES.map((l) => (
                                     <button
                                         key={l.code}
-                                        onClick={() => {
-                                            setLanguage(l.code);
-                                            setShowLangMenu(false);
-                                        }}
+                                        onClick={() => handleLanguageChange(l.code)}
                                         className={`w-full text-left px-4 py-2 text-sm transition 
                                             ${language === l.code
                                                 ? "bg-pink-50 text-pink-700 font-semibold"
@@ -91,6 +113,20 @@ export default function Header() {
 
                 </div>
             </div>
+
+            {/* Language Change Toast - Compact & Responsive */}
+            {showToast && (
+                <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div className="bg-white/95 backdrop-blur-md text-gray-900 border border-pink-100 py-3 px-5 rounded-full shadow-[0_15px_30px_rgba(0,0,0,0.1)] flex items-center gap-3 w-fit max-w-full">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center text-pink-500 text-lg shadow-sm">
+                            ✨
+                        </div>
+                        <p className="text-sm font-bold leading-tight text-gray-800">
+                            {getToastMessage()}
+                        </p>
+                    </div>
+                </div>
+            )}
         </header>
     );
 }

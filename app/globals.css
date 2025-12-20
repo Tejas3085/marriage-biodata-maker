@@ -181,8 +181,10 @@ select:focus {
 
 /* Hide scrollbar for IE, Edge */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* ===== Footer Styles ===== */
@@ -225,6 +227,12 @@ footer.site-footer .brand p {
   transform: translateY(-3px);
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .site-footer .social-link:focus-visible {
