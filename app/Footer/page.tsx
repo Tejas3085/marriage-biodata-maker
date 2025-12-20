@@ -37,7 +37,6 @@ export default function FooterPage() {
           <ul className="space-y-4 text-sm">
             <li><Link href="/" className="hover:text-pink-500 transition-colors">Home</Link></li>
             <li><Link href="/Biodata-Form" className="hover:text-pink-500 transition-colors">Create Biodata</Link></li>
-            <li><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-pink-500 transition-colors">Select Template</button></li>
           </ul>
         </div>
 
