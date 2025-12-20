@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLanguageContext } from "../hooks/useLanguage";
 import { FaMedal } from "react-icons/fa";
 
@@ -16,8 +16,24 @@ export default function Header() {
     const [mounted, setMounted] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [lastSelectedLang, setLastSelectedLang] = useState("");
+    const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => setMounted(true), []);
+
+    // Close menu when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setShowLangMenu(false);
+            }
+        }
+        if (showLangMenu) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showLangMenu]);
 
     const handleLanguageChange = (code: string) => {
         if (code === language) {
@@ -76,7 +92,7 @@ export default function Header() {
                     </div>
 
                     {/* RIGHT — Language Selector */}
-                    <div className="relative">
+                    <div className="relative" ref={menuRef}>
                         <button
                             onClick={() => setShowLangMenu(!showLangMenu)}
                             className="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200
