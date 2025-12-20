@@ -68,12 +68,6 @@ export default function BiodataForm() {
     isInitialized.current = false;
   }, [translationsForm]);
 
-  const imageSrc =
-  formData?.godPhoto && formData.godPhoto.trim() !== ""
-    ? formData.godPhoto
-    : godPhoto;
-
-
   // Hydrate from localStorage (only once after translations loaded)
   useEffect(() => {
     if (!translationsForm || isInitialized.current) return;
@@ -391,10 +385,10 @@ export default function BiodataForm() {
               className="text-center mb-8 border-b pb-6"
             >
               <div className="flex justify-center mb-3">
-                {imageSrc ? (
+                {godPhoto ? (
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
                     <Image
-                      src={imageSrc}
+                      src={formData.godPhoto || godPhoto}
                       alt="Selected image"
                       fill
                       loading="eager"
