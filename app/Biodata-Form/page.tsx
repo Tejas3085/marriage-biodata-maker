@@ -48,12 +48,15 @@ export default function BiodataForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const godPhotoRef = useRef<HTMLDivElement | null>(null);
   const isInitialized = useRef(false);
   const [isGodTitleModalOpen, setGodTitleModalOpen] = useState(false);
   const [tempGodTitle, setTempGodTitle] = useState("");
+  const [showValidationToast, setShowValidationToast] = useState(false);
 
   // NEW: temp for section title editing (separate from god title)
   const [tempSectionTitle, setTempSectionTitle] = useState("");
+  const [showResetModal, setShowResetModal] = useState(false);
 
   // set folder (language resource) on mount / language change
   useEffect(() => {
@@ -197,7 +200,8 @@ export default function BiodataForm() {
       showImageCropper ||
       showGodPhotoSelector ||
       showTitleEditModal ||
-      isGodTitleModalOpen;
+      isGodTitleModalOpen ||
+      showResetModal;
 
     if (isAnyModalOpen) {
       document.body.style.overflow = "hidden";
@@ -287,6 +291,43 @@ export default function BiodataForm() {
     e.preventDefault();
     if (!formData) return;
 
+    // Validation: Count non-empty fields
+    let filledCount = 0;
+    formData.fieldSections.forEach((section: any) => {
+      section.fields.forEach((field: any) => {
+        if (field.value && String(field.value).trim() !== "") {
+          filledCount++;
+        }
+      });
+    });
+
+    if (filledCount < 7) {
+      setShowValidationToast(true);
+      setTimeout(() => setShowValidationToast(false), 4000);
+
+      // Find the first empty field to scroll to
+      let firstEmptyFieldKey = null;
+      for (const section of formData.fieldSections) {
+        const emptyField = section.fields.find((f: any) => !f.value || String(f.value).trim() === "");
+        if (emptyField) {
+          firstEmptyFieldKey = emptyField.key;
+          break;
+        }
+      }
+
+      if (firstEmptyFieldKey) {
+        const element = document.getElementById(`field-container-${firstEmptyFieldKey}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else if (godPhotoRef.current) {
+          godPhotoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else if (godPhotoRef.current) {
+        godPhotoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
     const groupedData: any = {};
     formData.fieldSections.forEach((section: any) => {
       groupedData[section.key] = {
@@ -354,12 +395,42 @@ export default function BiodataForm() {
 
   // If not initialized or translations missing show loading
   if (!formData) {
-    return <div className="text-center mt-8 text-gray-500">Loading form...</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <div className="w-12 h-12 rounded-full border-4 border-gray-100 border-t-pink-500 animate-spin mb-4" />
+        <p className="text-gray-400 font-medium animate-pulse">
+          Preparing your form...
+        </p>
+      </div>
+    );
   }
 
   // ---------- Render ----------
   return (
     <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-md p-4 sm:p-6 md:p-8">
+      {/* Validation Toast */}
+      {showValidationToast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center animate-in fade-in slide-in-from-top-10 duration-500">
+          <div className="bg-gray-900 text-white border border-gray-800 py-4 px-6 rounded-2xl shadow-2xl flex items-center gap-4 max-w-md w-full">
+            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white text-xl flex-shrink-0">
+              ⚠️
+            </div>
+            <div>
+              <p className="font-black text-sm uppercase tracking-wider mb-0.5">
+                {language === "mr" ? "माहिती अपूर्ण आहे" : language === "hi" ? "जानकारी अधूरी है" : "Incomplete Details"}
+              </p>
+              <p className="text-sm font-medium opacity-90">
+                {language === "mr"
+                  ? "प्रोफेशनल बायोडाटासाठी कृपया अधिक माहिती भरा."
+                  : language === "hi"
+                    ? "प्रोफेशनल बायोडाटा के लिए कृपया अधिक जानकारी भरें।"
+                    : "Please provide more info to create a professional biodata."}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Page-level structured data for SEO (no PII) */}
       <script
         type="application/ld+json"
@@ -371,7 +442,7 @@ export default function BiodataForm() {
             name: "Create Marriage Biodata",
             description:
               "Create a beautiful marriage biodata in English, Hindi, or Marathi by filling a simple form and choosing a template.",
-            url: "https://yourwebsite.com/Biodata-Form",
+            url: "https://marriage-biodata-maker.vercel.app/Biodata-Form",
           }),
         }}
       />
@@ -386,6 +457,7 @@ export default function BiodataForm() {
             name: "Marriage Biodata Maker",
             description:
               "Create a professional marriage biodata with curated templates and easy form inputs.",
+            url: "https://marriage-biodata-maker.vercel.app",
             author: { "@type": "Organization", name: "Marriage Biodata Maker" },
           }),
         }}
@@ -411,15 +483,16 @@ export default function BiodataForm() {
             <section
               aria-label="God photo and title"
               className="text-center mb-8 border-b pb-6"
+              ref={godPhotoRef}
             >
               <div className="flex justify-center mb-3">
-                  {godPhoto ? (
+                {godPhoto ? (
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
-                        <Image
-                          src={formData.godPhoto || godPhoto}
-                          alt="Selected image"
-                          fill
-                          loading="eager"
+                    <Image
+                      src={formData.godPhoto || godPhoto}
+                      alt="Selected image"
+                      fill
+                      loading="eager"
                       sizes="80px"
                       className="object-cover"
                     />
@@ -435,39 +508,39 @@ export default function BiodataForm() {
               </div>
 
               <div className="flex justify-center gap-3 mb-3">
-                          <button
-                            type="button"
-                            onClick={() => setShowGodPhotoSelector(true)}
+                <button
+                  type="button"
+                  onClick={() => setShowGodPhotoSelector(true)}
                   className="px-4 py-1.5 text-xs font-medium
                    rounded-lg bg-pink-100 text-pink-700
                    hover:bg-pink-200 transition border border-pink-300 flex items-center gap-1"
-                    aria-label="Add/change god photo"
+                  aria-label="Add/change god photo"
 
                 >
                   {godPhoto ? "Change" : "Add Photo"}
-                          </button>
+                </button>
 
 
                 {godPhoto && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setGodPhoto("");
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setGodPhoto("");
                       // Also update formData.godPhoto
                       updateForm((updated) => {
                         updated.godPhoto = "";
                       });
-                            }}
+                    }}
                     className="px-4 py-1.5 text-xs font-medium
                      rounded-lg bg-gray-100 text-gray-600
                      hover:bg-gray-200 transition border border-gray-300 flex items-center gap-1"
                     aria-label="Remove god photo"
-                          >
+                  >
                     Remove
-                          </button>
+                  </button>
                 )}
 
-                </div>
+              </div>
 
               {/* ---------- GOD TITLE SECTION (Updated with Modal) ---------- */}
               <div className="flex justify-center items-center gap-2 flex-wrap">
@@ -475,33 +548,33 @@ export default function BiodataForm() {
                 {/* Title Text */}
                 <span className="text-base sm:text-lg font-semibold text-gray-800 text-center">
                   {godTitle || "Add Title"}
-                    </span>
+                </span>
 
 
                 {/* Edit Button - Opens Modal */}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setTempGodTitle(godTitle);
-                          setGodTitleModalOpen(true);
-                        }}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTempGodTitle(godTitle);
+                    setGodTitleModalOpen(true);
+                  }}
                   className="text-blue-600 hover:text-blue-800 transition"
                   aria-label="Edit god title"
-                      >
+                >
                   <IoCreateOutline size={20} />
-                      </button>
+                </button>
 
                 {/* Clear Button */}
-                      {godTitle && (
-                        <button
-                          type="button"
-                          onClick={() => setGodTitle("")}
+                {godTitle && (
+                  <button
+                    type="button"
+                    onClick={() => setGodTitle("")}
                     className="text-gray-500 hover:text-red-600 transition"
                     aria-label="Clear god title"
-                        >
+                  >
                     <IoCloseOutline size={20} />
-                        </button>
-                      )}
+                  </button>
+                )}
               </div>
 
               {/* GOD TITLE EDIT MODAL - Simple Design */}
@@ -602,6 +675,7 @@ export default function BiodataForm() {
                     {section.fields.map((field: Field, fIndex: number) => (
                       <div
                         key={field.key}
+                        id={`field-container-${field.key}`}
                         className="
         flex sm:grid-cols-[1fr_auto] sm:items-center gap-2 sm:gap-3                  /* Mobile: vertical */
         sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-3 /* Tablet: horizontal */
@@ -801,18 +875,12 @@ export default function BiodataForm() {
               <button
                 type="button"
                 onClick={() => {
-                  // reset form & localStorage
-                  if (confirm(language === "mr" ? "रिअली रीसेट करायचंय?" : "Reset the form?")) {
-                    try {
-                      localStorage.removeItem(language);
-                    } catch (err) { }
-                    // reload page to reinitialize
-                    window.location.reload();
-                  }
+                  setShowResetModal(true);
                 }}
-                className="bg-gray-400 text-white py-2 rounded-md font-medium"
+                className="flex items-center justify-center gap-2 bg-gray-100 text-gray-600 py-2.5 rounded-lg font-bold hover:bg-gray-200 transition-colors border border-gray-200"
               >
-                {"Reset Form"}
+                <Trash2 className="w-4 h-4" />
+                {language === "mr" ? "रीसेट करा" : language === "hi" ? "रीसेट करें" : "Reset Form"}
               </button>
             </div>
           </aside>
@@ -910,6 +978,60 @@ export default function BiodataForm() {
                   onClick={() => setShowTitleEditModal(false)}
                 >
                   Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* RESET CONFIRMATION MODAL */}
+      {showResetModal && (
+        <div className="fixed inset-0 z-[200] flex justify-center items-center px-4">
+          <div
+            className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm animate-in fade-in duration-300"
+            onClick={() => setShowResetModal(false)}
+          />
+          <div className="relative bg-white p-6 rounded-2xl w-full max-w-sm shadow-2xl border border-gray-100 animate-in zoom-in-95 duration-200">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mb-4">
+                <Trash2 className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                {language === "mr" ? "काय तुम्हाला रीसेट करायचं आहे?" : language === "hi" ? "क्या आप रीसेट करना चाहते हैं?" : "Are you sure?"}
+              </h3>
+              <p className="text-gray-500 text-sm mb-6 leading-relaxed">
+                {language === "mr"
+                  ? "हे केल्याने तुमची सर्व माहिती कायमची निघून जाईल."
+                  : language === "hi"
+                    ? "ऐसा करने से आपकी सभी जानकारी स्थायी रूप से हट जाएगी।"
+                    : "This will permanently delete all your filled information."}
+              </p>
+
+              <div className="flex flex-col w-full gap-2">
+                <button
+                  onClick={() => {
+                    // Scroll to top first for a clean reset feel
+                    if (godPhotoRef.current) {
+                      godPhotoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    try {
+                      localStorage.removeItem(language);
+                    } catch (err) { }
+                    // Brief delay to allow scroll to start before reload
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 300);
+                  }}
+                  className="w-full py-3 bg-rose-500 text-white rounded-xl font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-100"
+                >
+                  {language === "mr" ? "हो, रीसेट करा" : language === "hi" ? "हाँ, रीसेट करें" : "Yes, Reset Everything"}
+                </button>
+                <button
+                  onClick={() => setShowResetModal(false)}
+                  className="w-full py-3 bg-gray-50 text-gray-600 rounded-xl font-bold hover:bg-gray-100 transition-all"
+                >
+                  {language === "mr" ? "रद्द करा" : language === "hi" ? "रद्द करें" : "Cancel"}
                 </button>
               </div>
             </div>

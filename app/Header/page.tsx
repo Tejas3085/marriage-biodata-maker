@@ -74,10 +74,10 @@ export default function Header() {
 
                         {/* Desktop Title */}
                         <div className="hidden sm:flex flex-col leading-tight ml-1">
-                            <h1 className="text-xl md:text-2xl font-black bg-clip-text text-transparent 
+                            <span className="text-xl md:text-2xl font-black bg-clip-text text-transparent 
                                 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 tracking-tight">
                                 Biodata Maker
-                            </h1>
+                            </span>
                             <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Premium Designs</p>
                         </div>
 
@@ -103,7 +103,9 @@ export default function Header() {
                                     🌐 {LANGUAGES.find((l) => l.code === language)?.label}
                                 </span>
                             ) : (
-                                "Loading..."
+                                <span className="flex items-center gap-2 opacity-50">
+                                    🌐 <span className="w-12 h-4 bg-gray-200 animate-pulse rounded" />
+                                </span>
                             )}
                         </button>
 

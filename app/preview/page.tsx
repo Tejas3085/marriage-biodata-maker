@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import { useLanguageContext } from "../hooks/useLanguage";
+import { Download, Sparkles, Zap } from "lucide-react";
 
 interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
@@ -113,6 +114,11 @@ export default function PreviewPage() {
     { id: 28, name: "Elegant 17", img: "/templates/t28.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
     { id: 29, name: "Elegant 17", img: "/templates/t29.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
     { id: 30, name: "Elegant 17", img: "/templates/t30.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 31, name: "Elegant 17", img: "/templates/t31.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 32, name: "Elegant 17", img: "/templates/t32.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 33, name: "Elegant 17", img: "/templates/t33.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 34, name: "Elegant 17", img: "/templates/t34.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
+    { id: 35, name: "Elegant 17", img: "/templates/t35.jpg", textColor: "#212121", backgroundColor: "#fff", lineHeightFactor: 1.20, godMarginTop: 0.05, godPhotoSize: 0.11, labelsLeftPadding: 0.11, labelFontSize: 0.028, godTitleColor: "#4A148C", sectionTitleColor: "#FF8F00", userPhotomarginLeft: 0.09, labelMarginBottom: 0 },
 
   ];
 
@@ -316,15 +322,16 @@ export default function PreviewPage() {
     // God Title
     if (formData.godTitle) {
       if (!dryRun) {
-        const serifFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Playfair Display", serif';
+        const serifFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Inter", sans-serif';
         ctx.font = `700 ${godTitleSize}px ${serifFont}`;
         ctx.fillStyle = template.godTitleColor || "#872341";
         ctx.textAlign = "center";
+
         ctx.fillText(formData.godTitle, width / 2, y);
       }
       // smaller proportional gap after God Title
       // y += godTitleSize + Math.max(4, Math.round(godTitleSize * 0.001));
-      y += godTitleSize + 0.01;
+      y += godTitleSize - 2;
 
     }
 
@@ -345,8 +352,9 @@ export default function PreviewPage() {
         : defaultTopOffset);
 
       if (!dryRun) {
+        // Simple Photo Frame
         ctx.fillStyle = "#fff";
-        ctx.fillRect(photoX - 4, photoY - 4, photoWidth + 5, photoHeight + 5);
+        ctx.fillRect(photoX - 3, photoY - 3, photoWidth + 6, photoHeight + 6);
         ctx.drawImage(userImg, photoX, photoY, photoWidth, photoHeight);
       }
     }
@@ -363,7 +371,7 @@ export default function PreviewPage() {
     // Use top baseline so y corresponds to the top of the text block (prevents baseline-descender gaps)
     ctx.textBaseline = "top";
 
-    const sectionTitleFontSize = Math.max(12, lineHeight * 0.9);
+
 
     const labelX = width * (template.labelsLeftPadding ?? 0.12);
     // Move colon and value slightly left so values sit closer to labels
@@ -385,32 +393,17 @@ export default function PreviewPage() {
       // --- Section Title ---
       if (!dryRun) {
         ctx.fillStyle = template.sectionTitleColor || "#000";
-        const sectionFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Merriweather", serif';
+        const sectionFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Inter", sans-serif';
         ctx.font = `700 ${godTitleSize}px ${sectionFont}`;
         ctx.textAlign = "center";
 
-        // Add professional spacing and visual weight
-        const originalLetterSpacing = ctx.letterSpacing;
-        ctx.letterSpacing = "1.5px";
-
-        // Subtle shadow for "HD" depth (optional, makes it pop slightly)
-        ctx.shadowColor = "rgba(0,0,0,0.1)";
-        ctx.shadowBlur = 2;
-        ctx.shadowOffsetX = 1;
-        ctx.shadowOffsetY = 1;
-
-        ctx.fillText((sec.title || "").toUpperCase(), width / 2, y);
-
-        // Reset context
-        ctx.letterSpacing = originalLetterSpacing;
-        ctx.shadowColor = "transparent";
-        ctx.shadowBlur = 0;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
+        const titleText = (sec.title || "");
+        ctx.globalAlpha = 1.0;
+        ctx.fillText(titleText, width / 2, y);
       }
 
-      // Tighten spacing between section title and prior content; use a smaller multiplier
-      y += sectionTitleFontSize + lineHeight * 0.2;
+      // Tighten spacing between section title and prior content
+      y += godTitleSize + lineHeight * 0.2;
 
       // --- Fields ---
       if (!dryRun) ctx.textAlign = "left";
@@ -426,10 +419,10 @@ export default function PreviewPage() {
         const labelMaxWidth = Math.max(40, colonX - labelX - 10);
         const valueMaxWidth = safeRight - valueX;
 
-        // Set fonts (use slightly smaller sizes for labels/values so dense lists fit better)
+        // Set fonts (Outfit is more premium than Poppins)
         ctx.fillStyle = template.textColor || "#000";
-        const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
-        const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Poppins", sans-serif' : '"Poppins", sans-serif';
+        const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
+        const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
 
         // derive label/value font sizes from the template when provided.
         // Templates currently use a small fractional value (e.g. 0.015) which
@@ -606,8 +599,8 @@ export default function PreviewPage() {
       attempts++;
     }
 
-    // Final Draw with devicePixelRatio and optional content scaling so we never overflow the frame
-    const dpr = Math.min(devicePixelRatio || 1, 2); // cap DPR to 2 to avoid huge canvas sizes on high-DPI displays
+    // Ultra HD Draw with high resolution scale
+    const dpr = Math.max(devicePixelRatio || 1, 3); // Scale to 3x for Ultra HD
     canvas.width = width * dpr;
     canvas.height = FIXED_HEIGHT * dpr;
     ctx.scale(dpr, dpr);
@@ -674,14 +667,44 @@ export default function PreviewPage() {
     return () => observer.disconnect();
   }, [canvasRef]);
 
-  if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  if (!formData)
+  if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center">
-        <p>No data found. Please fill the form first.</p>
-        <button onClick={() => router.push("/")} className="mt-4 px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700">Go to Form</button>
+      <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white">
+        <div className="relative flex flex-col items-center">
+          <div className="w-20 h-20 mb-8 relative">
+            <div className="absolute inset-0 rounded-full border-[3px] border-pink-50 translate-x-1 translate-y-1"></div>
+            <div className="absolute inset-0 rounded-full border-[3px] border-pink-500 border-t-transparent animate-spin"></div>
+            <div className="absolute inset-3 rounded-full border-[3px] border-blue-50 -translate-x-1 -translate-y-1"></div>
+            <div className="absolute inset-3 rounded-full border-[3px] border-blue-400 border-b-transparent animate-[spin_2s_linear_infinite_reverse]"></div>
+          </div>
+          <h2 className="text-xl font-bold text-gray-800 tracking-tight mb-2 animate-pulse">Initializing Preview</h2>
+          <p className="text-gray-400 text-sm font-medium uppercase tracking-widest">Please wait...</p>
+        </div>
       </div>
     );
+  }
+
+  if (!formData) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-center bg-gray-50 px-6">
+        <div className="w-24 h-24 bg-pink-50 rounded-3xl flex items-center justify-center mb-6 text-pink-500">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">No Data Found</h2>
+        <p className="text-gray-500 max-w-sm mb-8 leading-relaxed">
+          Your biodata details are missing. Please fill the form first to generate your professional marriage profile.
+        </p>
+        <button
+          onClick={() => router.push("/")}
+          className="px-8 py-3.5 bg-pink-500 text-white font-bold rounded-xl shadow-lg shadow-pink-100 hover:bg-pink-600 hover:scale-[1.02] active:scale-[0.98] transition-all"
+        >
+          Start Creating Now
+        </button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -700,9 +723,20 @@ export default function PreviewPage() {
             </h1> */}
 
             {/* SUB TEXT */}
-            <p className="text-xs sm:text-sm text-gray-500 mt-1">
-              100% Free • Instant Download • High-Quality PNG Output
-            </p>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-0">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-50 text-pink-600 text-[10px] sm:text-xs font-bold border border-pink-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span>100% Free</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] sm:text-xs font-bold border border-blue-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-700">
+                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span>Instant Ready</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-[10px] sm:text-xs font-bold border border-indigo-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-1000">
+                <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span>Ultra HD Output</span>
+              </div>
+            </div>
 
           </div>
 
@@ -713,12 +747,12 @@ export default function PreviewPage() {
         {/* <div className="max-w-7xl mx-auto text-center"> */}
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-2">
           <div className="w-full md:w-7/12 flex flex-col items-center relative">
-            <div className="bg-white rounded-xl shadow-md w-full flex justify-center mt-0 relative overflow-hidden min-h-[50vh]">
-              {/* PREMIUM DESIGN SKELETON - Matched to Template Size */}
+            <div className="bg-white p-0 shadow-sm w-full flex justify-center mt-0 relative overflow-hidden min-h-[50vh]">
+              {/* INSTAGRAM-STYLE SKELETON LOADER */}
               {isTemplateLoading && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 backdrop-blur-md transition-all duration-300">
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 backdrop-blur-[1px] transition-all duration-300">
                   <div
-                    className="relative bg-[#fafbfc] rounded-lg overflow-hidden border border-gray-100 shadow-2xl animate-pulse flex flex-col items-center"
+                    className="relative bg-white rounded-lg overflow-hidden flex flex-col items-center"
                     style={{
                       height: isMobile ? "55vh" : "75vh",
                       maxHeight: "800px",
@@ -726,33 +760,29 @@ export default function PreviewPage() {
                       maxWidth: "760px",
                     }}
                   >
-                    {/* Skeleton Header Section */}
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-pink-50 rounded-2xl mt-12 mb-6" />
-                    <div className="w-1/2 h-4 bg-pink-100/50 rounded-full mb-12" />
+                    {/* The Shimmering Overlay */}
+                    <div className="absolute inset-0 z-10 animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-gray-100/50 to-transparent -translate-x-full" />
 
-                    {/* Skeleton Form Grid */}
+                    {/* Header Circle (God Photo) */}
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-full mt-10 mb-4" />
+                    {/* Header Text (God Title) */}
+                    <div className="w-32 h-3 bg-gray-100 rounded-full mb-12" />
+
+                    {/* Field Rows (Label & Value blocks) */}
                     <div className="w-full px-8 sm:px-12 space-y-6">
-                      {[1, 2, 3, 4, 5, 6].map(i => (
+                      {[1, 2, 3, 4, 5, 6, 7].map((i) => (
                         <div key={i} className="flex gap-4 items-center">
-                          <div className="w-24 h-3 bg-gray-200/60 rounded" />
-                          <div className="flex-1 h-3 bg-gray-100/60 rounded" />
+                          <div className="w-20 h-2.5 bg-gray-100 rounded-full" />
+                          <div className="flex-1 h-2.5 bg-gray-50 rounded-full" />
                         </div>
                       ))}
                     </div>
 
-                    {/* Pro Shimmer Overlay */}
-                    <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-white/60 to-transparent" />
-
-                    {/* Status Message */}
-                    <div className="absolute bottom-12 left-0 right-0 flex flex-col items-center gap-3">
-                      <p className="text-xs sm:text-sm font-black text-gray-400 uppercase tracking-[0.3em] animate-pulse">
-                        Perfecting Layout
+                    {/* Floating Status Message */}
+                    <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center">
+                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] animate-pulse text-center">
+                        Perfecting Template
                       </p>
-                      <div className="flex gap-1.5">
-                        <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" />
-                        <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-                        <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce [animation-delay:0.4s]" />
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -760,7 +790,7 @@ export default function PreviewPage() {
 
               <canvas
                 ref={canvasRef}
-                className="shadow-inner bg-white mt-5 mb-5 w-[85%] sm:w-[50%] h-[50vh] sm:h-[75vh] max-h-[800px] max-w-[760px] transition-opacity duration-300"
+                className="shadow-sm bg-white mt-5 mb-5 w-[85%] sm:w-[50%] h-[50vh] sm:h-[75vh] max-h-[800px] max-w-[760px]"
                 style={{
                   height: isMobile ? "55vh" : "75vh",
                   maxHeight: "800px",
@@ -788,19 +818,15 @@ export default function PreviewPage() {
               <button
                 onClick={() => {
                   localStorage.setItem('page', 'true');
-                  router.push("/")
+                  router.push("/");
                 }}
                 className="
-    w-full sm:w-auto
-    px-4 py-2 
-    sm:px-5 sm:py-3 
-    md:px-6 md:py-3
-    bg-gray-700 text-white font-semibold 
-    rounded-xl shadow-md 
-    hover:bg-gray-800 hover:shadow-lg 
-    transition-all duration-200
-    text-sm sm:text-base md:text-lg
-  "
+                flex-1 flex items-center justify-center py-3 px-5
+                bg-gray-100 text-gray-700 font-bold
+                rounded-lg border border-gray-200
+                transition-all
+                text-sm sm:text-base md:text-lg
+              "
               >
                 Edit Biodata
               </button>
@@ -820,14 +846,10 @@ export default function PreviewPage() {
                   link.click();
                 }}
                 className="
-                w-full sm:w-auto
-                px-4 py-2 
-                sm:px-5 sm:py-3 
-                md:px-6 md:py-3
-                bg-linear-to-r from-pink-500 to-rose-600 text-white font-semibold 
-                rounded-xl shadow-md 
-                hover:from-pink-600 hover:to-rose-700 hover:shadow-lg hover:-translate-y-0.5
-                transition-all duration-200
+                flex-1 flex items-center justify-center py-3 px-5
+                bg-pink-500 text-white font-bold
+                rounded-lg
+                transition-all
                 text-sm sm:text-base md:text-lg
               "
               >
@@ -854,10 +876,10 @@ export default function PreviewPage() {
                     }, 50);
                   }}
                   className={`
-                    w-20 h-20 shrink-0 cursor-pointer rounded-xl overflow-hidden relative transition-all duration-300 transform
+                    w-20 aspect-[3/4] shrink-0 cursor-pointer rounded-lg overflow-hidden relative transition-all
                     ${tpl.id === selectedTemplate?.id
-                      ? "border-1 border-gray-200 opacity-80"
-                      : "border border-gray-200 opacity-80 hover:opacity-100"}
+                      ? "border-2 border-pink-500 shadow-md"
+                      : "border border-gray-200 opacity-80"}
                   `}
                 >
                   <NextImage
@@ -892,15 +914,14 @@ export default function PreviewPage() {
                     setIsTemplateLoading(true);
                     setTimeout(() => {
                       setSelectedTemplate(tpl);
-                      setTimeout(() => setIsTemplateLoading(false), 5);
+                      setTimeout(() => setIsTemplateLoading(false), 1000);
                     }, 50);
                   }}
                   className={`
-                    cursor-pointer rounded-xl overflow-hidden bg-white shadow-sm border transition-all duration-300
-                    hover:shadow-xl hover:-translate-y-1 hover:border-pink-300 group relative
+                    cursor-pointer rounded-lg overflow-hidden bg-white shadow-sm border transition-all
                     ${tpl.id === selectedTemplate?.id
-                      ? "border-pink-500 ring-4 ring-pink-500/10 shadow-lg scale-[1.02]"
-                      : "border-gray-100"}
+                      ? "border-pink-500 shadow-md"
+                      : "border-gray-200"}
                   `}
                 >
                   <div className="w-full aspect-[3/4] relative bg-gray-50">
@@ -910,8 +931,15 @@ export default function PreviewPage() {
                       fill
                       loading={tpl.id === selectedTemplate?.id ? "eager" : "lazy"}
                       sizes="240px"
-                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                      className="object-contain p-2"
                     />
+                    {tpl.id === selectedTemplate?.id && (
+                      <div className="absolute top-2 right-2 bg-pink-500 text-white rounded-full p-1 shadow-lg z-10 animate-in zoom-in-0 duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
 
                   {/* <div className="px-3 py-3 text-center bg-gray-50 border-t">
@@ -942,7 +970,7 @@ export default function PreviewPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-6xl mx-auto">
             {/* Card 1 */}
-            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="text-pink-600 text-4xl mb-3">🎁</div>
               <h4 className="text-lg font-bold text-gray-800">100% Free Templates</h4>
               <p className="text-sm text-gray-600 mt-2 leading-relaxed">
@@ -951,7 +979,7 @@ export default function PreviewPage() {
             </div>
 
             {/* Card 2 */}
-            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="text-blue-600 text-4xl mb-3">✨</div>
               <h4 className="text-lg font-bold text-gray-800">Modern & Clean Designs</h4>
               <p className="text-sm text-gray-600 mt-2 leading-relaxed">
@@ -960,7 +988,7 @@ export default function PreviewPage() {
             </div>
 
             {/* Card 3 */}
-            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="text-green-600 text-4xl mb-3">⚡</div>
               <h4 className="text-lg font-bold text-gray-800">Fast PNG Download</h4>
               <p className="text-sm text-gray-600 mt-2 leading-relaxed">
@@ -969,7 +997,7 @@ export default function PreviewPage() {
             </div>
 
             {/* Card 4 */}
-            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="text-purple-600 text-4xl mb-3">📱</div>
               <h4 className="text-lg font-bold text-gray-800">Mobile Friendly</h4>
               <p className="text-sm text-gray-600 mt-2 leading-relaxed">
@@ -978,7 +1006,7 @@ export default function PreviewPage() {
             </div>
 
             {/* Card 5 */}
-            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="text-orange-600 text-4xl mb-3">🎨</div>
               <h4 className="text-lg font-bold text-gray-800">Fully Customizable</h4>
               <p className="text-sm text-gray-600 mt-2 leading-relaxed">

@@ -1,7 +1,19 @@
 import type { Metadata, Viewport } from "next";
+import { Inter, Noto_Sans_Devanagari, Outfit, Cinzel, Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "./hooks/useLanguage";
 import { Analytics } from "@vercel/analytics/next";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const notoDevanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-noto-devanagari"
+});
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 
 // Comprehensive metadata for SEO
 export const metadata: Metadata = {
@@ -10,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Marriage Biodata Maker",
   },
   description:
-    "Create professional marriage biodata in multiple languages (English, Hindi, Marathi) with beautiful templates. Free online biodata maker with 20+ premium designs. Download as PDF instantly.",
+    "Create professional marriage biodata in multiple languages (English, Hindi, Marathi) with beautiful templates. Free online biodata maker with 20+ premium designs. Download as PNG instantly.",
   keywords: [
     "marriage biodata",
     "biodata maker",
@@ -31,7 +43,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://yourwebsite.com"), // Update with your actual domain
+  metadataBase: new URL("https://marriage-biodata-maker.vercel.app"),
   alternates: {
     canonical: "/",
   },
@@ -58,7 +70,7 @@ export const metadata: Metadata = {
     description:
       "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker.",
     images: ["/templates/t1.jpg"],
-    creator: "@yourhandle", // Update with your Twitter handle
+    creator: "@biodatamaker",
   },
   robots: {
     index: true,
@@ -98,16 +110,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Noto Serif may not be available in all Next versions; omit explicit import to avoid runtime errors.
   return (
     <html lang="en">
       <head>
-        {/* Preconnect to external domains for better performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
-        {/* Additional SEO meta tags */}
-        <meta name="application-name" content="Marriage Biodata Maker" />
         {/* Additional SEO meta tags */}
         <meta name="application-name" content="Marriage Biodata Maker" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -125,7 +130,7 @@ export default function RootLayout({
               name: "Marriage Biodata Maker",
               description:
                 "Create professional marriage biodata in multiple languages with beautiful templates",
-              url: "https://yourwebsite.com",
+              url: "https://marriage-biodata-maker.vercel.app",
               applicationCategory: "UtilityApplication",
               operatingSystem: "Any",
               offers: {
@@ -142,7 +147,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className={`${inter.variable} ${notoDevanagari.variable} ${outfit.variable} ${cinzel.variable} ${playfair.variable} ${lora.variable} antialiased`}>
         <LanguageProvider>{children}</LanguageProvider>
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

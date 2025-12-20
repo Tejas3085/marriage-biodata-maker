@@ -35,7 +35,7 @@ export default function HomePage() {
 
 
   const en = {
-    headerTitle: "Begin Your Beautiful Journey with the Perfect Biodata",
+    headerTitle: "Free Marriage Biodata Maker Online - Create Your Perfect Biodata",
     headerSubTitle: "Easy to make, beautiful to share.",
     headerDesc:
       "Pick a template, fill in your details, and download a professional-looking biodata in no time—totally free!",
@@ -194,13 +194,13 @@ linear-gradient(135deg, rgb(204 190 195 / 95%) 0%, rgb(255, 255, 255) 50%, rgb(1
               {/* Desktop: absolute floating cards */}
               <div className="hidden md:block relative w-full h-[360px] lg:h-[450px] xl:h-[500px]">
                 <div className="absolute left-2 sm:left-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform -rotate-12 hover:-rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image src="/Images/m1.png" alt="Modern template" width={300} height={400} className="w-full h-full object-cover" />
+                  <Image src="/Images/m1.png" alt="Modern Marriage Biodata Template Preview - Free Maker" width={300} height={400} className="w-full h-full object-cover" priority />
                 </div>
                 <div className="absolute right-2 sm:right-4 top-8 w-44 sm:w-52 md:w-56 lg:w-64 transform rotate-12 hover:rotate-15 transition-all duration-500 z-10 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image src="/Images/m2.png" alt="Elegant template" width={300} height={400} className="w-full h-full object-cover" />
+                  <Image src="/Images/m2.png" alt="Elegant Marriage Biodata Template Preview - Professional Designs" width={300} height={400} className="w-full h-full object-cover" priority />
                 </div>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 sm:w-56 md:w-64 lg:w-72 transform hover:-translate-y-2 transition-all duration-500 z-20 shadow-2xl rounded-xl overflow-hidden border-2 sm:border-4 border-white">
-                  <Image src="/Images/m3.png" alt="Classic template" width={300} height={400} className="w-full h-full object-cover" />
+                  <Image src="/Images/m3.png" alt="Classic Marriage Biodata Template Preview - High Resolution" width={300} height={400} className="w-full h-full object-cover" priority />
                 </div>
               </div>
 
@@ -209,18 +209,37 @@ linear-gradient(135deg, rgb(204 190 195 / 95%) 0%, rgb(255, 255, 255) 50%, rgb(1
               <div className="block md:hidden relative w-full h-[250px]">
                 {/* Left Card */}
                 <div className="absolute left-[5%] top-8 w-32 transform -rotate-6 z-10 shadow-lg rounded-lg overflow-hidden border-2 border-white opacity-90">
-                  <Image src="/Images/m1.png" alt="Template Left" width={150} height={130} className="w-full h-full object-cover" />
+                  <Image src="/Images/m1.png" alt="Marriage Biodata Maker App - Mobile Template" width={150} height={130} className="w-full h-full object-cover" priority />
                 </div>
                 {/* Right Card */}
                 <div className="absolute right-[5%] top-8 w-32 transform rotate-6 z-10 shadow-lg rounded-lg overflow-hidden border-2 border-white opacity-90">
-                  <Image src="/Images/m2.png" alt="Template Right" width={150} height={130} className="w-full h-full object-cover" />
+                  <Image src="/Images/m2.png" alt="Create Marriage Biodata Online - Free Mobile Tool" width={150} height={130} className="w-full h-full object-cover" priority />
                 </div>
                 {/* Center Hero Card */}
                 <div className="absolute left-1/2 -translate-x-1/2 top-0 w-40 z-20 shadow-2xl rounded-xl overflow-hidden border-[3px] border-white transform hover:-translate-y-1 transition-transform">
-                  <Image src="/Images/m3.png" alt="Template Center" width={150} height={130} className="w-full h-full object-cover" />
+                  <Image src="/Images/m3.png" alt="Best Marriage Biodata Designs - Multi-language support" width={150} height={130} className="w-full h-full object-cover" priority />
                 </div>
               </div>
             </div>
+
+            {/* HowTo JSON-LD for Search Engines */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "HowTo",
+                  name: "How to Create a Marriage Biodata Online",
+                  description: "Follow these 3 simple steps to create a professional marriage biodata for free.",
+                  url: "https://marriage-biodata-maker.vercel.app",
+                  step: en.howItWorks.map((step, i) => ({
+                    "@type": "HowToStep",
+                    position: i + 1,
+                    text: `${step.title}: ${step.desc}`
+                  }))
+                })
+              }}
+            />
 
           </div>
         </div>
