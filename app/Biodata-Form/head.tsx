@@ -7,13 +7,13 @@ export default function Head() {
     <>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href="https://yourwebsite.com/Biodata-Form" />
+      <link rel="canonical" href="https://onlinefreebiodata.com/Biodata-Form" />
 
       {/* Open Graph */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content="/templates/t1.jpg" />
-      <meta property="og:url" content="https://yourwebsite.com/Biodata-Form" />
+      <meta property="og:image" content="/images/m1.png" />
+      <meta property="og:url" content="https://onlinefreebiodata.com/Biodata-Form" />
 
       {/* JSON-LD WebPage */}
       <script
@@ -25,7 +25,7 @@ export default function Head() {
             "@type": "WebPage",
             name: title,
             description,
-            url: "https://yourwebsite.com/Biodata-Form",
+            url: "https://onlinefreebiodata.com/Biodata-Form",
           }),
         }}
       />
