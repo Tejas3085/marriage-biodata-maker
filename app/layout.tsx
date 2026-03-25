@@ -18,8 +18,8 @@ const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 // Comprehensive metadata for SEO
 export const metadata: Metadata = {
   title: {
-    default: "Marriage Biodata Maker - Create Beautiful Biodata Online",
-    template: "%s | Marriage Biodata Maker",
+    default: "Online Free Biodata Maker - Create Premium Marriage Biodata",
+    template: "%s | Online Free Biodata Maker",
   },
   description:
     "Create professional marriage biodata in multiple languages (English, Hindi, Marathi) with beautiful templates. Free online biodata maker with 20+ premium designs. Download as PNG instantly.",
@@ -34,16 +34,17 @@ export const metadata: Metadata = {
     "Marathi biodata",
     "free biodata maker",
     "online biodata creator",
+    "online free biodata",
   ],
-  authors: [{ name: "Marriage Biodata Maker Team" }],
-  creator: "Marriage Biodata Maker",
-  publisher: "Marriage Biodata Maker",
+  authors: [{ name: "Online Free Biodata Maker Team" }],
+  creator: "Online Free Biodata Maker",
+  publisher: "Online Free Biodata Maker",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://marriage-biodata-maker.vercel.app"),
+  metadataBase: new URL("https://onlinefreebiodata.com"),
   alternates: {
     canonical: "/",
   },
@@ -51,22 +52,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "Marriage Biodata Maker - Create Beautiful Biodata Online",
+    title: "Online Free Biodata Maker - Create Premium Marriage Biodata",
     description:
       "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker with 20+ premium designs.",
-    siteName: "Marriage Biodata Maker",
+    siteName: "Online Free Biodata Maker",
     images: [
       {
         url: "/templates/t1.jpg",
         width: 1200,
         height: 630,
-        alt: "Marriage Biodata Maker Preview",
+        alt: "Online Free Biodata Maker Preview",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marriage Biodata Maker - Create Beautiful Biodata Online",
+    title: "Online Free Biodata Maker - Create Premium Marriage Biodata",
     description:
       "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker.",
     images: ["/templates/t1.jpg"],
@@ -114,10 +115,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Additional SEO meta tags */}
-        <meta name="application-name" content="Marriage Biodata Maker" />
+        <meta name="application-name" content="Online Free Biodata Maker" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Biodata Maker" />
+        <meta name="apple-mobile-web-app-title" content="Online Free Biodata" />
         <meta name="mobile-web-app-capable" content="yes" />
 
         {/* Structured Data for SEO */}
@@ -127,10 +128,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              name: "Marriage Biodata Maker",
+              name: "Online Free Biodata Maker",
               description:
                 "Create professional marriage biodata in multiple languages with beautiful templates",
-              url: "https://marriage-biodata-maker.vercel.app",
+              url: "https://onlinefreebiodata.com",
               applicationCategory: "UtilityApplication",
               operatingSystem: "Any",
               offers: {
