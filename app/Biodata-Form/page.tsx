@@ -174,18 +174,14 @@ export default function BiodataForm() {
           clone.godTitle = groupedData.godTitle ?? "";
         }
       } catch (err) {
-        console.error("Failed to load saved form data:", err);
         // If localStorage contains a non-JSON value (commonly "[object Object]"), remove it to recover
         try {
           if (typeof window !== "undefined") {
             const raw = localStorage.getItem(language);
             if (raw && (raw.trim() === "[object Object]" || (raw.trim()[0] !== "{" && raw.trim()[0] !== "["))) {
-              console.warn(`Stored value for key '${language}' is malformed; removing it.`);
-              localStorage.removeItem(language);
             }
           }
         } catch (rmErr) {
-          console.warn("Failed to clean malformed saved data:", rmErr);
         }
       }
     }
@@ -350,7 +346,6 @@ export default function BiodataForm() {
     try {
       localStorage.setItem(language, JSON.stringify(groupedData));
     } catch (err) {
-      console.warn("Could not save to localStorage:", err);
     }
 
     router.push("/preview");
@@ -381,7 +376,6 @@ export default function BiodataForm() {
     try {
       localStorage.setItem(language, JSON.stringify(groupedData));
     } catch (err) {
-      console.warn("Could not save to localStorage:", err);
     }
   }, [formData, photoPreview, godPhoto, godTitle, language]);
 

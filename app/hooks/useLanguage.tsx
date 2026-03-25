@@ -35,18 +35,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // load folder helper - stable reference per language (depends on language)
   const setFolder = useCallback(
-  async (folder: "homeLang" | "formLang") => {
+    async (folder: "homeLang" | "formLang") => {
       try {
-  // Disable cache so developers can edit JSON and see immediate updates without restarting dev server
-  const res = await fetch(`/${folder}/${language}.json`, { cache: "no-store" });
+        // Disable cache so developers can edit JSON and see immediate updates without restarting dev server
+        const res = await fetch(`/${folder}/${language}.json`, { cache: "no-store" });
         if (!res.ok) {
-          console.warn(`Failed to load ${folder}/${language}.json - ${res.status}`);
           return;
         }
         const data = await res.json();
         // Dev-time debug to confirm that the correct JSON is being loaded
         if (process.env.NODE_ENV === "development") {
-          console.debug("[useLanguage] loaded", folder, language, data);
         }
 
         // Only update if data actually changed (simple JSON string compare)
@@ -62,7 +60,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           if (prevJson !== newJson) setTranslationsForm(data);
         }
       } catch (err) {
-        console.error("setFolder error:", err);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

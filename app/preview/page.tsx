@@ -156,7 +156,6 @@ export default function PreviewPage() {
     const tryVariants = (url: string) => {
       const ext = url.substring(url.lastIndexOf('.'));
       const base = url.substring(0, url.lastIndexOf('.'));
-      console.log('base: ', base);
       return [`${base}.jpg`, `${base}.png`, `${base}${ext}`];
     };
 
