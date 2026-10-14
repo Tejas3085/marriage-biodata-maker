@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
 import { isPremiumTemplate } from "@/app/preview/premium";
+import { rateLimit } from "../rate-limit";
 
 // POST { orderId, paymentId, signature, templateId } -> { ok: true }
 // Verifies the Razorpay signature server-side using the secret key.
 // Only after this succeeds should the client unlock the template.
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, { limit: 30, windowMs: 60_000, keyPrefix: "verify" });
+  if (limited) return limited;
+
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
   if (!keySecret) {
     return NextResponse.json({ error: "Payments are not configured yet." }, { status: 503 });

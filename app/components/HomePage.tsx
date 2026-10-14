@@ -2,16 +2,15 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
-import BiodataForm from "../Biodata-Form/page";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import {
   Check,
   Star,
@@ -23,9 +22,22 @@ import {
   FileText,
   LayoutTemplate,
   Download,
+  Plus,
 } from "lucide-react";
 import Header from "./SiteHeader";
 import FooterPage from "./SiteFooter";
+
+// The form is a large client bundle below the fold — load it only when needed
+// so the hero paints fast (better LCP / Total Blocking Time).
+const BiodataForm = dynamic(() => import("../Biodata-Form/page"), {
+  ssr: false,
+  loading: () => (
+    <div className="max-w-6xl mx-auto bg-white rounded-3xl border border-slate-200 p-10 text-center" aria-hidden>
+      <div className="w-10 h-10 mx-auto rounded-full border-[3px] border-slate-200 border-t-slate-900 animate-spin mb-3" />
+      <p className="text-[14px] text-slate-500 font-medium">Loading the form…</p>
+    </div>
+  ),
+});
 
 export default function HomePage() {
   const formRef = useRef<HTMLDivElement | null>(null);
@@ -37,14 +49,13 @@ export default function HomePage() {
     headerDesc:
       "Choose from 20+ elegant templates, fill in your details, and download a print-ready biodata — free, private, and no signup needed.",
     features: [
-      "20+ premium templates",
-      "High-quality PNG download",
+      "30+ elegant templates",
+      "HD PNG + A4 PDF download",
       "English, Hindi & Marathi",
       "100% free, no signup",
     ],
     createBiodataBtn: "Create My Biodata",
     viewTemplatesBtn: "View templates",
-    biodatasCount: "50,000+ biodatas created last month",
     howItWorksheading: "Three simple steps",
     howItWorksEyebrow: "How it works",
     howItWorks: [
@@ -106,6 +117,10 @@ export default function HomePage() {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // Hero shows a filled sample biodata (template files are blank frames —
+  // content is rendered at preview time).
+  const HERO_SAMPLE = { name: "Marathi Traditional", img: "/Images/m1.png" };
+
   const scrollToTemplates = () => {
     document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -116,34 +131,76 @@ export default function HomePage() {
     <main className="text-slate-900 bg-white antialiased">
       <Header />
 
-      {/* HERO */}
-      <section id="main-content" className="relative overflow-hidden bg-soft-paper border-b border-slate-200/70">
-        <div className="absolute inset-0 bg-dot-grid opacity-60 [mask-image:radial-gradient(70%_60%_at_50%_20%,black,transparent)]" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 md:py-16 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center">
+      {/* HERO — fits one viewport on desktop */}
+      <section id="main-content" className="relative overflow-hidden border-b border-slate-200/70 bg-[#fbf7f2] lg:min-h-[calc(100svh-70px)] flex flex-col">
+        {/* top ticker */}
+        <div className="relative bg-rose-900 text-white/95 overflow-hidden marquee-hover">
+          <div className="flex w-max animate-marquee py-2">
+            {[0, 1].map((copy) => (
+              <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center">
+                {[
+                  "100% Free Forever", "No Signup Needed", "20+ Premium Templates",
+                  "Hindi • Marathi • English", "HD PNG + A4 PDF", "Private by Design",
+                ].map((item) => (
+                  <span key={`${copy}-${item}`} className="flex items-center text-xs font-semibold uppercase tracking-[0.12em] whitespace-nowrap">
+                    <span className="px-5">{item}</span>
+                    <span className="text-amber-300 text-[9px]">✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* warm mesh backdrop */}
+        <div aria-hidden className="absolute inset-0">
+          <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-rose-200/40 blur-[120px]" />
+          <div className="absolute top-20 right-[-120px] w-[520px] h-[520px] rounded-full bg-amber-200/50 blur-[130px]" />
+          <div className="absolute bottom-[-160px] left-1/3 w-[560px] h-[380px] rounded-full bg-rose-100/60 blur-[120px]" />
+        </div>
+        <div className="absolute inset-0 bg-dot-grid opacity-50 [mask-image:radial-gradient(75%_65%_at_50%_15%,black,transparent)]" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-12 md:pt-10 md:pb-12 flex-1 w-full flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center w-full">
             {/* LEFT */}
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 pl-1.5 pr-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-[12.5px] font-medium text-slate-700">
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold text-[11px] uppercase tracking-wide">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Free
+              <div className="inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full bg-white/90 border border-slate-200 shadow-sm">
+                <span className="flex -space-x-2">
+                  {[
+                    ["A", "bg-rose-800"],
+                    ["S", "bg-amber-600"],
+                    ["P", "bg-slate-800"],
+                    ["R", "bg-emerald-700"],
+                  ].map(([ch, bg]) => (
+                    <span key={ch} className={`w-6 h-6 rounded-full ${bg} text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white`}>
+                      {ch}
+                    </span>
+                  ))}
                 </span>
-                Trusted by 50,000+ families every month
+                <span className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  ))}
+                </span>
+                <span className="text-[12.5px] font-medium text-slate-700">
+                  <span className="font-semibold text-slate-900">50,000+</span> happy families
+                </span>
               </div>
 
-              <h1 className="mt-5 text-[32px] leading-[1.08] sm:text-5xl lg:text-[56px] font-semibold tracking-[-0.02em] text-slate-900">
+              <h1 className="mt-4 text-[32px] leading-[1.06] sm:text-5xl lg:text-[50px] font-semibold tracking-[-0.025em] text-slate-900">
                 {en.headerTitleA}{" "}
-                <span className="font-display italic font-medium text-rose-900">
+                <span className="relative inline-block font-display italic font-medium text-rose-900">
                   {en.headerTitleAccent}
+                  <svg aria-hidden className="absolute -bottom-1.5 sm:-bottom-2 left-0 w-full" viewBox="0 0 220 10" preserveAspectRatio="none">
+                    <path d="M3 7.5 Q 110 -1 217 5.5" fill="none" stroke="#f59e0b" strokeWidth="4.5" strokeLinecap="round" />
+                  </svg>
                 </span>{" "}
                 {en.headerTitleB}
               </h1>
 
-              <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-slate-600 max-w-xl mx-auto lg:mx-0">
+              <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-slate-600 max-w-xl mx-auto lg:mx-0">
                 {en.headerDesc}
               </p>
 
-              <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5 max-w-xl mx-auto lg:mx-0 text-left">
+              <ul className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 max-w-xl mx-auto lg:mx-0 text-left">
                 {en.features.map((f, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-[14px] font-medium text-slate-700">
                     <span className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0">
@@ -154,76 +211,71 @@ export default function HomePage() {
                 ))}
               </ul>
 
-              <div className="mt-7 flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
+              <div className="mt-6 flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
                 <button
                   onClick={handleScrollToForm}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full px-7 h-[48px] bg-slate-900 text-white text-[15px] font-semibold hover:bg-rose-900 transition-colors shadow-sm"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full pl-7 pr-2.5 py-2.5 bg-slate-900 text-white text-[15px] font-semibold hover:bg-rose-900 transition-colors shadow-[0_16px_32px_-12px_rgba(15,23,42,0.5)]"
                 >
                   {en.createBiodataBtn}
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/25 group-hover:translate-x-0.5 transition-all">
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
                 </button>
                 <button
                   onClick={scrollToTemplates}
-                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-full px-7 h-[48px] bg-white border border-slate-300 text-slate-900 text-[15px] font-semibold hover:border-slate-400 hover:bg-slate-50 transition"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-full px-7 h-[52px] bg-white/80 backdrop-blur border border-slate-300 text-slate-900 text-[15px] font-semibold hover:border-slate-900 transition"
                 >
                   {en.viewTemplatesBtn}
                 </button>
               </div>
 
-              <div className="mt-6 flex items-center justify-center lg:justify-start gap-3">
-                <div className="flex items-center gap-0.5">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-[13px] text-slate-600">
-                  <span className="font-semibold text-slate-900">4.8/5</span> · {en.biodatasCount}
-                </p>
-              </div>
+              <dl className="mt-7 grid grid-cols-2 gap-y-6 sm:flex sm:items-stretch sm:gap-0 sm:divide-x sm:divide-slate-300/70 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
+                {[
+                  ["50K+", "biodatas monthly"],
+                  ["30+", "designer templates"],
+                  ["4.8", "average rating"],
+                  ["3", "languages"],
+                ].map(([v, l], i) => (
+                  <div key={l} className={`px-2 text-center sm:text-left sm:px-6 ${i % 2 === 1 ? "max-sm:border-l max-sm:border-slate-300/70" : ""}`}>
+                    <dt className="sr-only">{l}</dt>
+                    <dd className="text-[22px] sm:text-2xl font-semibold tracking-tight text-slate-900 leading-none">{v}</dd>
+                    <dd className="mt-1.5 text-xs font-medium uppercase tracking-[0.1em] text-slate-500">{l}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
-            {/* RIGHT */}
-            <div className="relative mx-auto w-full max-w-[520px]">
-              <div className="relative bg-white rounded-2xl border border-slate-200 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.25)] overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-200" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-200" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-200" />
-                  </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Preview • HD</span>
-                </div>
-                <div className="relative aspect-[4/5] bg-slate-50">
+            {/* RIGHT — interactive template switcher */}
+            <div className="relative mx-auto w-full max-w-[340px] lg:max-w-[360px] mt-4 lg:mt-0">
+              {/* ambient glow */}
+              <div aria-hidden className="absolute -inset-10 bg-[radial-gradient(closest-side,rgba(136,19,55,0.12),transparent)] blur-2xl" />
+
+              {/* preview card */}
+              <div className="relative bg-white rounded-[1.75rem] border border-slate-200 shadow-[0_32px_64px_-24px_rgba(15,23,42,0.30)] overflow-hidden">
+                <div className="relative aspect-[3/4] bg-[#faf8f5]">
                   <Image
-                    src="/Images/m3.png"
-                    alt="Marriage biodata template preview"
+                    src={HERO_SAMPLE.img}
+                    alt={`${HERO_SAMPLE.name} marriage biodata sample`}
                     fill
-                    className="object-contain p-4"
+                    sizes="(max-width: 1024px) 90vw, 360px"
+                    className="object-contain p-5"
                     priority
                   />
                 </div>
-                <div className="flex items-center justify-between px-5 py-3.5 border-t border-slate-100 bg-slate-50/60">
-                  <span className="text-[13px] font-medium text-slate-600">Classic Maroon • A4 print-ready</span>
-                  <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-emerald-700">
-                    <BadgeCheck className="w-4 h-4" /> Verified design
-                  </span>
-                </div>
-              </div>
-
-              {/* floating cards */}
-              <div className="hidden sm:block absolute -left-8 top-10 w-32 rounded-xl overflow-hidden border-4 border-white shadow-lg rotate-[-8deg] bg-white">
-                <Image src="/Images/m1.png" alt="Classic maroon marriage biodata template" width={160} height={200} className="w-full h-36 object-cover" />
-              </div>
-              <div className="hidden sm:block absolute -right-6 top-24 w-32 rounded-xl overflow-hidden border-4 border-white shadow-lg rotate-[8deg] bg-white">
-                <Image src="/Images/m2.png" alt="Royal blue marriage biodata template" width={160} height={200} className="w-full h-36 object-cover" />
-              </div>
-              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-8 sm:bottom-8 flex items-center gap-3 bg-slate-900 text-white pl-2 pr-4 py-2 rounded-full shadow-lg">
-                <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center">
-                  <ShieldCheck className="w-4 h-4" />
-                </span>
-                <div className="leading-tight text-left">
-                  <p className="text-[12.5px] font-semibold">Private by design</p>
-                  <p className="text-[11.5px] text-white/70">Data stays in your browser</p>
+                <div className="flex items-center justify-between gap-3 px-5 py-3.5 border-t border-slate-100">
+                  <div className="min-w-0">
+                    <p className="text-[14px] font-semibold text-slate-900 truncate">{HERO_SAMPLE.name}</p>
+                    <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
+                      A4 • HD • <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="font-semibold text-emerald-700">Verified</span>
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleScrollToForm}
+                    className="shrink-0 inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-slate-900 text-white text-[12.5px] font-semibold hover:bg-rose-900 transition"
+                  >
+                    Make mine <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
 
@@ -249,41 +301,34 @@ export default function HomePage() {
               />
             </div>
           </div>
-
-          {/* language strip */}
-          <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-[12.5px] font-medium text-slate-600">
-            <span className="uppercase tracking-[0.14em] text-[11px] font-semibold text-slate-500 mr-1">Available in</span>
-            {["English", "हिन्दी", "मराठी"].map((l) => (
-              <span key={l} className="px-3 py-1.5 rounded-full bg-white border border-slate-200">{l}</span>
-            ))}
-            <span className="hidden sm:inline text-slate-400 mx-1">•</span>
-            <span className="hidden sm:inline">No watermark • No signup</span>
-          </div>
         </div>
       </section>
 
       {/* TEMPLATES */}
-      <section id="templates" className="py-14 md:py-20 scroll-mt-20">
+      <section id="templates" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="max-w-2xl">
-              <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-rose-800">Templates</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">Templates</p>
               <h2 className="mt-2 text-2xl sm:text-3xl md:text-[34px] font-semibold tracking-tight text-slate-900">
                 Choose a design that feels right
               </h2>
               <p className="mt-2.5 text-[15px] text-slate-600 leading-relaxed">
                 Traditional, modern and minimal layouts — all formatted for A4 printing and mobile sharing.
               </p>
+              <a href="/templates" className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-rose-800 hover:underline">
+                View all designs <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
             <div className="flex items-center gap-2">
               <button
-                className="swiper-button-prev-custom w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition"
+                className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition"
                 aria-label="Previous template"
               >
                 <FaChevronLeft className="w-3.5 h-3.5" />
               </button>
               <button
-                className="swiper-button-next-custom w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition"
+                className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition"
                 aria-label="Next template"
               >
                 <FaChevronRight className="w-3.5 h-3.5" />
@@ -293,14 +338,13 @@ export default function HomePage() {
 
           <div className="mt-8">
             <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
+              modules={[Navigation]}
               spaceBetween={20}
               slidesPerView={1.15}
               navigation={{
                 nextEl: ".swiper-button-next-custom",
                 prevEl: ".swiper-button-prev-custom",
               }}
-              autoplay={{ delay: 4000, disableOnInteraction: true }}
               breakpoints={{
                 480: { slidesPerView: 2 },
                 768: { slidesPerView: 3 },
@@ -310,7 +354,10 @@ export default function HomePage() {
               {templates.map((template) => (
                 <SwiperSlide key={template.id}>
                   <div
-                    onClick={handleScrollToForm}
+                    onClick={() => {
+                      try { localStorage.setItem("selected-template", String(template.id)); } catch { /* ignore */ }
+                      handleScrollToForm();
+                    }}
                     className="group cursor-pointer rounded-2xl overflow-hidden border border-slate-200 bg-white hover:border-slate-300 hover:shadow-[0_16px_40px_-16px_rgba(15,23,42,0.25)] transition-all"
                   >
                     <div className="relative aspect-[3/4] bg-[#f8f6f3]">
@@ -340,10 +387,10 @@ export default function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="py-14 md:py-20 bg-slate-50 border-y border-slate-200/80 scroll-mt-20">
+      <section id="how-it-works" className="py-16 md:py-24 bg-slate-50 border-y border-slate-200/80 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-rose-800">{en.howItWorksEyebrow}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">{en.howItWorksEyebrow}</p>
             <h2 className="mt-2 text-2xl sm:text-3xl md:text-[34px] font-semibold tracking-tight">{en.howItWorksheading}</h2>
             <p className="mt-2.5 text-slate-600 text-[15px]">No design skills needed. Most people finish in under 5 minutes.</p>
           </div>
@@ -368,10 +415,10 @@ export default function HomePage() {
       </section>
 
       {/* FORM */}
-      <section ref={formRef} id="create" className="py-14 md:py-20 scroll-mt-20">
+      <section ref={formRef} id="create" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-rose-800">Create now</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">Create now</p>
             <h2 className="mt-2 text-2xl sm:text-3xl md:text-[34px] font-semibold tracking-tight">Fill in your details</h2>
             <p className="mt-2.5 text-slate-600 text-[15px]">Your information stays on your device. Edit anything, add custom fields, upload a photo.</p>
           </div>
@@ -380,12 +427,12 @@ export default function HomePage() {
       </section>
 
       {/* WHY US */}
-      <section id="why-us" className="pb-16 md:pb-24 scroll-mt-20">
+      <section id="why-us" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-slate-200 bg-slate-950 text-white overflow-hidden">
             <div className="grid lg:grid-cols-[1fr_1.2fr] gap-0">
               <div className="p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
-                <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-amber-300">Why families choose us</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">Why families choose us</p>
                 <h2 className="mt-3 font-display text-3xl md:text-[38px] leading-[1.15]">
                   Traditional warmth,
                   <br /> modern craft.
@@ -416,8 +463,8 @@ export default function HomePage() {
               <div className="p-8 md:p-12 grid sm:grid-cols-2 gap-4">
                 {[
                   {
-                    title: "100% free, no watermark",
-                    desc: "Create and download without signup, trial or hidden charges.",
+                    title: "Free essentials",
+                    desc: "27+ templates, HD downloads and all languages are free forever. Newest designs unlock for a one-time ₹49.",
                     icon: <BadgeCheck className="w-5 h-5" />,
                   },
                   {
@@ -427,7 +474,7 @@ export default function HomePage() {
                   },
                   {
                     title: "Print & WhatsApp ready",
-                    desc: "High-resolution PNG sized for A4 printing and crisp mobile sharing.",
+                    desc: "High-resolution PNG and A4 PDF, sized for crisp printing and mobile sharing.",
                     icon: <Zap className="w-5 h-5" />,
                   },
                   {
@@ -460,26 +507,29 @@ export default function HomePage() {
       </section>
 
       {/* FAQ — SEO content */}
-      <section aria-labelledby="faq-heading" className="pb-16 md:pb-24">
+      <section aria-labelledby="faq-heading" className="py-16 md:py-24 bg-slate-50 border-t border-slate-200/80">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-rose-800">FAQ</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">FAQ</p>
             <h2 id="faq-heading" className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">Common questions</h2>
           </div>
           <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200">
             {[
-              { q: "Is this marriage biodata maker really free?", a: "Yes. All 20+ templates, HD PNG download and sharing are 100% free with no signup and no watermark." },
+              { q: "Is this marriage biodata maker really free?", a: "Yes. 27+ templates, all languages, HD PNG and A4 PDF downloads are free forever with no signup and no watermark. A few newest premium designs unlock for a one-time ₹49." },
               { q: "Can I make a biodata in Hindi or Marathi?", a: "Yes. Switch language anytime — full Devanagari support with traditional wordings like ॥ श्री गणेशाय नमः ॥, वैयक्तिक माहिती and व्यक्तिगत विवरण." },
               { q: "Is my data safe?", a: "Your details and photos are processed locally in your browser. Nothing is uploaded to a server. Use Reset to wipe everything." },
-              { q: "Can I print the biodata?", a: "Yes. Every template exports as a high-resolution PNG sized for crisp A4 colour or black-and-white printing." },
+              { q: "Can I print the biodata?", a: "Yes. Every template exports as a high-resolution PNG and an A4-ready PDF for crisp colour or black-and-white printing." },
+              { q: "How do premium templates work?", a: "Premium designs cost ₹49 once (UPI, cards or netbanking via Razorpay) and stay unlocked on your device forever, with PNG + PDF downloads included. Covered by our 7-day refund policy." },
               { q: "Do I need to sign up?", a: "No account needed. Fill the form, pick a template, download — most people finish in under 5 minutes." },
             ].map((f) => (
               <details key={f.q} className="group py-5">
-                <summary className="cursor-pointer font-semibold text-[15.5px] list-none flex items-center justify-between gap-4">
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[15.5px] hover:text-rose-900 transition-colors [&::-webkit-details-marker]:hidden">
                   {f.q}
-                  <span className="text-slate-400 group-open:rotate-45 transition text-xl leading-none">+</span>
+                  <span className="w-8 h-8 shrink-0 rounded-full border border-slate-300 flex items-center justify-center text-slate-500 transition-all group-open:bg-slate-900 group-open:text-white group-open:border-slate-900 group-open:rotate-45">
+                    <Plus className="w-4 h-4" />
+                  </span>
                 </summary>
-                <p className="mt-2 text-[14.5px] text-slate-600 leading-relaxed">{f.a}</p>
+                <p className="mt-3 pr-12 text-[14.5px] text-slate-600 leading-relaxed">{f.a}</p>
               </details>
             ))}
           </div>
@@ -490,10 +540,10 @@ export default function HomePage() {
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
                 mainEntity: [
-                  { "@type": "Question", name: "Is this marriage biodata maker really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. All 20+ templates, HD PNG download and sharing are 100% free with no signup and no watermark." } },
+                  { "@type": "Question", name: "Is this marriage biodata maker really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. 27+ templates, HD PNG and A4 PDF downloads are free forever with no signup. Optional premium designs cost ₹49 one-time." } },
                   { "@type": "Question", name: "Can I make a biodata in Hindi or Marathi?", acceptedAnswer: { "@type": "Answer", text: "Yes. Full Devanagari support with traditional wordings in Hindi and Marathi." } },
                   { "@type": "Question", name: "Is my data safe?", acceptedAnswer: { "@type": "Answer", text: "Your details and photos are processed locally in your browser. Nothing is uploaded." } },
-                  { "@type": "Question", name: "Can I print the biodata?", acceptedAnswer: { "@type": "Answer", text: "Yes. High-resolution PNG sized for crisp A4 printing." } },
+                  { "@type": "Question", name: "Can I print the biodata?", acceptedAnswer: { "@type": "Answer", text: "Yes. High-resolution PNG and A4-ready PDF for crisp printing." } },
                 ],
               }),
             }}

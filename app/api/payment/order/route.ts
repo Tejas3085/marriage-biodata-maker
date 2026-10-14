@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { getTemplatePrice, isPremiumTemplate } from "@/app/preview/premium";
+import { rateLimit } from "../rate-limit";
 
 // POST { templateId } -> { orderId, amount, currency, keyId }
 // Amount is ALWAYS looked up server-side from premium.ts — the client
 // only sends the template id, so the price can't be tampered with.
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, { limit: 10, windowMs: 60_000, keyPrefix: "order" });
+  if (limited) return limited;
+
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
 

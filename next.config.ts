@@ -5,14 +5,30 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   // Image optimization configuration
-  
+  images: {
+    formats: ["image/avif", "image/webp"],
+    // Templates / photos are content-hashed by Next; long browser cache is safe.
+    minimumCacheTTL: 31536000,
+  },
 
   // Compression
   compress: true,
 
   // Security headers
   async headers() {
+    const immutable = [
+      {
+        key: "Cache-Control",
+        value: "public, max-age=31536000, immutable",
+      },
+    ];
     return [
+      // Template / gallery / deity artwork changes rarely — cache hard at
+      // the edge + browser so repeat visits are instant under traffic.
+      { source: "/templates/:path*", headers: immutable },
+      { source: "/Images/:path*", headers: immutable },
+      { source: "/gods/:path*", headers: immutable },
+      { source: "/icon/:path*", headers: immutable },
       {
         source: "/:path*",
         headers: [

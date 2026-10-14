@@ -13,7 +13,7 @@ export default function SiteFooter() {
               </div>
               <div className="leading-tight">
                 <p className="text-white font-semibold text-[16px] tracking-tight">Marriage Biodata Maker</p>
-                <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500 mt-0.5">Free • Private • Premium</p>
+                <p className="text-xs uppercase tracking-[0.14em] text-slate-500 mt-0.5">Free • Private • Premium</p>
               </div>
             </div>
             <p className="mt-4 text-[13.5px] leading-relaxed max-w-xs text-slate-400">

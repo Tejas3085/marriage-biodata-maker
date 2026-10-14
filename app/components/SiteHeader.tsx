@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useLanguageContext } from "../hooks/useLanguage";
 import { ChevronDown, Check, Globe } from "lucide-react";
 
@@ -12,6 +13,9 @@ const LANGUAGES = [
 
 export default function SiteHeader() {
     const { language, setLanguage } = useLanguageContext();
+    const router = useRouter();
+    const pathname = usePathname();
+    const isHome = pathname === "/";
     const [showLangMenu, setShowLangMenu] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [showToast, setShowToast] = useState(false);
@@ -58,8 +62,21 @@ export default function SiteHeader() {
     };
 
     const scrollTo = (id: string) => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Section ids live on the homepage — from any other page, go home first.
+        if (isHome) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+            router.push(`/#${id}`);
+        }
+    };
+
+    const goHome = () => {
+        if (isHome) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+            router.push("/");
+        }
     };
 
     return (
@@ -70,7 +87,7 @@ export default function SiteHeader() {
                 <div className="h-[68px] flex items-center justify-between gap-4">
 
                     {/* LEFT — Brand */}
-                    <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3 text-left group">
+                    <button onClick={goHome} className="flex items-center gap-3 text-left group" aria-label="Go to homepage">
                         <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-rose-900 text-white shadow-sm group-hover:bg-rose-800 transition-colors">
                             <span className="font-display text-xl leading-none pt-[2px]">श्री</span>
                         </div>
@@ -78,7 +95,7 @@ export default function SiteHeader() {
                             <span className="text-[17px] font-semibold tracking-tight text-slate-900">
                                 Biodata Maker
                             </span>
-                            <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-slate-500 mt-1">
+                            <span className="text-xs font-medium tracking-[0.14em] uppercase text-slate-500 mt-1">
                                 Marriage • Free • Premium
                             </span>
                         </div>
@@ -97,7 +114,7 @@ export default function SiteHeader() {
                         <div className="relative" ref={menuRef}>
                             <button
                                 onClick={() => setShowLangMenu(!showLangMenu)}
-                                className="h-10 px-3.5 rounded-full text-[13.5px] font-medium bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition flex items-center gap-2 text-slate-700"
+                                className="h-12 px-3.5 rounded-full text-[13.5px] font-medium bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition flex items-center gap-2 text-slate-700"
                                 aria-haspopup="listbox"
                                 aria-expanded={showLangMenu}
                             >
@@ -134,7 +151,7 @@ export default function SiteHeader() {
 
                         <button
                             onClick={() => scrollTo("create")}
-                            className="hidden sm:inline-flex h-10 items-center px-5 rounded-full bg-slate-900 text-white text-[13.5px] font-semibold hover:bg-rose-900 transition-colors shadow-sm"
+                            className="hidden sm:inline-flex h-12 items-center px-5 rounded-full bg-slate-900 text-white text-[13.5px] font-semibold hover:bg-rose-900 transition-colors shadow-sm"
                         >
                             Create Free
                         </button>

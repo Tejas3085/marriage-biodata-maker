@@ -445,7 +445,7 @@ export default function BiodataForm() {
           {/* LEFT PANEL */}
           <main>
             <header className="text-center mb-8">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-800">Step 1 — Your details</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">Step 1 — Your details</p>
               <h1 className="mt-2 text-2xl sm:text-[30px] font-semibold text-slate-900 tracking-tight">
                 Create Your Marriage Biodata
               </h1>
@@ -767,7 +767,7 @@ export default function BiodataForm() {
 
 
             <div className="border border-slate-200 rounded-2xl p-6 bg-white">
-              <h2 className="text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 mb-1">
+              <h2 className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 mb-1">
                 Profile Photo
               </h2>
 
@@ -805,7 +805,7 @@ export default function BiodataForm() {
 
 
                     <IoCameraOutline size={28} className="text-slate-500 mb-1.5" />
-                    <p className="text-[11px] font-semibold text-slate-600">Click to upload</p>
+                    <p className="text-xs font-semibold text-slate-600">Click to upload</p>
 
                   </div>
 

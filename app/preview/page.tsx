@@ -379,7 +379,17 @@ export default function PreviewPage() {
   useEffect(() => {
     const saved = localStorage.getItem(language);
     if (saved) setFormData(JSON.parse(saved));
-    setSelectedTemplate(templates[0]);
+    // Honor a design picked on the home carousel or templates page (fallback: first)
+    let initial = templates[0];
+    try {
+      const stored = localStorage.getItem("selected-template");
+      if (stored) {
+        const match = templates.find((t) => t.id === Number(stored));
+        if (match) initial = match;
+        localStorage.removeItem("selected-template");
+      }
+    } catch { /* private mode — use default */ }
+    setSelectedTemplate(initial);
     setLoading(false);
   }, [language]);
 

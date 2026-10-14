@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  font-family: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-outfit), system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--ink-900);
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
@@ -39,7 +39,7 @@ body {
 
 /* Serif display for headings */
 .font-display {
-  font-family: var(--font-playfair), var(--font-lora), Georgia, serif;
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
 }
 
 /* Subtle dot texture for hero */
@@ -292,5 +292,49 @@ footer.site-footer .brand p {
 @media (min-width: 768px) {
   .site-footer .brand {
     text-align: left;
+  }
+}
+
+/* ===== Hero motion ===== */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 36s linear infinite;
+}
+
+.marquee-hover:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fade-swap {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fade-swap {
+  animation: fade-swap 0.45s ease;
+}
+
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+.animate-float-soft-delay {
+  animation: float-soft 6.5s ease-in-out 1.2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float-soft,
+  .animate-float-soft-delay {
+    animation: none;
   }
 }

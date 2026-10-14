@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Noto_Sans_Devanagari, Outfit, Cinzel, Playfair_Display, Lora } from "next/font/google";
+import { Noto_Sans_Devanagari, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "./hooks/useLanguage";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const notoDevanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari", "latin"],
   weight: ["400", "500", "600", "700"],
@@ -12,9 +11,9 @@ const notoDevanagari = Noto_Sans_Devanagari({
   display: "swap",
 });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
-const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel", display: "swap" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap" });
+// Only weights actually used (400 numerals, 500 hero italic, 600 headings) —
+// the default would download all 6 Playfair weights.
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-playfair", display: "swap" });
 
 const SITE_URL = "https://onlinefreebiodata.com";
 const SITE_NAME = "Online Free Biodata Maker";
@@ -24,11 +23,11 @@ const OG_IMAGE = `${SITE_URL}/Images/m1.png`;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Free Marriage Biodata Maker Online — 20+ Templates (Hindi, Marathi, English)",
+    default: "Free Marriage Biodata Maker — 20+ Hindi, Marathi & English Templates",
     template: "%s | Online Free Biodata Maker",
   },
   description:
-    "Create a beautiful marriage biodata in 5 minutes. 20+ traditional & modern templates in English, Hindi & Marathi. 100% free, no signup, no watermark. Download high-quality PNG.",
+    "Create a beautiful marriage biodata in 5 minutes. 20+ traditional & modern templates in English, Hindi & Marathi. Free, no signup, HD download.",
   keywords: [
     "marriage biodata maker",
     "free biodata maker",
@@ -56,26 +55,21 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/",
-      hi: "/?lang=hi",
-      mr: "/?lang=mr",
-    },
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
     alternateLocale: ["hi_IN", "mr_IN"],
     url: "/",
-    title: "Free Marriage Biodata Maker Online — 20+ Templates",
+    title: "Free Marriage Biodata Maker — 20+ Templates",
     description:
-      "Create a print-ready marriage biodata in English, Hindi or Marathi. 20+ premium templates. Free, private, no signup.",
+      "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker with 20+ premium designs.",
     siteName: SITE_NAME,
     images: [
       {
         url: OG_IMAGE,
         width: 1200,
-        height: 630,
+        height: 1900,
         alt: "Marriage biodata templates preview — free online maker",
         type: "image/png",
       },
@@ -83,7 +77,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Marriage Biodata Maker Online — 20+ Templates",
+    title: "Free Marriage Biodata Maker — 20+ Templates",
     description:
       "Create a beautiful marriage biodata in 5 minutes. Hindi, Marathi & English. Free, no signup, HD download.",
     images: [OG_IMAGE],
@@ -197,7 +191,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${notoDevanagari.variable} ${outfit.variable} ${cinzel.variable} ${playfair.variable} ${lora.variable} antialiased`}>
+      <body className={`${notoDevanagari.variable} ${outfit.variable} ${playfair.variable} antialiased`}>
         <LanguageProvider>{children}</LanguageProvider>
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
