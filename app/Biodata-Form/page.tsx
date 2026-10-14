@@ -8,7 +8,7 @@ import { useLanguageContext } from "../hooks/useLanguage";
 import ImageCropper from "../components/ImageCropper";
 import GodPhotoSelector from "../components/GodPhotoSelector";
 import TitleEditModal from "../components/TitleEditModal";
-import { ChevronUp, ChevronDown } from "lucide-react";
+import { ChevronUp, ChevronDown, TriangleAlert } from "lucide-react";
 import { Trash2 } from "lucide-react";
 
 import {
@@ -17,7 +17,6 @@ import {
   IoCloseOutline,
   IoCameraOutline,
 } from "react-icons/io5";
-import { FaRegImage } from "react-icons/fa";
 
 type Field = {
   label: string;
@@ -391,8 +390,8 @@ export default function BiodataForm() {
   if (!formData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <div className="w-12 h-12 rounded-full border-4 border-gray-100 border-t-pink-500 animate-spin mb-4" />
-        <p className="text-gray-400 font-medium animate-pulse">
+        <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-slate-900 animate-spin mb-4" />
+        <p className="text-slate-500 text-[14px] font-medium animate-pulse">
           Preparing your form...
         </p>
       </div>
@@ -401,13 +400,13 @@ export default function BiodataForm() {
 
   // ---------- Render ----------
   return (
-    <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-md p-4 sm:p-6 md:p-8">
+    <div className="max-w-6xl mx-auto bg-white rounded-3xl border border-slate-200 shadow-[0_20px_60px_-24px_rgba(15,23,42,0.25)] p-5 sm:p-8 md:p-10">
       {/* Validation Toast */}
       {showValidationToast && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center animate-in fade-in slide-in-from-top-10 duration-500">
           <div className="bg-gray-900 text-white border border-gray-800 py-4 px-6 rounded-2xl shadow-2xl flex items-center gap-4 max-w-md w-full">
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white text-xl flex-shrink-0">
-              ⚠️
+            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+              <TriangleAlert className="w-5 h-5 text-amber-300" />
             </div>
             <div>
               <p className="font-black text-sm uppercase tracking-wider mb-0.5">
@@ -436,55 +435,40 @@ export default function BiodataForm() {
             name: "Create Marriage Biodata",
             description:
               "Create a beautiful marriage biodata in English, Hindi, or Marathi by filling a simple form and choosing a template.",
-            url: "https://marriage-biodata-maker.vercel.app/Biodata-Form",
-          }),
-        }}
-      />
-      {/* JSON-LD structured data (helps SEO, lightweight) */}
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Marriage Biodata Maker",
-            description:
-              "Create a professional marriage biodata with curated templates and easy form inputs.",
-            url: "https://marriage-biodata-maker.vercel.app",
-            author: { "@type": "Organization", name: "Marriage Biodata Maker" },
+            url: "https://onlinefreebiodata.com/Biodata-Form",
           }),
         }}
       />
 
       <form onSubmit={generateBiodata} aria-label="Marriage biodata form">
-        <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
           {/* LEFT PANEL */}
           <main>
-            <header className="text-center mb-5">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 tracking-tight mb-3">
-                Create Your <span className="text-pink-500">Marriage Biodata</span>
+            <header className="text-center mb-8">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-800">Step 1 — Your details</p>
+              <h1 className="mt-2 text-2xl sm:text-[30px] font-semibold text-slate-900 tracking-tight">
+                Create Your Marriage Biodata
               </h1>
-              <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Fill in your personal details and design a beautifully formatted biodata.
+              <p className="text-slate-600 text-[14px] sm:text-[15px] max-w-xl mx-auto leading-relaxed mt-2">
+                Fill in your details below. You can rename sections, reorder fields, and add your own.
               </p>
-              <div className="mt-6 flex justify-center">
-                <div className="h-1 w-20 sm:w-24 bg-blue-600 rounded-full" />
+              <div className="mt-5 flex justify-center">
+                <div className="h-[3px] w-16 bg-slate-900 rounded-full" />
               </div>
             </header>
 
             {/* God Image + Title */}
             <section
               aria-label="God photo and title"
-              className="text-center mb-8 border-b pb-6"
+              className="text-center mb-8 bg-slate-50 border border-slate-200 rounded-2xl px-6 py-7"
               ref={godPhotoRef}
             >
               <div className="flex justify-center mb-3">
                 {godPhoto ? (
-                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden border-blue-100">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden rounded-full ring-4 ring-white shadow-md border border-slate-200">
                     <Image
                       src={formData.godPhoto || godPhoto}
-                      alt="Selected image"
+                      alt="Selected auspicious image"
                       fill
                       loading="eager"
                       sizes="80px"
@@ -494,7 +478,7 @@ export default function BiodataForm() {
                 ) : (
                   <div
                     onClick={() => setShowGodPhotoSelector(true)}
-                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 text-gray-500 text-sm rounded-full cursor-pointer hover:border-pink-400 hover:bg-pink-50 transition-all"
+                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-slate-300 text-slate-500 text-sm rounded-full cursor-pointer hover:border-slate-900 hover:bg-slate-50 transition-all"
                   >
                     Add Photo
                   </div>
@@ -505,9 +489,9 @@ export default function BiodataForm() {
                 <button
                   type="button"
                   onClick={() => setShowGodPhotoSelector(true)}
-                  className="px-4 py-1.5 text-xs font-medium
-                   rounded-lg bg-pink-100 text-pink-700
-                   hover:bg-pink-200 transition border border-pink-300 flex items-center gap-1"
+                  className="px-4 py-1.5 text-xs font-semibold
+                   rounded-full bg-slate-900 text-white
+                   hover:bg-rose-900 transition flex items-center gap-1"
                   aria-label="Add/change god photo"
 
                 >
@@ -525,9 +509,9 @@ export default function BiodataForm() {
                         updated.godPhoto = "";
                       });
                     }}
-                    className="px-4 py-1.5 text-xs font-medium
-                     rounded-lg bg-gray-100 text-gray-600
-                     hover:bg-gray-200 transition border border-gray-300 flex items-center gap-1"
+                    className="px-4 py-1.5 text-xs font-semibold
+                     rounded-full bg-white text-slate-600
+                     hover:bg-slate-100 transition border border-slate-300 flex items-center gap-1"
                     aria-label="Remove god photo"
                   >
                     Remove
@@ -552,7 +536,7 @@ export default function BiodataForm() {
                     setTempGodTitle(godTitle);
                     setGodTitleModalOpen(true);
                   }}
-                  className="text-blue-600 hover:text-blue-800 transition"
+                  className="text-slate-500 hover:text-slate-900 transition"
                   aria-label="Edit god title"
                 >
                   <IoCreateOutline size={20} />
@@ -603,7 +587,7 @@ export default function BiodataForm() {
                         value={tempGodTitle}
                         onChange={(e) => setTempGodTitle(e.target.value)}
                         placeholder="e.g. || श्री गणेशाय नमः ||"
-                        className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-100 focus:border-pink-300 transition-all"
+                        className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all"
                         autoFocus
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
@@ -615,7 +599,7 @@ export default function BiodataForm() {
 
                       <div className="flex gap-2">
                         <button
-                          className="flex-1 py-2.5 bg-pink-500 text-white rounded-lg font-semibold text-sm hover:bg-pink-600 transition-colors"
+                          className="flex-1 py-2.5 bg-slate-900 text-white rounded-full font-semibold text-sm hover:bg-rose-900 transition-colors"
                           onClick={() => {
                             setGodTitle(tempGodTitle);
                             setGodTitleModalOpen(false);
@@ -624,7 +608,7 @@ export default function BiodataForm() {
                           Save
                         </button>
                         <button
-                          className="flex-1 py-2.5 bg-white text-gray-600 border border-gray-300 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+                          className="flex-1 py-2.5 bg-white text-gray-600 border border-gray-300 rounded-full font-semibold text-sm hover:bg-gray-50 transition-colors"
                           onClick={() => setGodTitleModalOpen(false)}
                         >
                           Cancel
@@ -638,11 +622,11 @@ export default function BiodataForm() {
             </section>
 
             {/* Field Sections */}
-            <section aria-label="Form fields">
+            <section aria-label="Form fields" className="space-y-6">
               {formData.fieldSections.map((section: any, sIndex: number) => (
-                <div key={sIndex} className="mb-8">
+                <div key={sIndex} className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
                   <div
-                    className="flex items-center mb-3 pb-1 cursor-pointer hover:text-pink-600 transition-colors"
+                    className="flex items-center gap-2 mb-4 cursor-pointer group w-fit"
                     role="button"
                     tabIndex={0}
                     onClick={() => {
@@ -659,25 +643,26 @@ export default function BiodataForm() {
                     }}
                     aria-label={`Edit section title ${section.title}`}
                   >
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800">
+                    <h2 className="text-[15px] font-semibold tracking-tight text-slate-900">
                       {section.title}
-                    </h3>
-                    <IoCreateOutline className="text-pink-600 mt-[2px] mx-[6px]" aria-hidden />
+                    </h2>
+                    <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-slate-900 group-hover:text-white transition">
+                      <IoCreateOutline size={13} aria-hidden />
+                    </span>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {section.fields.map((field: Field, fIndex: number) => (
                       <div
                         key={field.key}
                         id={`field-container-${field.key}`}
-                        className="
-        flex sm:grid-cols-[1fr_auto] sm:items-center gap-2 sm:gap-3                  /* Mobile: vertical */
-        sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-3 /* Tablet: horizontal */
-        lg:flex lg:flex-row lg:items-center lg:gap-3                /* Large: horizontal flex */
+                        className="flex gap-2 rounded-xl border border-slate-100 bg-slate-50/70 p-2.5 hover:border-slate-200 transition
+        sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-3
+        lg:flex lg:flex-row lg:items-center lg:gap-3
       "
                       >
                         {/* Input / Textarea / Select */}
-                        <div className="w-full flex flex-col lg:flex-row lg:gap-3">
+                        <div className="w-full flex flex-col lg:flex-row lg:gap-2.5">
                           <input
                             id={field.key + "_label"}
                             aria-label="Field label"
@@ -685,7 +670,7 @@ export default function BiodataForm() {
                             value={field.label || ""}
                             onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
                             placeholder={section.NewFieldLabel}
-                            className="border w-full border-[#abb2b9] px-3 py-2 rounded-md text-sm bg-[#eef1f5] focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all mb-2"
+                            className="border w-full border-slate-200 px-3 py-2.5 rounded-lg text-[13.5px] bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all mb-2 lg:mb-0 lg:max-w-[220px]"
                           />
 
                           {field.type === "select" ? (
@@ -694,7 +679,7 @@ export default function BiodataForm() {
                               aria-label={`Select ${field.label || "option"}`}
                               value={field.value || ""}
                               onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-                              className="border border-gray-200 px-3 py-2 mb-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full"
+                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all w-full"
                             >
                               <option value="">{field.placeholder || "Select"}</option>
                               {field.options?.map((op: string, idx: number) => (
@@ -713,39 +698,39 @@ export default function BiodataForm() {
                                 autoResize(e);
                               }}
                               placeholder={field.placeholder || "Enter value"}
-                              className="border border-gray-200 px-3 py-2 mb-2 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-300 transition-all w-full resize-none overflow-hidden"
+                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all w-full resize-none overflow-hidden"
                               rows={1}
                             />
                           )}
                         </div>
 
                         {/* Buttons */}
-                        <div className="flex flex-col sm:flex-col lg:flex-row gap-2 justify-start sm:justify-end lg:justify-end">
+                        <div className="flex flex-col sm:flex-col lg:flex-row gap-1.5 justify-start sm:justify-end lg:justify-end">
                           <button
                             type="button"
                             onClick={() => moveFieldUp(sIndex, fIndex)}
                             disabled={fIndex === 0}
-                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white disabled:opacity-30 transition"
                           >
-                            <ChevronUp size={20} strokeWidth={1.8} />
+                            <ChevronUp size={16} strokeWidth={2} />
                           </button>
 
                           <button
                             type="button"
                             onClick={() => moveFieldDown(sIndex, fIndex)}
                             disabled={fIndex === section.fields.length - 1}
-                            className="text-gray-500 hover:text-gray-900 disabled:opacity-30 transition"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white disabled:opacity-30 transition"
                           >
-                            <ChevronDown size={20} strokeWidth={1.8} />
+                            <ChevronDown size={16} strokeWidth={2} />
                           </button>
 
                           <button
                             type="button"
                             onClick={() => deleteField(sIndex, fIndex)}
-                            className="text-pink-400 hover:text-pink-600 transition"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-700 hover:bg-rose-50 transition"
                             aria-label="Delete field"
                           >
-                            <Trash2 size={18} />
+                            <Trash2 size={15} />
                           </button>
 
 
@@ -759,7 +744,7 @@ export default function BiodataForm() {
                   <button
                     type="button"
                     onClick={() => addNewField(sIndex, section)}
-                    className="text-pink-400 text-sm font-medium flex items-center gap-1 mt-1 hover:text-pink-600 transition-colors"
+                    className="text-slate-600 text-[13px] font-semibold flex items-center gap-1.5 mt-3 px-3 py-2 rounded-full border border-dashed border-slate-300 hover:border-slate-900 hover:text-slate-900 transition"
                     aria-label={`Add new field to ${section.title}`}
                   >
                     <IoAddOutline /> {section.addExtraFiels || "Add New Field"}
@@ -770,23 +755,21 @@ export default function BiodataForm() {
           </main>
 
           {/* RIGHT PANEL - sticky */}
-          <aside className="sticky top-24 pr-5 self-start">
-            <div className="mb-6 flex justify-center px-4">
-              <div className="max-w-xl rounded-2xl border border-pink-200 bg-white px-6 py-4 text-center shadow-md">
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-medium">
-                  Upload your photo to create a clean and professional marriage biodata.✨
+          <aside className="lg:sticky lg:top-24 self-start space-y-4">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-center">
+                <p className="text-[13.5px] text-slate-600 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Tip: </span>a clear, well-lit photo makes your biodata feel personal.
                 </p>
-              </div>
 
             </div>
 
 
 
 
-            <div className="border border-gray-200 rounded-2xl p-6 bg-white shadow-sm">
-              <h3 className="text-center text-lg font-semibold text-gray-800 mb-4">
-                {"Profile Photo"}
-              </h3>
+            <div className="border border-slate-200 rounded-2xl p-6 bg-white">
+              <h2 className="text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 mb-1">
+                Profile Photo
+              </h2>
 
               <div
                 onClick={() => fileInputRef.current?.click()}
@@ -796,7 +779,7 @@ export default function BiodataForm() {
                 aria-label="Upload profile photo"
               >
                 {photoPreview ? (
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden border-4 border-blue-100 shadow">
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
                     <Image
                       src={photoPreview}
                       alt={language === "mr" ? "प्रोफाइल फोटो" : "User profile photo preview"}
@@ -809,20 +792,20 @@ export default function BiodataForm() {
                 ) : (
                   <div
                     className="
-    w-24 h-24 sm:w-28 sm:h-28
+    w-28 h-28 sm:w-32 sm:h-32
     flex flex-col items-center justify-center
-    bg-white/70 backdrop-blur-md
-    border border-gray-200
-    rounded-xl
-    shadow-sm cursor-pointer
+    bg-slate-50
+    border border-dashed border-slate-300
+    rounded-2xl
+    cursor-pointer
     transition-all
-    hover:shadow-md hover:border-pink-400 hover:bg-pink-50
+    hover:border-slate-900 hover:bg-white
   "
                   >
 
 
-                    <IoCameraOutline size={34} className="text-gray-600 mb-1" />
-                    <p className="text-[11px] font-medium text-gray-600">Click to upload</p>
+                    <IoCameraOutline size={28} className="text-slate-500 mb-1.5" />
+                    <p className="text-[11px] font-semibold text-slate-600">Click to upload</p>
 
                   </div>
 
@@ -839,18 +822,18 @@ export default function BiodataForm() {
               />
 
               {photoPreview && (
-                <div className="flex justify-center gap-2 mt-3">
+                <div className="flex justify-center gap-2 mt-4">
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-pink-500 text-white px-3 py-1.5 rounded-md text-sm"
+                    className="bg-white border border-slate-300 text-slate-800 px-3.5 py-1.5 rounded-full text-[12.5px] font-semibold hover:border-slate-900 transition"
                   >
                     Change
                   </button>
                   <button
                     type="button"
                     onClick={() => setPhotoPreview(null)}
-                    className="bg-red-500 text-white px-3 py-1.5 rounded-md text-sm"
+                    className="bg-white border border-slate-200 text-slate-500 px-3.5 py-1.5 rounded-full text-[12.5px] font-semibold hover:text-rose-700 hover:border-rose-200 hover:bg-rose-50 transition"
                   >
                     Remove
                   </button>
@@ -859,19 +842,19 @@ export default function BiodataForm() {
 
 
             </div>
-            <div className="mt-8 flex flex-col gap-3">
+            <div className="flex flex-col gap-2.5">
               <button
                 type="submit"
-                className="bg-pink-500 text-white py-2 rounded-md font-medium"
+                className="bg-slate-900 text-white py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-rose-900 transition shadow-sm"
               >
-                {"Generate Biodata"}
+                Generate Biodata
               </button>
               <button
                 type="button"
                 onClick={() => {
                   setShowResetModal(true);
                 }}
-                className="flex items-center justify-center gap-2 bg-gray-100 text-gray-600 py-2.5 rounded-lg font-bold hover:bg-gray-200 transition-colors border border-gray-200"
+                className="flex items-center justify-center gap-2 bg-white text-slate-600 py-3 rounded-full font-semibold text-[13.5px] hover:bg-slate-50 transition-colors border border-slate-200"
               >
                 <Trash2 className="w-4 h-4" />
                 {language === "mr" ? "रीसेट करा" : language === "hi" ? "रीसेट करें" : "Reset Form"}
@@ -939,7 +922,7 @@ export default function BiodataForm() {
                 type="text"
                 value={tempSectionTitle}
                 onChange={(e) => setTempSectionTitle(e.target.value)}
-                className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-100 focus:border-pink-300 transition-all"
+                className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all"
                 autoFocus
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
@@ -955,7 +938,7 @@ export default function BiodataForm() {
 
               <div className="flex gap-2">
                 <button
-                  className="flex-1 py-2.5 bg-pink-500 text-white rounded-lg font-semibold text-sm hover:bg-pink-600 transition-colors"
+                  className="flex-1 py-2.5 bg-slate-900 text-white rounded-full font-semibold text-sm hover:bg-rose-900 transition-colors"
                   onClick={() => {
                     updateForm((updated) => {
                       if (typeof editingSectionIndex === "number" && updated.fieldSections?.[editingSectionIndex]) {
@@ -968,7 +951,7 @@ export default function BiodataForm() {
                   Save
                 </button>
                 <button
-                  className="flex-1 py-2.5 bg-white text-gray-600 border border-gray-300 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+                  className="flex-1 py-2.5 bg-white text-gray-600 border border-gray-300 rounded-full font-semibold text-sm hover:bg-gray-50 transition-colors"
                   onClick={() => setShowTitleEditModal(false)}
                 >
                   Cancel
@@ -988,7 +971,7 @@ export default function BiodataForm() {
           />
           <div className="relative bg-white p-6 rounded-2xl w-full max-w-sm shadow-2xl border border-gray-100 animate-in zoom-in-95 duration-200">
             <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center mb-4">
                 <Trash2 className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -1017,13 +1000,13 @@ export default function BiodataForm() {
                       window.location.reload();
                     }, 300);
                   }}
-                  className="w-full py-3 bg-rose-500 text-white rounded-xl font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-100"
+                  className="w-full py-3 bg-slate-900 text-white rounded-full font-semibold hover:bg-rose-900 transition-all"
                 >
                   {language === "mr" ? "हो, रीसेट करा" : language === "hi" ? "हाँ, रीसेट करें" : "Yes, Reset Everything"}
                 </button>
                 <button
                   onClick={() => setShowResetModal(false)}
-                  className="w-full py-3 bg-gray-50 text-gray-600 rounded-xl font-bold hover:bg-gray-100 transition-all"
+                  className="w-full py-3 bg-white text-slate-600 rounded-full font-semibold border border-slate-200 hover:bg-slate-50 transition-all"
                 >
                   {language === "mr" ? "रद्द करा" : language === "hi" ? "रद्द करें" : "Cancel"}
                 </button>

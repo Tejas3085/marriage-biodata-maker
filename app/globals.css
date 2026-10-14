@@ -1,9 +1,58 @@
 /* Fonts are now loaded via next/font for better performance */
 @import "tailwindcss";
 
+:root {
+  --brand-900: #4c0519;
+  --brand-700: #881337;
+  --brand-600: #9f1239;
+  --brand-50: #fff1f2;
+  --ink-900: #0f172a;
+  --ink-600: #475569;
+  --ink-500: #64748b;
+  --line: #e2e8f0;
+  --bg-soft: #faf9f7;
+}
+
 /* Default font stack using next/font variables */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: var(--font-merriweather), var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  color: var(--ink-900);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #881337;
+  color: #fff;
+}
+
+/* Professional focus */
+:focus-visible {
+  outline: 2px solid #9f1239;
+  outline-offset: 2px;
+}
+
+/* Serif display for headings */
+.font-display {
+  font-family: var(--font-playfair), var(--font-lora), Georgia, serif;
+}
+
+/* Subtle dot texture for hero */
+.bg-dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(15,23,42,0.08) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.bg-soft-paper {
+  background:
+    radial-gradient(600px 300px at 15% 10%, rgba(136,19,55,0.06), transparent 60%),
+    radial-gradient(600px 300px at 90% 20%, rgba(180,83,9,0.06), transparent 60%),
+    #fbfaf8;
 }
 
 /* When html[lang] or body[data-lang] indicates hi/mr, prefer Devanagari fonts globally */
@@ -68,7 +117,7 @@ body {
 /* ===== Scrollbar (for left scrollable part) ===== */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #93c5fd #f3f4f6;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -76,13 +125,13 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f3f4f6;
-  border-radius: 4px;
+  background: #f1f5f9;
+  border-radius: 999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #93c5fd;
-  border-radius: 4px;
+  background-color: #cbd5e1;
+  border-radius: 999px;
 }
 
 /* ===== Add Field & Buttons ===== */

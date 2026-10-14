@@ -4,81 +4,100 @@ import "./globals.css";
 import { LanguageProvider } from "./hooks/useLanguage";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const notoDevanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari", "latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-noto-devanagari"
+  variable: "--font-noto-devanagari",
+  display: "swap",
 });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
+const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap" });
+
+const SITE_URL = "https://onlinefreebiodata.com";
+const SITE_NAME = "Online Free Biodata Maker";
+const OG_IMAGE = `${SITE_URL}/Images/m1.png`;
 
 // Comprehensive metadata for SEO
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Online Free Biodata Maker - Create Premium Marriage Biodata",
+    default: "Free Marriage Biodata Maker Online — 20+ Templates (Hindi, Marathi, English)",
     template: "%s | Online Free Biodata Maker",
   },
   description:
-    "Create professional marriage biodata in multiple languages (English, Hindi, Marathi) with beautiful templates. Free online biodata maker with 20+ premium designs. Download as PNG instantly.",
+    "Create a beautiful marriage biodata in 5 minutes. 20+ traditional & modern templates in English, Hindi & Marathi. 100% free, no signup, no watermark. Download high-quality PNG.",
   keywords: [
-    "marriage biodata",
-    "biodata maker",
-    "matrimonial biodata",
-    "biodata creator",
-    "marriage profile",
-    "biodata templates",
-    "Hindi biodata",
-    "Marathi biodata",
+    "marriage biodata maker",
     "free biodata maker",
-    "online biodata creator",
+    "marriage biodata online",
+    "biodata maker online free",
+    "matrimonial biodata",
+    "marriage biodata format",
+    "hindi biodata maker",
+    "marathi biodata maker",
+    "marriage biodata templates",
+    "biodata for marriage",
+    "hindu marriage biodata",
+    "muslim marriage biodata",
     "online free biodata",
   ],
-  authors: [{ name: "Online Free Biodata Maker Team" }],
-  creator: "Online Free Biodata Maker",
-  publisher: "Online Free Biodata Maker",
+  authors: [{ name: "Online Free Biodata Maker Team", url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "Matrimonial",
+  classification: "Marriage biodata creator",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://onlinefreebiodata.com"),
   alternates: {
     canonical: "/",
+    languages: {
+      en: "/",
+      hi: "/?lang=hi",
+      mr: "/?lang=mr",
+    },
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
+    alternateLocale: ["hi_IN", "mr_IN"],
     url: "/",
-    title: "Online Free Biodata Maker - Create Premium Marriage Biodata",
+    title: "Free Marriage Biodata Maker Online — 20+ Templates",
     description:
-      "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker with 20+ premium designs.",
-    siteName: "Online Free Biodata Maker",
+      "Create a print-ready marriage biodata in English, Hindi or Marathi. 20+ premium templates. Free, private, no signup.",
+    siteName: SITE_NAME,
     images: [
       {
-        url: "/Images/m1.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Online Free Biodata Maker Preview",
+        alt: "Marriage biodata templates preview — free online maker",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Free Biodata Maker - Create Premium Marriage Biodata",
+    title: "Free Marriage Biodata Maker Online — 20+ Templates",
     description:
-      "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker.",
-    images: ["/Images/m1.png"],
+      "Create a beautiful marriage biodata in 5 minutes. Hindi, Marathi & English. Free, no signup, HD download.",
+    images: [OG_IMAGE],
     creator: "@biodatamaker",
+    site: "@biodatamaker",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
@@ -92,6 +111,13 @@ export const metadata: Metadata = {
     apple: [{ url: "/icon/favicon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Biodata Maker",
+  },
+  applicationName: SITE_NAME,
+  referrer: "origin-when-cross-origin",
 };
 
 // Viewport configuration
@@ -102,9 +128,57 @@ export const viewport: Viewport = {
   userScalable: true,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#1f2937" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
   ],
 };
+
+function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/icon/favicon.png`,
+        },
+        sameAs: [],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        inLanguage: ["en", "hi", "mr"],
+      },
+      {
+        "@type": "WebApplication",
+        name: SITE_NAME,
+        description:
+          "Free online tool to create professional marriage biodatas in English, Hindi and Marathi with 20+ templates.",
+        url: SITE_URL,
+        applicationCategory: "UtilityApplication",
+        operatingSystem: "Any",
+        browserRequirements: "Requires JavaScript",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "INR",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          ratingCount: "12000",
+          bestRating: "5",
+        },
+      },
+    ],
+  };
+}
 
 export default function RootLayout({
   children,
@@ -114,37 +188,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Additional SEO meta tags */}
-        <meta name="application-name" content="Online Free Biodata Maker" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Online Free Biodata" />
-        <meta name="mobile-web-app-capable" content="yes" />
-
-        {/* Structured Data for SEO */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "Online Free Biodata Maker",
-              description:
-                "Create professional marriage biodata in multiple languages with beautiful templates",
-              url: "https://onlinefreebiodata.com",
-              applicationCategory: "UtilityApplication",
-              operatingSystem: "Any",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-              },
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.8",
-                ratingCount: "12000",
-              },
-            }),
+            __html: JSON.stringify(organizationJsonLd()),
           }}
         />
       </head>

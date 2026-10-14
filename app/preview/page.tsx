@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import NextImage from "next/image";
+import Link from "next/link";
 import { useLanguageContext } from "../hooks/useLanguage";
-import { Download, Sparkles, Zap } from "lucide-react";
+import { Download, Sparkles, Zap, ArrowLeft, Check, Pencil, Share2, Loader2, BadgeCheck, Printer } from "lucide-react";
 
 interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
@@ -41,10 +42,78 @@ export default function PreviewPage() {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
   const [isCanvasVisible, setIsCanvasVisible] = useState(false);
   const [isTemplateLoading, setIsTemplateLoading] = useState(false);
-  const { language, setLanguage } = useLanguageContext();
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const { language } = useLanguageContext();
+
+  const showToast = useCallback((msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2600);
+  }, []);
+
+  const getFileName = useCallback(() => {
+    const raw =
+      (formData as any)?.personalInfo?.fields?.[0]?.value ||
+      (formData as any)?.personalDetails?.fields?.[0]?.value ||
+      "biodata";
+    const first = String(raw).split(" ")[0] || "biodata";
+    return `${sanitizeFileName(first)}_biodata.png`;
+  }, [formData]);
+
+  const handleDownload = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || isDownloading) return;
+    setIsDownloading(true);
+    try {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = getFileName();
+      link.click();
+      showToast("Biodata downloaded — check your downloads");
+    } finally {
+      setTimeout(() => setIsDownloading(false), 600);
+    }
+  }, [getFileName, isDownloading, showToast]);
+
+  const handleShare = useCallback(async () => {
+    const canvas = canvasRef.current;
+    if (!canvas || isSharing) return;
+    setIsSharing(true);
+    try {
+      const blob: Blob | null = await new Promise((res) => canvas.toBlob(res, "image/png"));
+      const fileName = getFileName();
+      if (blob) {
+        const file = new File([blob], fileName, { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: "My Marriage Biodata" });
+          return;
+        }
+      }
+      // Fallback: open WhatsApp share with text prompt to attach the downloaded PNG
+      handleDownload();
+      window.open(`https://wa.me/?text=${encodeURIComponent("My marriage biodata is ready — attaching now.")}`, "_blank");
+    } catch {
+      // user cancelled share — no-op
+    } finally {
+      setIsSharing(false);
+    }
+  }, [getFileName, handleDownload, isSharing]);
+
+  const handleSelectTemplate = useCallback((tpl: Template) => {
+    setSelectedTemplate((prev) => {
+      if (prev?.id === tpl.id) return prev;
+      return prev;
+    });
+    if (selectedTemplate?.id === tpl.id) return;
+    setIsTemplateLoading(true);
+    setTimeout(() => {
+      setSelectedTemplate(tpl);
+      setTimeout(() => setIsTemplateLoading(false), 700);
+    }, 60);
+  }, [selectedTemplate?.id]);
 
   const templates: Template[] = [
     // ELEGANT BASE (1, 2, 3)
@@ -122,15 +191,6 @@ export default function PreviewPage() {
 
   ];
 
-
-
-  // Detect mobile
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
 
   useEffect(() => {
@@ -373,8 +433,50 @@ export default function PreviewPage() {
 
 
     const labelX = width * (template.labelsLeftPadding ?? 0.12);
-    // Move colon and value slightly left so values sit closer to labels
-    const colonX = width * 0.32;
+
+    // Shared label/value fonts (depend only on language)
+    const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
+    const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
+
+    // derive label/value font sizes from the template when provided.
+    // Templates currently use a small fractional value (e.g. 0.015) which
+    // we interpret as a fraction of the canvas width. If the template
+    // provides an absolute px value (>= 1) we accept that as px. Otherwise
+    // fall back to a scale of the base fontSize so older templates still work.
+    const computeFontFromTemplate = (tplSize?: number, defaultScale = 0.95) => {
+      if (typeof tplSize === "number") {
+        if (tplSize > 0 && tplSize < 1) {
+          // fractional value relative to canvas width
+          return Math.max(9, Math.round(width * tplSize));
+        }
+        if (tplSize >= 1) {
+          // explicit px value
+          return Math.max(9, Math.round(tplSize));
+        }
+      }
+      return Math.max(9, Math.round(fontSize * defaultScale));
+    };
+
+    const labelFontSize = computeFontFromTemplate(template.labelFontSize, 0.98);
+    // Keep value size consistent with label size (matches previous behavior)
+    const valueFontSize = labelFontSize;
+
+    // Adaptive label column: measure the widest label so labels never wrap
+    // onto two lines (e.g. "Mobile Number"). Clamped so a very long custom
+    // label can't eat the whole value column.
+    ctx.font = `600 ${labelFontSize}px ${labelFont}`;
+    let maxLabelW = 0;
+    sections.forEach((sec: any) => {
+      if (!sec?.fields) return;
+      sec.fields.forEach((f: any) => {
+        const lt = (f.label ?? "").toString().trim();
+        const vv = (f.value ?? "").toString().trim();
+        if (!lt || !vv) return;
+        const w = ctx.measureText(lt).width;
+        if (w > maxLabelW) maxLabelW = w;
+      });
+    });
+    const colonX = Math.min(width * 0.45, Math.max(width * 0.30, labelX + maxLabelW + 14));
     const valueX = colonX + 18;
 
     sections.forEach((sec: any) => {
@@ -415,36 +517,11 @@ export default function PreviewPage() {
           ? photoX - 16
           : width - 40;
 
-        const labelMaxWidth = Math.max(40, colonX - labelX - 10);
+        const labelMaxWidth = Math.max(40, colonX - labelX - 6);
         const valueMaxWidth = safeRight - valueX;
 
         // Set fonts (Outfit is more premium than Poppins)
         ctx.fillStyle = template.textColor || "#000";
-        const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
-        const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
-
-        // derive label/value font sizes from the template when provided.
-        // Templates currently use a small fractional value (e.g. 0.015) which
-        // we interpret as a fraction of the canvas width. If the template
-        // provides an absolute px value (>= 1) we accept that as px. Otherwise
-        // fall back to a scale of the base fontSize so older templates still work.
-        const computeFontFromTemplate = (tplSize?: number, defaultScale = 0.95) => {
-          if (typeof tplSize === "number") {
-            if (tplSize > 0 && tplSize < 1) {
-              // fractional value relative to canvas width
-              return Math.max(9, Math.round(width * tplSize));
-            }
-            if (tplSize >= 1) {
-              // explicit px value
-              return Math.max(9, Math.round(tplSize));
-            }
-          }
-          return Math.max(9, Math.round(fontSize * defaultScale));
-        };
-
-        const labelFontSize = computeFontFromTemplate(template.labelFontSize, 0.98);
-        // Keep value size consistent with label size (matches previous behavior)
-        const valueFontSize = labelFontSize;
         ctx.textAlign = "left";
 
         // --- Calculate wrapped label height ---
@@ -669,15 +746,10 @@ export default function PreviewPage() {
   if (loading) {
     return (
       <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white">
-        <div className="relative flex flex-col items-center">
-          <div className="w-20 h-20 mb-8 relative">
-            <div className="absolute inset-0 rounded-full border-[3px] border-pink-50 translate-x-1 translate-y-1"></div>
-            <div className="absolute inset-0 rounded-full border-[3px] border-pink-500 border-t-transparent animate-spin"></div>
-            <div className="absolute inset-3 rounded-full border-[3px] border-blue-50 -translate-x-1 -translate-y-1"></div>
-            <div className="absolute inset-3 rounded-full border-[3px] border-blue-400 border-b-transparent animate-[spin_2s_linear_infinite_reverse]"></div>
-          </div>
-          <h2 className="text-xl font-bold text-gray-800 tracking-tight mb-2 animate-pulse">Initializing Preview</h2>
-          <p className="text-gray-400 text-sm font-medium uppercase tracking-widest">Please wait...</p>
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 rounded-full border-[3px] border-slate-200 border-t-slate-900 animate-spin mb-5" />
+          <h2 className="text-[17px] font-semibold text-slate-900 tracking-tight">Preparing your preview</h2>
+          <p className="text-slate-500 text-[13px] font-medium mt-1">Rendering high-resolution biodata…</p>
         </div>
       </div>
     );
@@ -685,347 +757,297 @@ export default function PreviewPage() {
 
   if (!formData) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center bg-gray-50 px-6">
-        <div className="w-24 h-24 bg-pink-50 rounded-3xl flex items-center justify-center mb-6 text-pink-500">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="flex flex-col items-center justify-center min-h-screen text-center bg-[#fbfaf8] px-6">
+        <div className="w-16 h-16 bg-white border border-slate-200 rounded-2xl flex items-center justify-center mb-5 text-slate-400 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">No Data Found</h2>
-        <p className="text-gray-500 max-w-sm mb-8 leading-relaxed">
-          Your biodata details are missing. Please fill the form first to generate your professional marriage profile.
+        <h2 className="text-[22px] font-semibold text-slate-900 tracking-tight mb-2">No details found</h2>
+        <p className="text-slate-600 text-[14.5px] max-w-sm mb-7 leading-relaxed">
+          Fill in your biodata details first — then preview and download your design here.
         </p>
         <button
           onClick={() => router.push("/")}
-          className="px-8 py-3.5 bg-pink-500 text-white font-bold rounded-xl shadow-lg shadow-pink-100 hover:bg-pink-600 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          className="h-12 px-8 bg-slate-900 text-white text-[14.5px] font-semibold rounded-full hover:bg-rose-900 transition-colors"
         >
-          Start Creating Now
+          Start creating — it&apos;s free
         </button>
       </div>
     );
   }
 
   return (
-    <>
-      <header className="top-0 z-50 bg-white shadow-md border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div className="min-h-screen bg-[#fbfaf8] text-slate-900 antialiased">
+      {/* Toast */}
+      {toast && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center pointer-events-none">
+          <div className="bg-slate-900 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
+            <span className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+              <Check className="w-3 h-3 text-emerald-300" strokeWidth={3} />
+            </span>
+            <p className="text-[13px] font-medium">{toast}</p>
+          </div>
+        </div>
+      )}
 
-          <div className="flex flex-col items-center justify-center text-center">
-
-            {/* MAIN HEADING */}
-            {/* <h1
-              className="text-xl sm:text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
-        bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 
-        tracking-wide drop-shadow-sm"
+      {/* Top bar */}
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div className="h-[2px] w-full bg-gradient-to-r from-rose-900 via-rose-700 to-amber-600" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="h-[64px] flex items-center justify-between gap-3">
+            <button
+              onClick={() => {
+                localStorage.setItem('page', 'true');
+                router.push("/");
+              }}
+              className="inline-flex items-center gap-2 h-10 pl-2.5 pr-4 rounded-full border border-slate-200 bg-white text-[13.5px] font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition"
             >
-              Choose Your Biodata Template
-            </h1> */}
+              <ArrowLeft className="w-4 h-4" />
+              Edit details
+            </button>
 
-            {/* SUB TEXT */}
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-0">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-50 text-pink-600 text-[10px] sm:text-xs font-bold border border-pink-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
-                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span>100% Free</span>
-              </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] sm:text-xs font-bold border border-blue-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-700">
-                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span>Instant Ready</span>
-              </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-[10px] sm:text-xs font-bold border border-indigo-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-1000">
-                <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span>Ultra HD Output</span>
-              </div>
+            <div className="text-center leading-tight">
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-slate-500">Step 2 of 2 • Preview</p>
+              <h1 className="text-[16px] sm:text-[17px] font-semibold tracking-tight">Choose template &amp; download</h1>
             </div>
 
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="hidden sm:inline-flex items-center gap-2 h-10 px-5 rounded-full bg-slate-900 text-white text-[13.5px] font-semibold hover:bg-rose-900 transition disabled:opacity-60"
+            >
+              {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+              {isDownloading ? "Saving…" : "Download PNG"}
+            </button>
+            {/* mobile: compact download icon keeps bar balanced */}
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              aria-label="Download biodata PNG"
+              className="sm:hidden w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-rose-900 transition disabled:opacity-60"
+            >
+              {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+            </button>
           </div>
-
         </div>
       </header>
 
-      <div className="min-h-screen bg-gray-50 pl-4 pr-4 md:p-8">
-        {/* <div className="max-w-7xl mx-auto text-center"> */}
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 mt-2">
-          <div className="w-full md:w-7/12 flex flex-col items-center relative">
-            <div className="bg-white p-0 shadow-sm w-full flex justify-center mt-0 relative overflow-hidden min-h-[50vh]">
-              {/* INSTAGRAM-STYLE SKELETON LOADER */}
-              {isTemplateLoading && (
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 backdrop-blur-[1px] transition-all duration-300">
-                  <div
-                    className="relative bg-white rounded-lg overflow-hidden flex flex-col items-center"
-                    style={{
-                      height: isMobile ? "55vh" : "75vh",
-                      maxHeight: "800px",
-                      width: isMobile ? "80%" : "50%",
-                      maxWidth: "760px",
-                    }}
-                  >
-                    {/* The Shimmering Overlay */}
-                    <div className="absolute inset-0 z-10 animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-gray-100/50 to-transparent -translate-x-full" />
-
-                    {/* Header Circle (God Photo) */}
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-full mt-10 mb-4" />
-                    {/* Header Text (God Title) */}
-                    <div className="w-32 h-3 bg-gray-100 rounded-full mb-12" />
-
-                    {/* Field Rows (Label & Value blocks) */}
-                    <div className="w-full px-8 sm:px-12 space-y-6">
-                      {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-                        <div key={i} className="flex gap-4 items-center">
-                          <div className="w-20 h-2.5 bg-gray-100 rounded-full" />
-                          <div className="flex-1 h-2.5 bg-gray-50 rounded-full" />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Floating Status Message */}
-                    <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center">
-                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] animate-pulse text-center">
-                        Perfecting Template
-                      </p>
-                    </div>
-                  </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-10 pb-32 md:pb-16">
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+          {/* LEFT — preview */}
+          <div className="w-full lg:flex-1 min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-[0_20px_60px_-24px_rgba(15,23,42,0.25)] overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  <p className="text-[13.5px] font-semibold truncate">
+                    {selectedTemplate ? `Design ${selectedTemplate.id} — ${selectedTemplate.name}` : "Your biodata"}
+                  </p>
                 </div>
-              )}
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[11px] font-semibold">
+                    <BadgeCheck className="w-3.5 h-3.5" /> HD • A4
+                  </span>
+                </div>
+              </div>
 
-              <canvas
-                ref={canvasRef}
-                className="shadow-sm bg-white mt-5 mb-5 w-[85%] sm:w-[50%] h-[50vh] sm:h-[75vh] max-h-[800px] max-w-[760px]"
-                style={{
-                  height: isMobile ? "55vh" : "75vh",
-                  maxHeight: "800px",
-                  width: isMobile ? "80%" : "50%",
-                  maxWidth: "760px",
-                  aspectRatio: "auto",
-                  opacity: isTemplateLoading ? 0.5 : 1
-                }}
-              />
+              <div className="relative bg-[#f6f4f1] flex justify-center px-4 py-6 sm:py-8 min-h-[52vh]">
+                {isTemplateLoading && (
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/80 backdrop-blur-[1px]">
+                    <div className="w-10 h-10 rounded-full border-[3px] border-slate-200 border-t-slate-900 animate-spin mb-3" />
+                    <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Applying design</p>
+                  </div>
+                )}
+
+                <canvas
+                  ref={canvasRef}
+                  className="bg-white shadow-[0_16px_50px_-20px_rgba(15,23,42,0.35)] rounded-[4px] w-full max-w-[560px] h-auto mx-auto"
+                  style={{
+                    aspectRatio: "600 / 950",
+                    opacity: isTemplateLoading ? 0.4 : 1,
+                  }}
+                />
+              </div>
+
+              {/* Desktop actions */}
+              <div className="hidden md:flex items-center gap-3 px-5 py-4 border-t border-slate-100 bg-white">
+                <button
+                  onClick={() => {
+                    localStorage.setItem('page', 'true');
+                    router.push("/");
+                  }}
+                  className="inline-flex items-center gap-2 h-11 px-5 rounded-full border border-slate-300 text-[14px] font-semibold text-slate-800 hover:border-slate-900 transition"
+                >
+                  <Pencil className="w-4 h-4" /> Edit details
+                </button>
+                <button
+                  onClick={handleShare}
+                  disabled={isSharing}
+                  className="inline-flex items-center gap-2 h-11 px-5 rounded-full border border-slate-300 text-[14px] font-semibold text-slate-800 hover:border-slate-900 transition disabled:opacity-60"
+                >
+                  {isSharing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />} Share
+                </button>
+                <button
+                  onClick={handleDownload}
+                  disabled={isDownloading}
+                  className="flex-1 inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-slate-900 text-white text-[14px] font-semibold hover:bg-rose-900 transition disabled:opacity-60"
+                >
+                  {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                  {isDownloading ? "Saving…" : "Download HD PNG"}
+                </button>
+              </div>
             </div>
 
-            <div
-              className="
-    fixed bottom-1 left-1/2 -translate-x-1/2 
-    md:static md:translate-x-0
-    w-[95%] md:w-auto 
-    px-4 py-3 
-    bg-white/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none
-    rounded-2xl shadow-xl md:shadow-none border border-gray-200 md:border-none
-    flex gap-4 items-center justify-center
-    z-50 md:z-auto md:mt-6
-  "
-            >
-              {/* Edit Button */}
-              <button
-                onClick={() => {
-                  localStorage.setItem('page', 'true');
-                  router.push("/");
-                }}
-                className="
-                flex-1 flex items-center justify-center py-3 px-5
-                bg-gray-100 text-gray-700 font-bold
-                rounded-lg border border-gray-200
-                transition-all
-                text-sm sm:text-base md:text-lg
-              "
-              >
-                Edit Biodata
-              </button>
-
-              {/* Download Button */}
-              <button
-                onClick={() => {
-                  const firstName =
-                    formData?.personalInfo?.fields?.[0]?.value?.split(' ')[0] || "biodata";
-                  const safeName = sanitizeFileName(firstName);
-                  const canvas = canvasRef.current;
-                  if (!canvas) return;
-
-                  const link = document.createElement("a");
-                  link.href = canvas.toDataURL("image/png");
-                  link.download = `${safeName}_biodata.png`;
-                  link.click();
-                }}
-                className="
-                flex-1 flex items-center justify-center py-3 px-5
-                bg-pink-500 text-white font-bold
-                rounded-lg
-                transition-all
-                text-sm sm:text-base md:text-lg
-              "
-              >
-                Download PNG
-              </button>
-
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-[12.5px] text-slate-500">
+              <span className="inline-flex items-center gap-1.5"><Zap className="w-3.5 h-3.5" /> Renders instantly when you switch designs</span>
+              <span aria-hidden>•</span>
+              <span className="inline-flex items-center gap-1.5"><Printer className="w-3.5 h-3.5" /> Print on A4 for best result</span>
+              <span aria-hidden>•</span>
+              <span className="inline-flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> Free • No watermark</span>
             </div>
-
           </div>
 
-          <div className="w-full md:w-5/12 bg-white shadow-sm rounded-xl p-4 overflow-y-auto">
-            <h2 className="text-lg font-semibold text-gray-700 text-center mb-4">Choose Template</h2>
-            <div className="flex md:hidden gap-2 py-2 overflow-x-auto scroll-smooth scrollbar-hide">
-              {templates.map((tpl) => (
-                <div
-                  key={tpl.id}
-                  onClick={() => {
-                    if (selectedTemplate?.id === tpl.id) return;
-                    setIsTemplateLoading(true);
-                    // Use a timeout to allow the loading state to render before heavy canvas work
-                    setTimeout(() => {
-                      setSelectedTemplate(tpl);
-                      setTimeout(() => setIsTemplateLoading(false), 1000);
-                    }, 50);
-                  }}
-                  className={`
-                    w-20 aspect-[3/4] shrink-0 cursor-pointer rounded-lg overflow-hidden relative transition-all
-                    ${tpl.id === selectedTemplate?.id
-                      ? "border-2 border-pink-500 shadow-md"
-                      : "border border-gray-200 opacity-80"}
-                  `}
-                >
-                  <NextImage
-                    src={tpl.img}
-                    alt={tpl.name}
-                    fill
-                    loading={tpl.id === selectedTemplate?.id ? "eager" : "lazy"}
-                    sizes="80px"
-                    className="object-contain"
-                  />
-                  {tpl.id === selectedTemplate?.id && (
-                    <>
-                      <div className="absolute inset-0   z-0"></div>
-                      <div className="absolute top-1 right-1 bg-pink-500 text-white rounded-full p-0.5 shadow-md z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
+          {/* RIGHT — template picker */}
+          <aside className="w-full lg:w-[380px] shrink-0 lg:sticky lg:top-24">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-1">
+                <h2 className="text-[15px] font-semibold tracking-tight">All designs</h2>
+                <span className="text-[12px] font-medium text-slate-500">{templates.length} designs</span>
+              </div>
+              <p className="text-[12.5px] text-slate-500 mb-4">Tap a design — your details apply automatically.</p>
 
-            {/* Web: Vertical Scroll Grid */}
-            <div className="hidden md:grid max-h-[75vh] overflow-y-auto grid-cols-2 lg:grid-cols-3 gap-6 mt-4 pr-2 custom-scrollbar">
-              {templates.map((tpl) => (
-                <div
-                  key={tpl.id}
-                  onClick={() => {
-                    if (selectedTemplate?.id === tpl.id) return;
-                    setIsTemplateLoading(true);
-                    setTimeout(() => {
-                      setSelectedTemplate(tpl);
-                      setTimeout(() => setIsTemplateLoading(false), 1000);
-                    }, 50);
-                  }}
-                  className={`
-                    cursor-pointer rounded-lg overflow-hidden bg-white shadow-sm border transition-all
-                    ${tpl.id === selectedTemplate?.id
-                      ? "border-pink-500 shadow-md"
-                      : "border-gray-200"}
-                  `}
-                >
-                  <div className="w-full aspect-[3/4] relative bg-gray-50">
-                    <NextImage
-                      src={tpl.img}
-                      alt={tpl.name}
-                      fill
-                      loading={tpl.id === selectedTemplate?.id ? "eager" : "lazy"}
-                      sizes="240px"
-                      className="object-contain p-2"
-                    />
-                    {tpl.id === selectedTemplate?.id && (
-                      <div className="absolute top-2 right-2 bg-pink-500 text-white rounded-full p-1 shadow-lg z-10 animate-in zoom-in-0 duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* <div className="px-3 py-3 text-center bg-gray-50 border-t">
-                    <p
-                      className={`text-sm font-semibold tracking-wide ${tpl.id === selectedTemplate?.id ? "text-pink-600" : "text-gray-700"
-                        }`}
+              {/* Mobile: horizontal strip */}
+              <div className="flex lg:hidden gap-3 py-1 overflow-x-auto scroll-smooth scrollbar-hide -mx-1 px-1">
+                {templates.map((tpl) => {
+                  const active = tpl.id === selectedTemplate?.id;
+                  return (
+                    <button
+                      key={tpl.id}
+                      onClick={() => handleSelectTemplate(tpl)}
+                      aria-pressed={active}
+                      className={`w-24 shrink-0 text-left rounded-xl overflow-hidden border-2 transition ${active ? "border-slate-900 shadow-md" : "border-slate-200 opacity-90 hover:border-slate-400"}`}
                     >
-                      {tpl.name}
-                    </p>
-                  </div> */}
-                </div>
-              ))}
+                      <span className="block w-full aspect-[3/4] relative bg-[#f6f4f1]">
+                        <NextImage
+                          src={tpl.img}
+                          alt={`Biodata design ${tpl.id} — ${tpl.name}`}
+                          fill
+                          loading={active ? "eager" : "lazy"}
+                          sizes="96px"
+                          className="object-contain p-1.5"
+                        />
+                        {active && (
+                          <span className="absolute top-1.5 right-1.5 bg-slate-900 text-white rounded-full p-1 shadow">
+                            <Check className="h-3 w-3" strokeWidth={3} />
+                          </span>
+                        )}
+                      </span>
+                      <span className={`block px-2 py-1.5 text-[11px] font-semibold ${active ? "bg-slate-900 text-white" : "bg-white text-slate-600"}`}>
+                        Design {tpl.id}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Desktop: grid */}
+              <div className="hidden lg:grid max-h-[62vh] overflow-y-auto grid-cols-3 gap-3 pr-1.5 custom-scrollbar">
+                {templates.map((tpl) => {
+                  const active = tpl.id === selectedTemplate?.id;
+                  return (
+                    <button
+                      key={tpl.id}
+                      onClick={() => handleSelectTemplate(tpl)}
+                      aria-pressed={active}
+                      className={`text-left rounded-xl overflow-hidden border-2 transition group ${active ? "border-slate-900 shadow-md" : "border-slate-200 hover:border-slate-400"}`}
+                    >
+                      <span className="block w-full aspect-[3/4] relative bg-[#f6f4f1]">
+                        <NextImage
+                          src={tpl.img}
+                          alt={`Biodata design ${tpl.id} — ${tpl.name}`}
+                          fill
+                          loading={active ? "eager" : "lazy"}
+                          sizes="120px"
+                          className="object-contain p-1.5 group-hover:scale-[1.03] transition-transform"
+                        />
+                        {active && (
+                          <span className="absolute top-1.5 right-1.5 bg-slate-900 text-white rounded-full p-1 shadow">
+                            <Check className="h-3 w-3" strokeWidth={3} />
+                          </span>
+                        )}
+                      </span>
+                      <span className={`block px-2 py-1.5 text-[11px] font-semibold text-center ${active ? "bg-slate-900 text-white" : "bg-white text-slate-600"}`}>
+                        {tpl.id}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-3.5 hidden lg:block">
+                <p className="text-[12.5px] text-slate-600 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Tip:</span> darker borders (Classic Maroon) look rich in print; Minimal Ivory saves ink.
+                </p>
+              </div>
             </div>
-
-
-          </div>
+          </aside>
         </div>
 
-        {/* Extra Info Section */}
-        <div className="mt-12 mb-24">
-          <h3 className="text-2xl font-bold text-gray-800 text-center">
-            Why Choose Our Biodata Maker?
-          </h3>
-
-          <p className="text-center text-gray-500 mt-2 max-w-md mx-auto">
-            We provide beautiful, customizable and fully editable biodata templates for FREE.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-6xl mx-auto">
-            {/* Card 1 */}
-            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-              <div className="text-pink-600 text-4xl mb-3">🎁</div>
-              <h4 className="text-lg font-bold text-gray-800">100% Free Templates</h4>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                All biodata templates are completely free to use—no signup required.
-              </p>
+        {/* Pro tips — replaces emoji cards */}
+        <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-5xl mx-auto">
+          {[
+            { icon: Check, title: "Check before download", desc: "Verify names, dates & phone number — typos are the #1 issue." },
+            { icon: Printer, title: "Print on A4", desc: "The PNG is high-resolution and stays crisp in colour or B/W." },
+            { icon: Share2, title: "Share smartly", desc: "Send the fresh HD file on WhatsApp — avoid re-forwarded blurry copies." },
+          ].map((c) => (
+            <div key={c.title} className="bg-white rounded-2xl border border-slate-200 p-5 flex gap-3.5">
+              <span className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+                <c.icon className="w-4.5 h-4.5" />
+              </span>
+              <span>
+                <span className="block text-[14px] font-semibold tracking-tight">{c.title}</span>
+                <span className="block mt-1 text-[13px] text-slate-600 leading-relaxed">{c.desc}</span>
+              </span>
             </div>
+          ))}
+        </div>
 
-            {/* Card 2 */}
-            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-              <div className="text-blue-600 text-4xl mb-3">✨</div>
-              <h4 className="text-lg font-bold text-gray-800">Modern & Clean Designs</h4>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                Professionally crafted templates that look elegant and beautiful.
-              </p>
-            </div>
+        <p className="mt-8 text-center text-[13px] text-slate-500">
+          Want a different style? <Link href="/templates" className="font-semibold text-rose-800 hover:underline">Browse all templates</Link> or <Link href="/guide" className="font-semibold text-rose-800 hover:underline">read the guide</Link>.
+        </p>
+      </div>
 
-            {/* Card 3 */}
-            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-              <div className="text-green-600 text-4xl mb-3">⚡</div>
-              <h4 className="text-lg font-bold text-gray-800">Fast PNG Download</h4>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                Download your biodata instantly in high-quality PNG format.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-              <div className="text-purple-600 text-4xl mb-3">📱</div>
-              <h4 className="text-lg font-bold text-gray-800">Mobile Friendly</h4>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                Create biodata easily on any mobile device without app installation.
-              </p>
-            </div>
-
-            {/* Card 5 */}
-            <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-              <div className="text-orange-600 text-4xl mb-3">🎨</div>
-              <h4 className="text-lg font-bold text-gray-800">Fully Customizable</h4>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                Edit every section — personal info, family details, photos & more.
-              </p>
-            </div>
-
-            {/* Card 6 */}
-            <div className="p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100">
-              <div className="text-red-600 text-4xl mb-3">⭐</div>
-              <h4 className="text-lg font-bold text-gray-800">Premium Look</h4>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                Stand out with premium designs that impress everyone instantly.
-              </p>
-            </div>
-          </div>
+      {/* Mobile sticky action bar */}
+      <div className="fixed bottom-0 inset-x-0 z-50 md:hidden">
+        <div className="mx-3 mb-3 rounded-2xl bg-white/95 backdrop-blur border border-slate-200 shadow-[0_12px_40px_-12px_rgba(15,23,42,0.4)] p-2.5 flex gap-2.5" style={{ paddingBottom: "calc(0.625rem + env(safe-area-inset-bottom))" }}>
+          <button
+            onClick={() => {
+              localStorage.setItem('page', 'true');
+              router.push("/");
+            }}
+            className="flex-1 inline-flex items-center justify-center gap-1.5 h-12 rounded-xl border border-slate-300 text-[14px] font-semibold text-slate-800"
+          >
+            <Pencil className="w-4 h-4" /> Edit
+          </button>
+          <button
+            onClick={handleShare}
+            disabled={isSharing}
+            aria-label="Share biodata"
+            className="w-12 h-12 rounded-xl border border-slate-300 flex items-center justify-center text-slate-800 disabled:opacity-60"
+          >
+            {isSharing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={handleDownload}
+            disabled={isDownloading}
+            className="flex-[1.4] inline-flex items-center justify-center gap-1.5 h-12 rounded-xl bg-slate-900 text-white text-[14px] font-semibold disabled:opacity-60"
+          >
+            {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />} Download
+          </button>
         </div>
       </div>
 
-
-    </>
+    </div>
   );
 }

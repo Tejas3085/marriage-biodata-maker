@@ -1,11 +1,11 @@
 {
-    "name": "Marriage Biodata Maker",
+    "name": "Online Free Biodata Maker — Marriage Biodata Creator",
     "short_name": "Biodata Maker",
-    "description": "Create beautiful marriage biodata in multiple languages with professional templates",
+    "description": "Create a beautiful marriage biodata in 5 minutes. 20+ free templates in English, Hindi & Marathi. No signup, HD download.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#ec4899",
+    "theme_color": "#0f172a",
     "orientation": "portrait-primary",
     "icons": [
         {

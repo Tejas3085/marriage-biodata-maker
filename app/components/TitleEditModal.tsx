@@ -47,7 +47,7 @@ export default function TitleEditModal({
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full border border-gray-300 rounded-md p-2 mb-4 focus:ring-2 focus:ring-pink-400"
+          className="w-full border border-gray-300 rounded-md p-2 mb-4 focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 focus:outline-none"
           placeholder="Enter title"
           autoFocus
         />
@@ -61,7 +61,7 @@ export default function TitleEditModal({
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700"
+            className="px-4 py-2 bg-slate-900 text-white rounded-full font-medium hover:bg-rose-900"
           >
             {selectedLang === "mr" ? "सेव्ह करा" : "Save"}
           </button>
