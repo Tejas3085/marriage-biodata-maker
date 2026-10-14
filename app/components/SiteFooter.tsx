@@ -42,7 +42,8 @@ export default function SiteFooter() {
               <li><Link href="/guide" className="hover:text-white transition">How-to guide</Link></li>
               <li><Link href="/blog" className="hover:text-white transition">Blog</Link></li>
               <li><Link href="/examples" className="hover:text-white transition">Examples</Link></li>
-              <li><Link href="/pricing" className="hover:text-white transition">Pricing — always free</Link></li>
+              <li><Link href="/pricing" className="hover:text-white transition">Pricing</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition">Contact us</Link></li>
             </ul>
           </div>
 
@@ -61,6 +62,7 @@ export default function SiteFooter() {
           <div className="flex items-center gap-5">
             <Link href="/privacy" className="hover:text-white transition">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition">Terms</Link>
+            <Link href="/refunds" className="hover:text-white transition">Refunds</Link>
           </div>
         </div>
       </div>

@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
 import { useLanguageContext } from "../hooks/useLanguage";
-import { Download, Sparkles, Zap, ArrowLeft, Check, Pencil, Share2, Loader2, BadgeCheck, Printer } from "lucide-react";
+import { Download, Sparkles, Zap, ArrowLeft, Check, Pencil, Share2, Loader2, BadgeCheck, Printer, FileText, Image as ImageIcon, ChevronDown, Lock } from "lucide-react";
+import PayDialog from "../components/PayDialog";
+import { getTemplatePrice, hasUnlock, isPremiumTemplate, readUnlocks, saveUnlock, PREMIUM_PRICE_INR } from "./premium";
 
 interface Field { label: string; value: string; }
 interface Section { title?: string; fields: Field[]; }
@@ -36,6 +38,114 @@ interface Template {
   godPhotoSize?: number;
 }
 
+function DownloadMenu({
+  onPng,
+  onPdf,
+  pngBusy,
+  pdfBusy,
+  triggerClassName = "",
+  label = "Download",
+}: {
+  onPng: () => void;
+  onPdf: () => void;
+  pngBusy: boolean;
+  pdfBusy: boolean;
+  triggerClassName?: string;
+  label?: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open ]);
+
+  const busy = pngBusy || pdfBusy;
+  const itemCls =
+    "w-full flex items-center gap-3 px-5 py-3.5 text-left hover:bg-slate-50 active:bg-slate-100 transition disabled:opacity-60";
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className={triggerClassName}
+        aria-haspopup="dialog"
+      >
+        {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+        {label}
+        <ChevronDown className="w-4 h-4 opacity-70" />
+      </button>
+      {open && (
+        <div
+          className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Choose download format"
+        >
+          <button
+            type="button"
+            aria-label="Close download options"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-slate-950/45 cursor-default"
+          />
+          <div className="relative w-full sm:max-w-sm bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <p className="px-5 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+              Download format
+            </p>
+            <button
+              type="button"
+              onClick={() => { setOpen(false); onPng(); }}
+              disabled={busy}
+              className={itemCls}
+            >
+              <span className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                {pngBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4 text-slate-700" />}
+              </span>
+              <span>
+                <span className="block text-[14px] font-semibold text-slate-900">PNG image</span>
+                <span className="block text-[12.5px] text-slate-500">HD • WhatsApp &amp; mobile</span>
+              </span>
+            </button>
+            <div className="h-px bg-slate-100 mx-5" />
+            <button
+              type="button"
+              onClick={() => { setOpen(false); onPdf(); }}
+              disabled={busy}
+              className={itemCls}
+            >
+              <span className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center shrink-0">
+                {pdfBusy ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <FileText className="w-4 h-4 text-white" />}
+              </span>
+              <span>
+                <span className="block text-[14px] font-semibold text-slate-900">PDF document</span>
+                <span className="block text-[12.5px] text-slate-500">A4 • print shops</span>
+              </span>
+            </button>
+            <div className="p-3 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="w-full h-11 rounded-full bg-slate-100 text-slate-700 text-[14px] font-semibold hover:bg-slate-200 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 export default function PreviewPage() {
   const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -48,6 +158,11 @@ export default function PreviewPage() {
   const [isSharing, setIsSharing] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const { language } = useLanguageContext();
+
+  // Premium unlocks (persisted per-device in localStorage)
+  const [unlockedIds, setUnlockedIds] = useState<number[]>(() => readUnlocks());
+  const [payOpen, setPayOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"png" | "pdf" | "share" | null>(null);
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
@@ -63,24 +178,75 @@ export default function PreviewPage() {
     return `${sanitizeFileName(first)}_biodata.png`;
   }, [formData]);
 
+  // Premium gate: free templates download/share directly; premium ones open
+  // the pay dialog first and resume the pending action after payment.
+  // Reads localStorage live (not state) so post-payment retries can't go stale.
+  const guardPremium = useCallback((action: "png" | "pdf" | "share") => {
+    const tpl = selectedTemplate;
+    if (tpl && isPremiumTemplate(tpl.id) && !hasUnlock(tpl.id)) {
+      setPendingAction(action);
+      setPayOpen(true);
+      return true;
+    }
+    return false;
+  }, [selectedTemplate]);
+
   const handleDownload = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas || isDownloading) return;
+    if (guardPremium("png")) return;
     setIsDownloading(true);
     try {
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = getFileName();
       link.click();
-      showToast("Biodata downloaded — check your downloads");
+      showToast("PNG downloaded — check your downloads");
     } finally {
       setTimeout(() => setIsDownloading(false), 600);
     }
-  }, [getFileName, isDownloading, showToast]);
+  }, [getFileName, isDownloading, showToast, guardPremium]);
+
+  const [isPdfBusy, setIsPdfBusy] = useState(false);
+
+  const handleDownloadPdf = useCallback(async () => {
+    const canvas = canvasRef.current;
+    if (!canvas || isPdfBusy) return;
+    if (guardPremium("pdf")) return;
+    setIsPdfBusy(true);
+    try {
+      const { jsPDF } = await import("jspdf");
+      const pdf = new jsPDF({ unit: "mm", format: "a4", compress: true });
+      const pageW = 210;
+      const pageH = 297;
+      const margin = 10;
+      const maxW = pageW - margin * 2;
+      const maxH = pageH - margin * 2;
+      const ratio = canvas.width / canvas.height;
+      let w = maxW;
+      let h = w / ratio;
+      if (h > maxH) {
+        h = maxH;
+        w = h * ratio;
+      }
+      const x = (pageW - w) / 2;
+      const y = (pageH - h) / 2;
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(0, 0, pageW, pageH, "F");
+      pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", x, y, w, h);
+      pdf.save(getFileName().replace(/\.png$/i, ".pdf"));
+      showToast("PDF downloaded — A4 print-ready");
+    } catch {
+      showToast("Couldn't create PDF — try PNG instead");
+    } finally {
+      setIsPdfBusy(false);
+    }
+  }, [getFileName, isPdfBusy, showToast, guardPremium]);
 
   const handleShare = useCallback(async () => {
     const canvas = canvasRef.current;
     if (!canvas || isSharing) return;
+    if (guardPremium("share")) return;
     setIsSharing(true);
     try {
       const blob: Blob | null = await new Promise((res) => canvas.toBlob(res, "image/png"));
@@ -100,7 +266,24 @@ export default function PreviewPage() {
     } finally {
       setIsSharing(false);
     }
-  }, [getFileName, handleDownload, isSharing]);
+  }, [getFileName, handleDownload, isSharing, guardPremium]);
+
+  const runPendingAction = useCallback(() => {
+    const action = pendingAction;
+    setPendingAction(null);
+    if (action === "pdf") handleDownloadPdf();
+    else if (action === "share") handleShare();
+    else handleDownload();
+  }, [pendingAction, handleDownload, handleDownloadPdf, handleShare]);
+
+  const handlePaid = useCallback(() => {
+    if (selectedTemplate) saveUnlock(selectedTemplate.id);
+    setUnlockedIds(readUnlocks());
+    setPayOpen(false);
+    showToast("Premium unlocked — enjoy your design");
+    setTimeout(() => runPendingAction(), 200);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTemplate, showToast]);
 
   const handleSelectTemplate = useCallback((tpl: Template) => {
     setSelectedTemplate((prev) => {
@@ -791,6 +974,17 @@ export default function PreviewPage() {
         </div>
       )}
 
+      {payOpen && selectedTemplate && (
+        <PayDialog
+          open={payOpen}
+          templateId={selectedTemplate.id}
+          templateName={selectedTemplate.name}
+          priceInr={getTemplatePrice(selectedTemplate.id)}
+          onClose={() => { setPayOpen(false); setPendingAction(null); }}
+          onPaid={handlePaid}
+        />
+      )}
+
       {/* Top bar */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
         <div className="h-[2px] w-full bg-gradient-to-r from-rose-900 via-rose-700 to-amber-600" />
@@ -812,14 +1006,15 @@ export default function PreviewPage() {
               <h1 className="text-[16px] sm:text-[17px] font-semibold tracking-tight">Choose template &amp; download</h1>
             </div>
 
-            <button
-              onClick={handleDownload}
-              disabled={isDownloading}
-              className="hidden sm:inline-flex items-center gap-2 h-10 px-5 rounded-full bg-slate-900 text-white text-[13.5px] font-semibold hover:bg-rose-900 transition disabled:opacity-60"
-            >
-              {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-              {isDownloading ? "Saving…" : "Download PNG"}
-            </button>
+            <div className="hidden sm:block">
+              <DownloadMenu
+                onPng={handleDownload}
+                onPdf={handleDownloadPdf}
+                pngBusy={isDownloading}
+                pdfBusy={isPdfBusy}
+                triggerClassName="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-slate-900 text-white text-[13.5px] font-semibold hover:bg-rose-900 transition"
+              />
+            </div>
             {/* mobile: compact download icon keeps bar balanced */}
             <button
               onClick={handleDownload}
@@ -846,6 +1041,17 @@ export default function PreviewPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
+                  {selectedTemplate && isPremiumTemplate(selectedTemplate.id) && (
+                    unlockedIds.includes(selectedTemplate.id) ? (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold">
+                        <Check className="w-3.5 h-3.5" strokeWidth={3} /> Unlocked
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-semibold">
+                        <Lock className="w-3.5 h-3.5" /> Premium • ₹{PREMIUM_PRICE_INR}
+                      </span>
+                    )
+                  )}
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[11px] font-semibold">
                     <BadgeCheck className="w-3.5 h-3.5" /> HD • A4
                   </span>
@@ -888,14 +1094,16 @@ export default function PreviewPage() {
                 >
                   {isSharing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />} Share
                 </button>
-                <button
-                  onClick={handleDownload}
-                  disabled={isDownloading}
-                  className="flex-1 inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-slate-900 text-white text-[14px] font-semibold hover:bg-rose-900 transition disabled:opacity-60"
-                >
-                  {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-                  {isDownloading ? "Saving…" : "Download HD PNG"}
-                </button>
+                <div className="flex-1">
+                  <DownloadMenu
+                    onPng={handleDownload}
+                    onPdf={handleDownloadPdf}
+                    pngBusy={isDownloading}
+                    pdfBusy={isPdfBusy}
+                    label="Download HD"
+                    triggerClassName="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-slate-900 text-white text-[14px] font-semibold hover:bg-rose-900 transition"
+                  />
+                </div>
               </div>
             </div>
 
@@ -942,6 +1150,11 @@ export default function PreviewPage() {
                             <Check className="h-3 w-3" strokeWidth={3} />
                           </span>
                         )}
+                        {isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
+                          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-slate-900/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
+                            <Lock className="h-2.5 w-2.5" /> ₹{PREMIUM_PRICE_INR}
+                          </span>
+                        )}
                       </span>
                       <span className={`block px-2 py-1.5 text-[11px] font-semibold ${active ? "bg-slate-900 text-white" : "bg-white text-slate-600"}`}>
                         Design {tpl.id}
@@ -974,6 +1187,11 @@ export default function PreviewPage() {
                         {active && (
                           <span className="absolute top-1.5 right-1.5 bg-slate-900 text-white rounded-full p-1 shadow">
                             <Check className="h-3 w-3" strokeWidth={3} />
+                          </span>
+                        )}
+                        {isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
+                          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-slate-900/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
+                            <Lock className="h-2.5 w-2.5" /> ₹{PREMIUM_PRICE_INR}
                           </span>
                         )}
                       </span>
@@ -1038,13 +1256,16 @@ export default function PreviewPage() {
           >
             {isSharing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />}
           </button>
-          <button
-            onClick={handleDownload}
-            disabled={isDownloading}
-            className="flex-[1.4] inline-flex items-center justify-center gap-1.5 h-12 rounded-xl bg-slate-900 text-white text-[14px] font-semibold disabled:opacity-60"
-          >
-            {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />} Download
-          </button>
+          <div className="flex-[1.4]">
+            <DownloadMenu
+              onPng={handleDownload}
+              onPdf={handleDownloadPdf}
+              pngBusy={isDownloading}
+              pdfBusy={isPdfBusy}
+              label="Download"
+              triggerClassName="w-full inline-flex items-center justify-center gap-1.5 h-12 rounded-xl bg-slate-900 text-white text-[14px] font-semibold"
+            />
+          </div>
         </div>
       </div>
 
