@@ -464,7 +464,7 @@ export default function HomePage() {
                 {[
                   {
                     title: "Free essentials",
-                    desc: "27+ templates, HD downloads and all languages are free forever. Newest designs unlock for a one-time ₹49.",
+                    desc: "27+ templates, HD downloads and all languages are free forever. Featured premium designs unlock for a one-time ₹49.",
                     icon: <BadgeCheck className="w-5 h-5" />,
                   },
                   {
@@ -515,7 +515,7 @@ export default function HomePage() {
           </div>
           <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200">
             {[
-              { q: "Is this marriage biodata maker really free?", a: "Yes. 27+ templates, all languages, HD PNG and A4 PDF downloads are free forever with no signup and no watermark. A few newest premium designs unlock for a one-time ₹49." },
+              { q: "Is this marriage biodata maker really free?", a: "Yes. 27+ templates, all languages, HD PNG and A4 PDF downloads are free forever with no signup and no watermark. A few featured premium designs unlock for a one-time ₹49." },
               { q: "Can I make a biodata in Hindi or Marathi?", a: "Yes. Switch language anytime — full Devanagari support with traditional wordings like ॥ श्री गणेशाय नमः ॥, वैयक्तिक माहिती and व्यक्तिगत विवरण." },
               { q: "Is my data safe?", a: "Your details and photos are processed locally in your browser. Nothing is uploaded to a server. Use Reset to wipe everything." },
               { q: "Can I print the biodata?", a: "Yes. Every template exports as a high-resolution PNG and an A4-ready PDF for crisp colour or black-and-white printing." },

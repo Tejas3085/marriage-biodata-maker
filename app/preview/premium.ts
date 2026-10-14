@@ -4,9 +4,11 @@
 
 export const PREMIUM_PRICE_INR = 49;
 
-// Designs 28–35 (newest series) are premium. Everything else is free forever.
-// To make a template free/premium, just add/remove its id here.
-export const PREMIUM_TEMPLATE_IDS: number[] = [28, 29, 30, 31, 32, 33, 34, 35];
+// Premium designs, deliberately spread across the whole gallery (early, mid
+// and late) so they feel like featured picks — not leftovers at the end.
+// Everything else is free forever. To make a template free/premium, just
+// add/remove its id here. (Ids must exist in the preview template list.)
+export const PREMIUM_TEMPLATE_IDS: number[] = [2, 6, 9, 13, 18, 23, 29, 34];
 
 export function isPremiumTemplate(id: number): boolean {
   return PREMIUM_TEMPLATE_IDS.includes(id);

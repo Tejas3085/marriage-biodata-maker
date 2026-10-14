@@ -163,12 +163,9 @@ function organizationJsonLd() {
           price: "0",
           priceCurrency: "INR",
         },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          ratingCount: "12000",
-          bestRating: "5",
-        },
+        // NOTE: aggregateRating removed deliberately — Google penalizes
+        // ratings that don't come from real on-site reviews. Re-add only
+        // after collecting genuine user reviews with a visible review section.
       },
     ],
   };
