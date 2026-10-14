@@ -189,11 +189,8 @@ export default function HomePage() {
 
               <h1 className="mt-4 text-[32px] leading-[1.06] sm:text-5xl lg:text-[50px] font-semibold tracking-[-0.025em] text-slate-900">
                 {en.headerTitleA}{" "}
-                <span className="relative inline-block font-display italic font-medium text-rose-900">
+                <span className="font-display italic font-medium text-rose-900">
                   {en.headerTitleAccent}
-                  <svg aria-hidden className="absolute -bottom-1.5 sm:-bottom-2 left-0 w-full" viewBox="0 0 220 10" preserveAspectRatio="none">
-                    <path d="M3 7.5 Q 110 -1 217 5.5" fill="none" stroke="#f59e0b" strokeWidth="4.5" strokeLinecap="round" />
-                  </svg>
                 </span>{" "}
                 {en.headerTitleB}
               </h1>
