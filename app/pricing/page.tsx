@@ -25,7 +25,7 @@ export default function PricingPage() {
               {["27+ free templates", "HD PNG download", "Hindi, Marathi & English", "Photo + god images", "Custom fields & sections", "WhatsApp-ready sharing"].map((f) => <li key={f} className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-600 shrink-0" strokeWidth={3} />{f}</li>)}
             </ul>
           </div>
-          <div className="rounded-2xl bg-slate-950 text-white p-6 flex flex-col justify-center">
+          <div className="rounded-2xl bg-rose-950 text-white p-6 flex flex-col justify-center">
             <p className="font-display text-4xl">₹0</p>
             <p className="text-white/60 text-[13.5px] mt-1">No signup • No watermark</p>
             <Link href="/#create" className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white text-slate-900 font-semibold text-[14px]">Start creating <ArrowRight className="w-4 h-4" /></Link>
@@ -36,7 +36,7 @@ export default function PricingPage() {
             <h2 className="font-semibold text-[16px]">Premium designs — ₹49 one-time</h2>
             <p className="mt-1.5 text-[13.5px] text-slate-600 leading-relaxed">Handpicked premium designs unlock instantly after secure Razorpay payment (UPI, cards, netbanking). Yours forever on your device, PNG + A4 PDF included. Covered by our <Link href="/refunds" className="text-rose-800 font-medium hover:underline">7-day refund policy</Link>.</p>
           </div>
-          <Link href="/preview" className="shrink-0 inline-flex h-11 items-center justify-center gap-2 px-6 rounded-full bg-slate-900 text-white font-semibold text-[14px] hover:bg-rose-900 transition">See premium <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/preview" className="shrink-0 inline-flex h-11 items-center justify-center gap-2 px-6 rounded-full bg-rose-900 text-white font-semibold text-[14px] hover:bg-rose-800 transition">See premium <ArrowRight className="w-4 h-4" /></Link>
         </div>
       </section>
       <FooterPage />

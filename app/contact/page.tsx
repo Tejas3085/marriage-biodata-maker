@@ -30,7 +30,7 @@ export default function ContactPage() {
 
         <div className="mt-8 grid sm:grid-cols-2 gap-4">
           <div className="rounded-2xl border border-slate-200 p-5 flex gap-3.5">
-            <span className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <span className="w-10 h-10 rounded-xl bg-rose-900 text-white flex items-center justify-center shrink-0">
               <Mail className="w-4 h-4" />
             </span>
             <span>
@@ -39,7 +39,7 @@ export default function ContactPage() {
             </span>
           </div>
           <div className="rounded-2xl border border-slate-200 p-5 flex gap-3.5">
-            <span className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <span className="w-10 h-10 rounded-xl bg-rose-900 text-white flex items-center justify-center shrink-0">
               <Phone className="w-4 h-4" />
             </span>
             <span>
@@ -48,7 +48,7 @@ export default function ContactPage() {
             </span>
           </div>
           <div className="rounded-2xl border border-slate-200 p-5 flex gap-3.5 sm:col-span-2">
-            <span className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <span className="w-10 h-10 rounded-xl bg-rose-900 text-white flex items-center justify-center shrink-0">
               <Clock className="w-4 h-4" />
             </span>
             <span>

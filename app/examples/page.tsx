@@ -38,7 +38,7 @@ export default function ExamplesPage() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <Link href="/#create" className="inline-flex h-12 items-center gap-2 px-8 rounded-full bg-slate-900 text-white font-semibold hover:bg-rose-900 transition">Create mine free <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/#create" className="inline-flex h-12 items-center gap-2 px-8 rounded-full bg-rose-900 text-white font-semibold hover:bg-rose-800 transition">Create mine free <ArrowRight className="w-4 h-4" /></Link>
         </div>
       </section>
       <FooterPage />

@@ -19,6 +19,8 @@ export const metadata: Metadata = {
 };
 
 const TEMPLATES = [
+  { id: 36, name: "Royal Maroon", img: "/templates/t36.svg", tag: "New" },
+  { id: 37, name: "Golden Mandala", img: "/templates/t37.svg", tag: "New" },
   { id: 1, name: "Classic Maroon", img: "/templates/t1.jpg", tag: "Most popular" },
   { id: 2, name: "Royal Blue", img: "/templates/t2.jpg", tag: "Traditional" },
   { id: 3, name: "Elegant Gold", img: "/templates/t3.jpg", tag: "Premium look" },

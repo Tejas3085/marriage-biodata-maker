@@ -36,13 +36,13 @@ export default function GlobalError({
               <button
                 type="button"
                 onClick={() => reset()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-slate-900 text-white text-[14.5px] font-semibold hover:bg-rose-900 transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-rose-900 text-white text-[14.5px] font-semibold hover:bg-rose-800 transition"
               >
                 <RotateCcw className="w-4 h-4" /> Try again
               </button>
               <Link
                 href="/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white border border-slate-300 text-[14.5px] font-semibold hover:border-slate-900 transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white border border-slate-300 text-[14.5px] font-semibold hover:border-rose-900 transition"
               >
                 <Home className="w-4 h-4" /> Go home
               </Link>

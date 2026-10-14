@@ -42,7 +42,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             {s.p.map((para) => <p key={para.slice(0, 20)} className="mt-2.5 text-[15px] text-slate-700 leading-relaxed">{para}</p>)}
           </section>
         ))}
-        <div className="mt-10 rounded-2xl bg-slate-950 text-white p-7">
+        <div className="mt-10 rounded-2xl bg-rose-950 text-white p-7">
           <h2 className="font-semibold text-lg">Make your biodata now — free</h2>
           <p className="text-white/70 text-[14px] mt-1">Apply these tips in our maker with 20+ templates.</p>
           <Link href="/#create" className="mt-4 inline-flex h-11 px-6 items-center gap-2 rounded-full bg-white text-slate-900 font-semibold text-[14px]">Create free <ArrowRight className="w-4 h-4" /></Link>

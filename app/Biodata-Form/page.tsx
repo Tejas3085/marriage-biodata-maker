@@ -390,7 +390,7 @@ export default function BiodataForm() {
   if (!formData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-slate-900 animate-spin mb-4" />
+        <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-rose-900 animate-spin mb-4" />
         <p className="text-slate-500 text-[14px] font-medium animate-pulse">
           Preparing your form...
         </p>
@@ -453,7 +453,7 @@ export default function BiodataForm() {
                 Fill in your details below. You can rename sections, reorder fields, and add your own.
               </p>
               <div className="mt-5 flex justify-center">
-                <div className="h-[3px] w-16 bg-slate-900 rounded-full" />
+                <div className="h-[3px] w-16 bg-rose-900 rounded-full" />
               </div>
             </header>
 
@@ -478,7 +478,7 @@ export default function BiodataForm() {
                 ) : (
                   <div
                     onClick={() => setShowGodPhotoSelector(true)}
-                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-slate-300 text-slate-500 text-sm rounded-full cursor-pointer hover:border-slate-900 hover:bg-slate-50 transition-all"
+                    className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-slate-300 text-slate-500 text-sm rounded-full cursor-pointer hover:border-rose-900 hover:bg-slate-50 transition-all"
                   >
                     Add Photo
                   </div>
@@ -490,8 +490,8 @@ export default function BiodataForm() {
                   type="button"
                   onClick={() => setShowGodPhotoSelector(true)}
                   className="px-4 py-1.5 text-xs font-semibold
-                   rounded-full bg-slate-900 text-white
-                   hover:bg-rose-900 transition flex items-center gap-1"
+                   rounded-full bg-rose-900 text-white
+                   hover:bg-rose-800 transition flex items-center gap-1"
                   aria-label="Add/change god photo"
 
                 >
@@ -587,7 +587,7 @@ export default function BiodataForm() {
                         value={tempGodTitle}
                         onChange={(e) => setTempGodTitle(e.target.value)}
                         placeholder="e.g. || श्री गणेशाय नमः ||"
-                        className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all"
+                        className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all"
                         autoFocus
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
@@ -599,7 +599,7 @@ export default function BiodataForm() {
 
                       <div className="flex gap-2">
                         <button
-                          className="flex-1 py-2.5 bg-slate-900 text-white rounded-full font-semibold text-sm hover:bg-rose-900 transition-colors"
+                          className="flex-1 py-2.5 bg-rose-900 text-white rounded-full font-semibold text-sm hover:bg-rose-800 transition-colors"
                           onClick={() => {
                             setGodTitle(tempGodTitle);
                             setGodTitleModalOpen(false);
@@ -646,7 +646,7 @@ export default function BiodataForm() {
                     <h2 className="text-[15px] font-semibold tracking-tight text-slate-900">
                       {section.title}
                     </h2>
-                    <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-slate-900 group-hover:text-white transition">
+                    <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-rose-800 group-hover:text-white transition">
                       <IoCreateOutline size={13} aria-hidden />
                     </span>
                   </div>
@@ -670,7 +670,7 @@ export default function BiodataForm() {
                             value={field.label || ""}
                             onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
                             placeholder={section.NewFieldLabel}
-                            className="border w-full border-slate-200 px-3 py-2.5 rounded-lg text-[13.5px] bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all mb-2 lg:mb-0 lg:max-w-[220px]"
+                            className="border w-full border-slate-200 px-3 py-2.5 rounded-lg text-[13.5px] bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all mb-2 lg:mb-0 lg:max-w-[220px]"
                           />
 
                           {field.type === "select" ? (
@@ -679,7 +679,7 @@ export default function BiodataForm() {
                               aria-label={`Select ${field.label || "option"}`}
                               value={field.value || ""}
                               onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all w-full"
+                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full"
                             >
                               <option value="">{field.placeholder || "Select"}</option>
                               {field.options?.map((op: string, idx: number) => (
@@ -698,7 +698,7 @@ export default function BiodataForm() {
                                 autoResize(e);
                               }}
                               placeholder={field.placeholder || "Enter value"}
-                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all w-full resize-none overflow-hidden"
+                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full resize-none overflow-hidden"
                               rows={1}
                             />
                           )}
@@ -744,7 +744,7 @@ export default function BiodataForm() {
                   <button
                     type="button"
                     onClick={() => addNewField(sIndex, section)}
-                    className="text-slate-600 text-[13px] font-semibold flex items-center gap-1.5 mt-3 px-3 py-2 rounded-full border border-dashed border-slate-300 hover:border-slate-900 hover:text-slate-900 transition"
+                    className="text-slate-600 text-[13px] font-semibold flex items-center gap-1.5 mt-3 px-3 py-2 rounded-full border border-dashed border-slate-300 hover:border-rose-900 hover:text-slate-900 transition"
                     aria-label={`Add new field to ${section.title}`}
                   >
                     <IoAddOutline /> {section.addExtraFiels || "Add New Field"}
@@ -799,7 +799,7 @@ export default function BiodataForm() {
     rounded-2xl
     cursor-pointer
     transition-all
-    hover:border-slate-900 hover:bg-white
+    hover:border-rose-900 hover:bg-white
   "
                   >
 
@@ -826,7 +826,7 @@ export default function BiodataForm() {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-white border border-slate-300 text-slate-800 px-3.5 py-1.5 rounded-full text-[12.5px] font-semibold hover:border-slate-900 transition"
+                    className="bg-white border border-slate-300 text-slate-800 px-3.5 py-1.5 rounded-full text-[12.5px] font-semibold hover:border-rose-900 transition"
                   >
                     Change
                   </button>
@@ -845,7 +845,7 @@ export default function BiodataForm() {
             <div className="flex flex-col gap-2.5">
               <button
                 type="submit"
-                className="bg-slate-900 text-white py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-rose-900 transition shadow-sm"
+                className="bg-rose-900 text-white py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-rose-800 transition shadow-sm"
               >
                 Generate Biodata
               </button>
@@ -922,7 +922,7 @@ export default function BiodataForm() {
                 type="text"
                 value={tempSectionTitle}
                 onChange={(e) => setTempSectionTitle(e.target.value)}
-                className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all"
+                className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-base font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all"
                 autoFocus
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
@@ -938,7 +938,7 @@ export default function BiodataForm() {
 
               <div className="flex gap-2">
                 <button
-                  className="flex-1 py-2.5 bg-slate-900 text-white rounded-full font-semibold text-sm hover:bg-rose-900 transition-colors"
+                  className="flex-1 py-2.5 bg-rose-900 text-white rounded-full font-semibold text-sm hover:bg-rose-800 transition-colors"
                   onClick={() => {
                     updateForm((updated) => {
                       if (typeof editingSectionIndex === "number" && updated.fieldSections?.[editingSectionIndex]) {
@@ -1000,7 +1000,7 @@ export default function BiodataForm() {
                       window.location.reload();
                     }, 300);
                   }}
-                  className="w-full py-3 bg-slate-900 text-white rounded-full font-semibold hover:bg-rose-900 transition-all"
+                  className="w-full py-3 bg-rose-900 text-white rounded-full font-semibold hover:bg-rose-800 transition-all"
                 >
                   {language === "mr" ? "हो, रीसेट करा" : language === "hi" ? "हाँ, रीसेट करें" : "Yes, Reset Everything"}
                 </button>

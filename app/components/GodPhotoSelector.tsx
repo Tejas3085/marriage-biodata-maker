@@ -38,7 +38,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
 
         {/* Choose from Gallery */}
         <div className="mb-4">
-          <label className="w-full block bg-slate-900 text-white text-center py-2.5 rounded-full font-medium cursor-pointer hover:bg-rose-900 transition">
+          <label className="w-full block bg-rose-900 text-white text-center py-2.5 rounded-full font-medium cursor-pointer hover:bg-rose-800 transition">
             Choose from Gallery
             <input
               type="file"
@@ -59,7 +59,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
                 onSelect(photo);
                 onClose();
               }}
-              className="border-2 border-gray-200 rounded-lg p-2 hover:border-slate-900 transition"
+              className="border-2 border-gray-200 rounded-lg p-2 hover:border-rose-900 transition"
             >
                  <img src={photo} alt={`Auspicious image option ${index + 1}`} className="w-full h-20 object-contain" />
             </button>

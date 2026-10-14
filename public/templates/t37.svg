@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="950" viewBox="0 0 600 950">
+  <defs>
+    <g id="mandala">
+      <circle cx="0" cy="0" r="28" fill="#fffdf8" stroke="#7f1d1d" stroke-width="3"/>
+      <circle cx="0" cy="-19" r="3" fill="#b45309"/>
+      <circle cx="13.4" cy="-13.4" r="3" fill="#b45309"/>
+      <circle cx="19" cy="0" r="3" fill="#b45309"/>
+      <circle cx="13.4" cy="13.4" r="3" fill="#b45309"/>
+      <circle cx="0" cy="19" r="3" fill="#b45309"/>
+      <circle cx="-13.4" cy="13.4" r="3" fill="#b45309"/>
+      <circle cx="-19" cy="0" r="3" fill="#b45309"/>
+      <circle cx="-13.4" cy="-13.4" r="3" fill="#b45309"/>
+      <circle cx="0" cy="0" r="9" fill="#7f1d1d"/>
+      <circle cx="0" cy="0" r="3" fill="#d4af37"/>
+    </g>
+  </defs>
+  <rect x="0" y="0" width="600" height="950" fill="#fef9ef"/>
+  <rect x="10" y="10" width="580" height="930" fill="none" stroke="#b45309" stroke-width="10"/>
+  <rect x="28" y="28" width="544" height="894" fill="none" stroke="#b45309" stroke-width="2"/>
+  <use href="#mandala" x="62" y="62"/>
+  <use href="#mandala" x="538" y="62"/>
+  <use href="#mandala" x="62" y="888"/>
+  <use href="#mandala" x="538" y="888"/>
+  <g fill="#b45309">
+    <circle cx="300" cy="28" r="3.5"/>
+    <circle cx="300" cy="922" r="3.5"/>
+    <circle cx="28" cy="475" r="3.5"/>
+    <circle cx="572" cy="475" r="3.5"/>
+  </g>
+</svg>

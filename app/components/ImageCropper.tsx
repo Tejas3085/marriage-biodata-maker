@@ -187,7 +187,7 @@ export default function ImageCropper({
           <button
             onClick={onDownloadCropClick}
             disabled={!completedCrop}
-            className="px-4 py-2 bg-slate-900 text-white rounded-full font-medium hover:bg-rose-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-rose-900 text-white rounded-full font-medium hover:bg-rose-800 disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             Use Cropped Image
           </button>

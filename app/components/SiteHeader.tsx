@@ -151,7 +151,7 @@ export default function SiteHeader() {
 
                         <button
                             onClick={() => scrollTo("create")}
-                            className="hidden sm:inline-flex h-12 items-center px-5 rounded-full bg-slate-900 text-white text-[13.5px] font-semibold hover:bg-rose-900 transition-colors shadow-sm"
+                            className="hidden sm:inline-flex h-12 items-center px-5 rounded-full bg-rose-900 text-white text-[13.5px] font-semibold hover:bg-rose-800 transition-colors shadow-sm"
                         >
                             Create Free
                         </button>
@@ -161,7 +161,7 @@ export default function SiteHeader() {
 
             {showToast && (
                 <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center pointer-events-none">
-                    <div className="bg-slate-900 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
+                    <div className="bg-rose-900 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                         <p className="text-[13px] font-medium">
                             {getToastMessage()}

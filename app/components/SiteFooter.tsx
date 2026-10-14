@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-slate-950 text-slate-400" role="contentinfo">
+    <footer className="bg-rose-950 text-slate-400" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
           <div>

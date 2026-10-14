@@ -33,7 +33,7 @@ const BiodataForm = dynamic(() => import("../Biodata-Form/page"), {
   ssr: false,
   loading: () => (
     <div className="max-w-6xl mx-auto bg-white rounded-3xl border border-slate-200 p-10 text-center" aria-hidden>
-      <div className="w-10 h-10 mx-auto rounded-full border-[3px] border-slate-200 border-t-slate-900 animate-spin mb-3" />
+      <div className="w-10 h-10 mx-auto rounded-full border-[3px] border-slate-200 border-t-rose-900 animate-spin mb-3" />
       <p className="text-[14px] text-slate-500 font-medium">Loading the form…</p>
     </div>
   ),
@@ -111,6 +111,8 @@ export default function HomePage() {
     { id: 20, name: "Classic Cream", img: "/templates/t20.jpg" },
     { id: 21, name: "Modern Border", img: "/templates/t21.jpg" },
     { id: 22, name: "Auspicious", img: "/templates/t22.jpg" },
+    { id: 36, name: "Royal Maroon", img: "/templates/t36.svg" },
+    { id: 37, name: "Golden Mandala", img: "/templates/t37.svg" },
   ];
 
   const handleScrollToForm = () => {
@@ -167,7 +169,7 @@ export default function HomePage() {
                   {[
                     ["A", "bg-rose-800"],
                     ["S", "bg-amber-600"],
-                    ["P", "bg-slate-800"],
+                    ["P", "bg-rose-950"],
                     ["R", "bg-emerald-700"],
                   ].map(([ch, bg]) => (
                     <span key={ch} className={`w-6 h-6 rounded-full ${bg} text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white`}>
@@ -203,7 +205,7 @@ export default function HomePage() {
               <ul className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 max-w-xl mx-auto lg:mx-0 text-left">
                 {en.features.map((f, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-[14px] font-medium text-slate-700">
-                    <span className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0">
+                    <span className="w-5 h-5 rounded-full bg-rose-900 text-white flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3" strokeWidth={3} />
                     </span>
                     {f}
@@ -214,7 +216,7 @@ export default function HomePage() {
               <div className="mt-6 flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
                 <button
                   onClick={handleScrollToForm}
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full pl-7 pr-2.5 py-2.5 bg-slate-900 text-white text-[15px] font-semibold hover:bg-rose-900 transition-colors shadow-[0_16px_32px_-12px_rgba(15,23,42,0.5)]"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full pl-7 pr-2.5 py-2.5 bg-rose-900 text-white text-[15px] font-semibold hover:bg-rose-800 transition-colors shadow-[0_16px_32px_-12px_rgba(15,23,42,0.5)]"
                 >
                   {en.createBiodataBtn}
                   <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/25 group-hover:translate-x-0.5 transition-all">
@@ -223,7 +225,7 @@ export default function HomePage() {
                 </button>
                 <button
                   onClick={scrollToTemplates}
-                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-full px-7 h-[52px] bg-white/80 backdrop-blur border border-slate-300 text-slate-900 text-[15px] font-semibold hover:border-slate-900 transition"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-full px-7 h-[52px] bg-white/80 backdrop-blur border border-slate-300 text-slate-900 text-[15px] font-semibold hover:border-rose-900 transition"
                 >
                   {en.viewTemplatesBtn}
                 </button>
@@ -272,7 +274,7 @@ export default function HomePage() {
                   </div>
                   <button
                     onClick={handleScrollToForm}
-                    className="shrink-0 inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-slate-900 text-white text-[12.5px] font-semibold hover:bg-rose-900 transition"
+                    className="shrink-0 inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-rose-900 text-white text-[12.5px] font-semibold hover:bg-rose-800 transition"
                   >
                     Make mine <ArrowRight className="w-3.5 h-3.5" />
                   </button>
@@ -322,13 +324,13 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-2">
               <button
-                className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition"
+                className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-rose-900 hover:bg-rose-800 hover:text-white transition"
                 aria-label="Previous template"
               >
                 <FaChevronLeft className="w-3.5 h-3.5" />
               </button>
               <button
-                className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-slate-900 hover:bg-slate-900 hover:text-white transition"
+                className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-rose-900 hover:bg-rose-800 hover:text-white transition"
                 aria-label="Next template"
               >
                 <FaChevronRight className="w-3.5 h-3.5" />
@@ -400,7 +402,7 @@ export default function HomePage() {
               return (
                 <div key={i} className="relative bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between">
-                    <div className="w-11 h-11 rounded-xl bg-slate-900 text-white flex items-center justify-center">
+                    <div className="w-11 h-11 rounded-xl bg-rose-900 text-white flex items-center justify-center">
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="font-display text-[40px] leading-none text-slate-200 select-none">0{i + 1}</span>
@@ -429,7 +431,7 @@ export default function HomePage() {
       {/* WHY US */}
       <section id="why-us" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-slate-200 bg-slate-950 text-white overflow-hidden">
+          <div className="rounded-3xl border border-slate-200 bg-rose-950 text-white overflow-hidden">
             <div className="grid lg:grid-cols-[1fr_1.2fr] gap-0">
               <div className="p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">Why families choose us</p>
@@ -525,7 +527,7 @@ export default function HomePage() {
               <details key={f.q} className="group py-5">
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[15.5px] hover:text-rose-900 transition-colors [&::-webkit-details-marker]:hidden">
                   {f.q}
-                  <span className="w-8 h-8 shrink-0 rounded-full border border-slate-300 flex items-center justify-center text-slate-500 transition-all group-open:bg-slate-900 group-open:text-white group-open:border-slate-900 group-open:rotate-45">
+                  <span className="w-8 h-8 shrink-0 rounded-full border border-slate-300 flex items-center justify-center text-slate-500 transition-all group-open:bg-rose-900 group-open:text-white group-open:border-rose-900 group-open:rotate-45">
                     <Plus className="w-4 h-4" />
                   </span>
                 </summary>

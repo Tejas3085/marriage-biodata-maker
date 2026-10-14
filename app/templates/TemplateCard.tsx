@@ -15,7 +15,7 @@ export default function TemplateCard({ t }: { t: { id: number; name: string; img
     >
       <div className="relative aspect-[3/4] bg-[#f8f6f3]">
         <Image src={t.img} alt={`${t.name} marriage biodata template`} fill sizes="(max-width:768px) 45vw, 280px" className="object-contain p-4 group-hover:scale-[1.02] transition" />
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-900 text-white text-[11px] font-semibold">{t.tag}</span>
+        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-rose-900 text-white text-[11px] font-semibold">{t.tag}</span>
       </div>
       <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between">
         <span className="text-[14px] font-semibold">{t.name}</span>

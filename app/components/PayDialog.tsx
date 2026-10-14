@@ -73,7 +73,7 @@ export default function PayDialog({
         name: "Online Free Biodata Maker",
         description: `Premium template — Design ${templateId}`,
         order_id: order.orderId,
-        theme: { color: "#0f172a" },
+        theme: { color: "#4c0519" },
         modal: {
           ondismiss: () => setBusy(false),
         },
@@ -122,10 +122,10 @@ export default function PayDialog({
         type="button"
         aria-label="Close payment dialog"
         onClick={() => { if (!busy) onClose(); }}
-        className="absolute inset-0 bg-slate-950/50 cursor-default"
+        className="absolute inset-0 bg-rose-950/50 cursor-default"
       />
       <div className="relative w-full sm:max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
-        <div className="bg-slate-950 text-white px-6 pt-6 pb-5">
+        <div className="bg-rose-950 text-white px-6 pt-6 pb-5">
           <div className="flex items-start justify-between">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-300/15 border border-amber-200/30 text-amber-200 text-[11px] font-semibold uppercase tracking-[0.14em]">
               <Crown className="w-3.5 h-3.5" /> Premium design
@@ -165,7 +165,7 @@ export default function PayDialog({
             type="button"
             onClick={startPayment}
             disabled={busy}
-            className="mt-5 w-full h-12 rounded-full bg-slate-900 text-white text-[15px] font-semibold hover:bg-rose-900 transition disabled:opacity-60 inline-flex items-center justify-center gap-2"
+            className="mt-5 w-full h-12 rounded-full bg-rose-900 text-white text-[15px] font-semibold hover:bg-rose-800 transition disabled:opacity-60 inline-flex items-center justify-center gap-2"
           >
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
             {busy ? "Opening secure payment…" : `Pay ₹${priceInr} securely`}

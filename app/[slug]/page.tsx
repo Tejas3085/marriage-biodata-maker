@@ -97,12 +97,12 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
         <p className="mt-4 text-slate-600 text-[16px] leading-relaxed">{l.intro}</p>
         <ul className="mt-6 space-y-2.5">
           {l.points.map((p) => (
-            <li key={p} className="flex gap-2.5 text-[15px] text-slate-700"><span className="mt-0.5 w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0"><Check className="w-3 h-3" strokeWidth={3} /></span>{p}</li>
+            <li key={p} className="flex gap-2.5 text-[15px] text-slate-700"><span className="mt-0.5 w-5 h-5 rounded-full bg-rose-900 text-white flex items-center justify-center shrink-0"><Check className="w-3 h-3" strokeWidth={3} /></span>{p}</li>
           ))}
         </ul>
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
-          <Link href="/#create" className="inline-flex h-12 items-center justify-center gap-2 px-8 rounded-full bg-slate-900 text-white font-semibold hover:bg-rose-900 transition">Create free now <ArrowRight className="w-4 h-4" /></Link>
-          <Link href="/templates" className="inline-flex h-12 items-center justify-center px-8 rounded-full border border-slate-300 font-semibold hover:border-slate-900 transition">Browse templates</Link>
+          <Link href="/#create" className="inline-flex h-12 items-center justify-center gap-2 px-8 rounded-full bg-rose-900 text-white font-semibold hover:bg-rose-800 transition">Create free now <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/templates" className="inline-flex h-12 items-center justify-center px-8 rounded-full border border-slate-300 font-semibold hover:border-rose-900 transition">Browse templates</Link>
         </div>
         <h2 className="mt-12 text-2xl font-semibold tracking-tight">Questions</h2>
         <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">

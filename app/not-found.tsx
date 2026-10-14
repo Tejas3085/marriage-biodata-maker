@@ -19,13 +19,13 @@ export default function NotFound() {
         <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-slate-900 text-white text-[14.5px] font-semibold hover:bg-rose-900 transition"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-rose-900 text-white text-[14.5px] font-semibold hover:bg-rose-800 transition"
           >
             <Home className="w-4 h-4" /> Go home
           </Link>
           <Link
             href="/templates"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white border border-slate-300 text-[14.5px] font-semibold hover:border-slate-900 transition"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white border border-slate-300 text-[14.5px] font-semibold hover:border-rose-900 transition"
           >
             <LayoutTemplate className="w-4 h-4" /> Browse templates <ArrowRight className="w-4 h-4" />
           </Link>

@@ -74,7 +74,7 @@ export default function GuidePage() {
           <li>Sharing biodata as a blurry forwarded image — always export fresh HD PNG.</li>
         </ul>
 
-        <div className="mt-10 rounded-2xl bg-slate-950 text-white p-7 md:p-8">
+        <div className="mt-10 rounded-2xl bg-rose-950 text-white p-7 md:p-8">
           <h2 className="text-xl font-semibold">Ready? Make yours free now.</h2>
           <p className="mt-2 text-white/70 text-[14.5px]">20+ templates • Hindi, Marathi, English • No signup • HD download.</p>
           <Link href="/#create" className="mt-4 inline-flex h-11 items-center gap-2 px-6 rounded-full bg-white text-slate-900 font-semibold text-[14.5px] hover:bg-amber-100 transition">Create my biodata <ArrowRight className="w-4 h-4" /></Link>
