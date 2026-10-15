@@ -4,6 +4,12 @@
 
 export const PREMIUM_PRICE_INR = 49;
 
+// Master switch for premium payments. Set NEXT_PUBLIC_PAYMENTS_ENABLED=true
+// in your environment to turn payments ON; anything else (or unset) keeps
+// every template free. Safe to flip anytime — no code changes needed.
+export const PAYMENTS_ENABLED =
+  process.env.NEXT_PUBLIC_PAYMENTS_ENABLED === "true";
+
 // Premium designs, deliberately spread across the whole gallery (early, mid
 // and late) so they feel like featured picks — not leftovers at the end.
 // Everything else is free forever. To make a template free/premium, just

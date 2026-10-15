@@ -33,8 +33,8 @@ export default function PricingPage() {
         </div>
         <div className="mt-5 rounded-3xl border border-amber-200 bg-amber-50/60 p-6 sm:p-7 text-left flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex-1">
-            <h2 className="font-semibold text-[16px]">Premium designs — ₹49 one-time</h2>
-            <p className="mt-1.5 text-[13.5px] text-slate-600 leading-relaxed">Handpicked premium designs unlock instantly after secure Razorpay payment (UPI, cards, netbanking). Yours forever on your device, PNG + A4 PDF included. Covered by our <Link href="/refunds" className="text-rose-800 font-medium hover:underline">7-day refund policy</Link>.</p>
+            <h2 className="font-semibold text-[16px]">Premium designs — coming soon</h2>
+            <p className="mt-1.5 text-[13.5px] text-slate-600 leading-relaxed">Handpicked premium designs with instant unlock are on the way. Everything below stays free forever — no signup, no watermark.</p>
           </div>
           <Link href="/preview" className="shrink-0 inline-flex h-11 items-center justify-center gap-2 px-6 rounded-full bg-rose-900 text-white font-semibold text-[14px] hover:bg-rose-800 transition">See premium <ArrowRight className="w-4 h-4" /></Link>
         </div>

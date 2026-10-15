@@ -463,7 +463,7 @@ export default function HomePage() {
                 {[
                   {
                     title: "Free essentials",
-                    desc: "27+ templates, HD downloads and all languages are free forever. Featured premium designs unlock for a one-time ₹49.",
+                    desc: "27+ templates, HD downloads and all languages are free forever. Premium designs coming soon.",
                     icon: <BadgeCheck className="w-5 h-5" />,
                   },
                   {
@@ -514,11 +514,11 @@ export default function HomePage() {
           </div>
           <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200">
             {[
-              { q: "Is this marriage biodata maker really free?", a: "Yes. 27+ templates, all languages, HD PNG and A4 PDF downloads are free forever with no signup and no watermark. A few featured premium designs unlock for a one-time ₹49." },
+              { q: "Is this marriage biodata maker really free?", a: "Yes. 27+ templates, all languages, HD PNG and A4 PDF downloads are free forever with no signup and no watermark." },
               { q: "Can I make a biodata in Hindi or Marathi?", a: "Yes. Switch language anytime — full Devanagari support with traditional wordings like ॥ श्री गणेशाय नमः ॥, वैयक्तिक माहिती and व्यक्तिगत विवरण." },
               { q: "Is my data safe?", a: "Your details and photos are processed locally in your browser. Nothing is uploaded to a server. Use Reset to wipe everything." },
               { q: "Can I print the biodata?", a: "Yes. Every template exports as a high-resolution PNG and an A4-ready PDF for crisp colour or black-and-white printing." },
-              { q: "How do premium templates work?", a: "Premium designs cost ₹49 once (UPI, cards or netbanking via Razorpay) and stay unlocked on your device forever, with PNG + PDF downloads included. Covered by our 7-day refund policy." },
+              { q: "How do premium templates work?", a: "Premium designs are coming soon — a small one-time payment will unlock extra designs with PNG + PDF downloads included. Everything available today is 100% free." },
               { q: "Do I need to sign up?", a: "No account needed. Fill the form, pick a template, download — most people finish in under 5 minutes." },
             ].map((f) => (
               <details key={f.q} className="group py-5">
@@ -539,7 +539,7 @@ export default function HomePage() {
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
                 mainEntity: [
-                  { "@type": "Question", name: "Is this marriage biodata maker really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. 27+ templates, HD PNG and A4 PDF downloads are free forever with no signup. Optional premium designs cost ₹49 one-time." } },
+                  { "@type": "Question", name: "Is this marriage biodata maker really free?", acceptedAnswer: { "@type": "Answer", text: "Yes. 27+ templates, HD PNG and A4 PDF downloads are free forever with no signup." } },
                   { "@type": "Question", name: "Can I make a biodata in Hindi or Marathi?", acceptedAnswer: { "@type": "Answer", text: "Yes. Full Devanagari support with traditional wordings in Hindi and Marathi." } },
                   { "@type": "Question", name: "Is my data safe?", acceptedAnswer: { "@type": "Answer", text: "Your details and photos are processed locally in your browser. Nothing is uploaded." } },
                   { "@type": "Question", name: "Can I print the biodata?", acceptedAnswer: { "@type": "Answer", text: "Yes. High-resolution PNG and A4-ready PDF for crisp printing." } },

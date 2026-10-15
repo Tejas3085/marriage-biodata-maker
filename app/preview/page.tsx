@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useLanguageContext } from "../hooks/useLanguage";
 import { Download, Sparkles, Zap, ArrowLeft, Check, Pencil, Share2, Loader2, BadgeCheck, Printer, FileText, Image as ImageIcon, ChevronDown, Lock } from "lucide-react";
 import PayDialog from "../components/PayDialog";
-import { getTemplatePrice, hasUnlock, isPremiumTemplate, readUnlocks, saveUnlock, PREMIUM_PRICE_INR } from "./premium";
+import { getTemplatePrice, hasUnlock, isPremiumTemplate, readUnlocks, saveUnlock, PREMIUM_PRICE_INR, PAYMENTS_ENABLED } from "./premium";
 
 interface Field { label: string; value: string; }
 
@@ -201,7 +201,9 @@ export default function PreviewPage() {
   // Premium gate: free templates download/share directly; premium ones open
   // the pay dialog first and resume the pending action after payment.
   // Reads localStorage live (not state) so post-payment retries can't go stale.
+  // Disabled entirely while PAYMENTS_ENABLED is off — everything downloads free.
   const guardPremium = useCallback((action: "png" | "pdf" | "share") => {
+    if (!PAYMENTS_ENABLED) return false;
     const tpl = selectedTemplate;
     if (tpl && isPremiumTemplate(tpl.id) && !hasUnlock(tpl.id)) {
       setPendingAction(action);
@@ -1075,7 +1077,7 @@ export default function PreviewPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  {selectedTemplate && isPremiumTemplate(selectedTemplate.id) && (
+                  {PAYMENTS_ENABLED && selectedTemplate && isPremiumTemplate(selectedTemplate.id) && (
                     unlockedIds.includes(selectedTemplate.id) ? (
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold">
                         <Check className="w-3.5 h-3.5" strokeWidth={3} /> Unlocked
@@ -1184,7 +1186,7 @@ export default function PreviewPage() {
                             <Check className="h-3 w-3" strokeWidth={3} />
                           </span>
                         )}
-                        {isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
+                        {PAYMENTS_ENABLED && isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
                           <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-rose-900/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
                             <Lock className="h-2.5 w-2.5" /> ₹{PREMIUM_PRICE_INR}
                           </span>
@@ -1223,7 +1225,7 @@ export default function PreviewPage() {
                             <Check className="h-3 w-3" strokeWidth={3} />
                           </span>
                         )}
-                        {isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
+                        {PAYMENTS_ENABLED && isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
                           <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-rose-900/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
                             <Lock className="h-2.5 w-2.5" /> ₹{PREMIUM_PRICE_INR}
                           </span>
