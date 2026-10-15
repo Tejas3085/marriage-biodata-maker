@@ -16,6 +16,9 @@
 /* Default font stack using next/font variables */
 html {
   scroll-behavior: smooth;
+  /* Reserve scrollbar space at all times so opening a popup
+     (which locks body scroll) never shifts the page sideways. */
+  scrollbar-gutter: stable;
 }
 
 body {

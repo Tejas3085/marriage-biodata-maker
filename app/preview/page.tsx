@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
@@ -102,9 +103,9 @@ function DownloadMenu({
         {label}
         <ChevronDown className="w-4 h-4 opacity-70" />
       </button>
-      {open && (
+      {open && createPortal(
         <div
-          className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-4"
+          className="fixed inset-0 z-[80] overflow-y-auto"
           role="dialog"
           aria-modal="true"
           aria-label="Choose download format"
@@ -113,9 +114,9 @@ function DownloadMenu({
             type="button"
             aria-label="Close download options"
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-rose-950/45 cursor-default"
+            className="fixed inset-0 bg-transparent cursor-default"
           />
-          <div className="relative w-full sm:max-w-sm bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <div className="relative mx-auto mt-[10vh] mb-10 w-[calc(100%-2rem)] sm:max-w-sm bg-white rounded-2xl shadow-[0_10px_30px_-12px_rgba(15,23,42,0.25)] border border-slate-100 overflow-hidden">
             <p className="px-5 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
               Download format
             </p>
@@ -158,7 +159,8 @@ function DownloadMenu({
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Check, Crown, Loader2, ShieldCheck, X } from "lucide-react";
 
 function loadRazorpayScript(): Promise<void> {
@@ -111,9 +112,9 @@ export default function PayDialog({
     }
   };
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center p-4"
+      className="fixed inset-0 z-[90] overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-label="Unlock premium template"
@@ -122,9 +123,9 @@ export default function PayDialog({
         type="button"
         aria-label="Close payment dialog"
         onClick={() => { if (!busy) onClose(); }}
-        className="absolute inset-0 bg-rose-950/50 cursor-default"
+        className="fixed inset-0 bg-transparent cursor-default"
       />
-      <div className="relative w-full sm:max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+      <div className="relative mx-auto mt-[8vh] mb-10 w-[calc(100%-2rem)] sm:max-w-md bg-white rounded-3xl shadow-[0_10px_30px_-12px_rgba(15,23,42,0.25)] border border-slate-100 overflow-hidden">
         <div className="bg-rose-950 text-white px-6 pt-6 pb-5">
           <div className="flex items-start justify-between">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-300/15 border border-amber-200/30 text-amber-200 text-[11px] font-semibold uppercase tracking-[0.14em]">
@@ -175,6 +176,7 @@ export default function PayDialog({
           </p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
