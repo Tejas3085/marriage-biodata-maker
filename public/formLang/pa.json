@@ -1,0 +1,347 @@
+{
+  "godTitle": "|| ਸ੍ਰੀ ਗਣੇਸ਼ਾਯ ਨਮਃ ||",
+  "uploadPhotoLabel": "ਫੋਟੋ ਅੱਪਲੋਡ ਕਰੋ",
+  "generateBiodataBtnLabel": "ਬਾਇਓਡਾਟਾ ਬਣਾਓ",
+  "headerSubTitle": "ਸਕਿੰਟਾਂ ਵਿੱਚ ਆਪਣਾ ਬਣਾਓ",
+  "fieldSections": [
+    {
+      "title": "ਨਿੱਜੀ ਜਾਣਕਾਰੀ",
+      "addExtraFiels": "ਨਵਾਂ ਫੀਲਡ ਸ਼ਾਮਲ ਕਰੋ",
+      "NewFieldLabel": "ਨਵਾਂ ਲੇਬਲ ਲਿਖੋ",
+      "NewFieldValue": "ਮੁੱਲ ਲਿਖੋ",
+      "key": "personalInfo",
+      "fields": [
+        {
+          "label": "ਪੂਰਾ ਨਾਮ",
+          "key": "name",
+          "type": "text",
+          "placeholder": "ਪੂਰਾ ਨਾਮ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਜਨਮ ਮਿਤੀ",
+          "key": "dob",
+          "type": "text",
+          "placeholder": "ਜਨਮ ਮਿਤੀ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਜਨਮ ਸਮਾਂ",
+          "key": "birthTime",
+          "type": "text",
+          "placeholder": "ਜਨਮ ਸਮਾਂ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਜਨਮ ਸਥਾਨ",
+          "key": "birthPlace",
+          "type": "text",
+          "placeholder": "ਜਨਮ ਸਥਾਨ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਧਰਮ",
+          "key": "religion",
+          "type": "text",
+          "placeholder": "ਧਰਮ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਜਾਤ",
+          "key": "caste",
+          "type": "text",
+          "placeholder": "ਜਾਤ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਕੁਲਦੇਵਤਾ",
+          "key": "kuldevta",
+          "type": "text",
+          "placeholder": "ਕੁਲਦੇਵਤਾ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਰਾਸ਼ੀ",
+          "key": "rashi",
+          "type": "select",
+          "placeholder": "ਰਾਸ਼ੀ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "ਮੇਖ",
+            "ਬ੍ਰਿਖ",
+            "ਮਿਥੁਨ",
+            "ਕਰਕ",
+            "ਸਿੰਘ",
+            "ਕੰਨਿਆ",
+            "ਤੁਲਾ",
+            "ਬ੍ਰਿਸ਼ਚਕ",
+            "ਧਨੁ",
+            "ਮਕਰ",
+            "ਕੁੰਭ",
+            "ਮੀਨ"
+          ]
+        },
+        {
+          "label": "ਨਛੱਤਰ",
+          "key": "nakshatra",
+          "type": "select",
+          "placeholder": "ਨਛੱਤਰ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "ਅਸ਼ਵਨੀ",
+            "ਭਰਨੀ",
+            "ਕਿਰਤਿਕਾ",
+            "ਰੋਹਿਣੀ",
+            "ਮ੍ਰਿਗਸ਼ਿਰਾ",
+            "ਆਰਦਰਾ",
+            "ਪੁਨਰਵਸੁ",
+            "ਪੁਸ਼ਯਾ",
+            "ਆਸ਼ਲੇਸ਼ਾ",
+            "ਮਘਾ",
+            "ਪੂਰਵਾਫਾਲਗੁਣੀ",
+            "ਉੱਤਰਾਫਾਲਗੁਣੀ",
+            "ਹਸਤ",
+            "ਚਿੱਤਰਾ",
+            "ਸੁਆਤੀ",
+            "ਵਿਸ਼ਾਖਾ",
+            "ਅਨੁਰਾਧਾ",
+            "ਜੇਸ਼ਠਾ",
+            "ਮੂਲਾ",
+            "ਪੂਰਵਾਸ਼ਾਢਾ",
+            "ਉੱਤਰਾਸ਼ਾਢਾ",
+            "ਸ਼ਰਵਣਾ",
+            "ਧਨਿਸ਼ਠਾ",
+            "ਸ਼ਤਭਿਸ਼ਾ",
+            "ਪੂਰਵਾਭਾਦਰਪਦ",
+            "ਉੱਤਰਾਭਾਦਰਪਦ",
+            "ਰੇਵਤੀ"
+          ]
+        },
+        {
+          "label": "ਗਣ",
+          "key": "gan",
+          "type": "select",
+          "placeholder": "ਗਣ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "ਦੇਵ",
+            "ਮਨੁੱਖ",
+            "ਰਾਖਸ਼"
+          ]
+        },
+        {
+          "label": "ਨਾੜੀ",
+          "key": "nadi",
+          "type": "select",
+          "placeholder": "ਨਾੜੀ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "ਆਦਿ",
+            "ਮੱਧ",
+            "ਅੰਤ"
+          ]
+        },
+        {
+          "label": "ਮੰਗਲਿਕ",
+          "key": "manglik",
+          "type": "select",
+          "placeholder": "ਵਿਕਲਪ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "ਹਾਂ",
+            "ਨਹੀਂ",
+            "ਪਤਾ ਨਹੀਂ"
+          ]
+        },
+        {
+          "label": "ਗੋਤਰ",
+          "key": "gotra",
+          "type": "text",
+          "placeholder": "ਗੋਤਰ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਕੱਦ",
+          "key": "height",
+          "type": "select",
+          "placeholder": "ਕੱਦ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "4 ਫੁੱਟ 5 ਇੰਚ",
+            "4 ਫੁੱਟ 6 ਇੰਚ",
+            "4 ਫੁੱਟ 7 ਇੰਚ",
+            "4 ਫੁੱਟ 8 ਇੰਚ",
+            "4 ਫੁੱਟ 9 ਇੰਚ",
+            "4 ਫੁੱਟ 10 ਇੰਚ",
+            "4 ਫੁੱਟ 11 ਇੰਚ",
+            "5 ਫੁੱਟ 0 ਇੰਚ",
+            "5 ਫੁੱਟ 1 ਇੰਚ",
+            "5 ਫੁੱਟ 2 ਇੰਚ",
+            "5 ਫੁੱਟ 3 ਇੰਚ",
+            "5 ਫੁੱਟ 4 ਇੰਚ",
+            "5 ਫੁੱਟ 5 ਇੰਚ",
+            "5 ਫੁੱਟ 6 ਇੰਚ",
+            "5 ਫੁੱਟ 7 ਇੰਚ",
+            "5 ਫੁੱਟ 8 ਇੰਚ",
+            "5 ਫੁੱਟ 9 ਇੰਚ",
+            "5 ਫੁੱਟ 10 ਇੰਚ",
+            "5 ਫੁੱਟ 11 ਇੰਚ",
+            "6 ਫੁੱਟ 0 ਇੰਚ",
+            "6 ਫੁੱਟ 1 ਇੰਚ",
+            "6 ਫੁੱਟ 2 ਇੰਚ",
+            "6 ਫੁੱਟ 3 ਇੰਚ",
+            "6 ਫੁੱਟ 4 ਇੰਚ",
+            "6 ਫੁੱਟ 5 ਇੰਚ",
+            "6 ਫੁੱਟ 6 ਇੰਚ",
+            "6 ਫੁੱਟ 7 ਇੰਚ",
+            "6 ਫੁੱਟ 8 ਇੰਚ",
+            "6 ਫੁੱਟ 9 ਇੰਚ",
+            "6 ਫੁੱਟ 10 ਇੰਚ",
+            "6 ਫੁੱਟ 11 ਇੰਚ",
+            "7 ਫੁੱਟ 0 ਇੰਚ"
+          ]
+        },
+        {
+          "label": "ਰੰਗ",
+          "key": "varna",
+          "type": "select",
+          "placeholder": "ਰੰਗ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "ਗੋਰਾ",
+            "ਕਣਕੀ",
+            "ਗੂੜ੍ਹਾ ਕਣਕੀ",
+            "ਸਾਂਵਲਾ",
+            "ਕਾਲਾ"
+          ]
+        },
+        {
+          "label": "ਖੂਨ ਗਰੁੱਪ",
+          "key": "bloodGroup",
+          "type": "select",
+          "placeholder": "ਖੂਨ ਗਰੁੱਪ ਚੁਣੋ",
+          "value": "",
+          "options": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+          ]
+        },
+        {
+          "label": "ਪੜ੍ਹਾਈ",
+          "key": "education",
+          "type": "text",
+          "placeholder": "ਪੜ੍ਹਾਈ ਦਾ ਵੇਰਵਾ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਨੌਕਰੀ / ਕਿੱਤਾ",
+          "key": "job",
+          "type": "text",
+          "placeholder": "ਨੌਕਰੀ ਜਾਂ ਕਿੱਤਾ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਆਮਦਨ / ਤਨਖਾਹ",
+          "key": "salary",
+          "type": "text",
+          "placeholder": "ਆਮਦਨ ਜਾਂ ਤਨਖਾਹ ਲਿਖੋ",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "title": "ਪਰਿਵਾਰਕ ਜਾਣਕਾਰੀ",
+      "addExtraFiels": "ਨਵਾਂ ਫੀਲਡ ਸ਼ਾਮਲ ਕਰੋ",
+      "NewFieldLabel": "ਲੇਬਲ ਲਿਖੋ",
+      "NewFieldValue": "ਮੁੱਲ ਲਿਖੋ",
+      "key": "familyInfo",
+      "fields": [
+        {
+          "label": "ਪਿਤਾ ਦਾ ਨਾਮ",
+          "key": "fatherName",
+          "type": "text",
+          "placeholder": "ਪਿਤਾ ਦਾ ਨਾਮ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਪਿਤਾ ਦਾ ਕਿੱਤਾ",
+          "key": "fatherOccupation",
+          "type": "text",
+          "placeholder": "ਪਿਤਾ ਦਾ ਕਿੱਤਾ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਮਾਤਾ ਦਾ ਨਾਮ",
+          "key": "motherName",
+          "type": "text",
+          "placeholder": "ਮਾਤਾ ਦਾ ਨਾਮ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਕਿੱਤਾ",
+          "key": "motherjob",
+          "type": "text",
+          "placeholder": "ਜਿਵੇਂ. ਘਰੇਲੂ ਔਰਤ / ਨੌਕਰੀ",
+          "value": ""
+        },
+        {
+          "label": "ਭੈਣਾਂ",
+          "key": "sisters",
+          "type": "text",
+          "placeholder": "ਭੈਣਾਂ ਦੀ ਗਿਣਤੀ / ਨਾਮ",
+          "value": ""
+        },
+        {
+          "label": "ਭਰਾ",
+          "key": "brothers",
+          "type": "text",
+          "placeholder": "ਭਰਾਵਾਂ ਦੀ ਗਿਣਤੀ / ਨਾਮ",
+          "value": ""
+        },
+        {
+          "label": "ਮਾਮਾ",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "ਮਾਮੇ ਦਾ ਨਾਮ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਰਿਸ਼ਤੇਦਾਰ",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "ਰਿਸ਼ਤੇਦਾਰਾਂ ਦਾ ਗੋਤ ਲਿਖੋ",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "title": "ਸੰਪਰਕ ਜਾਣਕਾਰੀ",
+      "addExtraFiels": "ਨਵਾਂ ਫੀਲਡ ਸ਼ਾਮਲ ਕਰੋ",
+      "NewFieldLabel": "ਲੇਬਲ ਲਿਖੋ",
+      "NewFieldValue": "ਮੁੱਲ ਲਿਖੋ",
+      "key": "contactInfo",
+      "fields": [
+        {
+          "label": "ਪਤਾ",
+          "key": "address",
+          "type": "textarea",
+          "placeholder": "ਪੂਰਾ ਪਤਾ ਲਿਖੋ",
+          "value": ""
+        },
+        {
+          "label": "ਮੋਬਾਈਲ ਨੰਬਰ",
+          "key": "mobile",
+          "type": "tel",
+          "placeholder": "ਮੋਬਾਈਲ ਨੰਬਰ ਲਿਖੋ",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

@@ -55,10 +55,30 @@ body {
     #fbfaf8;
 }
 
-/* When html[lang] or body[data-lang] indicates hi/mr, prefer Devanagari fonts globally */
-/* html[lang="hi"], body[data-lang="hi"], html[lang="mr"], body[data-lang="mr"] {
-  font-family: var(--font-noto-devanagari), var(--font-poppins), var(--font-inter), system-ui, sans-serif;
-} */
+/* Prefer the matching Noto script font whenever a language is active.
+   This also forces the webfont to download (not just system fallback),
+   which is what the preview canvas paints with. */
+body[data-lang="hi"], body[data-lang="mr"] {
+  font-family: var(--font-noto-devanagari), var(--font-outfit), system-ui, sans-serif;
+}
+body[data-lang="ta"] {
+  font-family: var(--font-noto-tamil), var(--font-outfit), system-ui, sans-serif;
+}
+body[data-lang="te"] {
+  font-family: var(--font-noto-telugu), var(--font-outfit), system-ui, sans-serif;
+}
+body[data-lang="bn"] {
+  font-family: var(--font-noto-bengali), var(--font-outfit), system-ui, sans-serif;
+}
+body[data-lang="gu"] {
+  font-family: var(--font-noto-gujarati), var(--font-outfit), system-ui, sans-serif;
+}
+body[data-lang="kn"] {
+  font-family: var(--font-noto-kannada), var(--font-outfit), system-ui, sans-serif;
+}
+body[data-lang="pa"] {
+  font-family: var(--font-noto-gurmukhi), var(--font-outfit), system-ui, sans-serif;
+}
 
 /* ===== Global Form Container ===== */
 .biodata-card {

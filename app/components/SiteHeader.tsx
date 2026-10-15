@@ -6,9 +6,15 @@ import { useLanguageContext } from "../hooks/useLanguage";
 import { ChevronDown, Check, Globe } from "lucide-react";
 
 const LANGUAGES = [
-    { code: "en", label: "English" },
-    { code: "mr", label: "मराठी" },
-    { code: "hi", label: "हिन्दी" },
+    { code: "en", label: "English", name: "English" },
+    { code: "hi", label: "हिन्दी", name: "Hindi" },
+    { code: "mr", label: "मराठी", name: "Marathi" },
+    { code: "ta", label: "தமிழ்", name: "Tamil" },
+    { code: "te", label: "తెలుగు", name: "Telugu" },
+    { code: "bn", label: "বাংলা", name: "Bengali" },
+    { code: "gu", label: "ગુજરાતી", name: "Gujarati" },
+    { code: "kn", label: "ಕನ್ನಡ", name: "Kannada" },
+    { code: "pa", label: "ਪੰਜਾਬੀ", name: "Punjabi" },
 ];
 
 export default function SiteHeader() {
@@ -128,20 +134,25 @@ export default function SiteHeader() {
                             </button>
 
                             {showLangMenu && (
-                                <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border border-slate-200 p-1 z-50" role="listbox">
+                                <div className="absolute right-0 mt-2 w-[280px] bg-white rounded-xl shadow-lg border border-slate-200 p-1.5 z-50 grid grid-cols-2 gap-0.5" role="listbox" aria-label="Choose language">
                                     {LANGUAGES.map((l) => {
                                         const active = language === l.code;
                                         return (
                                             <button
                                                 key={l.code}
                                                 onClick={() => handleLanguageChange(l.code)}
-                                                className={`w-full text-left px-3 py-2.5 text-[13.5px] rounded-lg flex items-center justify-between transition ${active
-                                                        ? "bg-rose-50 text-rose-900 font-semibold"
+                                                role="option"
+                                                aria-selected={active}
+                                                className={`text-left px-3 py-2 rounded-lg transition ${active
+                                                        ? "bg-rose-50 text-rose-900"
                                                         : "hover:bg-slate-50 text-slate-700"
                                                     }`}
                                             >
-                                                {l.label}
-                                                {active && <Check className="w-4 h-4" />}
+                                                <span className="flex items-center justify-between gap-1">
+                                                    <span className={`block text-[13.5px] leading-tight ${active ? "font-semibold" : "font-medium"}`}>{l.label}</span>
+                                                    {active && <Check className="w-3.5 h-3.5 shrink-0" />}
+                                                </span>
+                                                <span className="block text-[11px] leading-tight text-slate-400 mt-0.5">{l.name}</span>
                                             </button>
                                         );
                                     })}

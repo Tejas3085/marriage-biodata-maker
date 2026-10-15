@@ -1,0 +1,347 @@
+{
+  "godTitle": "|| ಶ್ರೀ ಗಣೇಶಾಯ ನಮಃ ||",
+  "uploadPhotoLabel": "ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+  "generateBiodataBtnLabel": "ಬಯೋಡೇಟಾ ರಚಿಸಿ",
+  "headerSubTitle": "ಸೆಕೆಂಡುಗಳಲ್ಲಿ ನಿಮ್ಮದಾಗಿಸಿಕೊಳ್ಳಿ",
+  "fieldSections": [
+    {
+      "title": "ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ",
+      "addExtraFiels": "ಹೊಸ ಫೀಲ್ಡ್ ಸೇರಿಸಿ",
+      "NewFieldLabel": "ಹೊಸ ಲೇಬಲ್ ನಮೂದಿಸಿ",
+      "NewFieldValue": "ಮೌಲ್ಯ ನಮೂದಿಸಿ",
+      "key": "personalInfo",
+      "fields": [
+        {
+          "label": "ಪೂರ್ಣ ಹೆಸರು",
+          "key": "name",
+          "type": "text",
+          "placeholder": "ಪೂರ್ಣ ಹೆಸರು ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಹುಟ್ಟಿದ ದಿನಾಂಕ",
+          "key": "dob",
+          "type": "text",
+          "placeholder": "ಹುಟ್ಟಿದ ದಿನಾಂಕ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಹುಟ್ಟಿದ ಸಮಯ",
+          "key": "birthTime",
+          "type": "text",
+          "placeholder": "ಹುಟ್ಟಿದ ಸಮಯ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಹುಟ್ಟಿದ ಸ್ಥಳ",
+          "key": "birthPlace",
+          "type": "text",
+          "placeholder": "ಹುಟ್ಟಿದ ಸ್ಥಳ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಧರ್ಮ",
+          "key": "religion",
+          "type": "text",
+          "placeholder": "ಧರ್ಮ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಜಾತಿ",
+          "key": "caste",
+          "type": "text",
+          "placeholder": "ಜಾತಿ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಕುಲದೇವತೆ",
+          "key": "kuldevta",
+          "type": "text",
+          "placeholder": "ಕುಲದೇವತೆ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ರಾಶಿ",
+          "key": "rashi",
+          "type": "select",
+          "placeholder": "ರಾಶಿ ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "ಮೇಷ",
+            "ವೃಷಭ",
+            "ಮಿಥುನ",
+            "ಕಟಕ",
+            "ಸಿಂಹ",
+            "ಕನ್ಯಾ",
+            "ತುಲಾ",
+            "ವೃಶ್ಚಿಕ",
+            "ಧನು",
+            "ಮಕರ",
+            "ಕುಂಭ",
+            "ಮೀನ"
+          ]
+        },
+        {
+          "label": "ನಕ್ಷತ್ರ",
+          "key": "nakshatra",
+          "type": "select",
+          "placeholder": "ನಕ್ಷತ್ರ ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "ಅಶ್ವಿನಿ",
+            "ಭರಣಿ",
+            "ಕೃತ್ತಿಕಾ",
+            "ರೋಹಿಣಿ",
+            "ಮೃಗಶಿರಾ",
+            "ಆರ್ದ್ರಾ",
+            "ಪುನರ್ವಸು",
+            "ಪುಷ್ಯ",
+            "ಆಶ್ಲೇಷಾ",
+            "ಮಖ",
+            "ಪೂರ್ವ ಫಲ್ಗುಣಿ",
+            "ಉತ್ತರ ಫಲ್ಗುಣಿ",
+            "ಹಸ್ತ",
+            "ಚಿತ್ತಾ",
+            "ಸ್ವಾತಿ",
+            "ವಿಶಾಖಾ",
+            "ಅನೂರಾಧಾ",
+            "ಜ್ಯೇಷ್ಠಾ",
+            "ಮೂಲಾ",
+            "ಪೂರ್ವಾಷಾಢಾ",
+            "ಉತ್ತರಾಷಾಢಾ",
+            "ಶ್ರವಣಾ",
+            "ಧನಿಷ್ಠಾ",
+            "ಶತಭಿಷಾ",
+            "ಪೂರ್ವಾಭಾದ್ರಪದ",
+            "ಉತ್ತರಾಭಾದ್ರಪದ",
+            "ರೇವತಿ"
+          ]
+        },
+        {
+          "label": "ಗಣ",
+          "key": "gan",
+          "type": "select",
+          "placeholder": "ಗಣ ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "ದೇವ",
+            "ಮಾನವ",
+            "ರಾಕ್ಷಸ"
+          ]
+        },
+        {
+          "label": "ನಾಡಿ",
+          "key": "nadi",
+          "type": "select",
+          "placeholder": "ನಾಡಿ ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "ಆದಿ",
+            "ಮಧ್ಯ",
+            "ಅಂತ್ಯ"
+          ]
+        },
+        {
+          "label": "ಮಾಂಗಲಿಕ",
+          "key": "manglik",
+          "type": "select",
+          "placeholder": "ಆಯ್ಕೆ ಆರಿಸಿ",
+          "value": "",
+          "options": [
+            "ಹೌದು",
+            "ಇಲ್ಲ",
+            "ಗೊತ್ತಿಲ್ಲ"
+          ]
+        },
+        {
+          "label": "ಗೋತ್ರ",
+          "key": "gotra",
+          "type": "text",
+          "placeholder": "ಗೋತ್ರ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಎತ್ತರ",
+          "key": "height",
+          "type": "select",
+          "placeholder": "ಎತ್ತರ ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "4 ಅಡಿ 5 ಇಂಚು",
+            "4 ಅಡಿ 6 ಇಂಚು",
+            "4 ಅಡಿ 7 ಇಂಚು",
+            "4 ಅಡಿ 8 ಇಂಚು",
+            "4 ಅಡಿ 9 ಇಂಚು",
+            "4 ಅಡಿ 10 ಇಂಚು",
+            "4 ಅಡಿ 11 ಇಂಚು",
+            "5 ಅಡಿ 0 ಇಂಚು",
+            "5 ಅಡಿ 1 ಇಂಚು",
+            "5 ಅಡಿ 2 ಇಂಚು",
+            "5 ಅಡಿ 3 ಇಂಚು",
+            "5 ಅಡಿ 4 ಇಂಚು",
+            "5 ಅಡಿ 5 ಇಂಚು",
+            "5 ಅಡಿ 6 ಇಂಚು",
+            "5 ಅಡಿ 7 ಇಂಚು",
+            "5 ಅಡಿ 8 ಇಂಚು",
+            "5 ಅಡಿ 9 ಇಂಚು",
+            "5 ಅಡಿ 10 ಇಂಚು",
+            "5 ಅಡಿ 11 ಇಂಚು",
+            "6 ಅಡಿ 0 ಇಂಚು",
+            "6 ಅಡಿ 1 ಇಂಚು",
+            "6 ಅಡಿ 2 ಇಂಚು",
+            "6 ಅಡಿ 3 ಇಂಚು",
+            "6 ಅಡಿ 4 ಇಂಚು",
+            "6 ಅಡಿ 5 ಇಂಚು",
+            "6 ಅಡಿ 6 ಇಂಚು",
+            "6 ಅಡಿ 7 ಇಂಚು",
+            "6 ಅಡಿ 8 ಇಂಚು",
+            "6 ಅಡಿ 9 ಇಂಚು",
+            "6 ಅಡಿ 10 ಇಂಚು",
+            "6 ಅಡಿ 11 ಇಂಚು",
+            "7 ಅಡಿ 0 ಇಂಚು"
+          ]
+        },
+        {
+          "label": "ಮೈಬಣ್ಣ",
+          "key": "varna",
+          "type": "select",
+          "placeholder": "ಮೈಬಣ್ಣ ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "ಬಿಳಿ",
+            "ಗೋಧಿ ವರ್ಣ",
+            "ಗಾಢ ಗೋಧಿ ವರ್ಣ",
+            "ಶ್ಯಾಮಲ",
+            "ಕಪ್ಪು"
+          ]
+        },
+        {
+          "label": "ರಕ್ತದ ಗುಂಪು",
+          "key": "bloodGroup",
+          "type": "select",
+          "placeholder": "ರಕ್ತದ ಗುಂಪು ಆಯ್ಕೆಮಾಡಿ",
+          "value": "",
+          "options": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+          ]
+        },
+        {
+          "label": "ಶಿಕ್ಷಣ",
+          "key": "education",
+          "type": "text",
+          "placeholder": "ಶಿಕ್ಷಣ ವಿವರ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಉದ್ಯೋಗ / ವೃತ್ತಿ",
+          "key": "job",
+          "type": "text",
+          "placeholder": "ಉದ್ಯೋಗ ಅಥವಾ ವೃತ್ತಿ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಆದಾಯ / ಸಂಬಳ",
+          "key": "salary",
+          "type": "text",
+          "placeholder": "ಆದಾಯ ಅಥವಾ ಸಂಬಳ ನಮೂದಿಸಿ",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "title": "ಕುಟುಂಬ ಮಾಹಿತಿ",
+      "addExtraFiels": "ಹೊಸ ಫೀಲ್ಡ್ ಸೇರಿಸಿ",
+      "NewFieldLabel": "ಲೇಬಲ್ ನಮೂದಿಸಿ",
+      "NewFieldValue": "ಮೌಲ್ಯ ನಮೂದಿಸಿ",
+      "key": "familyInfo",
+      "fields": [
+        {
+          "label": "ತಂದೆಯ ಹೆಸರು",
+          "key": "fatherName",
+          "type": "text",
+          "placeholder": "ತಂದೆಯ ಹೆಸರು ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ತಂದೆಯ ವೃತ್ತಿ",
+          "key": "fatherOccupation",
+          "type": "text",
+          "placeholder": "ತಂದೆಯ ವೃತ್ತಿ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ತಾಯಿಯ ಹೆಸರು",
+          "key": "motherName",
+          "type": "text",
+          "placeholder": "ತಾಯಿಯ ಹೆಸರು ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ವೃತ್ತಿ",
+          "key": "motherjob",
+          "type": "text",
+          "placeholder": "ಉದಾ. ಗೃಹಿಣಿ / ಉದ್ಯೋಗ",
+          "value": ""
+        },
+        {
+          "label": "ಸಹೋದರಿಯರು",
+          "key": "sisters",
+          "type": "text",
+          "placeholder": "ಸಹೋದರಿಯರ ಸಂಖ್ಯೆ / ಹೆಸರುಗಳು",
+          "value": ""
+        },
+        {
+          "label": "ಸಹೋದರರು",
+          "key": "brothers",
+          "type": "text",
+          "placeholder": "ಸಹೋದರರ ಸಂಖ್ಯೆ / ಹೆಸರುಗಳು",
+          "value": ""
+        },
+        {
+          "label": "ಮಾಮ",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "ಮಾಮನ ಹೆಸರು ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಸಂಬಂಧಿಕರು",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "ಸಂಬಂಧಿಕರ ಮನೆತನ ನಮೂದಿಸಿ",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "title": "ಸಂಪರ್ಕ ಮಾಹಿತಿ",
+      "addExtraFiels": "ಹೊಸ ಫೀಲ್ಡ್ ಸೇರಿಸಿ",
+      "NewFieldLabel": "ಲೇಬಲ್ ನಮೂದಿಸಿ",
+      "NewFieldValue": "ಮೌಲ್ಯ ನಮೂದಿಸಿ",
+      "key": "contactInfo",
+      "fields": [
+        {
+          "label": "ವಿಳಾಸ",
+          "key": "address",
+          "type": "textarea",
+          "placeholder": "ಪೂರ್ಣ ವಿಳಾಸ ನಮೂದಿಸಿ",
+          "value": ""
+        },
+        {
+          "label": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",
+          "key": "mobile",
+          "type": "tel",
+          "placeholder": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

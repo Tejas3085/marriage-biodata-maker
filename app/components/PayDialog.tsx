@@ -168,10 +168,10 @@ export default function PayDialog({
             className="mt-5 w-full h-12 rounded-full bg-rose-900 text-white text-[15px] font-semibold hover:bg-rose-800 transition disabled:opacity-60 inline-flex items-center justify-center gap-2"
           >
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
-            {busy ? "Opening secure payment…" : `Pay ₹${priceInr} securely`}
+            {busy ? "Opening secure payment…" : `Pay ₹${priceInr} with UPI / cards`}
           </button>
           <p className="mt-3 text-center text-[12px] text-slate-500">
-            Secured by Razorpay • test mode accepts test UPI &amp; cards
+            Secured by Razorpay • UPI, cards &amp; netbanking accepted
           </p>
         </div>
       </div>

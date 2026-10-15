@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_Devanagari, Outfit, Playfair_Display } from "next/font/google";
+import { Noto_Sans_Devanagari, Noto_Sans_Tamil, Noto_Sans_Telugu, Noto_Sans_Bengali, Noto_Sans_Gujarati, Noto_Sans_Kannada, Noto_Sans_Gurmukhi, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "./hooks/useLanguage";
 import { Analytics } from "@vercel/analytics/next";
@@ -10,6 +10,14 @@ const notoDevanagari = Noto_Sans_Devanagari({
   variable: "--font-noto-devanagari",
   display: "swap",
 });
+// One Noto family per supported Indic script. Browsers download each file
+// lazily (unicode-range), so unused scripts cost ~0 bytes until selected.
+const notoTamil = Noto_Sans_Tamil({ subsets: ["tamil"], weight: ["400", "500", "600", "700"], variable: "--font-noto-tamil", display: "swap" });
+const notoTelugu = Noto_Sans_Telugu({ subsets: ["telugu"], weight: ["400", "500", "600", "700"], variable: "--font-noto-telugu", display: "swap" });
+const notoBengali = Noto_Sans_Bengali({ subsets: ["bengali"], weight: ["400", "500", "600", "700"], variable: "--font-noto-bengali", display: "swap" });
+const notoGujarati = Noto_Sans_Gujarati({ subsets: ["gujarati"], weight: ["400", "500", "600", "700"], variable: "--font-noto-gujarati", display: "swap" });
+const notoKannada = Noto_Sans_Kannada({ subsets: ["kannada"], weight: ["400", "500", "600", "700"], variable: "--font-noto-kannada", display: "swap" });
+const notoGurmukhi = Noto_Sans_Gurmukhi({ subsets: ["gurmukhi"], weight: ["400", "500", "600", "700"], variable: "--font-noto-gurmukhi", display: "swap" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
 // Only weights actually used (400 numerals, 500 hero italic, 600 headings) —
 // the default would download all 6 Playfair weights.
@@ -189,7 +197,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${notoDevanagari.variable} ${outfit.variable} ${playfair.variable} antialiased`}>
+      <body className={`${notoDevanagari.variable} ${notoTamil.variable} ${notoTelugu.variable} ${notoBengali.variable} ${notoGujarati.variable} ${notoKannada.variable} ${notoGurmukhi.variable} ${outfit.variable} ${playfair.variable} antialiased`}>
         <LanguageProvider>{children}</LanguageProvider>
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

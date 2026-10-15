@@ -51,7 +51,7 @@ export default function HomePage() {
     features: [
       "30+ elegant templates",
       "HD PNG + A4 PDF download",
-      "English, Hindi & Marathi",
+      "9 Indian languages",
       "100% free, no signup",
     ],
     createBiodataBtn: "Create My Biodata",
@@ -141,8 +141,8 @@ export default function HomePage() {
             {[0, 1].map((copy) => (
               <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center">
                 {[
-                  "100% Free Forever", "No Signup Needed", "20+ Premium Templates",
-                  "Hindi • Marathi • English", "HD PNG + A4 PDF", "Private by Design",
+                  "Free Forever", "No Signup Needed", "30+ Designer Templates",
+                  "9 Languages", "HD PNG + A4 PDF", "Private by Design",
                 ].map((item) => (
                   <span key={`${copy}-${item}`} className="flex items-center text-xs font-semibold uppercase tracking-[0.12em] whitespace-nowrap">
                     <span className="px-5">{item}</span>

@@ -17,11 +17,12 @@ export default function SiteFooter() {
               </div>
             </div>
             <p className="mt-4 text-[13.5px] leading-relaxed max-w-xs text-slate-400">
-              Create elegant, print-ready marriage biodatas in English, Hindi and Marathi. No signup, no watermark.
+              Create elegant, print-ready marriage biodatas in 9 Indian languages. No signup, no watermark.
             </p>
-            <div className="mt-5 flex items-center gap-2">
-              {["EN", "हिं", "मर"].map((l) => (
-                <span key={l} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[12px] font-medium text-slate-300">{l}</span>
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">9 languages</p>
+            <div className="mt-2 flex flex-wrap gap-1.5 max-w-xs">
+              {["English", "हिन्दी", "मराठी", "தமிழ்", "తెలుగు", "বাংলা", "ગુજરાતી", "ಕನ್ನಡ", "ਪੰਜਾਬੀ"].map((l) => (
+                <span key={l} className="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-medium text-slate-300">{l}</span>
               ))}
             </div>
           </div>

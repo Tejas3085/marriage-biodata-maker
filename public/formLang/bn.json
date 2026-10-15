@@ -1,0 +1,347 @@
+{
+  "godTitle": "|| শ্রী গণেশায় নমঃ ||",
+  "uploadPhotoLabel": "ফটো আপলোড করুন",
+  "generateBiodataBtnLabel": "বায়োডাটা তৈরি করুন",
+  "headerSubTitle": "সেকেন্ডের মধ্যে নিজের করে নিন",
+  "fieldSections": [
+    {
+      "title": "ব্যক্তিগত তথ্য",
+      "addExtraFiels": "নতুন ফিল্ড যোগ করুন",
+      "NewFieldLabel": "নতুন লেবেল লিখুন",
+      "NewFieldValue": "মান লিখুন",
+      "key": "personalInfo",
+      "fields": [
+        {
+          "label": "পুরো নাম",
+          "key": "name",
+          "type": "text",
+          "placeholder": "পুরো নাম লিখুন",
+          "value": ""
+        },
+        {
+          "label": "জন্ম তারিখ",
+          "key": "dob",
+          "type": "text",
+          "placeholder": "জন্ম তারিখ লিখুন",
+          "value": ""
+        },
+        {
+          "label": "জন্ম সময়",
+          "key": "birthTime",
+          "type": "text",
+          "placeholder": "জন্ম সময় লিখুন",
+          "value": ""
+        },
+        {
+          "label": "জন্মস্থান",
+          "key": "birthPlace",
+          "type": "text",
+          "placeholder": "জন্মস্থান লিখুন",
+          "value": ""
+        },
+        {
+          "label": "ধর্ম",
+          "key": "religion",
+          "type": "text",
+          "placeholder": "ধর্ম লিখুন",
+          "value": ""
+        },
+        {
+          "label": "জাতি",
+          "key": "caste",
+          "type": "text",
+          "placeholder": "জাতি লিখুন",
+          "value": ""
+        },
+        {
+          "label": "কুলদেবতা",
+          "key": "kuldevta",
+          "type": "text",
+          "placeholder": "কুলদেবতা লিখুন",
+          "value": ""
+        },
+        {
+          "label": "রাশি",
+          "key": "rashi",
+          "type": "select",
+          "placeholder": "রাশি বেছে নিন",
+          "value": "",
+          "options": [
+            "মেষ",
+            "বৃষ",
+            "মিথুন",
+            "কর্কট",
+            "সিংহ",
+            "কন্যা",
+            "তুলা",
+            "বৃশ্চিক",
+            "ধনু",
+            "মকর",
+            "কুম্ভ",
+            "মীন"
+          ]
+        },
+        {
+          "label": "নক্ষত্র",
+          "key": "nakshatra",
+          "type": "select",
+          "placeholder": "নক্ষত্র বেছে নিন",
+          "value": "",
+          "options": [
+            "অশ্বিনী",
+            "ভরণী",
+            "কৃত্তিকা",
+            "রোহিণী",
+            "মৃগশিরা",
+            "আর্দ্রা",
+            "পুনর্বসু",
+            "পুষ্যা",
+            "অশ্লেষা",
+            "মঘা",
+            "পূর্বফল্গুনী",
+            "উত্তরফল্গুনী",
+            "হস্তা",
+            "চিত্রা",
+            "স্বাতী",
+            "বিশাখা",
+            "অনুরাধা",
+            "জ্যেষ্ঠা",
+            "মূলা",
+            "পূর্বাষাঢ়া",
+            "উত্তরাষাঢ়া",
+            "শ্রবণা",
+            "ধনিষ্ঠা",
+            "শতভিষা",
+            "পূর্বভাদ্রপদ",
+            "উত্তরভাদ্রপদ",
+            "রেবতী"
+          ]
+        },
+        {
+          "label": "গণ",
+          "key": "gan",
+          "type": "select",
+          "placeholder": "গণ বেছে নিন",
+          "value": "",
+          "options": [
+            "দেব",
+            "মনুষ্য",
+            "রাক্ষস"
+          ]
+        },
+        {
+          "label": "নাড়ি",
+          "key": "nadi",
+          "type": "select",
+          "placeholder": "নাড়ি বেছে নিন",
+          "value": "",
+          "options": [
+            "আদি",
+            "মধ্য",
+            "অন্ত্য"
+          ]
+        },
+        {
+          "label": "মাঙ্গলিক",
+          "key": "manglik",
+          "type": "select",
+          "placeholder": "বিকল্প বেছে নিন",
+          "value": "",
+          "options": [
+            "হ্যাঁ",
+            "না",
+            "জানি না"
+          ]
+        },
+        {
+          "label": "গোত্র",
+          "key": "gotra",
+          "type": "text",
+          "placeholder": "গোত্র লিখুন",
+          "value": ""
+        },
+        {
+          "label": "উচ্চতা",
+          "key": "height",
+          "type": "select",
+          "placeholder": "উচ্চতা বেছে নিন",
+          "value": "",
+          "options": [
+            "4 ফুট 5 ইঞ্চি",
+            "4 ফুট 6 ইঞ্চি",
+            "4 ফুট 7 ইঞ্চি",
+            "4 ফুট 8 ইঞ্চি",
+            "4 ফুট 9 ইঞ্চি",
+            "4 ফুট 10 ইঞ্চি",
+            "4 ফুট 11 ইঞ্চি",
+            "5 ফুট 0 ইঞ্চি",
+            "5 ফুট 1 ইঞ্চি",
+            "5 ফুট 2 ইঞ্চি",
+            "5 ফুট 3 ইঞ্চি",
+            "5 ফুট 4 ইঞ্চি",
+            "5 ফুট 5 ইঞ্চি",
+            "5 ফুট 6 ইঞ্চি",
+            "5 ফুট 7 ইঞ্চি",
+            "5 ফুট 8 ইঞ্চি",
+            "5 ফুট 9 ইঞ্চি",
+            "5 ফুট 10 ইঞ্চি",
+            "5 ফুট 11 ইঞ্চি",
+            "6 ফুট 0 ইঞ্চি",
+            "6 ফুট 1 ইঞ্চি",
+            "6 ফুট 2 ইঞ্চি",
+            "6 ফুট 3 ইঞ্চি",
+            "6 ফুট 4 ইঞ্চি",
+            "6 ফুট 5 ইঞ্চি",
+            "6 ফুট 6 ইঞ্চি",
+            "6 ফুট 7 ইঞ্চি",
+            "6 ফুট 8 ইঞ্চি",
+            "6 ফুট 9 ইঞ্চি",
+            "6 ফুট 10 ইঞ্চি",
+            "6 ফুট 11 ইঞ্চি",
+            "7 ফুট 0 ইঞ্চি"
+          ]
+        },
+        {
+          "label": "গায়ের রং",
+          "key": "varna",
+          "type": "select",
+          "placeholder": "গায়ের রং বেছে নিন",
+          "value": "",
+          "options": [
+            "ফর্সা",
+            "গমের মতো",
+            "গাঢ় গমের মতো",
+            "শ্যামলা",
+            "কালো"
+          ]
+        },
+        {
+          "label": "রক্তের গ্রুপ",
+          "key": "bloodGroup",
+          "type": "select",
+          "placeholder": "রক্তের গ্রুপ বেছে নিন",
+          "value": "",
+          "options": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+          ]
+        },
+        {
+          "label": "শিক্ষা",
+          "key": "education",
+          "type": "text",
+          "placeholder": "শিক্ষার বিবরণ লিখুন",
+          "value": ""
+        },
+        {
+          "label": "চাকরি / পেশা",
+          "key": "job",
+          "type": "text",
+          "placeholder": "চাকরি বা পেশা লিখুন",
+          "value": ""
+        },
+        {
+          "label": "আয় / বেতন",
+          "key": "salary",
+          "type": "text",
+          "placeholder": "আয় বা বেতন লিখুন",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "title": "পারিবারিক তথ্য",
+      "addExtraFiels": "নতুন ফিল্ড যোগ করুন",
+      "NewFieldLabel": "লেবেল লিখুন",
+      "NewFieldValue": "মান লিখুন",
+      "key": "familyInfo",
+      "fields": [
+        {
+          "label": "বাবার নাম",
+          "key": "fatherName",
+          "type": "text",
+          "placeholder": "বাবার নাম লিখুন",
+          "value": ""
+        },
+        {
+          "label": "বাবার পেশা",
+          "key": "fatherOccupation",
+          "type": "text",
+          "placeholder": "বাবার পেশা লিখুন",
+          "value": ""
+        },
+        {
+          "label": "মায়ের নাম",
+          "key": "motherName",
+          "type": "text",
+          "placeholder": "মায়ের নাম লিখুন",
+          "value": ""
+        },
+        {
+          "label": "পেশা",
+          "key": "motherjob",
+          "type": "text",
+          "placeholder": "যেমন. গৃহিণী / চাকরি",
+          "value": ""
+        },
+        {
+          "label": "বোনেরা",
+          "key": "sisters",
+          "type": "text",
+          "placeholder": "বোনেদের সংখ্যা / নাম",
+          "value": ""
+        },
+        {
+          "label": "ভাইয়েরা",
+          "key": "brothers",
+          "type": "text",
+          "placeholder": "ভাইয়েদের সংখ্যা / নাম",
+          "value": ""
+        },
+        {
+          "label": "মামা",
+          "key": "mama",
+          "type": "text",
+          "placeholder": "মামার নাম লিখুন",
+          "value": ""
+        },
+        {
+          "label": "আত্মীয়রা",
+          "key": "relatives",
+          "type": "textarea",
+          "placeholder": "আত্মীয়ের পদবি লিখুন",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "title": "যোগাযোগের তথ্য",
+      "addExtraFiels": "নতুন ফিল্ড যোগ করুন",
+      "NewFieldLabel": "লেবেল লিখুন",
+      "NewFieldValue": "মান লিখুন",
+      "key": "contactInfo",
+      "fields": [
+        {
+          "label": "ঠিকানা",
+          "key": "address",
+          "type": "textarea",
+          "placeholder": "পুরো ঠিকানা লিখুন",
+          "value": ""
+        },
+        {
+          "label": "মোবাইল নম্বর",
+          "key": "mobile",
+          "type": "tel",
+          "placeholder": "মোবাইল নম্বর লিখুন",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

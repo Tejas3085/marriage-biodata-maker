@@ -10,6 +10,24 @@ import PayDialog from "../components/PayDialog";
 import { getTemplatePrice, hasUnlock, isPremiumTemplate, readUnlocks, saveUnlock, PREMIUM_PRICE_INR } from "./premium";
 
 interface Field { label: string; value: string; }
+
+// Script font per language code (families loaded in app/layout.tsx).
+// Identical output to the old inline ternaries for en/hi/mr.
+const LANG_FONT_STACKS: Record<string, string> = {
+  hi: '"Noto Sans Devanagari", "Inter"',
+  mr: '"Noto Sans Devanagari", "Inter"',
+  ta: '"Noto Sans Tamil", "Inter"',
+  te: '"Noto Sans Telugu", "Inter"',
+  bn: '"Noto Sans Bengali", "Inter"',
+  gu: '"Noto Sans Gujarati", "Inter"',
+  kn: '"Noto Sans Kannada", "Inter"',
+  pa: '"Noto Sans Gurmukhi", "Inter"',
+};
+
+function langFont(language: string): string {
+  const fam = LANG_FONT_STACKS[language];
+  return fam ? `${fam}, sans-serif` : '"Inter", sans-serif';
+}
 interface Section { title?: string; fields: Field[]; }
 interface FormData {
   personalInfo?: Section;
@@ -578,7 +596,7 @@ export default function PreviewPage() {
     // God Title
     if (formData.godTitle) {
       if (!dryRun) {
-        const serifFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Inter", sans-serif';
+        const serifFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : langFont(language);
         ctx.font = `700 ${godTitleSize}px ${serifFont}`;
         ctx.fillStyle = template.godTitleColor || "#872341";
         ctx.textAlign = "center";
@@ -632,8 +650,8 @@ export default function PreviewPage() {
     const labelX = width * (template.labelsLeftPadding ?? 0.12);
 
     // Shared label/value fonts (depend only on language)
-    const labelFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
-    const valueFont = language === "mr" || language === "hi" ? '"Noto Sans Devanagari", "Inter", sans-serif' : '"Inter", sans-serif';
+    const labelFont = langFont(language);
+    const valueFont = langFont(language);
 
     // derive label/value font sizes from the template when provided.
     // Templates currently use a small fractional value (e.g. 0.015) which
@@ -691,7 +709,7 @@ export default function PreviewPage() {
       // --- Section Title ---
       if (!dryRun) {
         ctx.fillStyle = template.sectionTitleColor || "#000";
-        const sectionFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : '"Inter", sans-serif';
+        const sectionFont = language === "mr" || language === "hi" ? '"Noto Serif", "Noto Sans Devanagari"' : langFont(language);
         ctx.font = `700 ${godTitleSize}px ${sectionFont}`;
         ctx.textAlign = "center";
 
