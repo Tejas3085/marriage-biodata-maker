@@ -233,7 +233,7 @@ export default function HomePage() {
                   ["50K+", "biodatas monthly"],
                   ["30+", "designer templates"],
                   ["4.8", "average rating"],
-                  ["3", "languages"],
+                  ["9", "languages"],
                 ].map(([v, l], i) => (
                   <div key={l} className={`px-2 text-center sm:text-left sm:px-6 ${i % 2 === 1 ? "max-sm:border-l max-sm:border-slate-300/70" : ""}`}>
                     <dt className="sr-only">{l}</dt>
@@ -477,8 +477,8 @@ export default function HomePage() {
                     icon: <Zap className="w-5 h-5" />,
                   },
                   {
-                    title: "Hindi, Marathi & English",
-                    desc: "Full Devanagari support with respectful traditional wordings.",
+                    title: "9 Indian languages",
+                    desc: "English, Hindi, Marathi, Tamil, Telugu, Bengali, Gujarati, Kannada & Punjabi with full native script support.",
                     icon: <Globe className="w-5 h-5" />,
                   },
                 ].map((item, idx) => (
