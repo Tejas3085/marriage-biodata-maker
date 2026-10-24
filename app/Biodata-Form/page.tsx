@@ -400,7 +400,7 @@ export default function BiodataForm() {
 
   // ---------- Render ----------
   return (
-    <div className="max-w-6xl mx-auto bg-white rounded-3xl border border-slate-200 shadow-[0_20px_60px_-24px_rgba(15,23,42,0.25)] p-5 sm:p-8 md:p-10">
+    <div className="max-w-6xl mx-auto bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-[0_20px_60px_-24px_rgba(15,23,42,0.25)] px-1.5 py-3 sm:p-8 md:p-10">
       {/* Validation Toast */}
       {showValidationToast && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center animate-in fade-in slide-in-from-top-10 duration-500">
@@ -624,7 +624,7 @@ export default function BiodataForm() {
             {/* Field Sections */}
             <section aria-label="Form fields" className="space-y-6">
               {formData.fieldSections.map((section: any, sIndex: number) => (
-                <div key={sIndex} className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+                <div key={sIndex} className="rounded-xl sm:rounded-2xl border border-slate-200 bg-white px-2.5 py-4 sm:p-6">
                   <div
                     className="flex items-center gap-2 mb-4 cursor-pointer group w-fit"
                     role="button"
@@ -656,7 +656,7 @@ export default function BiodataForm() {
                       <div
                         key={field.key}
                         id={`field-container-${field.key}`}
-                        className="flex gap-2 rounded-xl border border-slate-100 bg-slate-50/70 p-2.5 hover:border-slate-200 transition
+                        className="flex gap-1.5 sm:gap-2 rounded-xl border border-slate-100 bg-slate-50/70 p-1.5 sm:p-2.5 hover:border-slate-200 transition
         sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-3
         lg:flex lg:flex-row lg:items-center lg:gap-3
       "
@@ -670,7 +670,7 @@ export default function BiodataForm() {
                             value={field.label || ""}
                             onChange={(e) => updateField(sIndex, fIndex, "label", e.target.value)}
                             placeholder={section.NewFieldLabel}
-                            className="border w-full border-slate-200 px-3 py-2.5 rounded-lg text-[13.5px] bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all mb-2 lg:mb-0 lg:max-w-[220px]"
+                            className="border w-full border-slate-200 px-2.5 py-2 sm:px-3 sm:py-2.5 rounded-lg text-[13px] sm:text-[13.5px] bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all mb-2 lg:mb-0 lg:max-w-[220px]"
                           />
 
                           {field.type === "select" ? (
@@ -679,7 +679,7 @@ export default function BiodataForm() {
                               aria-label={`Select ${field.label || "option"}`}
                               value={field.value || ""}
                               onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full"
+                              className="border border-slate-200 px-2.5 py-2 sm:px-3 sm:py-2.5 mb-2 lg:mb-0 rounded-lg text-[13px] sm:text-[13.5px] bg-white focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full"
                             >
                               <option value="">{field.placeholder || "Select"}</option>
                               {field.options?.map((op: string, idx: number) => (
@@ -698,45 +698,41 @@ export default function BiodataForm() {
                                 autoResize(e);
                               }}
                               placeholder={field.placeholder || "Enter value"}
-                              className="border border-slate-200 px-3 py-2.5 mb-2 lg:mb-0 rounded-lg text-[13.5px] bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full resize-none overflow-hidden"
+                              className="border border-slate-200 px-2.5 py-2 sm:px-3 sm:py-2.5 mb-2 lg:mb-0 rounded-lg text-[13px] sm:text-[13.5px] bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full resize-none overflow-hidden"
                               rows={1}
                             />
                           )}
                         </div>
 
                         {/* Buttons */}
-                        <div className="flex flex-col sm:flex-col lg:flex-row gap-1.5 justify-start sm:justify-end lg:justify-end">
+                        <div className="flex flex-col sm:flex-col lg:flex-row gap-1 sm:gap-1.5 justify-start sm:justify-end lg:justify-end shrink-0">
                           <button
                             type="button"
                             onClick={() => moveFieldUp(sIndex, fIndex)}
                             disabled={fIndex === 0}
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white disabled:opacity-30 transition"
+                            className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white disabled:opacity-30 transition"
                           >
-                            <ChevronUp size={16} strokeWidth={2} />
+                            <ChevronUp size={15} strokeWidth={2} />
                           </button>
 
                           <button
                             type="button"
                             onClick={() => moveFieldDown(sIndex, fIndex)}
                             disabled={fIndex === section.fields.length - 1}
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white disabled:opacity-30 transition"
+                            className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white disabled:opacity-30 transition"
                           >
-                            <ChevronDown size={16} strokeWidth={2} />
+                            <ChevronDown size={15} strokeWidth={2} />
                           </button>
 
                           <button
                             type="button"
                             onClick={() => deleteField(sIndex, fIndex)}
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-700 hover:bg-rose-50 transition"
+                            className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-700 hover:bg-rose-50 transition"
                             aria-label="Delete field"
                           >
-                            <Trash2 size={15} />
+                            <Trash2 size={14} />
                           </button>
-
-
                         </div>
-
-
                       </div>
                     ))}
                   </div>
@@ -757,9 +753,9 @@ export default function BiodataForm() {
           {/* RIGHT PANEL - sticky */}
           <aside className="lg:sticky lg:top-24 self-start space-y-4">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-center">
-                <p className="text-[13.5px] text-slate-600 leading-relaxed">
-                  <span className="font-semibold text-slate-900">Tip: </span>a clear, well-lit photo makes your biodata feel personal.
-                </p>
+              <p className="text-[13.5px] text-slate-600 leading-relaxed">
+                <span className="font-semibold text-slate-900">Tip: </span>a clear, well-lit photo makes your biodata feel personal.
+              </p>
 
             </div>
 
