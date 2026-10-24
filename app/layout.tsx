@@ -107,11 +107,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon/favicon.png", sizes: "32x32", type: "image/png" },
-      { url: "/icon/favicon.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon/favicon-192x192.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: [{ url: "/icon/favicon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/manifest.json",
   appleWebApp: {

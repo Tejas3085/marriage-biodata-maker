@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#be123c"/>
+      <stop offset="45%" stop-color="#881337"/>
+      <stop offset="100%" stop-color="#4c0519"/>
+    </radialGradient>
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#fef08a"/>
+      <stop offset="70%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <!-- Main Circular Badge -->
+  <circle cx="256" cy="256" r="252" fill="url(#bg)"/>
+  <!-- Elegant Golden Border Rings -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#goldRing)" stroke-width="8" opacity="0.95"/>
+  <circle cx="256" cy="256" r="226" fill="none" stroke="url(#goldRing)" stroke-width="2" opacity="0.6"/>
+  <!-- Central Auspicious 'श्री' -->
+  <text x="256" y="345" font-family="'Nirmala UI', 'Mangal', 'Noto Sans Devanagari', 'Yashomudra', 'Arial', sans-serif" font-size="250" font-weight="bold" fill="url(#goldText)" text-anchor="middle" filter="url(#shadow)">श्री</text>
+</svg>
