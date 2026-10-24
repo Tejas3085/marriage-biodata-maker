@@ -21,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // High-intent landing pages
     { url: `${SITE_URL}/marathi-biodata-maker`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/hindi-biodata-maker`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/gujarati-biodata-maker`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/bengali-biodata-maker`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/biodata-for-marriage-girl`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/biodata-for-marriage-boy`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
   ];

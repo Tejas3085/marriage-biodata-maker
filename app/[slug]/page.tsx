@@ -1,23 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Check, ArrowRight } from "lucide-react";
-import Header from "../components/SiteHeader";
-import FooterPage from "../components/SiteFooter";
+import LandingPageClient, { LandingData } from "../components/LandingPageClient";
 
-interface Landing {
-  slug: string;
-  h1: string;
-  title: string;
-  description: string;
-  intro: string;
-  points: string[];
-  faq: { q: string; a: string }[];
-}
-
-const LANDINGS: Landing[] = [
+const LANDINGS: LandingData[] = [
   {
     slug: "marathi-biodata-maker",
+    lang: "mr",
     h1: "Marathi Biodata Maker — लग्नाचा बायोडाटा ५ मिनिटांत",
     title: "Marathi Biodata Maker — Free मराठी लग्न बायोडाटा",
     description: "मराठीत सुंदर लग्न बायोडाटा तयार करा. 20+ पारंपरिक टेम्पलेट, योग्य Devanagari फॉन्ट, HD डाउनलोड. 100% मोफत, नोंदणी नको.",
@@ -30,6 +18,7 @@ const LANDINGS: Landing[] = [
   },
   {
     slug: "hindi-biodata-maker",
+    lang: "hi",
     h1: "Hindi Biodata Maker — 5 मिनट में शादी का बायोडाटा",
     title: "Hindi Biodata Maker — Free हिन्दी विवाह बायोडाटा",
     description: "हिन्दी में सुंदर विवाह बायोडाटा बनाएँ. 20+ पारंपरिक टेम्पलेट, सही Devanagari फॉन्ट, HD डाउनलोड. 100% मुफ़्त, कोई साइनअप नहीं.",
@@ -42,6 +31,7 @@ const LANDINGS: Landing[] = [
   },
   {
     slug: "biodata-for-marriage-girl",
+    lang: "en",
     h1: "Marriage Biodata for Girls — Elegant & Respectful Format",
     title: "Biodata for Marriage (Girl) — Free Templates & Samples",
     description: "Create a graceful biodata for girls with the right format: personal, education, family & expectations. 20+ free templates, HD download.",
@@ -54,6 +44,7 @@ const LANDINGS: Landing[] = [
   },
   {
     slug: "biodata-for-marriage-boy",
+    lang: "en",
     h1: "Marriage Biodata for Boys — Professional Format",
     title: "Biodata for Marriage (Boy) — Free Templates & Samples",
     description: "Create a sharp biodata for boys: education, job, income, family & expectations in one page. 20+ free templates, HD download.",
@@ -62,6 +53,32 @@ const LANDINGS: Landing[] = [
     faq: [
       { q: "Should income be mentioned?", a: "One line is enough (e.g. Software Engineer, ₹12 LPA, Pune). Avoid payslips or exact breakup." },
       { q: "Which template for boys?", a: "Classic Maroon or Minimal Ivory — both look professional in print and on mobile." },
+    ],
+  },
+  {
+    slug: "gujarati-biodata-maker",
+    lang: "gu",
+    h1: "Gujarati Biodata Maker — ગુજરાતી લગ્ન બાયોડેટા",
+    title: "Gujarati Biodata Maker — Free લગ્ન બાયોડેટા ફોર્મેટ",
+    description: "ગુજરાતીમાં સુંદર લગ્ન બાયોડેટા બનાવો. 20+ પરંપરાગત નમૂના, શુદ્ધ ગુજરાતી ફોન્ટ્સ, HD ડાઉનલોડ. 100% મફત, સાઇનઅપ વિના.",
+    intro: "વ્યક્તિગત માહિતી, કૌટુંબિક માહિતી, અપેક્ષાઓ અને સંપર્ક — સાચા ગુજરાતી શબ્દો સાથે એક જ પાનામાં. ફોટો ઉમેરો, ડિઝાઇન પસંદ કરો અને WhatsApp પર શેર કરો.",
+    points: ["શુદ્ધ ગુજરાતી લેબલ: વ્યક્તિગત માહિતી, પારિવારિક વિગત", "॥ શ્રી ગણેશાય નમઃ ॥ સાથે પરંપરાગત શીર્ષક", "A4 પ્રિન્ટ અને WhatsApp માટે HD ડાઉનલોડ", "મોબાઇલ પર 5 મિનિટમાં તૈયાર"],
+    faq: [
+      { q: "ગુજરાતી બાયોડેટામાં શું લખવું?", a: "નામ, જન્મ તારીખ, સમય, ઊંચાઈ, શિક્ષણ, વ્યવસાય, મોસાળ પક્ષ, કૌટુંબિક વિગત અને સંપર્ક." },
+      { q: "શું આ સેવા મફત છે?", a: "હા — તમામ ટેમ્પ્લેટ્સ અને ડાઉનલોડ 100% મફત છે, કોઈ વૉટરમાર્ક નથી." },
+    ],
+  },
+  {
+    slug: "bengali-biodata-maker",
+    lang: "bn",
+    h1: "Bengali Biodata Maker — বাংলা বিবাহ বায়োডাটা",
+    title: "Bengali Biodata Maker — Free বিবাহের বায়োডাটা ফরম্যাট",
+    description: "বাংলায় সুন্দর বিবাহের বায়োডাটা তৈরি করুন। ২০+ ঐতিহ্যবাহী টেমপ্লেট, সঠিক বাংলা ফন্ট, HD ডাউনলোড। ১০০% বিনামূল্যে।",
+    intro: "ব্যক্তিগত তথ্য, পারিবারিক বিবরণ এবং যোগাযোগের ঠিকানা — সঠিক বাংলা শব্দে এক পৃষ্ঠায়। ছবি আপলোড করুন এবং সহজেই ডাউনলোড করুন।",
+    points: ["সঠিক বাংলা লেবেল: ব্যক্তিগত ও পারিবারিক বিবরণ", "শ্রী শ্রী প্রজাপতয়ে নমঃ সহ ঐতিহ্যবাহী শিরোনাম", "A4 প্রিন্ট এবং WhatsApp শেয়ারিংয়ের জন্য উপযুক্ত", "মোবাইলে ৫ মিনিটে তৈরি"],
+    faq: [
+      { q: "বাংলা বায়োডাটাতে কী কী তথ্য দিতে হয়?", a: "নাম, জন্মতারিখ, সময়, উচ্চতা, শিক্ষাগত যোগ্যতা, চাকরি, পরিবারের বিবরণ ও মোবাইল নম্বর।" },
+      { q: "এটি কি সম্পূর্ণ বিনামূল্যে?", a: "হ্যাঁ — সমস্ত ডিজাইন ও ডাউনলোড ১০০% বিনামূল্যে, কোনো জলছাপ নেই।" },
     ],
   },
 ];
@@ -86,36 +103,5 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const l = LANDINGS.find((x) => x.slug === slug);
   if (!l) notFound();
-  return (
-    <main className="bg-white text-slate-900">
-      <Header />
-      <section className="mx-auto max-w-3xl px-4 sm:px-6 py-12 md:py-16">
-        <nav aria-label="Breadcrumb" className="text-[13px] text-slate-500 mb-4">
-          <Link href="/" className="hover:text-slate-900">Home</Link> / <span className="text-slate-900 font-medium">{l.slug}</span>
-        </nav>
-        <h1 className="text-3xl md:text-[40px] font-semibold tracking-tight leading-tight">{l.h1}</h1>
-        <p className="mt-4 text-slate-600 text-[16px] leading-relaxed">{l.intro}</p>
-        <ul className="mt-6 space-y-2.5">
-          {l.points.map((p) => (
-            <li key={p} className="flex gap-2.5 text-[15px] text-slate-700"><span className="mt-0.5 w-5 h-5 rounded-full bg-rose-900 text-white flex items-center justify-center shrink-0"><Check className="w-3 h-3" strokeWidth={3} /></span>{p}</li>
-          ))}
-        </ul>
-        <div className="mt-8 flex flex-col sm:flex-row gap-3">
-          <Link href="/#create" className="inline-flex h-12 items-center justify-center gap-2 px-8 rounded-full bg-rose-900 text-white font-semibold hover:bg-rose-800 transition">Create free now <ArrowRight className="w-4 h-4" /></Link>
-          <Link href="/templates" className="inline-flex h-12 items-center justify-center px-8 rounded-full border border-slate-300 font-semibold hover:border-rose-900 transition">Browse templates</Link>
-        </div>
-        <h2 className="mt-12 text-2xl font-semibold tracking-tight">Questions</h2>
-        <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
-          {l.faq.map((f) => (
-            <div key={f.q} className="py-5">
-              <h3 className="font-semibold text-[15.5px]">{f.q}</h3>
-              <p className="mt-1.5 text-[14.5px] text-slate-600">{f.a}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-      <FooterPage />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: l.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }) }} />
-    </main>
-  );
+  return <LandingPageClient landing={l} />;
 }

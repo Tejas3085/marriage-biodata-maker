@@ -32,6 +32,8 @@ export default function SiteFooter() {
             <ul className="mt-4 space-y-2.5 text-[13.5px]">
               <li><Link href="/marathi-biodata-maker" className="hover:text-white transition">Marathi Biodata (मराठी)</Link></li>
               <li><Link href="/hindi-biodata-maker" className="hover:text-white transition">Hindi Biodata (हिन्दी)</Link></li>
+              <li><Link href="/gujarati-biodata-maker" className="hover:text-white transition">Gujarati Biodata (ગુજરાતી)</Link></li>
+              <li><Link href="/bengali-biodata-maker" className="hover:text-white transition">Bengali Biodata (বাংলা)</Link></li>
               <li><Link href="/biodata-for-marriage-girl" className="hover:text-white transition">Biodata for Girls</Link></li>
               <li><Link href="/biodata-for-marriage-boy" className="hover:text-white transition">Biodata for Boys</Link></li>
             </ul>
