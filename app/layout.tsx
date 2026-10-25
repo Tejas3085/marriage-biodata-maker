@@ -31,25 +31,26 @@ const OG_IMAGE = `${SITE_URL}/Images/m1.png`;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Free Marriage Biodata Maker — 20+ Hindi, Marathi & English Templates",
+    default: "Online Free Biodata Maker — Marriage Biodata PDF (No Signup)",
     template: "%s | Online Free Biodata Maker",
   },
   description:
-    "Create a beautiful marriage biodata in 5 minutes. 20+ traditional & modern templates in English, Hindi & Marathi. Free, no signup, HD download.",
+    "Create a beautiful marriage biodata in 5 minutes with 20+ templates. English, Hindi & Marathi. Instant HD PDF & PNG download. 100% free, no signup required.",
   keywords: [
+    "online free biodata",
     "marriage biodata maker",
     "free biodata maker",
     "marriage biodata online",
     "biodata maker online free",
-    "matrimonial biodata",
+    "biodata for marriage",
     "marriage biodata format",
+    "marriage biodata pdf download",
     "hindi biodata maker",
     "marathi biodata maker",
     "marriage biodata templates",
-    "biodata for marriage",
+    "matrimonial biodata",
     "hindu marriage biodata",
     "muslim marriage biodata",
-    "online free biodata",
   ],
   authors: [{ name: "Online Free Biodata Maker Team", url: SITE_URL }],
   creator: SITE_NAME,
@@ -69,9 +70,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     alternateLocale: ["hi_IN", "mr_IN"],
     url: "/",
-    title: "Free Marriage Biodata Maker — 20+ Templates",
+    title: "Online Free Biodata Maker — Marriage Biodata PDF (No Signup)",
     description:
-      "Create professional marriage biodata in multiple languages with beautiful templates. Free online biodata maker with 20+ premium designs.",
+      "Create your marriage biodata in 5 minutes with 20+ traditional & modern templates. Instant PDF & HD download. Free, no signup required.",
     siteName: SITE_NAME,
     images: [
       {
@@ -85,9 +86,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Marriage Biodata Maker — 20+ Templates",
+    title: "Online Free Biodata Maker — Marriage Biodata PDF (No Signup)",
     description:
-      "Create a beautiful marriage biodata in 5 minutes. Hindi, Marathi & English. Free, no signup, HD download.",
+      "Create a beautiful marriage biodata in 5 minutes. Hindi, Marathi & English. Free, no signup, instant HD PDF download.",
     images: [OG_IMAGE],
     creator: "@biodatamaker",
     site: "@biodatamaker",
