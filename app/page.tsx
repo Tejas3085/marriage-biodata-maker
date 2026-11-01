@@ -4,22 +4,22 @@ import HomePage from "./components/HomePage";
 const SITE_URL = "https://onlinefreebiodata.com";
 
 export const metadata: Metadata = {
-  title: "Online Free Biodata Maker — Marriage Biodata PDF (No Signup)",
+  title: "Free Marriage Biodata Maker | PDF & PNG, No Signup",
   description:
-    "Create a beautiful marriage biodata in 5 minutes with 20+ templates. English, Hindi & Marathi. Instant HD PDF & PNG download. 100% free, no signup required.",
+    "Create a marriage biodata online with free templates. Add your details, choose from 9 languages, and download a print-ready PDF or PNG—no signup required.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Online Free Biodata Maker — Marriage Biodata PDF (No Signup)",
+    title: "Free Marriage Biodata Maker | PDF & PNG, No Signup",
     description:
-      "Create your marriage biodata in 5 minutes with 20+ traditional & modern templates. Instant PDF & HD download. Free, no signup required.",
+      "Make a marriage biodata with traditional and modern templates. Choose from 9 languages and download a print-ready PDF or PNG, free with no signup.",
     url: SITE_URL,
     type: "website",
     images: [{ url: `${SITE_URL}/Images/m1.png`, width: 1200, height: 1900, alt: "Online Free Marriage Biodata Maker" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Free Biodata Maker — Marriage Biodata PDF (No Signup)",
-    description: "20+ biodata templates in English, Hindi & Marathi. Free, no signup, instant PDF download.",
+    title: "Free Marriage Biodata Maker | PDF & PNG, No Signup",
+    description: "Free marriage biodata templates in 9 languages. Create online and download a print-ready PDF or PNG with no signup.",
     images: [`${SITE_URL}/Images/m1.png`],
   },
 };

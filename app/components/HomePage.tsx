@@ -57,8 +57,8 @@ export default function HomePage() {
           <div className="home-container home-hero-grid">
             <div className="home-hero-copy">
               <p className="home-eyebrow"><span /> A beautiful beginning starts here</p>
-              <h1>A little about you.<br /><em>A beautiful first<br className="hidden lg:block" /> impression.</em></h1>
-              <p className="home-intro">Create a thoughtful marriage biodata that feels like you. Choose an elegant design, add your details, and share your story with confidence.</p>
+              <h1>Free marriage<br className="hidden lg:block" /> biodata maker.<br /><em>Made to feel like you.</em></h1>
+              <p className="home-intro">Create your marriage biodata online with a design that feels like you. Add your details, choose from 9 languages, and download a print-ready PDF or PNG—free, with no signup.</p>
               <div className="home-actions">
                 <button className="home-button" onClick={start}>Create my biodata <ArrowRight size={18} /></button>
                 <a className="home-button home-button-secondary" href="#templates">Explore templates <LayoutTemplate size={17} /></a>

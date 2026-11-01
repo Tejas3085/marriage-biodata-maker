@@ -1,4 +1,4 @@
-.professional-home{--home-maroon:#791b38;--home-ink:#29262a;--home-muted:#70686b;color:var(--home-ink);background:#fff;font-size:15px}
+.professional-home{--home-maroon:#56786e;--home-ink:#29262a;--home-muted:#70686b;color:var(--home-ink);background:#fff;font-size:15px}
 .home-container{width:min(1180px,calc(100% - 64px));margin-inline:auto}
 .home-hero{background:#faf7f2;overflow:hidden;border-bottom:1px solid #eee5dc}
 .home-hero-grid{display:grid;grid-template-columns:1.08fr 1fr;align-items:center;gap:70px;padding-block:76px 64px}
@@ -9,7 +9,7 @@
 .home-intro{color:var(--home-muted);font-size:16px;line-height:1.85;max-width:460px;margin-top:24px}
 .home-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
 .home-button{display:inline-flex;justify-content:center;align-items:center;gap:14px;padding:16px 23px;background:var(--home-maroon);color:white;border:1px solid var(--home-maroon);border-radius:7px;font-weight:500;min-height:52px;cursor:pointer;transition:background .2s,box-shadow .2s}
-.home-button:hover{background:#5a1028;box-shadow:0 5px 16px #791b3820}.home-button-secondary{background:transparent;color:var(--home-ink);border-color:#d9d0c8}.home-button-secondary:hover{background:#f0e8df}
+.home-button:hover{background:#45675d;box-shadow:0 5px 16px #56786e20}.home-button-secondary{background:transparent;color:var(--home-ink);border-color:#d9d0c8}.home-button-secondary:hover{background:#f0e8df}
 .home-reassurance{display:flex;align-items:center;gap:7px;color:#766d70;font-size:12px;margin-top:15px}.home-reassurance svg{color:#53745e}.home-reassurance span{margin-inline:3px}
 .home-hero-bottom{display:flex;align-items:center;gap:12px;margin-top:36px;padding-top:22px;border-top:1px solid #e4dcd4;max-width:445px;color:#8a6e54}.home-hero-bottom p{font-size:12px;line-height:1.8;color:var(--home-muted)}.home-hero-bottom strong{font-weight:500;color:#4a4144}
 .home-preview-area{position:relative;display:flex;flex-direction:column;align-items:center;padding:20px 0 30px;isolation:isolate}.home-preview-orbit{position:absolute;width:460px;height:460px;background:#efe7dc;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);z-index:-1}.home-preview-orbit:after{content:"";position:absolute;inset:-20px;border:1px solid #e8ded1;border-radius:50%}

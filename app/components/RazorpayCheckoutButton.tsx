@@ -88,7 +88,7 @@ export default function RazorpayCheckoutButton({
         description,
         order_id: orderData.order_id || orderData.id,
         theme: {
-          color: "#881337", // rose-900
+          color: "#56786e", // emerald-900
         },
         modal: {
           ondismiss: () => {
@@ -172,7 +172,7 @@ export default function RazorpayCheckoutButton({
         disabled={loading}
         className={
           className ||
-          "inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-rose-900 hover:bg-rose-800 text-white font-semibold text-[15px] shadow-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+          "inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-emerald-900 hover:bg-emerald-800 text-white font-semibold text-[15px] shadow-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
         }
       >
         {loading ? (
@@ -192,9 +192,9 @@ export default function RazorpayCheckoutButton({
       {errorMessage && (
         <div
           role="alert"
-          className="mt-3.5 w-full max-w-md p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-[13px] flex items-start gap-2.5"
+          className="mt-3.5 w-full max-w-md p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[13px] flex items-start gap-2.5"
         >
-          <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+          <AlertCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
           <p className="flex-1 leading-snug">{errorMessage}</p>
         </div>
       )}

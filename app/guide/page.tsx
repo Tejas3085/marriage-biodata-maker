@@ -33,12 +33,12 @@ export default function GuidePage() {
         <nav aria-label="Breadcrumb" className="text-[13px] text-slate-500 mb-4">
           <Link href="/" className="hover:text-slate-900">Home</Link> <span aria-hidden> / </span> <span className="text-slate-900 font-medium">Guide</span>
         </nav>
-        <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-rose-800">Complete guide • 2026</p>
+        <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-emerald-800">Complete guide • 2026</p>
         <h1 className="mt-2 text-3xl md:text-[40px] font-semibold tracking-tight leading-tight">How to make a perfect marriage biodata</h1>
         <p className="mt-4 text-slate-600 text-[16px] leading-relaxed">
           A marriage biodata is a one-page profile shared with prospective matches and their families.
           This guide covers the exact format, what to write in each section, photo rules, and language tips —
-          then you can <Link href="/#create" className="font-semibold text-rose-800 hover:underline">create yours free in 5 minutes</Link>.
+          then you can <Link href="/#create" className="font-semibold text-emerald-800 hover:underline">create yours free in 5 minutes</Link>.
         </p>
 
         <h2 className="mt-10 text-2xl font-semibold tracking-tight">1. The standard format</h2>
@@ -62,8 +62,8 @@ export default function GuidePage() {
           Match the language to the receiving family. Maharashtrian alliances often prefer Marathi wordings
           (वैयक्तिक माहिती, कौटुंबिक माहिती); North Indian families may prefer Hindi (व्यक्तिगत विवरण).
           English works universally for urban matches. Our maker lets you switch languages instantly —
-          see the <Link href="/marathi-biodata-maker" className="font-semibold text-rose-800 hover:underline">Marathi biodata maker</Link> and{" "}
-          <Link href="/hindi-biodata-maker" className="font-semibold text-rose-800 hover:underline">Hindi biodata maker</Link>.
+          see the <Link href="/marathi-biodata-maker" className="font-semibold text-emerald-800 hover:underline">Marathi biodata maker</Link> and{" "}
+          <Link href="/hindi-biodata-maker" className="font-semibold text-emerald-800 hover:underline">Hindi biodata maker</Link>.
         </p>
 
         <h2 className="mt-10 text-2xl font-semibold tracking-tight">4. Common mistakes to avoid</h2>
@@ -74,7 +74,7 @@ export default function GuidePage() {
           <li>Sharing biodata as a blurry forwarded image — always export fresh HD PNG.</li>
         </ul>
 
-        <div className="mt-10 rounded-2xl bg-rose-950 text-white p-7 md:p-8">
+        <div className="mt-10 rounded-2xl bg-emerald-950 text-white p-7 md:p-8">
           <h2 className="text-xl font-semibold">Ready? Make yours free now.</h2>
           <p className="mt-2 text-white/70 text-[14.5px]">20+ templates • Hindi, Marathi, English • No signup • HD download.</p>
           <Link href="/#create" className="mt-4 inline-flex h-11 items-center gap-2 px-6 rounded-full bg-white text-slate-900 font-semibold text-[14.5px] hover:bg-amber-100 transition">Create my biodata <ArrowRight className="w-4 h-4" /></Link>
@@ -89,7 +89,7 @@ export default function GuidePage() {
             </div>
           ))}
         </div>
-        <p className="mt-8 text-[14px] text-slate-500">Related: <Link href="/templates" className="text-rose-800 font-medium hover:underline">biodata templates</Link> • <Link href="/examples" className="text-rose-800 font-medium hover:underline">sample biodatas</Link> • <Link href="/blog" className="text-rose-800 font-medium hover:underline">blog</Link> • <Link href="/biodata-for-marriage-girl" className="text-rose-800 font-medium hover:underline">biodata for girls</Link> • <Link href="/biodata-for-marriage-boy" className="text-rose-800 font-medium hover:underline">biodata for boys</Link></p>
+        <p className="mt-8 text-[14px] text-slate-500">Related: <Link href="/templates" className="text-emerald-800 font-medium hover:underline">biodata templates</Link> • <Link href="/examples" className="text-emerald-800 font-medium hover:underline">sample biodatas</Link> • <Link href="/blog" className="text-emerald-800 font-medium hover:underline">blog</Link> • <Link href="/biodata-for-marriage-girl" className="text-emerald-800 font-medium hover:underline">biodata for girls</Link> • <Link href="/biodata-for-marriage-boy" className="text-emerald-800 font-medium hover:underline">biodata for boys</Link></p>
       </article>
       <FooterPage />
       <script

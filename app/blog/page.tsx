@@ -22,8 +22,8 @@ export default function BlogIndex() {
         <div className="mt-8 grid sm:grid-cols-2 gap-5">
           {POSTS.map((p) => (
             <Link key={p.slug} href={`/blog/${p.slug}`} className="rounded-2xl border border-slate-200 p-6 hover:shadow-md hover:border-slate-300 transition group">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-rose-800">{p.category} • {p.readTime}</p>
-              <h2 className="mt-2 font-semibold text-[17px] leading-snug group-hover:text-rose-900">{p.title}</h2>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-800">{p.category} • {p.readTime}</p>
+              <h2 className="mt-2 font-semibold text-[17px] leading-snug group-hover:text-emerald-900">{p.title}</h2>
               <p className="mt-2 text-[14px] text-slate-600 leading-relaxed">{p.excerpt}</p>
               <span className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-slate-900">Read <ArrowRight className="w-4 h-4" /></span>
             </Link>

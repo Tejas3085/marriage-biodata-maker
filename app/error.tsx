@@ -23,7 +23,7 @@ export default function GlobalError({
       <body>
         <main className="min-h-screen bg-[#fbf7f2] text-slate-900 flex items-center justify-center px-4 py-16 antialiased">
           <div className="text-center max-w-md">
-            <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-rose-800">
+            <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-emerald-800">
               Something went wrong
             </p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight">
@@ -36,13 +36,13 @@ export default function GlobalError({
               <button
                 type="button"
                 onClick={() => reset()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-rose-900 text-white text-[14.5px] font-semibold hover:bg-rose-800 transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-emerald-900 text-white text-[14.5px] font-semibold hover:bg-emerald-800 transition"
               >
                 <RotateCcw className="w-4 h-4" /> Try again
               </button>
               <Link
                 href="/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white border border-slate-300 text-[14.5px] font-semibold hover:border-rose-900 transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white border border-slate-300 text-[14.5px] font-semibold hover:border-emerald-900 transition"
               >
                 <Home className="w-4 h-4" /> Go home
               </Link>

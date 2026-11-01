@@ -23,14 +23,14 @@ export default function CheckoutPage() {
         <div className="mb-6">
           <Link
             href="/preview"
-            className="inline-flex items-center gap-2 text-[13.5px] font-semibold text-slate-600 hover:text-rose-900 transition"
+            className="inline-flex items-center gap-2 text-[13.5px] font-semibold text-slate-600 hover:text-emerald-900 transition"
           >
             <ArrowLeft className="w-4 h-4" /> Back to preview
           </Link>
         </div>
 
         <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-[12px] font-semibold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[12px] font-semibold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" /> Razorpay Standard Checkout
           </span>
           <h1 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
                   onClick={() => setTestAmount(amt)}
                   className={`py-2.5 px-4 rounded-xl border text-sm font-semibold transition-all ${
                     testAmount === amt
-                      ? "border-rose-900 bg-rose-50 text-rose-900 shadow-xs"
+                      ? "border-emerald-900 bg-emerald-50 text-emerald-900 shadow-xs"
                       : "border-slate-200 hover:border-slate-300 text-slate-700 bg-white"
                   }`}
                 >
@@ -77,7 +77,7 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between items-center text-sm pt-2 border-t border-slate-200">
               <span className="font-semibold text-slate-900">Total Payable:</span>
-              <span className="text-xl font-bold text-rose-900">₹{testAmount}</span>
+              <span className="text-xl font-bold text-emerald-900">₹{testAmount}</span>
             </div>
           </div>
 
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
         {/* Integration Architecture Summary */}
         <div className="mt-8 rounded-2xl bg-slate-900 text-slate-200 p-5 sm:p-6 text-[13px] border border-slate-800">
           <div className="flex items-center gap-2 font-semibold text-white mb-3">
-            <Terminal className="w-4 h-4 text-rose-400" />
+            <Terminal className="w-4 h-4 text-emerald-400" />
             <span>Active Razorpay Standard Checkout Endpoints:</span>
           </div>
           <ul className="space-y-2 text-slate-300 font-mono text-[12px]">

@@ -59,7 +59,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
                 onSelect(photo);
                 onClose();
               }}
-              className="border-2 border-gray-200 rounded-lg p-2 hover:border-rose-900 transition"
+              className="border-2 border-gray-200 rounded-lg p-2 hover:border-emerald-900 transition"
             >
                  <img src={photo} alt={`Auspicious image option ${index + 1}`} className="w-full h-20 object-contain" />
             </button>

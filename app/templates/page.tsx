@@ -60,7 +60,7 @@ export default function TemplatesPage() {
             <li><strong className="text-slate-900">Modern profiles:</strong> Minimal Ivory or Sophisticated — clean type, generous whitespace.</li>
             <li><strong className="text-slate-900">Printing:</strong> all designs export at high resolution for A4; darker borders use more ink — choose Ivory to save ink.</li>
           </ul>
-          <Link href="/guide" className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold text-rose-800 hover:underline">Read the full biodata guide <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/guide" className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold text-emerald-800 hover:underline">Read the full biodata guide <ArrowRight className="w-4 h-4" /></Link>
         </div>
       </section>
       <FooterPage />

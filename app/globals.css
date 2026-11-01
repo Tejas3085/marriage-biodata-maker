@@ -2,10 +2,10 @@
 @import "tailwindcss";
 
 :root {
-  --brand-900: #4c0519;
-  --brand-700: #881337;
-  --brand-600: #9f1239;
-  --brand-50: #fff1f2;
+  --brand-900: #45675d;
+  --brand-700: #56786e;
+  --brand-600: #63877c;
+  --brand-50: #edf4f0;
   --ink-900: #0f172a;
   --ink-600: #475569;
   --ink-500: #64748b;
@@ -30,13 +30,13 @@ body {
 }
 
 ::selection {
-  background: #881337;
+  background: #56786e;
   color: #fff;
 }
 
 /* Professional focus */
 :focus-visible {
-  outline: 2px solid #9f1239;
+  outline: 2px solid #63877c;
   outline-offset: 2px;
 }
 

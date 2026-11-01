@@ -43,7 +43,7 @@ const BiodataForm = dynamic(() => import("../Biodata-Form/page"), {
   ssr: false,
   loading: () => (
     <div className="max-w-6xl mx-auto bg-white rounded-3xl border border-slate-200 p-10 text-center" aria-hidden>
-      <div className="w-10 h-10 mx-auto rounded-full border-[3px] border-slate-200 border-t-rose-900 animate-spin mb-3" />
+      <div className="w-10 h-10 mx-auto rounded-full border-[3px] border-slate-200 border-t-emerald-900 animate-spin mb-3" />
       <p className="text-[14px] text-slate-500 font-medium">Loading form...</p>
     </div>
   ),
@@ -117,7 +117,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
       <Header />
 
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#fbf7f2] via-rose-50/20 to-white py-12 md:py-16 border-b border-slate-200/60">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#fbf7f2] via-emerald-50/20 to-white py-12 md:py-16 border-b border-slate-200/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="text-[13px] text-slate-500 mb-6">
             <Link href="/" className="hover:text-slate-900 transition">Home</Link>
@@ -128,7 +128,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-semibold uppercase tracking-wider mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-semibold uppercase tracking-wider mb-4">
                 <Sparkles className="w-3.5 h-3.5" /> 100% Free • No Signup • HD Download
               </span>
 
@@ -144,7 +144,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
               <ul className="mt-6 space-y-3">
                 {landing.points.map((point) => (
                   <li key={point} className="flex items-start gap-2.5 text-[15px] text-slate-700">
-                    <span className="mt-0.5 w-5 h-5 rounded-full bg-rose-900 text-white flex items-center justify-center shrink-0">
+                    <span className="mt-0.5 w-5 h-5 rounded-full bg-emerald-900 text-white flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3" strokeWidth={3} />
                     </span>
                     <span>{point}</span>
@@ -157,14 +157,14 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
                 <button
                   type="button"
                   onClick={scrollToForm}
-                  className="inline-flex h-12 items-center justify-center gap-2 px-8 rounded-full bg-rose-900 text-white font-semibold hover:bg-rose-800 transition shadow-sm hover:shadow"
+                  className="inline-flex h-12 items-center justify-center gap-2 px-8 rounded-full bg-emerald-900 text-white font-semibold hover:bg-emerald-800 transition shadow-sm hover:shadow"
                 >
                   Create free now <ArrowRight className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
                   onClick={scrollToTemplates}
-                  className="inline-flex h-12 items-center justify-center px-8 rounded-full border border-slate-300 font-semibold text-slate-700 hover:border-rose-900 hover:text-slate-900 transition"
+                  className="inline-flex h-12 items-center justify-center px-8 rounded-full border border-slate-300 font-semibold text-slate-700 hover:border-emerald-900 hover:text-slate-900 transition"
                 >
                   Browse templates
                 </button>
@@ -172,14 +172,14 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
 
               <div className="mt-8 flex items-center gap-6 text-xs text-slate-500">
                 <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-600" /> 100% Private</span>
-                <span className="flex items-center gap-1.5"><HeartHandshake className="w-4 h-4 text-rose-700" /> Traditional & Modern</span>
+                <span className="flex items-center gap-1.5"><HeartHandshake className="w-4 h-4 text-emerald-700" /> Traditional & Modern</span>
               </div>
             </div>
 
             {/* Right Biodata Sample Preview */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative group cursor-pointer" onClick={scrollToForm}>
-                <div className="absolute -inset-2 bg-gradient-to-r from-rose-600 to-amber-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition" />
+                <div className="absolute -inset-2 bg-gradient-to-r from-emerald-600 to-amber-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition" />
                 <div className="relative bg-white p-3 rounded-2xl shadow-xl border border-slate-200/80 max-w-[280px] sm:max-w-[320px]">
                   <Image
                     src="/Images/m1.png"
@@ -190,7 +190,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
                     priority
                   />
                   <div className="mt-3 text-center">
-                    <span className="text-xs font-semibold text-rose-900">Sample Biodata Preview</span>
+                    <span className="text-xs font-semibold text-emerald-900">Sample Biodata Preview</span>
                   </div>
                 </div>
               </div>
@@ -204,26 +204,26 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">Templates</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">Templates</p>
               <h2 className="mt-2 text-2xl sm:text-3xl md:text-[34px] font-semibold tracking-tight text-slate-900">
                 Choose a design that feels right
               </h2>
               <p className="mt-2.5 text-[15px] text-slate-600 leading-relaxed">
                 Traditional, modern and minimal layouts — all formatted for A4 printing and mobile sharing.
               </p>
-              <Link href="/templates" className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-rose-800 hover:underline">
+              <Link href="/templates" className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-emerald-800 hover:underline">
                 View all designs <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="flex items-center gap-2">
               <button
-                className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-rose-900 hover:bg-rose-800 hover:text-white transition"
+                className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-emerald-900 hover:bg-emerald-800 hover:text-white transition"
                 aria-label="Previous template"
               >
                 <FaChevronLeft className="w-3.5 h-3.5" />
               </button>
               <button
-                className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-rose-900 hover:bg-rose-800 hover:text-white transition"
+                className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-700 hover:border-emerald-900 hover:bg-emerald-800 hover:text-white transition"
                 aria-label="Next template"
               >
                 <FaChevronRight className="w-3.5 h-3.5" />
@@ -273,7 +273,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
                         <p className="text-[13.5px] font-semibold text-slate-900 leading-none">{template.name}</p>
                         <p className="text-[12px] text-slate-500 mt-1">A4 • HD</p>
                       </div>
-                      <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-slate-900 group-hover:text-rose-800">
+                      <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-slate-900 group-hover:text-emerald-800">
                         Use <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
@@ -289,7 +289,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
       <section id="how-it-works" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200/80 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">How it works</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">How it works</p>
             <h2 className="mt-2 text-2xl sm:text-3xl md:text-[34px] font-semibold tracking-tight text-slate-900">
               Three simple steps
             </h2>
@@ -304,7 +304,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
               return (
                 <div key={i} className="relative bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between">
-                    <div className="w-11 h-11 rounded-xl bg-rose-900 text-white flex items-center justify-center">
+                    <div className="w-11 h-11 rounded-xl bg-emerald-900 text-white flex items-center justify-center">
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="font-display text-[40px] leading-none text-slate-200 select-none">0{i + 1}</span>
@@ -322,7 +322,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
       <section ref={formRef} id="create" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">Create now</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">Create now</p>
             <h2 className="mt-2 text-2xl sm:text-3xl md:text-[34px] font-semibold tracking-tight text-slate-900">
               Fill in your details
             </h2>
@@ -339,7 +339,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
       {/* WHY US SECTION */}
       <section id="why-us" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-slate-200 bg-rose-950 text-white overflow-hidden">
+          <div className="rounded-3xl border border-slate-200 bg-emerald-950 text-white overflow-hidden">
             <div className="grid lg:grid-cols-[1fr_1.2fr] gap-0">
               <div className="p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-white/10">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">Why families choose us</p>
@@ -420,7 +420,7 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
       <section aria-labelledby="faq-heading" className="py-16 md:py-24 bg-slate-50 border-t border-slate-200/80">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-800">FAQ</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">FAQ</p>
             <h2 id="faq-heading" className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
               Frequently Asked Questions
             </h2>
@@ -428,9 +428,9 @@ export default function LandingPageClient({ landing }: { landing: LandingData })
           <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200">
             {landing.faq.map((f) => (
               <details key={f.q} className="group py-5">
-                <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[15.5px] hover:text-rose-900 transition-colors [&::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[15.5px] hover:text-emerald-900 transition-colors [&::-webkit-details-marker]:hidden">
                   {f.q}
-                  <span className="w-8 h-8 shrink-0 rounded-full border border-slate-300 flex items-center justify-center text-slate-500 transition-all group-open:bg-rose-900 group-open:text-white group-open:border-rose-900 group-open:rotate-45">
+                  <span className="w-8 h-8 shrink-0 rounded-full border border-slate-300 flex items-center justify-center text-slate-500 transition-all group-open:bg-emerald-900 group-open:text-white group-open:border-emerald-900 group-open:rotate-45">
                     <Plus className="w-4 h-4" />
                   </span>
                 </summary>

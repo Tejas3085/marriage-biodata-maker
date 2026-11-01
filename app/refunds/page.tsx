@@ -28,7 +28,7 @@ export default function RefundsPage() {
           </ul>
           <p><strong className="text-slate-900">When we cannot refund.</strong> Change of mind after a successful unlock and download, or loss of access because you cleared browser data, switched devices or browsers (unlocks live only on your device — please keep your downloaded PNG/PDF files safe).</p>
           <p><strong className="text-slate-900">Cancellations.</strong> Free templates need no cancellation. A premium purchase cannot be cancelled after the design has unlocked; if payment is still in progress, simply close the Razorpay window — no charge is made until you authorise it.</p>
-          <p><strong className="text-slate-900">How to claim.</strong> Write to us from our <Link href="/contact" className="text-rose-800 font-medium hover:underline">Contact Us page</Link> with the payment id (starts with <code>pay_</code>, shown by Razorpay after payment), the template design number, and what went wrong. We respond within 2 business days.</p>
+          <p><strong className="text-slate-900">How to claim.</strong> Write to us from our <Link href="/contact" className="text-emerald-800 font-medium hover:underline">Contact Us page</Link> with the payment id (starts with <code>pay_</code>, shown by Razorpay after payment), the template design number, and what went wrong. We respond within 2 business days.</p>
           <p>Chargebacks raised without contacting us first slow down resolution for everyone — please talk to us first.</p>
         </div>
       </article>

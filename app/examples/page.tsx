@@ -26,7 +26,7 @@ export default function ExamplesPage() {
           <Link href="/" className="hover:text-slate-900">Home</Link> <span aria-hidden> / </span> <span className="text-slate-900 font-medium">Examples</span>
         </nav>
         <h1 className="text-3xl md:text-[40px] font-semibold tracking-tight">Marriage biodata samples</h1>
-        <p className="mt-3 text-slate-600 text-[15.5px]">Copy the structure you like, then generate your own with photos and proper formatting. Need a dedicated format? See our <Link href="/biodata-for-marriage-girl" className="text-rose-800 font-medium hover:underline">biodata for girls</Link> and <Link href="/biodata-for-marriage-boy" className="text-rose-800 font-medium hover:underline">biodata for boys</Link> guides.</p>
+        <p className="mt-3 text-slate-600 text-[15.5px]">Copy the structure you like, then generate your own with photos and proper formatting. Need a dedicated format? See our <Link href="/biodata-for-marriage-girl" className="text-emerald-800 font-medium hover:underline">biodata for girls</Link> and <Link href="/biodata-for-marriage-boy" className="text-emerald-800 font-medium hover:underline">biodata for boys</Link> guides.</p>
         <div className="mt-8 grid md:grid-cols-1 gap-5">
           {SAMPLES.map((s) => (
             <div key={s.title} className="rounded-2xl border border-slate-200 p-6 md:p-7">
@@ -38,7 +38,7 @@ export default function ExamplesPage() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <Link href="/#create" className="inline-flex h-12 items-center gap-2 px-8 rounded-full bg-rose-900 text-white font-semibold hover:bg-rose-800 transition">Create mine free <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/#create" className="inline-flex h-12 items-center gap-2 px-8 rounded-full bg-emerald-900 text-white font-semibold hover:bg-emerald-800 transition">Create mine free <ArrowRight className="w-4 h-4" /></Link>
         </div>
       </section>
       <FooterPage />
