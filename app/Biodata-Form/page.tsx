@@ -490,8 +490,8 @@ export default function BiodataForm() {
                   type="button"
                   onClick={() => setShowGodPhotoSelector(true)}
                   className="px-4 py-1.5 text-xs font-semibold
-                   rounded-full bg-rose-900 text-white
-                   hover:bg-rose-800 transition flex items-center gap-1"
+                   rounded-full bg-emerald-700 text-white
+                   hover:bg-emerald-800 transition flex items-center gap-1"
                   aria-label="Add/change god photo"
 
                 >
@@ -679,7 +679,7 @@ export default function BiodataForm() {
                               aria-label={`Select ${field.label || "option"}`}
                               value={field.value || ""}
                               onChange={(e) => updateField(sIndex, fIndex, "value", e.target.value)}
-                              className="border border-slate-200 px-2.5 py-2 sm:px-3 sm:py-2.5 mb-2 lg:mb-0 rounded-lg text-[13px] sm:text-[13.5px] bg-white focus:outline-none focus:ring-2 focus:ring-rose-900/10 focus:border-rose-900 transition-all w-full"
+                              className="border border-slate-200 px-3 py-2.5 sm:px-3.5 sm:py-3 mb-2 lg:mb-0 rounded-xl text-[13.5px] bg-white text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/15 focus:border-emerald-700 transition-all w-full"
                             >
                               <option value="">{field.placeholder || "Select"}</option>
                               {field.options?.map((op: string, idx: number) => (
@@ -841,7 +841,7 @@ export default function BiodataForm() {
             <div className="flex flex-col gap-2.5">
               <button
                 type="submit"
-                className="bg-rose-900 text-white py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-rose-800 transition shadow-sm"
+                className="bg-emerald-700 text-white py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-emerald-800 transition shadow-sm"
               >
                 Generate Biodata
               </button>

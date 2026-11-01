@@ -38,7 +38,7 @@ export default function GodPhotoSelector({ onSelect, onClose }: GodPhotoSelector
 
         {/* Choose from Gallery */}
         <div className="mb-4">
-          <label className="w-full block bg-rose-900 text-white text-center py-2.5 rounded-full font-medium cursor-pointer hover:bg-rose-800 transition">
+          <label className="w-full block bg-emerald-700 text-white text-center py-2.5 rounded-full font-medium cursor-pointer hover:bg-emerald-800 transition">
             Choose from Gallery
             <input
               type="file"

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import TemplateCard from "./TemplateCard";
 import Header from "../components/SiteHeader";
 import FooterPage from "../components/SiteFooter";
+import { getTemplatePrice, isPremiumTemplate } from "../preview/premium";
 
 export const metadata: Metadata = {
   title: "20+ Marriage Biodata Templates — Traditional, Modern & Minimal",
@@ -22,16 +23,16 @@ const TEMPLATES = [
   { id: 36, name: "Royal Maroon", img: "/templates/t36.svg", tag: "New" },
   { id: 37, name: "Golden Mandala", img: "/templates/t37.svg", tag: "New" },
   { id: 1, name: "Classic Maroon", img: "/templates/t1.jpg", tag: "Most popular" },
-  { id: 2, name: "Royal Blue", img: "/templates/t2.jpg", tag: "Traditional" },
+  { id: 2, name: "Royal Blue", img: "/templates/t2.jpg", tag: "Premium" },
   { id: 3, name: "Elegant Gold", img: "/templates/t3.jpg", tag: "Premium look" },
   { id: 4, name: "Traditional Frame", img: "/templates/t4.jpg", tag: "Hindu" },
   { id: 5, name: "Minimal Ivory", img: "/templates/t5.jpg", tag: "Modern" },
-  { id: 6, name: "Royal Border", img: "/templates/t6.jpg", tag: "Classic" },
+  { id: 6, name: "Royal Border", img: "/templates/t6.jpg", tag: "Premium" },
   { id: 7, name: "Floral Grace", img: "/templates/t7.jpg", tag: "Elegant" },
   { id: 10, name: "Heritage", img: "/templates/t10.jpg", tag: "Traditional" },
   { id: 11, name: "Sophisticated", img: "/templates/t11.jpg", tag: "Modern" },
   { id: 12, name: "Classic Red", img: "/templates/t12.jpg", tag: "Auspicious" },
-  { id: 13, name: "Temple Gold", img: "/templates/t13.jpg", tag: "Traditional" },
+  { id: 13, name: "Temple Gold", img: "/templates/t13.jpg", tag: "Premium" },
   { id: 14, name: "Pastel Blessing", img: "/templates/t14.jpg", tag: "Soft" },
 ];
 
@@ -45,12 +46,11 @@ export default function TemplatesPage() {
         </nav>
         <h1 className="text-3xl md:text-[40px] font-semibold tracking-tight">Marriage biodata templates</h1>
         <p className="mt-3 max-w-2xl text-slate-600 text-[15.5px] leading-relaxed">
-          Every template is free, watermark-free and formatted for A4 printing and WhatsApp sharing.
-          Pick a design below — you&apos;ll be taken to the form where the template is applied to your details.
+          Preview every design before choosing. Free designs download at no cost; selected premium designs are ₹15 each, one-time. All are formatted for A4 printing and sharing.
         </p>
         <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {TEMPLATES.map((t) => (
-            <TemplateCard key={t.id} t={t} />
+            <TemplateCard key={t.id} t={{ ...t, tag: isPremiumTemplate(t.id) ? `₹${getTemplatePrice(t.id)} · Premium` : t.tag }} premium={isPremiumTemplate(t.id)} />
           ))}
         </div>
         <div className="mt-10 rounded-2xl bg-slate-50 border border-slate-200 p-6 md:p-8 max-w-3xl">

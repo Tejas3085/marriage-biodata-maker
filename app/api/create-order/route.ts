@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { getTemplatePrice, isPremiumTemplate } from "@/app/preview/premium";
+import { rateLimit } from "../payment/rate-limit";
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, { limit: 10, windowMs: 60_000, keyPrefix: "order" });
+  if (limited) return limited;
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
@@ -23,39 +26,30 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let amount = body?.amount;
+  let numAmount: number;
+  let templateId: number | undefined;
 
-  // Support lookup by templateId if amount is not provided directly
-  if (amount === undefined && body?.templateId !== undefined) {
-    const templateId = Number(body.templateId);
-    if (!Number.isFinite(templateId) || !isPremiumTemplate(templateId)) {
-      return NextResponse.json(
-        { error: "Invalid or free template ID specified." },
-        { status: 400 }
-      );
+  if (body?.templateId !== undefined) {
+    templateId = Number(body.templateId);
+    if (!Number.isSafeInteger(templateId) || !isPremiumTemplate(templateId)) {
+      return NextResponse.json({ error: "Invalid or free template ID specified." }, { status: 400 });
     }
-    amount = getTemplatePrice(templateId) * 100;
+    numAmount = getTemplatePrice(templateId) * 100;
+  } else if (body?.amount !== undefined) {
+    numAmount = Number(body.amount);
+    if (!Number.isFinite(numAmount) || numAmount < 100) {
+      return NextResponse.json({ error: "Invalid amount. Minimum amount is 100 paise (₹1.00)." }, { status: 400 });
+    }
+  } else {
+    return NextResponse.json({ error: "Missing templateId or amount." }, { status: 400 });
   }
 
-  const numAmount = Number(amount);
-  if (!Number.isFinite(numAmount) || numAmount < 100) {
-    return NextResponse.json(
-      { error: "Invalid amount. Minimum amount is 100 paise (₹1.00)." },
-      { status: 400 }
-    );
-  }
-
-  const currency = typeof body?.currency === "string" && body.currency.trim()
-    ? body.currency.trim().toUpperCase()
-    : "INR";
-
+  const currency = "INR";
   const receipt = typeof body?.receipt === "string" && body.receipt.trim()
     ? body.receipt.trim()
-    : (body?.templateId
-      ? `tpl_${body.templateId}_${Date.now()}`
-      : `rcpt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`);
+    : (templateId ? `tpl_${templateId}_${Date.now()}` : `rcpt_${Date.now()}`);
 
-  const notes = body?.notes || (body?.templateId ? { templateId: String(body.templateId) } : undefined);
+  const notes = templateId ? { templateId: String(templateId) } : (body?.notes || undefined);
 
   try {
     const razorpay = new Razorpay({

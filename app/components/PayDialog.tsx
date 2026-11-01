@@ -61,7 +61,6 @@ export default function PayDialog({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: priceInr * 100,
           currency: "INR",
           receipt: `tpl_${templateId}_${Date.now()}`,
           templateId,

@@ -88,13 +88,13 @@ export default function SiteHeader() {
     return (
         <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
             {/* thin top accent */}
-            <div className="h-[2px] w-full bg-gradient-to-r from-rose-900 via-rose-700 to-amber-600" />
+            <div className="h-[2px] w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-amber-500" />
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="h-[68px] flex items-center justify-between gap-4">
 
                     {/* LEFT — Brand */}
                     <button onClick={goHome} className="flex items-center gap-3 text-left group" aria-label="Go to homepage">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-rose-900 text-white shadow-sm group-hover:bg-rose-800 transition-colors">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-700 text-white shadow-sm group-hover:bg-emerald-800 transition-colors">
                             <span className="font-display text-xl leading-none pt-[2px]">श्री</span>
                         </div>
                         <div className="flex flex-col leading-none">
@@ -144,7 +144,7 @@ export default function SiteHeader() {
                                                 role="option"
                                                 aria-selected={active}
                                                 className={`text-left px-3 py-2 rounded-lg transition ${active
-                                                        ? "bg-rose-50 text-rose-900"
+                                                        ? "bg-emerald-50 text-emerald-800"
                                                         : "hover:bg-slate-50 text-slate-700"
                                                     }`}
                                             >
@@ -162,7 +162,7 @@ export default function SiteHeader() {
 
                         <button
                             onClick={() => scrollTo("create")}
-                            className="hidden sm:inline-flex h-12 items-center px-5 rounded-full bg-rose-900 text-white text-[13.5px] font-semibold hover:bg-rose-800 transition-colors shadow-sm"
+                            className="hidden sm:inline-flex h-12 items-center px-5 rounded-full bg-emerald-700 text-white text-[13.5px] font-semibold hover:bg-emerald-800 transition-colors shadow-sm"
                         >
                             Create Free
                         </button>
@@ -172,7 +172,7 @@ export default function SiteHeader() {
 
             {showToast && (
                 <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center pointer-events-none">
-                    <div className="bg-rose-900 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
+                    <div className="bg-emerald-800 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                         <p className="text-[13px] font-medium">
                             {getToastMessage()}

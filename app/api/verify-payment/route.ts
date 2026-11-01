@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import Razorpay from "razorpay";
+import { getTemplatePrice, isPremiumTemplate } from "@/app/preview/premium";
 
 export async function POST(req: NextRequest) {
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
-  if (!keySecret) {
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  if (!keySecret || !keyId) {
     return NextResponse.json(
       { error: "Razorpay key secret is not configured in environment." },
       { status: 500 }
@@ -67,6 +70,31 @@ export async function POST(req: NextRequest) {
       },
       { status: 400 }
     );
+  }
+
+  if (body?.templateId !== undefined) {
+    const templateId = Number(body.templateId);
+    if (!Number.isSafeInteger(templateId) || !isPremiumTemplate(templateId)) {
+      return NextResponse.json({ success: false, error: "Invalid template ID." }, { status: 400 });
+    }
+
+    try {
+      const razorpay = new Razorpay({ key_id: keyId, key_secret: keySecret });
+      const [order, payment] = await Promise.all([
+        razorpay.orders.fetch(orderId),
+        razorpay.payments.fetch(paymentId),
+      ]);
+      const expectedAmount = getTemplatePrice(templateId) * 100;
+      if (
+        order.id !== orderId || order.amount !== expectedAmount || order.currency !== "INR" ||
+        order.notes?.templateId !== String(templateId) || payment.order_id !== orderId ||
+        payment.amount !== expectedAmount || payment.currency !== "INR" || payment.status !== "captured"
+      ) {
+        return NextResponse.json({ success: false, error: "Payment does not match this template or is not captured." }, { status: 400 });
+      }
+    } catch {
+      return NextResponse.json({ success: false, error: "Could not confirm payment with Razorpay." }, { status: 502 });
+    }
   }
 
   return NextResponse.json({

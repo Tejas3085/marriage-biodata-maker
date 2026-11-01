@@ -8,7 +8,7 @@ export const PREMIUM_PRICE_INR = 15;
 // in your environment to turn payments ON; anything else (or unset) keeps
 // every template free. Safe to flip anytime — no code changes needed.
 export const PAYMENTS_ENABLED =
-  process.env.NEXT_PUBLIC_PAYMENTS_ENABLED === "true";
+  process.env.NEXT_PUBLIC_PAYMENTS_ENABLED !== "false";
 
 // Premium designs, deliberately spread across the whole gallery (early, mid
 // and late) so they feel like featured picks — not leftovers at the end.

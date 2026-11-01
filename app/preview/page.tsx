@@ -141,7 +141,7 @@ function DownloadMenu({
               disabled={busy}
               className={itemCls}
             >
-              <span className="w-10 h-10 rounded-xl bg-rose-900 flex items-center justify-center shrink-0">
+              <span className="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center shrink-0">
                 {pdfBusy ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <FileText className="w-4 h-4 text-white" />}
               </span>
               <span>
@@ -966,7 +966,7 @@ export default function PreviewPage() {
     return (
       <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 rounded-full border-[3px] border-slate-200 border-t-rose-900 animate-spin mb-5" />
+          <div className="w-12 h-12 rounded-full border-[3px] border-slate-200 border-t-emerald-700 animate-spin mb-5" />
           <h2 className="text-[17px] font-semibold text-slate-900 tracking-tight">Preparing your preview</h2>
           <p className="text-slate-500 text-[13px] font-medium mt-1">Rendering high-resolution biodata…</p>
         </div>
@@ -988,7 +988,7 @@ export default function PreviewPage() {
         </p>
         <button
           onClick={() => router.push("/")}
-          className="h-12 px-8 bg-rose-900 text-white text-[14.5px] font-semibold rounded-full hover:bg-rose-800 transition-colors"
+          className="h-12 px-8 bg-emerald-700 text-white text-[14.5px] font-semibold rounded-full hover:bg-emerald-800 transition-colors"
         >
           Start creating — it&apos;s free
         </button>
@@ -1001,7 +1001,7 @@ export default function PreviewPage() {
       {/* Toast */}
       {toast && (
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] px-4 w-full flex justify-center pointer-events-none">
-          <div className="bg-rose-900 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
+          <div className="bg-emerald-700 text-white py-2.5 px-5 rounded-full shadow-lg flex items-center gap-2.5 w-fit max-w-full">
             <span className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
               <Check className="w-3 h-3 text-emerald-300" strokeWidth={3} />
             </span>
@@ -1023,7 +1023,7 @@ export default function PreviewPage() {
 
       {/* Top bar */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
-        <div className="h-[2px] w-full bg-gradient-to-r from-rose-900 via-rose-700 to-amber-600" />
+        <div className="h-[2px] w-full bg-gradient-to-r from-emerald-700 via-emerald-600 to-amber-600" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="h-[64px] flex items-center justify-between gap-3">
             <button
@@ -1048,7 +1048,7 @@ export default function PreviewPage() {
                 onPdf={handleDownloadPdf}
                 pngBusy={isDownloading}
                 pdfBusy={isPdfBusy}
-                triggerClassName="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-rose-900 text-white text-[13.5px] font-semibold hover:bg-rose-800 transition"
+                triggerClassName="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-emerald-700 text-white text-[13.5px] font-semibold hover:bg-emerald-800 transition"
               />
             </div>
             {/* mobile: compact download icon keeps bar balanced */}
@@ -1056,7 +1056,7 @@ export default function PreviewPage() {
               onClick={handleDownload}
               disabled={isDownloading}
               aria-label="Download biodata PNG"
-              className="sm:hidden w-10 h-10 rounded-full bg-rose-900 text-white flex items-center justify-center hover:bg-rose-800 transition disabled:opacity-60"
+              className="sm:hidden w-10 h-10 rounded-full bg-emerald-700 text-white flex items-center justify-center hover:bg-emerald-800 transition disabled:opacity-60"
             >
               {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
             </button>
@@ -1097,7 +1097,7 @@ export default function PreviewPage() {
               <div className="relative bg-[#f6f4f1] flex justify-center px-4 py-6 sm:py-8 min-h-[52vh]">
                 {isTemplateLoading && (
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/80 backdrop-blur-[1px]">
-                    <div className="w-10 h-10 rounded-full border-[3px] border-slate-200 border-t-rose-900 animate-spin mb-3" />
+                    <div className="w-10 h-10 rounded-full border-[3px] border-slate-200 border-t-emerald-700 animate-spin mb-3" />
                     <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Applying design</p>
                   </div>
                 )}
@@ -1119,14 +1119,14 @@ export default function PreviewPage() {
                     localStorage.setItem('page', 'true');
                     router.push("/");
                   }}
-                  className="inline-flex items-center gap-2 h-11 px-5 rounded-full border border-slate-300 text-[14px] font-semibold text-slate-800 hover:border-rose-900 transition"
+                  className="inline-flex items-center gap-2 h-11 px-5 rounded-full border border-slate-300 text-[14px] font-semibold text-slate-800 hover:border-emerald-700 transition"
                 >
                   <Pencil className="w-4 h-4" /> Edit details
                 </button>
                 <button
                   onClick={handleShare}
                   disabled={isSharing}
-                  className="inline-flex items-center gap-2 h-11 px-5 rounded-full border border-slate-300 text-[14px] font-semibold text-slate-800 hover:border-rose-900 transition disabled:opacity-60"
+                  className="inline-flex items-center gap-2 h-11 px-5 rounded-full border border-slate-300 text-[14px] font-semibold text-slate-800 hover:border-emerald-700 transition disabled:opacity-60"
                 >
                   {isSharing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />} Share
                 </button>
@@ -1137,7 +1137,7 @@ export default function PreviewPage() {
                     pngBusy={isDownloading}
                     pdfBusy={isPdfBusy}
                     label="Download HD"
-                    triggerClassName="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-rose-900 text-white text-[14px] font-semibold hover:bg-rose-800 transition"
+                    triggerClassName="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-emerald-700 text-white text-[14px] font-semibold hover:bg-emerald-800 transition"
                   />
                 </div>
               </div>
@@ -1170,7 +1170,7 @@ export default function PreviewPage() {
                       key={tpl.id}
                       onClick={() => handleSelectTemplate(tpl)}
                       aria-pressed={active}
-                      className={`w-24 shrink-0 text-left rounded-xl overflow-hidden border-2 transition ${active ? "border-rose-900 shadow-md" : "border-slate-200 opacity-90 hover:border-slate-400"}`}
+                      className={`w-24 shrink-0 text-left rounded-xl overflow-hidden border-2 transition ${active ? "border-emerald-700 shadow-md" : "border-slate-200 opacity-90 hover:border-slate-400"}`}
                     >
                       <span className="block w-full aspect-[3/4] relative bg-[#f6f4f1]">
                         <NextImage
@@ -1182,17 +1182,17 @@ export default function PreviewPage() {
                           className="object-contain p-1.5"
                         />
                         {active && (
-                          <span className="absolute top-1.5 right-1.5 bg-rose-900 text-white rounded-full p-1 shadow">
+                          <span className="absolute top-1.5 right-1.5 bg-emerald-700 text-white rounded-full p-1 shadow">
                             <Check className="h-3 w-3" strokeWidth={3} />
                           </span>
                         )}
                         {PAYMENTS_ENABLED && isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
-                          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-rose-900/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
+                          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-emerald-700/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
                             <Lock className="h-2.5 w-2.5" /> ₹{PREMIUM_PRICE_INR}
                           </span>
                         )}
                       </span>
-                      <span className={`block px-2 py-1.5 text-[11px] font-semibold ${active ? "bg-rose-900 text-white" : "bg-white text-slate-600"}`}>
+                      <span className={`block px-2 py-1.5 text-[11px] font-semibold ${active ? "bg-emerald-700 text-white" : "bg-white text-slate-600"}`}>
                         Design {tpl.id}
                       </span>
                     </button>
@@ -1209,7 +1209,7 @@ export default function PreviewPage() {
                       key={tpl.id}
                       onClick={() => handleSelectTemplate(tpl)}
                       aria-pressed={active}
-                      className={`text-left rounded-xl overflow-hidden border-2 transition group ${active ? "border-rose-900 shadow-md" : "border-slate-200 hover:border-slate-400"}`}
+                      className={`text-left rounded-xl overflow-hidden border-2 transition group ${active ? "border-emerald-700 shadow-md" : "border-slate-200 hover:border-slate-400"}`}
                     >
                       <span className="block w-full aspect-[3/4] relative bg-[#f6f4f1]">
                         <NextImage
@@ -1221,17 +1221,17 @@ export default function PreviewPage() {
                           className="object-contain p-1.5 group-hover:scale-[1.03] transition-transform"
                         />
                         {active && (
-                          <span className="absolute top-1.5 right-1.5 bg-rose-900 text-white rounded-full p-1 shadow">
+                          <span className="absolute top-1.5 right-1.5 bg-emerald-700 text-white rounded-full p-1 shadow">
                             <Check className="h-3 w-3" strokeWidth={3} />
                           </span>
                         )}
                         {PAYMENTS_ENABLED && isPremiumTemplate(tpl.id) && !unlockedIds.includes(tpl.id) && (
-                          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-rose-900/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
+                          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-0.5 bg-emerald-700/90 text-white rounded-full px-1.5 py-0.5 text-[10px] font-bold">
                             <Lock className="h-2.5 w-2.5" /> ₹{PREMIUM_PRICE_INR}
                           </span>
                         )}
                       </span>
-                      <span className={`block px-2 py-1.5 text-[11px] font-semibold text-center ${active ? "bg-rose-900 text-white" : "bg-white text-slate-600"}`}>
+                      <span className={`block px-2 py-1.5 text-[11px] font-semibold text-center ${active ? "bg-emerald-700 text-white" : "bg-white text-slate-600"}`}>
                         {tpl.id}
                       </span>
                     </button>
@@ -1256,7 +1256,7 @@ export default function PreviewPage() {
             { icon: Share2, title: "Share smartly", desc: "Send the fresh HD file on WhatsApp — avoid re-forwarded blurry copies." },
           ].map((c) => (
             <div key={c.title} className="bg-white rounded-2xl border border-slate-200 p-5 flex gap-3.5">
-              <span className="w-10 h-10 rounded-xl bg-rose-900 text-white flex items-center justify-center shrink-0">
+              <span className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center shrink-0">
                 <c.icon className="w-4.5 h-4.5" />
               </span>
               <span>
@@ -1268,7 +1268,7 @@ export default function PreviewPage() {
         </div>
 
         <p className="mt-8 text-center text-[13px] text-slate-500">
-          Want a different style? <Link href="/templates" className="font-semibold text-rose-800 hover:underline">Browse all templates</Link> or <Link href="/guide" className="font-semibold text-rose-800 hover:underline">read the guide</Link>.
+          Want a different style? <Link href="/templates" className="font-semibold text-emerald-800 hover:underline">Browse all templates</Link> or <Link href="/guide" className="font-semibold text-emerald-800 hover:underline">read the guide</Link>.
         </p>
       </div>
 
@@ -1299,7 +1299,7 @@ export default function PreviewPage() {
               pngBusy={isDownloading}
               pdfBusy={isPdfBusy}
               label="Download"
-              triggerClassName="w-full inline-flex items-center justify-center gap-1.5 h-12 rounded-xl bg-rose-900 text-white text-[14px] font-semibold"
+              triggerClassName="w-full inline-flex items-center justify-center gap-1.5 h-12 rounded-xl bg-emerald-700 text-white text-[14px] font-semibold"
             />
           </div>
         </div>

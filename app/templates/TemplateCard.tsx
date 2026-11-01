@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
-export default function TemplateCard({ t }: { t: { id: number; name: string; img: string; tag: string } }) {
+export default function TemplateCard({ t, premium }: { t: { id: number; name: string; img: string; tag: string }; premium: boolean }) {
   return (
     <Link
       href="/#create"
@@ -19,7 +19,7 @@ export default function TemplateCard({ t }: { t: { id: number; name: string; img
       </div>
       <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between">
         <span className="text-[14px] font-semibold">{t.name}</span>
-        <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-rose-800">Use free <ArrowRight className="w-3.5 h-3.5" /></span>
+        <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-rose-800">{premium ? "Preview design" : "Use free"} <ArrowRight className="w-3.5 h-3.5" /></span>
       </div>
     </Link>
   );
