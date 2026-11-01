@@ -57,41 +57,54 @@ export default function PayDialog({
     try {
       await loadRazorpayScript();
 
-      const orderRes = await fetch("/api/payment/order", {
+      const orderRes = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ templateId }),
+        body: JSON.stringify({
+          amount: priceInr * 100,
+          currency: "INR",
+          receipt: `tpl_${templateId}_${Date.now()}`,
+          templateId,
+        }),
       });
       const order = await orderRes.json();
       if (!orderRes.ok) {
         throw new Error(order.error || "Could not start payment.");
       }
 
+      const key = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || order.key_id || order.keyId;
+
       const rz = new (window as any).Razorpay({
-        key: order.keyId,
+        key,
         amount: order.amount,
-        currency: order.currency,
+        currency: order.currency || "INR",
         name: "Online Free Biodata Maker",
         description: `Premium template — Design ${templateId}`,
-        order_id: order.orderId,
+        order_id: order.order_id || order.orderId,
         theme: { color: "#4c0519" },
         modal: {
-          ondismiss: () => setBusy(false),
+          ondismiss: () => {
+            setBusy(false);
+            setError("Payment was cancelled.");
+          },
         },
         handler: async (resp: any) => {
           try {
-            const verifyRes = await fetch("/api/payment/verify", {
+            const verifyRes = await fetch("/api/verify-payment", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                orderId: resp.razorpay_order_id,
-                paymentId: resp.razorpay_payment_id,
+                order_id: resp.razorpay_order_id,
+                payment_id: resp.razorpay_payment_id,
                 signature: resp.razorpay_signature,
+                razorpay_order_id: resp.razorpay_order_id,
+                razorpay_payment_id: resp.razorpay_payment_id,
+                razorpay_signature: resp.razorpay_signature,
                 templateId,
               }),
             });
             const data = await verifyRes.json();
-            if (!verifyRes.ok || !data.ok) {
+            if (!verifyRes.ok || (!data.ok && !data.success)) {
               throw new Error(data.error || "Payment verification failed.");
             }
             onPaid();
@@ -101,8 +114,9 @@ export default function PayDialog({
           }
         },
       });
-      rz.on("payment.failed", () => {
-        setError("Payment failed. No money was charged — please try again.");
+      rz.on("payment.failed", (response: any) => {
+        const errorDesc = response?.error?.description || "Payment failed. No money was charged — please try again.";
+        setError(errorDesc);
         setBusy(false);
       });
       rz.open();

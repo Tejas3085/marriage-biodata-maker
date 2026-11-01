@@ -2,7 +2,7 @@
 // NOTE: the server (order API) looks prices up from HERE, never from the client,
 // so users can't tamper with the amount in devtools.
 
-export const PREMIUM_PRICE_INR = 49;
+export const PREMIUM_PRICE_INR = 15;
 
 // Master switch for premium payments. Set NEXT_PUBLIC_PAYMENTS_ENABLED=true
 // in your environment to turn payments ON; anything else (or unset) keeps

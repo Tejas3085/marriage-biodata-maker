@@ -61,7 +61,7 @@ export default function ContactPage() {
         <div className="mt-6 rounded-2xl bg-slate-50 border border-slate-200 p-6">
           <h2 className="font-semibold text-[16px]">{BUSINESS.name}</h2>
           <p className="mt-2 text-[14px] text-slate-600 leading-relaxed">
-            Operator of onlinefreebiodata.com — free marriage biodata maker with optional premium templates (₹49 each, one-time).
+            Operator of onlinefreebiodata.com — free marriage biodata maker with optional premium templates (₹15 each, one-time).
             See our <Link href="/terms" className="text-rose-800 font-medium hover:underline">Terms</Link>,{" "}
             <Link href="/refunds" className="text-rose-800 font-medium hover:underline">Refund Policy</Link> and{" "}
             <Link href="/privacy" className="text-rose-800 font-medium hover:underline">Privacy Policy</Link>.

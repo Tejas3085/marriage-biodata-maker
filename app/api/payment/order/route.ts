@@ -3,9 +3,7 @@ import Razorpay from "razorpay";
 import { getTemplatePrice, isPremiumTemplate } from "@/app/preview/premium";
 import { rateLimit } from "../rate-limit";
 
-// POST { templateId } -> { orderId, amount, currency, keyId }
-// Amount is ALWAYS looked up server-side from premium.ts — the client
-// only sends the template id, so the price can't be tampered with.
+// POST { templateId } or { amount, currency, receipt }
 export async function POST(req: NextRequest) {
   const limited = rateLimit(req, { limit: 10, windowMs: 60_000, keyPrefix: "order" });
   if (limited) return limited;
@@ -16,37 +14,63 @@ export async function POST(req: NextRequest) {
   if (!keyId || !keySecret) {
     return NextResponse.json(
       { error: "Payments are not configured yet. Add RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET to your environment." },
-      { status: 503 }
+      { status: 401 }
     );
   }
 
-  let templateId: unknown;
+  let body: any;
   try {
-    templateId = (await req.json()).templateId;
+    body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const id = Number(templateId);
-  if (!Number.isFinite(id) || !isPremiumTemplate(id)) {
-    return NextResponse.json({ error: "This template is free or does not exist." }, { status: 400 });
+  let amount = body?.amount;
+  if (amount === undefined && body?.templateId !== undefined) {
+    const id = Number(body.templateId);
+    if (!Number.isFinite(id) || !isPremiumTemplate(id)) {
+      return NextResponse.json({ error: "This template is free or does not exist." }, { status: 400 });
+    }
+    amount = getTemplatePrice(id) * 100;
   }
+
+  const numAmount = Number(amount);
+  if (!Number.isFinite(numAmount) || numAmount < 100) {
+    return NextResponse.json({ error: "Amount must be at least 100 paise (₹1.00)." }, { status: 400 });
+  }
+
+  const currency = typeof body?.currency === "string" && body.currency.trim() ? body.currency.trim().toUpperCase() : "INR";
+  const receipt = typeof body?.receipt === "string" && body.receipt.trim()
+    ? body.receipt.trim()
+    : (body?.templateId ? `tpl_${body.templateId}_${Date.now()}` : `rcpt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`);
 
   try {
     const rz = new Razorpay({ key_id: keyId, key_secret: keySecret });
     const order = await rz.orders.create({
-      amount: getTemplatePrice(id) * 100, // paise
-      currency: "INR",
-      receipt: `tpl_${id}_${Date.now()}`,
-      notes: { templateId: String(id) },
+      amount: Math.round(numAmount),
+      currency,
+      receipt,
+      notes: body?.templateId ? { templateId: String(body.templateId) } : (body?.notes || undefined),
     });
     return NextResponse.json({
       orderId: order.id,
+      order_id: order.id,
+      id: order.id,
       amount: order.amount,
       currency: order.currency,
+      receipt: order.receipt,
       keyId,
+      key_id: keyId,
     });
-  } catch {
-    return NextResponse.json({ error: "Could not start payment. Please try again." }, { status: 502 });
+  } catch (error: any) {
+    const isAuth =
+      error?.statusCode === 401 ||
+      (error?.error?.code === "BAD_REQUEST_ERROR" && /auth/i.test(error?.error?.description || "")) ||
+      /auth/i.test(error?.message || "");
+
+    if (isAuth) {
+      return NextResponse.json({ error: "Razorpay authentication failed." }, { status: 401 });
+    }
+    return NextResponse.json({ error: error?.error?.description || error?.message || "Could not start payment. Please try again." }, { status: 500 });
   }
 }

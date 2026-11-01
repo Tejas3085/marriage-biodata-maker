@@ -18,7 +18,7 @@ export const POSTS: Post[] = [
     date: "2026-10-14",
     body: [
       { h: "What a standard biodata format includes", p: ["A complete marriage biodata fits on one A4 page: auspicious header, personal details (name, birth date, height, education, occupation, income), family details (parents, siblings, native place), partner expectations in 2–3 lines, and contact information.", "For a PDF version, the same content is exported as a print-ready A4 document — crisp in both colour and black-and-white printing, and easy to share on WhatsApp."] },
-      { h: "How to get your free PDF in 5 minutes", p: ["Fill the guided form with your details, upload a clear recent photo, and pick from 30+ traditional or modern templates in English, Hindi or Marathi.", "On the preview screen choose PDF document instead of PNG — the file downloads instantly, sized for A4, with no signup and no watermark. Premium designs (₹49) are optional; every free template exports PDF too."] },
+      { h: "How to get your free PDF in 5 minutes", p: ["Fill the guided form with your details, upload a clear recent photo, and pick from 30+ traditional or modern templates in English, Hindi or Marathi.", "On the preview screen choose PDF document instead of PNG — the file downloads instantly, sized for A4, with no signup and no watermark. Premium designs (₹15) are optional; every free template exports PDF too."] },
       { h: "Mistakes that ruin a biodata PDF", p: ["Blurry forwarded images, typos in phone numbers, and casual selfies are the top three reasons biodatas get ignored. Always export a fresh file rather than re-forwarding an old one.", "Keep expectations short and respectful, verify every date twice, and print one test copy on A4 before sharing widely."] },
     ],
   },

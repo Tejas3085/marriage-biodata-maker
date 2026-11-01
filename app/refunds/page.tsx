@@ -18,7 +18,7 @@ export default function RefundsPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Refund &amp; Cancellation Policy</h1>
         <p className="mt-2 text-[13.5px] text-slate-500">Last updated: October 2026</p>
         <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-slate-700">
-          <p><strong className="text-slate-900">Digital delivery.</strong> Premium templates (₹49 each, one-time) are digital goods delivered instantly — the design unlocks in your browser the moment payment is verified. Because of this instant delivery, please preview the design carefully before paying.</p>
+          <p><strong className="text-slate-900">Digital delivery.</strong> Premium templates (₹15 each, one-time) are digital goods delivered instantly — the design unlocks in your browser the moment payment is verified. Because of this instant delivery, please preview the design carefully before paying.</p>
           <p><strong className="text-slate-900">When we refund.</strong> Contact us within 7 days of payment and we will refund eligible cases to the original payment method (UPI / card / netbanking) within 5–7 business days:
           </p>
           <ul className="list-disc pl-5 space-y-1.5">

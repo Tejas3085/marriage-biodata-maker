@@ -5,7 +5,7 @@ import { LanguageProvider } from "./hooks/useLanguage";
 import { Analytics } from "@vercel/analytics/next";
 
 const notoDevanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari", "latin"],
+  subsets: ["devanagari"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-noto-devanagari",
   display: "swap",
